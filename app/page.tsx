@@ -3,6 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import HeroSection from '@/components/HeroSection';
 import CategorySection from '@/components/CategorySection';
+import ProductCard from '@/components/ProductCard';
+import ProcessSection from '@/components/ProcessSection';
+import BenefitSection from '@/components/BenefitSection';
 import { motion } from 'framer-motion';
 import { Leaf, Award, Compass, RefreshCw, ShoppingCart, Tag, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -480,12 +483,68 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
+      {/* Background Lightening / Aurora Glow Effects & Beams / Sparks */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes bg-aura-pulse {
+          0%, 100% { opacity: 0.3; transform: scale(1) translate(0px, 0px); }
+          50% { opacity: 0.65; transform: scale(1.1) translate(30px, -20px); }
+        }
+        @keyframes beam-travel {
+          0% { top: -10%; opacity: 0; }
+          10% { opacity: 0.8; }
+          90% { opacity: 0.8; }
+          100% { top: 110%; opacity: 0; }
+        }
+        @keyframes spark-float {
+          0% { transform: translateY(0px) translateX(0px); opacity: 0; }
+          20% { opacity: 0.6; }
+          80% { opacity: 0.6; }
+          100% { transform: translateY(-120px) translateX(15px); opacity: 0; }
+        }
+        .animate-bg-aura {
+          animation: bg-aura-pulse 12s infinite alternate ease-in-out;
+        }
+        .animate-beam-1 {
+          animation: beam-travel 12s infinite linear;
+        }
+        .animate-beam-2 {
+          animation: beam-travel 16s infinite linear;
+        }
+        .animate-spark {
+          animation: spark-float 9s infinite linear;
+        }
+      ` }} />
+      
+      {/* Ambient background flares, beams, and sparks */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        {/* Soft glowing lighting blobs */}
+        <div className="absolute top-[25%] right-[-15%] w-[600px] h-[600px] bg-gold/10 rounded-full blur-[140px] animate-bg-aura" />
+        <div className="absolute top-[65%] left-[-20%] w-[700px] h-[700px] bg-forest/5 rounded-full blur-[160px] animate-bg-aura [animation-delay:4s]" />
+
+        {/* Aceternity UI Vertical Beams */}
+        <div className="absolute top-0 left-[12%] bottom-0 w-[1px] bg-forest/5 hidden md:block">
+          <div className="absolute left-[-1px] w-[3px] h-32 bg-gradient-to-b from-transparent via-gold/40 to-transparent animate-beam-1" />
+        </div>
+        <div className="absolute top-0 right-[12%] bottom-0 w-[1px] bg-forest/5 hidden md:block">
+          <div className="absolute left-[-1px] w-[3px] h-40 bg-gradient-to-b from-transparent via-forest/30 to-transparent animate-beam-2 [animation-delay:4.5s]" />
+        </div>
+
+        {/* Magic UI Drifting Sparks */}
+        <div className="absolute top-[35%] left-[20%] w-1.5 h-1.5 rounded-full bg-gold/35 blur-[0.5px] animate-spark" />
+        <div className="absolute top-[45%] right-[25%] w-2 h-2 rounded-full bg-forest/25 blur-[1px] animate-spark [animation-delay:2s]" />
+        <div className="absolute top-[75%] left-[30%] w-1.5 h-1.5 rounded-full bg-gold/45 blur-[0.5px] animate-spark [animation-delay:4s]" />
+        <div className="absolute top-[85%] right-[15%] w-2.5 h-2.5 rounded-full bg-forest/25 blur-[1px] animate-spark [animation-delay:1s]" />
+      </div>
+
       {/* Animated Hero Section */}
       <HeroSection />
 
       {/* Categories Section */}
       <CategorySection />
+
+      {/* Sourcing Process Timeline */}
+      <ProcessSection />
 
       {/* Featured Products Showcase */}
       <section id="products" className="py-20 bg-cream-light border-t border-forest/5">
@@ -523,121 +582,13 @@ export default function Home() {
             <>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {products.slice(0, 3).map((product, idx) => (
-                  <motion.div
+                  <ProductCard
                     key={product.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-50px' }}
-                    onClick={() => {
-                      window.location.href = `/product/${product.id}`;
-                    }}
-                    className="bg-white border border-forest/10 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group cursor-pointer"
-                  >
-                    {/* Image/Visual Container */}
-                    <div className="relative bg-cream h-64 w-full border-b border-forest/5 overflow-hidden">
-                      <ProductImage src={product.image1} alt={product.product_name} />
-
-                      {/* Discount badge */}
-                      {product.product_discount > 0 && (
-                        <span className="absolute top-4 left-4 bg-gold text-forest text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center space-x-1 shadow-sm">
-                          <Tag className="w-3.5 h-3.5" />
-                          <span>Save {product.product_discount}%</span>
-                        </span>
-                      )}
-
-                      {/* Category badge */}
-                      <span className="absolute top-4 right-4 bg-forest/5 border border-forest/10 text-charcoal/80 text-[9px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full">
-                        {product.product_category || 'Wellness'}
-                      </span>
-
-                      {/* Net weight tag */}
-                      <span className="absolute bottom-3 right-4 bg-white/80 text-charcoal text-[10px] font-bold border border-forest/5 px-2 py-0.5 rounded-md">
-                        {product.weight || '100g'}
-                      </span>
-                    </div>
-
-                    {/* Body Content */}
-                    <div className="p-6 flex-grow flex flex-col justify-between">
-                      <div>
-                        {/* Rating Mock */}
-                        <div className="flex items-center space-x-1 text-gold mb-2.5">
-                          {[1, 2, 3, 4, 5].map((s) => (
-                            <Star key={s} className="w-3.5 h-3.5 fill-current" />
-                          ))}
-                          <span className="text-[10px] font-semibold text-charcoal/50 ml-1">(4.9)</span>
-                        </div>
-
-                        {/* Name */}
-                        <h3 className="text-xl font-bold font-serif text-forest tracking-tight group-hover:text-forest-light transition-colors leading-tight">
-                          {product.product_name}
-                        </h3>
-
-                        {/* Short Description */}
-                        <p className="text-xs text-charcoal/80 mt-2 line-clamp-2 leading-relaxed">
-                          {product.brief_details}
-                        </p>
-
-                        {/* Bullet points */}
-                        <div className="mt-4 space-y-1.5 border-t border-forest/5 pt-3">
-                          {product.point1 && (
-                            <div className="flex items-center space-x-2 text-[11px] text-charcoal/70">
-                              <span className="h-1.5 w-1.5 rounded-full bg-sage flex-shrink-0"></span>
-                              <span>{product.point1}</span>
-                            </div>
-                          )}
-                          {product.point2 && (
-                            <div className="flex items-center space-x-2 text-[11px] text-charcoal/70">
-                              <span className="h-1.5 w-1.5 rounded-full bg-sage flex-shrink-0"></span>
-                              <span>{product.point2}</span>
-                            </div>
-                          )}
-                          {product.point3 && (
-                            <div className="flex items-center space-x-2 text-[11px] text-charcoal/70">
-                              <span className="h-1.5 w-1.5 rounded-full bg-sage flex-shrink-0"></span>
-                              <span>{product.point3}</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Bottom Pricing & Action */}
-                      <div className="mt-6 pt-4 border-t border-forest/5 flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <span className="text-xs text-charcoal/50 line-through leading-none mb-0.5">
-                            ₹{parseFloat(product.original_price).toFixed(0)}
-                          </span>
-                          <span className="text-xl font-serif font-bold text-forest leading-none">
-                            ₹{parseFloat(product.product_price).toFixed(0)}
-                          </span>
-                        </div>
-
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation(); // Prevent opening details modal
-                            handleAddToCart(product.id);
-                          }}
-                          disabled={addingToCartId === product.id}
-                          className={`inline-flex items-center space-x-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-305 ${
-                            addingToCartId === product.id
-                              ? 'bg-sage text-forest'
-                              : 'bg-forest hover:bg-forest-light text-cream hover:-translate-y-0.5 shadow-sm'
-                          }`}
-                        >
-                          {addingToCartId === product.id ? (
-                            <>
-                              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                              <span>Adding...</span>
-                            </>
-                          ) : (
-                            <>
-                              <ShoppingCart className="w-3.5 h-3.5" />
-                              <span>Add to Cart</span>
-                            </>
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
+                    product={product}
+                    addingToCartId={addingToCartId}
+                    onAddToCart={handleAddToCart}
+                    index={idx}
+                  />
                 ))}
               </div>
 
@@ -655,6 +606,9 @@ export default function Home() {
 
         </div>
       </section>
+
+      {/* Targeted Health Concern Selector */}
+      <BenefitSection />
 
       {/* Credibility / Brand Promise Banner */}
       <section className="py-20 bg-forest text-cream">

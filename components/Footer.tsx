@@ -4,22 +4,33 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Leaf, Mail, Phone, MapPin, Send } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Footer() {
   const pathname = usePathname();
   if (pathname?.startsWith('/admin')) return null;
 
   return (
-    <footer className="bg-forest text-cream py-16 border-t border-forest-light">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-forest text-cream py-16 border-t border-forest-light relative overflow-hidden">
+      {/* Abstract vector leaf glow in background */}
+      <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-sage/5 rounded-full filter blur-3xl pointer-events-none" />
+      <div className="absolute top-12 right-12 w-80 h-80 bg-gold/5 rounded-full filter blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Footer Top */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-cream/10">
           
           {/* Brand Info */}
-          <div className="flex flex-col space-y-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col space-y-4"
+          >
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-cream text-forest rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-cream text-forest rounded-lg flex items-center justify-center shadow-md">
                 <Leaf className="w-4.5 h-4.5" />
               </div>
               <span className="font-serif text-2xl font-bold tracking-wide text-white">
@@ -30,20 +41,26 @@ export default function Footer() {
               Handcrafting organic remedies and Ayurvedic solutions for modern lives. We harvest natural goodness to provide instant daily wellness.
             </p>
             <div className="flex space-x-4 pt-2">
-              <a href="#" className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-forest transition-colors">
-                <span className="text-sm">Fb</span>
+              <a href="#" className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-forest transition-colors shadow-sm">
+                <span className="text-xs font-semibold">Fb</span>
               </a>
-              <a href="#" className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-forest transition-colors">
-                <span className="text-sm">Ig</span>
+              <a href="#" className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-forest transition-colors shadow-sm">
+                <span className="text-xs font-semibold">Ig</span>
               </a>
-              <a href="#" className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-forest transition-colors">
-                <span className="text-sm">Yt</span>
+              <a href="#" className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-forest transition-colors shadow-sm">
+                <span className="text-xs font-semibold">Yt</span>
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex flex-col"
+          >
             <h4 className="font-serif text-md font-bold uppercase tracking-wider text-white mb-6 border-l-2 border-gold pl-3">
               Explore
             </h4>
@@ -64,10 +81,16 @@ export default function Footer() {
                 <Link href="/admin" className="hover:text-gold transition-colors text-white font-medium border-t border-cream/10 pt-2 block mt-1">Admin Panel</Link>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Store Contacts */}
-          <div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-col"
+          >
             <h4 className="font-serif text-md font-bold uppercase tracking-wider text-white mb-6 border-l-2 border-gold pl-3">
               Get in Touch
             </h4>
@@ -87,10 +110,16 @@ export default function Footer() {
                 </span>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Newsletter */}
-          <div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col"
+          >
             <h4 className="font-serif text-md font-bold uppercase tracking-wider text-white mb-6 border-l-2 border-gold pl-3">
               Newsletter
             </h4>
@@ -101,23 +130,26 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Your email address"
-                className="w-full py-2.5 pl-4 pr-12 bg-white/10 text-cream text-xs rounded-full border border-cream/15 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                className="w-full bg-forest-light/30 border border-cream/10 rounded-full px-5 py-3 text-xs text-cream placeholder-sage-light/65 focus:outline-none focus:border-gold/60 focus:ring-1 focus:ring-gold/30 transition-all font-sans"
               />
-              <button className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-gold text-forest flex items-center justify-center hover:bg-cream hover:text-forest transition-colors">
+              <button
+                className="absolute right-1 top-1 bg-cream text-forest hover:bg-gold hover:text-forest p-2 rounded-full transition-all duration-300 shadow-sm"
+                aria-label="Subscribe"
+              >
                 <Send className="w-3.5 h-3.5" />
               </button>
             </div>
-          </div>
+          </motion.div>
 
         </div>
 
         {/* Footer Bottom */}
-        <div className="pt-8 text-center text-xs text-sage-light/60 flex flex-col sm:flex-row items-center justify-between">
-          <p>© {new Date().getFullYear()} Pureplush Organics. All rights reserved.</p>
-          <div className="flex space-x-4 mt-4 sm:mt-0">
-            <a href="#" className="hover:text-gold transition-colors">Privacy Policy</a>
-            <span>•</span>
-            <a href="#" className="hover:text-gold transition-colors">Terms of Service</a>
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 text-[11px] text-sage-light/75">
+          <p>© {new Date().getFullYear()} pureplush organics & ayurveda. All Rights Reserved.</p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-white transition-colors">Shipping & Returns</a>
           </div>
         </div>
 
