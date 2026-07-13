@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, CreditCard, Star, ShieldCheck, Truck, RefreshCw, Tag, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -482,26 +482,47 @@ export default function ProductPage() {
               {/* Main Image Carousel */}
               <div className="w-full aspect-square max-h-[440px] bg-cream rounded-2xl overflow-hidden relative border border-forest/5 flex items-center justify-center p-4 group/carousel">
                 {images.length > 0 ? (
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <img
-                      src={getImagePath(images[selectedImageIdx])}
-                      alt={product.product_name}
-                      className="max-w-full max-h-full object-contain transition-transform duration-500 ease-out"
-                    />
+                  <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={selectedImageIdx}
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        onDragEnd={(e, info) => {
+                          const swipeThreshold = 50;
+                          if (info.offset.x < -swipeThreshold) {
+                            setSelectedImageIdx(prev => (prev === images.length - 1 ? 0 : prev + 1));
+                          } else if (info.offset.x > swipeThreshold) {
+                            setSelectedImageIdx(prev => (prev === 0 ? images.length - 1 : prev - 1));
+                          }
+                        }}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.25 }}
+                        className="relative w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing touch-pan-y"
+                      >
+                        <img
+                          src={getImagePath(images[selectedImageIdx])}
+                          alt={product.product_name}
+                          className="max-w-full max-h-full object-contain select-none pointer-events-none"
+                        />
+                      </motion.div>
+                    </AnimatePresence>
 
                     {/* Navigation Arrows */}
                     {images.length > 1 && (
                       <>
                         <button
                           onClick={() => setSelectedImageIdx(prev => (prev === 0 ? images.length - 1 : prev - 1))}
-                          className="absolute left-2 p-1.5 rounded-full bg-white/80 hover:bg-white text-forest shadow-md border border-forest/5 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 focus:outline-none z-10"
+                          className="absolute left-2 p-1.5 rounded-full bg-white/80 hover:bg-white text-forest shadow-md border border-forest/5 opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 transition-opacity duration-300 focus:outline-none z-10"
                           aria-label="Previous image"
                         >
                           <ChevronLeft className="w-5 h-5" />
                         </button>
                         <button
                           onClick={() => setSelectedImageIdx(prev => (prev === images.length - 1 ? 0 : prev + 1))}
-                          className="absolute right-2 p-1.5 rounded-full bg-white/80 hover:bg-white text-forest shadow-md border border-forest/5 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 focus:outline-none z-10"
+                          className="absolute right-2 p-1.5 rounded-full bg-white/80 hover:bg-white text-forest shadow-md border border-forest/5 opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 transition-opacity duration-300 focus:outline-none z-10"
                           aria-label="Next image"
                         >
                           <ChevronRight className="w-5 h-5" />

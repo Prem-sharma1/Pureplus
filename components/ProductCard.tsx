@@ -60,12 +60,12 @@ function ProductImage({ src, alt }: { src: string; alt: string }) {
   }
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center p-4 bg-cream/20">
+    <div className="relative w-full h-full flex items-center justify-center p-0 bg-cream/20">
       <img
         src={path}
         alt={alt}
         onError={() => setHasError(true)}
-        className="max-w-[85%] max-h-[85%] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.12)] group-hover:scale-[1.08] transition-transform duration-750 ease-out z-10"
+        className="w-full h-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.12)] scale-[1.38] group-hover:scale-[1.46] transition-transform duration-500 ease-out z-10 mix-blend-multiply"
       />
     </div>
   );
@@ -109,7 +109,7 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
       )}
 
       {/* Visual Image Container */}
-      <div className="relative h-60 w-full overflow-hidden bg-cream/30 border-b border-charcoal/5 z-10">
+      <div className="relative h-72 w-full overflow-hidden bg-cream/30 border-b border-charcoal/5 z-10">
         <ProductImage src={product.image1} alt={product.product_name} />
 
         {/* Shimmer animation on card hover */}
@@ -135,10 +135,10 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
       </div>
 
       {/* Body Content */}
-      <div className="p-6 flex-grow flex flex-col justify-between z-10 relative">
+      <div className="p-4 flex-grow flex flex-col justify-between z-10 relative">
         <div>
           {/* Star Rating & Badge */}
-          <div className="flex items-center space-x-1 text-gold mb-2.5 select-none">
+          <div className="flex items-center space-x-1 text-gold mb-1.5 select-none">
             <div className="flex space-x-0.5">
               {[1, 2, 3, 4, 5].map((s) => (
                 <Star key={s} className="w-3.5 h-3.5 fill-current" />
@@ -148,20 +148,20 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
           </div>
 
           {/* Product Name */}
-          <h3 className="text-lg font-bold font-serif text-forest tracking-tight group-hover:text-[#4a773c] transition-colors leading-snug">
+          <h3 className="text-sm font-bold font-serif text-forest tracking-tight group-hover:text-[#4a773c] transition-colors leading-tight">
             {product.product_name}
           </h3>
 
           {/* Short Description */}
-          <p className="text-xs text-charcoal/65 mt-2 line-clamp-2 leading-relaxed font-sans text-left">
+          <p className="text-[11px] text-charcoal/65 mt-1.5 line-clamp-2 leading-relaxed font-sans text-left">
             {product.brief_details}
           </p>
 
           {/* Bullet points */}
-          <div className="mt-4 space-y-2 border-t border-forest/5 pt-3">
+          <div className="mt-2.5 space-y-1 border-t border-forest/5 pt-2">
             {[product.point1, product.point2, product.point3].filter(Boolean).map((pt, i) => (
-              <div key={i} className="flex items-center space-x-2 text-[10px] sm:text-[11px] text-charcoal/60 text-left">
-                <span className="h-1.5 w-1.5 rounded-full bg-sage-dark flex-shrink-0"></span>
+              <div key={i} className="flex items-center space-x-1.5 text-[9.5px] text-charcoal/60 text-left">
+                <span className="h-1 w-1 rounded-full bg-sage-dark flex-shrink-0"></span>
                 <span>{pt}</span>
               </div>
             ))}
@@ -169,12 +169,12 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
         </div>
 
         {/* Action Row */}
-        <div className="mt-6 pt-4 border-t border-forest/5 flex items-center justify-between">
+        <div className="mt-4 pt-3 border-t border-forest/5 flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-xs text-charcoal/40 line-through leading-none mb-0.5 font-sans font-medium">
+            <span className="text-[10px] text-charcoal/40 line-through leading-none mb-0.5 font-sans font-medium">
               ₹{parseFloat(product.original_price).toFixed(0)}
             </span>
-            <span className="text-xl font-serif font-bold text-forest leading-none">
+            <span className="text-base font-serif font-bold text-forest leading-none">
               ₹{parseFloat(product.product_price).toFixed(0)}
             </span>
           </div>
@@ -185,7 +185,7 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
               onAddToCart(product.id);
             }}
             disabled={isAdding}
-            className={`inline-flex items-center space-x-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-305 ${
+            className={`inline-flex items-center space-x-1.5 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-305 ${
               isAdding
                 ? 'bg-sage/40 text-forest border border-sage'
                 : 'bg-forest hover:bg-forest-light text-cream shadow-sm hover:shadow-md hover:shadow-forest/10 hover:-translate-y-0.5'

@@ -154,7 +154,8 @@ export default function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-cream/25 via-cream to-cream-light py-12 md:py-20 lg:py-24">
       {/* CSS Keyframes for Mesh Drift, Spotlights, and Shiny Text */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes spotlight {
           0% {
             opacity: 0;
@@ -214,7 +215,7 @@ export default function HeroSection() {
         <div className="absolute top-[10%] left-[5%] w-80 h-80 rounded-full bg-sage/20 filter blur-3xl mesh-circle-1 opacity-70" />
         <div className="absolute bottom-[20%] right-[10%] w-96 h-96 rounded-full bg-forest/10 filter blur-3xl mesh-circle-2 opacity-60" />
         <div className="absolute top-[40%] left-[45%] w-72 h-72 rounded-full bg-gold/15 filter blur-3xl mesh-circle-3 opacity-55" />
-        
+
         {/* Background Lightening Aurora Blob */}
         <div className="absolute top-[15%] right-[-10%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-gold/15 to-emerald-500/10 blur-[130px] animate-aura-pulse pointer-events-none" />
       </div>
@@ -232,7 +233,7 @@ export default function HeroSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
+
           {/* Hero Left Content Slider */}
           <div className="lg:col-span-7 flex flex-col justify-center min-h-[360px]">
             <AnimatePresence mode="wait">
@@ -244,55 +245,58 @@ export default function HeroSection() {
                 transition={{ duration: 0.45, ease: 'easeOut' }}
                 className="flex flex-col space-y-5 items-start"
               >
-                {/* Shiny text animation applied to the category tag */}
-                <div className="inline-flex items-center space-x-2 bg-forest/5 border border-forest/10 px-3.5 py-1.5 rounded-full shadow-sm">
-                  <Sparkles className="w-4 h-4 text-gold animate-[pulse_2s_infinite]" />
-                  <span className="text-xs font-bold tracking-wider uppercase font-sans animate-shiny-text">
+                {/* Minimal, modern category tag */}
+                <div className="inline-flex items-center space-x-2.5 bg-white/40 backdrop-blur-sm border border-forest/10 px-3.5 py-1.5 rounded-full shadow-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+                  <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-forest font-sans">
                     {activeSlide.product_category || 'Pureplush Ayurveda'}
                   </span>
                 </div>
 
-                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-forest leading-[1.12]">
-                  {activeSlide.product_name.replace(/\(.*?\)/g, '').split(/\s+/).slice(0, 3).join(' ')}
+                {/* Clean, luxury heading showing the full product name */}
+                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-forest tracking-tight leading-[1.08]">
+                  {activeSlide.product_name}
                 </h1>
 
-                <p className="text-sm md:text-base text-charcoal/70 max-w-xl leading-relaxed text-left">
+                {/* Modern simple description */}
+                <p className="text-xs sm:text-sm text-charcoal/60 max-w-lg leading-relaxed text-left font-sans">
                   {activeSlide.brief_details}
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2 w-full sm:w-auto">
+                {/* Modern clean button CTAs */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3 w-full sm:w-auto z-20">
                   <Link
                     href={`/product/${activeSlide.id}`}
-                    className="inline-flex items-center justify-center space-x-2 px-8 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full font-medium shadow-lg hover:shadow-xl hover:shadow-forest/10 transition-all duration-300 transform hover:-translate-y-0.5 group text-sm font-sans z-20"
+                    className="inline-flex items-center justify-center space-x-2 px-8 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 group"
                   >
                     <span>Shop Now</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link
                     href="/shop"
-                    className="inline-flex items-center justify-center space-x-2 px-8 py-3.5 bg-white border border-forest/10 hover:border-forest/35 text-forest rounded-full font-medium shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 text-sm font-sans z-20"
+                    className="inline-flex items-center justify-center px-8 py-3.5 bg-white/50 backdrop-blur-sm border border-forest/10 hover:border-forest/30 text-forest rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 transform hover:-translate-y-0.5"
                   >
-                    <span>Explore Products</span>
+                    <span>Explore Collection</span>
                   </Link>
                 </div>
               </motion.div>
             </AnimatePresence>
 
-            {/* Slide indicators / pill lines */}
+            {/* Minimal slide indicators */}
             {slides.length > 1 && (
-              <div className="flex space-x-3 mt-8">
+              <div className="flex space-x-2.5 mt-10">
                 {slides.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => setCurrentIdx(idx)}
-                    className="group relative py-2 focus:outline-none"
+                    className="group py-2 focus:outline-none"
                     aria-label={`Go to slide ${idx + 1}`}
                   >
-                    <div className="h-[3px] rounded-full transition-all duration-500 bg-forest/10 w-8 group-hover:bg-forest/30 overflow-hidden">
-                      <div 
+                    <div className="h-[2px] rounded-full bg-forest/15 w-8 overflow-hidden transition-all group-hover:bg-forest/35">
+                      <div
                         className={`h-full rounded-full bg-forest transition-all duration-500 ${
                           currentIdx === idx ? 'w-full' : 'w-0'
-                        }`} 
+                        }`}
                       />
                     </div>
                   </button>
@@ -302,20 +306,20 @@ export default function HeroSection() {
           </div>
 
           {/* Hero Right Visual Column */}
-          <div className="lg:col-span-5 relative flex justify-center">
+          <div className="lg:col-span-5 relative flex justify-center items-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, type: 'spring' }}
-              className="relative w-80 h-80 sm:w-96 sm:h-96 z-10"
+              className="relative w-80 h-80 sm:w-96 sm:h-96 z-10 flex items-center justify-center"
             >
               {/* Outer decorative gold ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-gold/40 animate-[spin_40s_linear_infinite]" />
-              
-              {/* Inner glowing forest green circle containing only the product image */}
-              <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-forest to-forest-light shadow-2xl overflow-hidden flex flex-col items-center justify-center p-2 sm:p-4 text-center text-cream border border-forest/10">
-                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
-                
+              <div className="absolute inset-0 rounded-full border border-dashed border-gold/30 animate-[spin_40s_linear_infinite] z-0" />
+
+              {/* Inner subtle cream/sage/gold gradient circle (Option 4) */}
+              <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-cream-dark via-sage-light/20 to-gold/15 shadow-inner flex flex-col items-center justify-center p-2 sm:p-4 text-center border border-forest/10 overflow-hidden z-5">
+                <div className="absolute inset-0 opacity-[0.07] bg-[radial-gradient(#0E5E1C_1px,transparent_1px)] [background-size:16px_16px]" />
+
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeSlide.id}
@@ -329,20 +333,20 @@ export default function HeroSection() {
                       <img
                         src={getImagePath(activeSlide.image1)}
                         alt={activeSlide.product_name}
-                        className="w-[82%] h-[82%] sm:w-[86%] h-[86%] sm:h-[86%] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)] hover:scale-105 transition-transform duration-300 mix-blend-multiply"
+                        className="w-[82%] h-[82%] sm:w-[86%] h-[86%] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)] hover:scale-105 transition-transform duration-300 mix-blend-multiply"
                       />
                     ) : (
-                      <Leaf className="w-28 h-28 text-gold animate-[pulse_3s_infinite]" />
+                      <Leaf className="w-28 h-28 text-forest animate-[pulse_3s_infinite]" />
                     )}
                   </motion.div>
                 </AnimatePresence>
               </div>
 
               {/* Floating tags */}
-              <div className="absolute top-16 -left-6 z-25 bg-cream border border-forest/10 text-forest text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-lg select-none hover:scale-105 transition-transform">
+              <div className="absolute top-10 -left-6 z-25 bg-white border border-forest/10 text-forest text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-lg select-none hover:scale-105 transition-transform">
                 {activeSlide.product_category || 'Ayurvedic'}
               </div>
-              <div className="absolute bottom-20 -right-6 z-25 bg-gold text-forest text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-lg select-none hover:scale-105 transition-transform">
+              <div className="absolute bottom-12 -right-6 z-25 bg-gold text-forest text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-lg select-none hover:scale-105 transition-transform">
                 100% Organic
               </div>
             </motion.div>
@@ -350,7 +354,7 @@ export default function HeroSection() {
 
         </div>
       </div>
-      
+
       {/* Bottom Features Banner */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-16 pt-8 border-t border-forest/10 hidden md:block">
         <div className="grid grid-cols-3 gap-6">
