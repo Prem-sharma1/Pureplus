@@ -25,6 +25,14 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [showShippingForm, setShowShippingForm] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Sync authentication state when drawer opens
+  useEffect(() => {
+    if (isOpen) {
+      setIsLoggedIn(!!localStorage.getItem('user'));
+    }
+  }, [isOpen]);
 
   const [shippingName, setShippingName] = useState('');
   const [shippingEmail, setShippingEmail] = useState('');
@@ -490,13 +498,26 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     </>
                   ) : (
                     <>
-                      <button
-                        onClick={() => setShowShippingForm(true)}
-                        className="w-full inline-flex items-center justify-center space-x-2 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group"
-                      >
-                        <span>Proceed to Checkout</span>
-                        <ShoppingCart className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </button>
+                      {!isLoggedIn ? (
+                        <button
+                          onClick={() => {
+                            window.location.href = '/login?redirect=/';
+                            onClose();
+                          }}
+                          className="w-full inline-flex items-center justify-center space-x-2 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group"
+                        >
+                          <span>Login to Checkout</span>
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => setShowShippingForm(true)}
+                          className="w-full inline-flex items-center justify-center space-x-2 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group"
+                        >
+                          <span>Proceed to Checkout</span>
+                          <ShoppingCart className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      )}
                       <button
                         onClick={onClose}
                         className="w-full py-2.5 text-center text-xs font-bold uppercase tracking-wider text-forest/75 hover:text-forest transition-colors"

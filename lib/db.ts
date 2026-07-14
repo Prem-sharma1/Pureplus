@@ -49,8 +49,7 @@ export async function testConnection(): Promise<boolean> {
   try {
     const activePool = getPool();
     if (!activePool) {
-      const fs = require('fs');
-      fs.writeFileSync('C:\\Users\\ADMIN\\.gemini\\antigravity-ide\\brain\\d62f023d-26ed-41ea-97d7-d9f287b08664\\scratch\\db_error.txt', 'MySQL pool is null');
+      console.warn('Database connection test failed: MySQL pool is null');
       return false;
     }
     const connection = await activePool.getConnection();
@@ -58,10 +57,6 @@ export async function testConnection(): Promise<boolean> {
     return true;
   } catch (error: any) {
     console.warn('Database connection test failed:', error);
-    try {
-      const fs = require('fs');
-      fs.writeFileSync('C:\\Users\\ADMIN\\.gemini\\antigravity-ide\\brain\\d62f023d-26ed-41ea-97d7-d9f287b08664\\scratch\\db_error.txt', `Connection failed: ${error.message || error}\nStack: ${error.stack}`);
-    } catch (e) {}
     return false;
   }
 }

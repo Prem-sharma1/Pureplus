@@ -347,6 +347,7 @@ export default function ProductPage() {
   const [quantity, setQuantity] = useState(1);
   const [cartAdding, setCartAdding] = useState(false);
   const [buyNowLoading, setBuyNowLoading] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   useEffect(() => {
     async function fetchProduct() {
@@ -479,8 +480,8 @@ export default function ProductPage() {
           {/* Left Column: Image Gallery */}
           <div className="w-full md:w-1/2 p-6 md:p-12 bg-white flex flex-col justify-between border-r border-forest/5">
             <div className="flex flex-col items-center">
-              {/* Main Image Carousel */}
-              <div className="w-full aspect-square max-h-[440px] bg-cream rounded-2xl overflow-hidden relative border border-forest/5 flex items-center justify-center p-4 group/carousel">
+              {/* Main Image Carousel (Enlarged size & p-2 to increase product dimensions) */}
+              <div className="w-full aspect-square max-h-[500px] md:max-h-[550px] bg-cream rounded-2xl overflow-hidden relative border border-forest/5 flex items-center justify-center p-1.5 sm:p-3 group/carousel">
                 {images.length > 0 ? (
                   <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
                     <AnimatePresence mode="wait">
@@ -500,7 +501,8 @@ export default function ProductPage() {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.25 }}
-                        className="relative w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing touch-pan-y"
+                        className="relative w-full h-full flex items-center justify-center cursor-zoom-in active:cursor-grabbing touch-pan-y"
+                        onClick={() => setIsLightboxOpen(true)}
                       >
                         <img
                           src={getImagePath(images[selectedImageIdx])}
@@ -732,6 +734,70 @@ export default function ProductPage() {
         </div>
 
       </div>
+
+      {/* Lightbox Fullscreen Modal */}
+      <AnimatePresence>
+        {isLightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-charcoal/90 backdrop-blur-md p-4 sm:p-8"
+            onClick={() => setIsLightboxOpen(false)}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setIsLightboxOpen(false)}
+              className="absolute top-6 right-6 p-2 rounded-full bg-white/10 hover:bg-white/20 text-cream transition-colors duration-200 focus:outline-none"
+              aria-label="Close fullscreen"
+            >
+              <span className="text-2xl font-sans font-light">✕</span>
+            </button>
+            
+            {/* Modal Image container */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="relative max-w-5xl w-full max-h-[85vh] aspect-square flex items-center justify-center bg-white rounded-3xl p-6 shadow-2xl"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking card
+            >
+              <img
+                src={getImagePath(images[selectedImageIdx])}
+                alt={product.product_name}
+                className="max-w-full max-h-full object-contain rounded-xl select-none"
+              />
+
+              {/* Lightbox Flipping Chevrons */}
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedImageIdx(prev => (prev === 0 ? images.length - 1 : prev - 1));
+                    }}
+                    className="absolute left-4 p-2.5 rounded-full bg-white/80 hover:bg-white text-forest shadow-md border border-forest/15 focus:outline-none z-10 transition-all hover:scale-105 active:scale-95"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedImageIdx(prev => (prev === images.length - 1 ? 0 : prev + 1));
+                    }}
+                    className="absolute right-4 p-2.5 rounded-full bg-white/80 hover:bg-white text-forest shadow-md border border-forest/15 focus:outline-none z-10 transition-all hover:scale-105 active:scale-95"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+                </>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

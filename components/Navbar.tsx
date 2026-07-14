@@ -54,6 +54,7 @@ export default function Navbar() {
   // Authentication states
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState('');
 
   // Sync Cart badge and authentication
   const syncState = () => {
@@ -76,13 +77,16 @@ export default function Navbar() {
         setIsLoggedIn(true);
         const parsed = JSON.parse(user);
         setUsername(parsed.name || 'User');
+        setAvatarUrl(parsed.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80');
       } else {
         setIsLoggedIn(false);
         setUsername('');
+        setAvatarUrl('');
       }
     } catch {
       setIsLoggedIn(false);
       setUsername('');
+      setAvatarUrl('');
     }
   };
 
@@ -130,6 +134,19 @@ export default function Navbar() {
       window.removeEventListener('open-cart', handleOpenCart);
     };
   }, []);
+
+  // Client-side authentication route guard
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    const isLoggedIn = !!user;
+
+    const publicPaths = ['/', '/login', '/signup'];
+    const isPublic = publicPaths.includes(pathname || '') || pathname?.startsWith('/api');
+
+    if (!isLoggedIn && !isPublic) {
+      window.location.href = `/login?redirect=${encodeURIComponent(pathname || '/')}`;
+    }
+  }, [pathname, isLoggedIn]);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -418,12 +435,12 @@ export default function Navbar() {
                     onMouseLeave={() => setIsUserHovered(false)}
                     className="relative py-1"
                   >
-                    <button className="flex items-center space-x-1.5 py-1 px-2.5 rounded-full hover:bg-forest/5 text-forest font-semibold text-xs focus:outline-none transition-all duration-300">
-                      <div className="w-6 h-6 rounded-full bg-forest text-cream flex items-center justify-center font-bold text-[10px]">
-                        {username.charAt(0).toUpperCase()}
-                      </div>
-                      <span className="hidden xl:inline text-sage-dark">Hi, {username.split(' ')[0]}</span>
-                    </button>
+                    <Link 
+                      href="/profile"
+                      className="flex items-center justify-center w-8 h-8 rounded-full bg-forest text-cream hover:bg-forest-light font-bold text-sm shadow-sm transition-all duration-300 hover:scale-105 active:scale-95"
+                    >
+                      {username.charAt(0).toUpperCase() || 'P'}
+                    </Link>
                     {/* Account Dropdown popup on hover */}
                     <AnimatePresence>
                       {isUserHovered && (
@@ -478,7 +495,7 @@ export default function Navbar() {
               </div>
 
               {/* Hamburger Menu - Mobile */}
-              <div className="flex lg:hidden items-center space-x-3">
+              <div className="flex lg:hidden items-center space-x-2.5">
                 <button
                   onClick={() => setSearchOpen(true)}
                   className="p-2 text-forest hover:bg-forest/5 rounded-full transition-colors"
@@ -498,6 +515,15 @@ export default function Navbar() {
                     </span>
                   )}
                 </button>
+                {isLoggedIn && (
+                  <Link
+                    href="/profile"
+                    className="flex items-center justify-center w-8 h-8 rounded-full bg-forest text-cream font-bold text-xs shadow-sm hover:scale-105 active:scale-95 transition-transform"
+                    aria-label="View Profile"
+                  >
+                    {username.charAt(0).toUpperCase() || 'P'}
+                  </Link>
+                )}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   className="p-2 text-forest focus:outline-none z-50 relative hover:bg-forest/5 rounded-full transition-colors"
@@ -635,11 +661,20 @@ export default function Navbar() {
                     </motion.div>
                   ) : (
                     <>
-                      <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }} className="flex items-center space-x-3 py-2.5 px-3 rounded-xl text-forest font-bold text-sm border-b border-forest/5 bg-forest/5">
-                        <div className="w-6 h-6 rounded-full bg-forest text-cream flex items-center justify-center font-bold text-xs">
-                          {username.charAt(0).toUpperCase()}
-                        </div>
-                        <span>Hi, {username}</span>
+                      <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
+                        <Link
+                          href="/profile"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center space-x-3 py-2.5 px-3 rounded-xl text-forest font-bold text-sm border-b border-forest/5 bg-forest/5 hover:bg-forest/10 transition-colors font-sans"
+                        >
+                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-forest text-cream font-bold text-xs shadow-sm">
+                            {username.charAt(0).toUpperCase() || 'P'}
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[10px] text-charcoal/40 font-normal">Profile Page</span>
+                            <span className="font-semibold text-charcoal">{username}</span>
+                          </div>
+                        </Link>
                       </motion.div>
                       
                       <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
