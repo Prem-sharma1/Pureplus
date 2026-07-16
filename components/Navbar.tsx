@@ -222,7 +222,7 @@ export default function Navbar() {
                   </span>
                 </div>
                 <span className="text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-sage-dark font-bold mt-1">
-                  organics & ayurveda
+                  nature to nurture
                 </span>
               </Link>
             </div>

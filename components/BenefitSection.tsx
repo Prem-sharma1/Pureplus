@@ -26,153 +26,153 @@ interface Product {
 const MOCK_PRODUCTS: Product[] = [
   {
     id: 26,
-    product_name: 'ABC Latte Mix(Malt) Powder',
-    product_details: 'Pureplush ABC Latte Mix Malt Powder – a wholesome blend of Apple, Beetroot, and Carrot with natural malt for a nourishing, tasty, and energizing health drink. 100g',
-    brief_details: 'Pureplush ABC Latte Mix Malt Powder. Discover the goodness of nature in every sip with Apple, Beetroot, Carrot (ABC) and wholesome malt.',
-    product_price: '199.00',
-    original_price: '249.00',
-    product_category: 'Moringa Powders',
-    product_discount: 20,
+    product_name: 'Pureplush Herbal Waxing Powder',
+    product_details: 'Pureplush Herbal Waxing Powder is a pain-free, natural hair removal solution. Made with standard botanicals to remove hair gently while leaving skin soft, smooth, and clean. 100g.',
+    brief_details: 'Pain-free natural hair removal powder made with organic botanical ingredients for smooth skin.',
+    product_price: '249.00',
+    original_price: '299.00',
+    product_category: 'moringa',
+    product_discount: 16,
     image1: 'FaceWash/Herbal2.png',
     weight: '100g',
-    point1: 'Rich in Nutrients',
-    point2: 'Immunity Support',
-    point3: 'Glowing Skin & Eyes',
+    point1: '100% Organic & Natural',
+    point2: 'Pain-Free Hair Removal',
+    point3: 'Soft & Smooth Results',
   },
   {
     id: 28,
-    product_name: 'Choco Multigrain Millet Malt Mix',
-    product_details: 'Pureplush Choco Multigrain Millet Malt Mix Powder – A delicious and nutritious blend of wholesome millets, grains, and natural cocoa, crafted to give you energy, strength, and taste in every sip. 100g.',
-    brief_details: 'Pureplush Choco Multigrain Millet Malt Mix Powder is a perfect fusion of health and taste. Made with the goodness of nutrient-rich millets and natural cocoa.',
-    product_price: '199.00',
-    original_price: '249.00',
-    product_category: 'Moringa Powders',
-    product_discount: 20,
-    image1: 'FaceWash/Herbal3.png',
-    weight: '100g',
-    point1: 'Rich in Protein & Fiber',
-    point2: 'No Preservatives',
-    point3: 'Suitable for All Ages',
-  },
-  {
-    id: 101,
-    product_name: 'Vedic Neem & Turmeric Soap',
-    product_details: 'Pureplush Handcrafted Neem & Turmeric soap combines natural skin protection with gentle botanical nourishment, leaving skin refreshed and pure. 100g.',
-    brief_details: 'Vedic soap handcrafted with fresh neem extracts and wild turmeric root oil for daily antibacterial defense.',
-    product_price: '120.00',
-    original_price: '180.00',
-    product_category: 'Natural Soaps',
-    product_discount: 33,
-    image1: 'Soap/Soap.png',
-    weight: '100g',
-    point1: '100% Handcrafted Soap',
-    point2: 'Antibacterial Neem Extract',
-    point3: 'Soothes Dry & Sensitive Skin',
-  },
-  {
-    id: 102,
-    product_name: 'Honey & Sandalwood Glow Soap',
-    product_details: 'A moisturizing, glow-enhancing soap bar loaded with pure organic forest honey and steam-distilled sandalwood oils. 100g.',
-    brief_details: 'Moisturizing bar containing deep forest honey and pure sandalwood to hydrate and restore natural radiance.',
-    product_price: '140.00',
-    original_price: '190.00',
-    product_category: 'Natural Soaps',
-    product_discount: 26,
-    image1: 'Soap/Soap2.jpg',
-    weight: '100g',
-    point1: 'Forest Wild Honey',
-    point2: 'Steam-Distilled Sandalwood',
-    point3: 'Hydrates & Restores Glow',
-  },
-  {
-    id: 103,
-    product_name: 'Lavender Relaxation Soap',
-    product_details: 'Relax your mind and body with pure French lavender essential oils and cold-pressed botanical bases. 100g.',
-    brief_details: 'A calming body wash bar infused with absolute lavender oil and skin-softening goat milk extracts.',
-    product_price: '130.00',
-    original_price: '180.00',
-    product_category: 'Natural Soaps',
-    product_discount: 27,
-    image1: 'Soap/Soap3.jpg',
-    weight: '100g',
-    point1: 'French Lavender Oil',
-    point2: 'Calming Aromatherapy Benefit',
-    point3: 'Rich Conditioning Lather',
-  },
-  {
-    id: 104,
-    product_name: 'Rosemary & Tea Tree Shampoo Bar',
-    product_details: 'A luxurious solid shampoo bar formulated with fresh rosemary herbs and organic tea tree oils to reduce dandruff and strengthen hair roots. 80g.',
-    brief_details: 'Solid zero-waste shampoo bar loaded with rosemary leaves and tea tree oil for clean scalp and healthy hair.',
-    product_price: '220.00',
-    original_price: '280.00',
-    product_category: 'Shampoo Bars',
-    product_discount: 21,
-    image1: 'Shampoobar/Shampoobar.png',
-    weight: '80g',
-    point1: 'Zero Waste Solid Bar',
-    point2: 'Tea Tree Oil for Scalp Health',
-    point3: 'Strengthens Root Follicles',
-  },
-  {
-    id: 105,
-    product_name: 'Aloe Vera Rejuvenating Gel',
-    product_details: 'Pure fresh aloe vera inner leaf jelly to soothe, cool, and hydrate the face and body. 120g.',
-    brief_details: 'Natural cooling moisturizer made with 99% pure aloe vera juice to soothe sunburn, acne, and redness.',
-    product_price: '180.00',
-    original_price: '240.00',
-    product_category: 'others',
-    product_discount: 25,
-    image1: '6330345451856531104.jpg',
-    weight: '120g',
-    point1: '99% Pure Inner Leaf Aloe',
-    point2: 'Cools Sunburns & Skin Redness',
-    point3: 'Non-Greasy Daily Hydration',
-  },
-  {
-    id: 106,
-    product_name: 'Kashmiri Saffron Glow Face Oil',
-    product_details: 'Traditional Kumkumadi tailam facial serum infused with authentic Kashmiri saffron threads, sandalwood, and licorice. 30ml.',
-    brief_details: 'Premium night beauty serum made with Kashmiri saffron to improve skin texture and complexions.',
-    product_price: '399.00',
-    original_price: '499.00',
-    product_category: 'Moringa Powders',
-    product_discount: 20,
+    product_name: 'Pureplush Herbal Facewash powder',
+    product_details: 'Pureplush Herbal Facewash Powder is a traditional dry face wash blend. It deeply cleanses pores, removes excess oil, and gently exfoliates for a clear, glowing complexion. 100g.',
+    brief_details: 'Traditional exfoliating dry face wash powder to cleanse pores and restore natural glow.',
+    product_price: '249.00',
+    original_price: '299.00',
+    product_category: 'moringa',
+    product_discount: 16,
     image1: 'FaceWash/Herbal4.png',
-    weight: '30ml',
-    point1: 'Authentic Kumkumadi Formulation',
-    point2: 'Infused with Real Saffron Threads',
-    point3: 'Fades Dark Spots & Pigmentation',
-  },
-  {
-    id: 107,
-    product_name: 'Charcoal & Bamboo Shampoo Bar',
-    product_details: 'Pureplush Charcoal & Bamboo Shampoo Bar provides deep scalp detox, pulling out oils and toxins while moisturizing with organic coconut and argan base. 80g.',
-    brief_details: 'Detoxifying solid shampoo bar with active bamboo charcoal and tea tree for clean, bouncy hair.',
-    product_price: '230.00',
-    original_price: '290.00',
-    product_category: 'Shampoo Bars',
-    product_discount: 21,
-    image1: 'Shampoobar/Shampoobar2.png',
-    weight: '80g',
-    point1: 'Active Bamboo Charcoal',
-    point2: 'Deep Scalp Detoxification',
-    point3: 'Restores Volume & Shine',
+    weight: '100g',
+    point1: 'Deep Cleanses Pores',
+    point2: 'Controls Excess Oil',
+    point3: 'Gentle Natural Exfoliation',
   },
   {
     id: 108,
-    product_name: 'Vedic Neem & Aloe Facewash',
-    product_details: 'Gentle, non-drying foaming facewash packed with active neem leaves and cooling aloe vera gel to wash away impurities and fight acne-causing germs. 150ml.',
-    brief_details: 'Organic purifying facewash formulated with neem leaf extracts and soothing aloe vera.',
-    product_price: '190.00',
-    original_price: '250.00',
-    product_category: 'Moringa Powders',
-    product_discount: 24,
+    product_name: 'Pureplush Herbal Facepack',
+    product_details: 'Pureplush Herbal Facepack is a nutrient-rich skin reviving treatment. Infused with organic herbs to detoxify, soothe, and brighten the skin barrier. 100g.',
+    brief_details: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
+    product_price: '249.00',
+    original_price: '299.00',
+    product_category: 'moringa',
+    product_discount: 16,
     image1: 'FaceWash/Herbal1.png',
-    weight: '150ml',
-    point1: 'Purifying Organic Neem',
-    point2: 'Hydrating Aloe Vera Gel',
-    point3: 'Fights Acne & Impurities',
+    weight: '100g',
+    point1: 'Detoxifies Skin Barrier',
+    point2: 'Soothes Irritated Skin',
+    point3: 'Brightens & Clarifies Tone',
+  },
+  {
+    id: 105,
+    product_name: 'PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj',
+    product_details: 'Pureplush Herbal Hair Wash Powder is a complete hair nourishment blend. Sourced with organic Amla, Shikakai, and Bhringraj to promote hair growth, prevent graying, and clean hair naturally. 100g.',
+    brief_details: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.',
+    product_price: '249.00',
+    original_price: '349.00',
+    product_category: 'moringa',
+    product_discount: 29,
+    image1: 'FaceWash/Herbal3.png',
+    weight: '100g',
+    point1: 'Amla & Shikakai Cleanser',
+    point2: 'Bhringraj for Hair Growth',
+    point3: 'Prevents Premature Graying',
+  },
+  {
+    id: 101,
+    product_name: 'Pureplush mangobutter Mud Sea Clay Soap',
+    product_details: 'Pureplush Handcrafted Mango Butter, Mud & Sea Clay Soap. Deeply purifies with sea clay, extracts impurities with natural mud, and intensely moisturizes with organic mango butter. 100g.',
+    brief_details: 'Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.',
+    product_price: '99.00',
+    original_price: '149.00',
+    product_category: 'soaps',
+    product_discount: 33,
+    image1: 'Soap/Soap.png',
+    weight: '100g',
+    point1: 'Deep Purifying Mud',
+    point2: 'Moisturizing Mango Butter',
+    point3: 'Handcrafted & Vegan',
+  },
+  {
+    id: 102,
+    product_name: 'Pureplush Sheabutter Multani Mitti Soap',
+    product_details: 'Pureplush Handcrafted Shea Butter & Multani Mitti Soap. Combines the oil-absorbing power of Multani Mitti (fullers earth) with the deep conditioning of organic raw shea butter. 100g.',
+    brief_details: 'Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.',
+    product_price: '99.00',
+    original_price: '149.00',
+    product_category: 'soaps',
+    product_discount: 33,
+    image1: 'Soap/Soap3.png',
+    weight: '100g',
+    point1: 'Absorbs Excess Oils',
+    point2: 'Nourishing Shea Butter',
+    point3: 'Combats Acne & Pimples',
+  },
+  {
+    id: 103,
+    product_name: 'Pureplush Goatmilk French Green Clay Soap',
+    product_details: 'Pureplush Handcrafted Goat Milk & French Green Clay Soap. French green clay draws out toxins, while fresh farm goat milk softens, hydrates, and restores natural pH. 100g.',
+    brief_details: 'Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.',
+    product_price: '99.00',
+    original_price: '149.00',
+    product_category: 'soaps',
+    product_discount: 33,
+    image1: 'Soap/Soap2.png',
+    weight: '100g',
+    point1: 'Toxin-Extracting Green Clay',
+    point2: 'Soften & Hydrates Skin',
+    point3: 'Rich Goat Milk Proteins',
+  },
+  {
+    id: 104,
+    product_name: 'Pureplush Multani Mitti Saffron Shampoo Bar',
+    product_details: 'Pureplush Solid Multani Mitti & Saffron Shampoo Bar. Saffron extracts enhance natural hair shine, while Multani Mitti clay gently cleanses the scalp of grease and build-up. 80g.',
+    brief_details: 'Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.',
+    product_price: '199.00',
+    original_price: '299.00',
+    product_category: 'shampoo',
+    product_discount: 33,
+    image1: 'Shampoobar/Shampoobar2.png',
+    weight: '80g',
+    point1: 'Scale-Free Scalp Cleansing',
+    point2: 'Infused with Real Saffron',
+    point3: 'Zero Waste Solid Bar',
+  },
+  {
+    id: 107,
+    product_name: 'Pureplush Hibiscus Neemtulsi Shampoo Bar',
+    product_details: 'Pureplush Solid Hibiscus, Neem & Tulsi Shampoo Bar. Hibiscus conditions hair shafts, while Neem and Tulsi extract provide antibacterial protection to reduce dandruff and itching. 80g.',
+    brief_details: 'Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.',
+    product_price: '199.00',
+    original_price: '299.00',
+    product_category: 'shampoo',
+    product_discount: 33,
+    image1: 'Shampoobar/new2.png',
+    weight: '80g',
+    point1: 'Antibacterial Neem & Tulsi',
+    point2: 'Hibiscus Hair Conditioning',
+    point3: 'Controls Dandruff & Itch',
+  },
+  {
+    id: 109,
+    product_name: 'Pureplush Goatmilk Coffee D Tan Soap',
+    product_details: 'Pureplush Handcrafted Goat Milk & Coffee D-Tan Soap. Gently exfoliates dead skin cells, draws out impurities, and deeply moisturizes with fresh farm goat milk and rich aromatic coffee. 100g.',
+    brief_details: 'Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.',
+    product_price: '99.00',
+    original_price: '149.00',
+    product_category: 'soaps',
+    product_discount: 33,
+    image1: 'Soap/new1.png',
+    weight: '100g',
+    point1: 'Brightens & Evens Skin',
+    point2: 'Fresh Farm Goat Milk',
+    point3: 'Natural Coffee Scrub',
   }
 ];
 
@@ -192,7 +192,7 @@ const CONCERN_TABS: ConcernTab[] = [
     desc: 'Purify, hydrate, and restore radiant skin complexions naturally.',
     icon: Sparkles,
     color: 'border-emerald-200 bg-emerald-50/40 text-emerald-800',
-    productIds: [101, 102, 106, 108]
+    productIds: [28, 101, 102, 103, 108, 109]
   },
   {
     id: 'hair',
@@ -200,15 +200,15 @@ const CONCERN_TABS: ConcernTab[] = [
     desc: 'Deep scalp detox, volume enhancement, and zero dandruff flakes.',
     icon: Heart,
     color: 'border-sky-200 bg-sky-50/40 text-sky-800',
-    productIds: [104, 107]
+    productIds: [104, 105, 107]
   },
   {
     id: 'nutrition',
-    label: 'Organic Nutrition',
-    desc: 'Nutrient-rich multigrain health mixes for energy and immunity.',
+    label: 'Botanical Powders',
+    desc: '100% natural, stone-ground dry wellness and skincare powders.',
     icon: Activity,
     color: 'border-amber-200 bg-amber-50/40 text-amber-800',
-    productIds: [26, 28]
+    productIds: [26, 28, 105, 108]
   },
   {
     id: 'soothing',
@@ -216,7 +216,7 @@ const CONCERN_TABS: ConcernTab[] = [
     desc: 'Cooling, non-greasy botanicals to soothe sensitive skin barriers.',
     icon: Award,
     color: 'border-rose-200 bg-rose-50/40 text-rose-800',
-    productIds: [103, 105, 108]
+    productIds: [101, 102, 103, 108, 109]
   }
 ];
 
@@ -273,50 +273,10 @@ export default function BenefitSection() {
 
   const activeTabInfo = CONCERN_TABS.find(t => t.id === activeConcern) || CONCERN_TABS[0];
   
-  // Dynamic concern-matching filter (ID + Name/Category keyword mapping)
+  // Dynamic concern-matching filter based on explicit product ID mapping
   const filteredProducts = products.filter(p => {
     const id = Number(p.id);
-    const name = (p.product_name || '').toLowerCase();
-    const category = (p.product_category || '').toLowerCase();
-
-    if (activeConcern === 'skin') {
-      return (
-        activeTabInfo.productIds.includes(id) ||
-        category.includes('soap') || 
-        name.includes('soap') || 
-        name.includes('oil') || 
-        name.includes('facewash') || 
-        name.includes('face wash')
-      );
-    }
-    if (activeConcern === 'hair') {
-      return (
-        activeTabInfo.productIds.includes(id) ||
-        category.includes('shampoo') || 
-        name.includes('shampoo')
-      );
-    }
-    if (activeConcern === 'nutrition') {
-      return (
-        activeTabInfo.productIds.includes(id) ||
-        category.includes('abc') || 
-        category.includes('choco') || 
-        category.includes('moringa') || 
-        name.includes('mix') || 
-        name.includes('malt') || 
-        name.includes('powder')
-      );
-    }
-    if (activeConcern === 'soothing') {
-      return (
-        activeTabInfo.productIds.includes(id) ||
-        category.includes('others') || 
-        name.includes('aloe') || 
-        name.includes('gel') || 
-        name.includes('lavender')
-      );
-    }
-    return false;
+    return activeTabInfo.productIds.includes(id);
   });
 
   return (

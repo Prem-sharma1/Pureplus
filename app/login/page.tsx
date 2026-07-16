@@ -9,31 +9,44 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) return;
 
     setLoading(true);
-    setTimeout(() => {
-      // Mock user save to localstorage to sync navbar state
-      const username = email.split('@')[0];
-      const displayName = username.charAt(0).toUpperCase() + username.slice(1);
-      
-      localStorage.setItem(
-        'user',
-        JSON.stringify({
-          name: displayName,
-          email: email,
-        })
-      );
+    setError('');
 
-      // Trigger custom storage event to update Navbar
-      window.dispatchEvent(new Event('storage'));
-      
-      // Redirect home
-      window.location.href = '/';
-    }, 1000);
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        // Save verified user info to localStorage
+        localStorage.setItem('user', JSON.stringify(data.user));
+
+        // Trigger custom storage event to update Navbar
+        window.dispatchEvent(new Event('storage'));
+
+        // Redirect home
+        window.location.href = '/';
+      } else {
+        setError(data.error || 'Login failed. Please verify your email and password.');
+      }
+    } catch (err: any) {
+      console.error(err);
+      setError('A connection error occurred. Make sure your MySQL database is active.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,6 +68,12 @@ export default function LoginPage() {
             Sign in to access your Pureplush profile & order history
           </p>
         </div>
+
+        {error && (
+          <div className="bg-red-50 border border-red-200/60 text-red-600 px-4 py-2.5 rounded-xl text-xs text-center font-medium">
+            {error}
+          </div>
+        )}
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md space-y-4">

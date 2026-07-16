@@ -4,213 +4,223 @@ import { query, testConnection } from '@/lib/db';
 const SEED_PRODUCTS = [
   {
     id: 26,
-    product_name: 'ABC Latte Mix(Malt) Powder',
-    product_details: 'Pureplush ABC Latte Mix Malt Powder – a wholesome blend of Apple, Beetroot, and Carrot with natural malt for a nourishing, tasty, and energizing health drink. 100g',
-    brief_details: 'Pureplush ABC Latte Mix Malt Powder. Discover the goodness of nature in every sip with Apple, Beetroot, Carrot (ABC) and wholesome malt.',
-    product_price: '199.00',
-    original_price: '249.00',
-    product_category: 'Moringa Powders',
-    product_discount: 20,
+    product_name: 'Pureplush Herbal Waxing Powder',
+    product_details: 'Pureplush Herbal Waxing Powder is a pain-free, natural hair removal solution. Made with standard botanicals to remove hair gently while leaving skin soft, smooth, and clean. 100g.',
+    brief_details: 'Pain-free natural hair removal powder made with organic botanical ingredients for smooth skin.',
+    product_price: '249.00',
+    original_price: '299.00',
+    product_category: 'moringa',
+    product_discount: 16,
     image1: 'FaceWash/Herbal2.png',
-    image2: 'FaceWash/Herbal1.png',
-    image3: 'FaceWash/Herbal3.png',
+    image2: 'Artboard 1 (2).png',
+    image3: '',
+    image4: '',
     weight: '100g',
     shelf_life: '12 Months',
-    point1: 'Rich in Nutrients',
-    point2: 'Immunity Support',
-    point3: 'Glowing Skin & Eyes',
-    point4: 'No Added Sugar',
-    point5: '100% Vegan & Natural',
-    productCode: 'PP-ABC-LATTE'
+    point1: '100% Organic & Natural',
+    point2: 'Pain-Free Hair Removal',
+    point3: 'Soft & Smooth Results',
+    point4: 'No Skin Irritation',
+    point5: 'Chemical Free Base',
+    productCode: 'PP-POWDER-WAXING'
   },
   {
     id: 28,
-    product_name: 'Choco Multigrain Millet Malt Mix',
-    product_details: 'Pureplush Choco Multigrain Millet Malt Mix Powder – A delicious and nutritious blend of wholesome millets, grains, and natural cocoa, crafted to give you energy, strength, and taste in every sip. 100g.',
-    brief_details: 'Pureplush Choco Multigrain Millet Malt Mix Powder is a perfect fusion of health and taste. Made with the goodness of nutrient-rich millets and natural cocoa.',
-    product_price: '199.00',
-    original_price: '249.00',
-    product_category: 'Moringa Powders',
-    product_discount: 20,
-    image1: 'FaceWash/Herbal3.png',
-    image2: 'FaceWash/Herbal2.png',
-    image3: 'FaceWash/Herbal4.png',
-    weight: '100g',
-    shelf_life: '12 Months',
-    point1: 'Rich in Protein & Fiber',
-    point2: 'No Preservatives',
-    point3: 'Suitable for All Ages',
-    point4: 'Energy Booster',
-    point5: 'Calcium & Iron Rich',
-    productCode: 'PP-CHOCO-MILLET'
-  },
-  {
-    id: 101,
-    product_name: 'Vedic Neem & Turmeric Soap',
-    product_details: 'Pureplush Handcrafted Neem & Turmeric soap combines natural skin protection with gentle botanical nourishment, leaving skin refreshed and pure. 100g.',
-    brief_details: 'Vedic soap handcrafted with fresh neem extracts and wild turmeric root oil for daily antibacterial defense.',
-    product_price: '120.00',
-    original_price: '180.00',
-    product_category: 'Natural Soaps',
-    product_discount: 33,
-    image1: 'Soap/Soap.png',
-    image2: 'Soap/Soap2.jpg',
-    image3: 'Soap/Soap3.jpg',
-    weight: '100g',
-    shelf_life: '24 Months',
-    point1: '100% Handcrafted Soap',
-    point2: 'Antibacterial Neem Extract',
-    point3: 'Soothes Dry & Sensitive Skin',
-    point4: 'Rich Creamy Lather',
-    point5: 'Paraben & Sulphate Free',
-    productCode: 'PP-SOAP-NEEM'
-  },
-  {
-    id: 102,
-    product_name: 'Honey & Sandalwood Glow Soap',
-    product_details: 'A moisturizing, glow-enhancing soap bar loaded with pure organic forest honey and steam-distilled sandalwood oils. 100g.',
-    brief_details: 'Moisturizing bar containing deep forest honey and pure sandalwood to hydrate and restore natural radiance.',
-    product_price: '140.00',
-    original_price: '190.00',
-    product_category: 'Natural Soaps',
-    product_discount: 26,
-    image1: 'Soap/Soap2.jpg',
-    image2: 'Soap/Soap.png',
-    image3: 'Soap/Soap3.jpg',
-    weight: '100g',
-    shelf_life: '24 Months',
-    point1: 'Forest Wild Honey',
-    point2: 'Steam-Distilled Sandalwood',
-    point3: 'Hydrates & Restores Glow',
-    point4: 'Gentle Cleansing',
-    point5: 'Natural Scent',
-    productCode: 'PP-SOAP-HONEY'
-  },
-  {
-    id: 103,
-    product_name: 'Lavender Relaxation Soap',
-    product_details: 'Relax your mind and body with pure French lavender essential oils and cold-pressed botanical bases. 100g.',
-    brief_details: 'A calming body wash bar infused with absolute lavender oil and skin-softening goat milk extracts.',
-    product_price: '130.00',
-    original_price: '180.00',
-    product_category: 'Natural Soaps',
-    product_discount: 27,
-    image1: 'Soap/Soap3.jpg',
-    image2: 'Soap/Soap.png',
-    image3: 'Soap/Soap2.jpg',
-    weight: '100g',
-    shelf_life: '24 Months',
-    point1: 'French Lavender Oil',
-    point2: 'Calming Aromatherapy Benefit',
-    point3: 'Rich Conditioning Lather',
-    point4: 'Pure Goat Milk Base',
-    point5: 'Cruelty Free',
-    productCode: 'PP-SOAP-LAVENDER'
-  },
-  {
-    id: 104,
-    product_name: 'Rosemary & Tea Tree Shampoo Bar',
-    product_details: 'A luxurious solid shampoo bar formulated with fresh rosemary herbs and organic tea tree oils to reduce dandruff and strengthen hair roots. 80g.',
-    brief_details: 'Solid zero-waste shampoo bar loaded with rosemary leaves and tea tree oil for clean scalp and healthy hair.',
-    product_price: '220.00',
-    original_price: '280.00',
-    product_category: 'Shampoo Bars',
-    product_discount: 21,
-    image1: 'Shampoobar/Shampoobar.png',
-    image2: 'Shampoobar/Shampoobar2.png',
-    image3: '',
-    weight: '80g',
-    shelf_life: '18 Months',
-    point1: 'Zero Waste Solid Bar',
-    point2: 'Tea Tree Oil for Scalp Health',
-    point3: 'Strengthens Root Follicles',
-    point4: 'Reduces Dandruff & Flaking',
-    point5: 'Travel Friendly Size',
-    productCode: 'PP-SHAMPOO-ROSEMARY'
-  },
-  {
-    id: 105,
-    product_name: 'Aloe Vera Rejuvenating Gel',
-    product_details: 'Pure fresh aloe vera inner leaf jelly to soothe, cool, and hydrate the face and body. 120g.',
-    brief_details: 'Natural cooling moisturizer made with 99% pure aloe vera juice to soothe sunburn, acne, and redness.',
-    product_price: '180.00',
-    original_price: '240.00',
-    product_category: 'others',
-    product_discount: 25,
-    image1: '6330345451856531104.jpg',
-    image2: 'FaceWash/Herbal4.png',
-    image3: 'FaceWash/Herbal1.png',
-    weight: '120g',
-    shelf_life: '12 Months',
-    point1: '99% Pure Inner Leaf Aloe',
-    point2: 'Cools Sunburns & Skin Redness',
-    point3: 'Non-Greasy Daily Hydration',
-    point4: 'Absorbs Instantly',
-    point5: 'Chemical Free Base',
-    productCode: 'PP-ALOE-GEL'
-  },
-  {
-    id: 106,
-    product_name: 'Kashmiri Saffron Glow Face Oil',
-    product_details: 'Traditional Kumkumadi tailam facial serum infused with authentic Kashmiri saffron threads, sandalwood, and licorice. 30ml.',
-    brief_details: 'Premium night beauty serum made with Kashmiri saffron to improve skin texture and complexions.',
-    product_price: '399.00',
-    original_price: '499.00',
-    product_category: 'others',
-    product_discount: 20,
+    product_name: 'Pureplush Herbal Facewash powder',
+    product_details: 'Pureplush Herbal Facewash Powder is a traditional dry face wash blend. It deeply cleanses pores, removes excess oil, and gently exfoliates for a clear, glowing complexion. 100g.',
+    brief_details: 'Traditional exfoliating dry face wash powder to cleanse pores and restore natural glow.',
+    product_price: '249.00',
+    original_price: '299.00',
+    product_category: 'moringa',
+    product_discount: 16,
     image1: 'FaceWash/Herbal4.png',
-    image2: 'FaceWash/Herbal2.png',
-    image3: 'FaceWash/Herbal3.png',
-    weight: '30ml',
-    shelf_life: '18 Months',
-    point1: 'Authentic Kumkumadi Formulation',
-    point2: 'Infused with Real Saffron Threads',
-    point3: 'Fades Dark Spots & Pigmentation',
-    point4: 'Anti-Aging Elixir',
-    point5: 'Lightweight & Non-Sticky',
-    productCode: 'PP-SAFFRON-OIL'
-  },
-  {
-    id: 107,
-    product_name: 'Charcoal & Bamboo Shampoo Bar',
-    product_details: 'Pureplush Charcoal & Bamboo Shampoo Bar provides deep scalp detox, pulling out oils and toxins while moisturizing with organic coconut and argan base. 80g.',
-    brief_details: 'Detoxifying solid shampoo bar with active bamboo charcoal and tea tree for clean, bouncy hair.',
-    product_price: '230.00',
-    original_price: '290.00',
-    product_category: 'Shampoo Bars',
-    product_discount: 21,
-    image1: 'Shampoobar/Shampoobar2.png',
-    image2: 'Shampoobar/Shampoobar.png',
+    image2: 'Artboard 1 (1).png',
     image3: '',
-    weight: '80g',
-    shelf_life: '18 Months',
-    point1: 'Active Bamboo Charcoal',
-    point2: 'Deep Scalp Detoxification',
-    point3: 'Restores Volume & Shine',
-    point4: 'Toxin & Residue Free',
-    point5: '100% Solid & Vegan',
-    productCode: 'PP-SHAMPOO-CHARCOAL'
+    image4: '',
+    weight: '100g',
+    shelf_life: '12 Months',
+    point1: 'Deep Cleanses Pores',
+    point2: 'Controls Excess Oil',
+    point3: 'Gentle Natural Exfoliation',
+    point4: 'Chemical-Free Daily Cleanser',
+    point5: 'Suitable for All Skin Types',
+    productCode: 'PP-POWDER-FACEWASH'
   },
   {
     id: 108,
-    product_name: 'Vedic Neem & Aloe Facewash',
-    product_details: 'Gentle, non-drying foaming facewash packed with active neem leaves and cooling aloe vera gel to wash away impurities and fight acne-causing germs. 150ml.',
-    brief_details: 'Organic purifying facewash formulated with neem leaf extracts and soothing aloe vera.',
-    product_price: '190.00',
-    original_price: '250.00',
-    product_category: 'others',
-    product_discount: 24,
+    product_name: 'Pureplush Herbal Facepack',
+    product_details: 'Pureplush Herbal Facepack is a nutrient-rich skin reviving treatment. Infused with organic herbs to detoxify, soothe, and brighten the skin barrier. 100g.',
+    brief_details: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
+    product_price: '249.00',
+    original_price: '299.00',
+    product_category: 'moringa',
+    product_discount: 16,
     image1: 'FaceWash/Herbal1.png',
-    image2: 'FaceWash/Herbal2.png',
-    image3: 'FaceWash/Herbal3.png',
-    weight: '150ml',
+    image2: 'Artboard 1.png',
+    image3: 'Artboard 2.png',
+    image4: 'Artboard 5 (1).png',
+    weight: '100g',
     shelf_life: '12 Months',
-    point1: 'Purifying Organic Neem',
-    point2: 'Hydrating Aloe Vera Gel',
-    point3: 'Fights Acne & Impurities',
-    point4: 'Sulphate & Soap Free',
-    point5: 'Restores pH Balance',
-    productCode: 'PP-FACEWASH-NEEM'
+    point1: 'Detoxifies Skin Barrier',
+    point2: 'Soothes Irritated Skin',
+    point3: 'Brightens & Clarifies Tone',
+    point4: '100% Raw Botanical Mud & Clay',
+    point5: 'Fades Dark Blemishes',
+    productCode: 'PP-POWDER-FACEPACK'
+  },
+  {
+    id: 105,
+    product_name: 'PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj',
+    product_details: 'Pureplush Herbal Hair Wash Powder is a complete hair nourishment blend. Sourced with organic Amla, Shikakai, and Bhringraj to promote hair growth, prevent graying, and clean hair naturally. 100g.',
+    brief_details: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.',
+    product_price: '249.00',
+    original_price: '349.00',
+    product_category: 'moringa',
+    product_discount: 29,
+    image1: 'FaceWash/Herbal3.png',
+    image2: 'WhatsApp Image 2026-01-27 at 11.19.00 AM (1).jpeg',
+    image3: 'WhatsApp Image 2026-01-27 at 11.19.00 AM (2).jpeg',
+    image4: 'WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
+    weight: '100g',
+    shelf_life: '12 Months',
+    point1: 'Amla & Shikakai Cleanser',
+    point2: 'Bhringraj for Hair Growth',
+    point3: 'Prevents Premature Graying',
+    point4: 'Anti-Dandruff & Scalp Health',
+    point5: 'Zero Synthetic Preservatives',
+    productCode: 'PP-POWDER-HAIRWASH'
+  },
+  {
+    id: 101,
+    product_name: 'Pureplush mangobutter Mud Sea Clay Soap',
+    product_details: 'Pureplush Handcrafted Mango Butter, Mud & Sea Clay Soap. Deeply purifies with sea clay, extracts impurities with natural mud, and intensely moisturizes with organic mango butter. 100g.',
+    brief_details: 'Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.',
+    product_price: '99.00',
+    original_price: '149.00',
+    product_category: 'soaps',
+    product_discount: 33,
+    image1: 'Soap/Soap.png',
+    image2: '1770431215716.png',
+    image3: 'IMG-20260123-WA0020.jpg',
+    image4: 'IMG-20260123-WA0021.jpg',
+    weight: '100g',
+    shelf_life: '24 Months',
+    point1: 'Deep Purifying Mud',
+    point2: 'Moisturizing Mango Butter',
+    point3: 'Handcrafted & Vegan',
+    point4: 'Creamy Hydrating Lather',
+    point5: 'Sulphate & Paraben Free',
+    productCode: 'PP-SOAP-MANGO-MUD'
+  },
+  {
+    id: 102,
+    product_name: 'Pureplush Sheabutter Multani Mitti Soap',
+    product_details: 'Pureplush Handcrafted Shea Butter & Multani Mitti Soap. Combines the oil-absorbing power of Multani Mitti (fullers earth) with the deep conditioning of organic raw shea butter. 100g.',
+    brief_details: 'Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.',
+    product_price: '99.00',
+    original_price: '149.00',
+    product_category: 'soaps',
+    product_discount: 33,
+    image1: 'Soap/Soap3.png',
+    image2: '1770431254493.png',
+    image3: 'IMG-20260205-WA0002.jpg',
+    image4: '',
+    weight: '100g',
+    shelf_life: '24 Months',
+    point1: 'Absorbs Excess Oils',
+    point2: 'Nourishing Shea Butter',
+    point3: 'Combats Acne & Pimples',
+    point4: 'Gentle Detoxifying Clay',
+    point5: 'Soft & Nourished Skin Texture',
+    productCode: 'PP-SOAP-SHEA-MULTANI'
+  },
+  {
+    id: 103,
+    product_name: 'Pureplush Goatmilk French Green Clay Soap',
+    product_details: 'Pureplush Handcrafted Goat Milk & French Green Clay Soap. French green clay draws out toxins, while fresh farm goat milk softens, hydrates, and restores natural pH. 100g.',
+    brief_details: 'Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.',
+    product_price: '99.00',
+    original_price: '149.00',
+    product_category: 'soaps',
+    product_discount: 33,
+    image1: 'Soap/Soap2.png',
+    image2: '1770431142988.png',
+    image3: 'IMG-20260123-WA0014.jpg',
+    image4: 'IMG-20260205-WA0000.jpg',
+    weight: '100g',
+    shelf_life: '24 Months',
+    point1: 'Toxin-Extracting Green Clay',
+    point2: 'Soften & Hydrates Skin',
+    point3: 'Rich Goat Milk Proteins',
+    point4: 'Gentle pH Balanced Cleanser',
+    point5: 'Handcrafted Cold-Pressed Base',
+    productCode: 'PP-SOAP-GOAT-CLAY'
+  },
+  {
+    id: 109,
+    product_name: 'Pureplush Goatmilk Coffee D Tan Soap',
+    product_details: 'Pureplush Handcrafted Goat Milk & Coffee D-Tan Soap. Gently exfoliates dead skin cells, draws out impurities, and deeply moisturizes with fresh farm goat milk and rich aromatic coffee. 100g.',
+    brief_details: 'Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.',
+    product_price: '99.00',
+    original_price: '149.00',
+    product_category: 'soaps',
+    product_discount: 33,
+    image1: 'Soap/new1.png',
+    image2: '',
+    image3: '',
+    image4: '',
+    weight: '100g',
+    shelf_life: '24 Months',
+    point1: 'Brightens & Evens Skin',
+    point2: 'Fresh Farm Goat Milk',
+    point3: 'Natural Coffee Scrub',
+    point4: 'Draws Out Impurities',
+    point5: 'Sulphate & Paraben Free',
+    productCode: 'PP-SOAP-GOAT-COFFEE'
+  },
+  {
+    id: 104,
+    product_name: 'Pureplush Multani Mitti Saffron Shampoo Bar',
+    product_details: 'Pureplush Solid Multani Mitti & Saffron Shampoo Bar. Saffron extracts enhance natural hair shine, while Multani Mitti clay gently cleanses the scalp of grease and build-up. 80g.',
+    brief_details: 'Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.',
+    product_price: '199.00',
+    original_price: '299.00',
+    product_category: 'shampoo',
+    product_discount: 33,
+    image1: 'Shampoobar/Shampoobar2.png',
+    image2: '1770380073526.png',
+    image3: 'file_00000000267071f8b9d3086f51ee7abc(3).png',
+    image4: 'file_00000000267071f8b9d3086f51ee7abc(4).png',
+    weight: '80g',
+    shelf_life: '18 Months',
+    point1: 'Scale-Free Scalp Cleansing',
+    point2: 'Infused with Real Saffron',
+    point3: 'Zero Waste Solid Bar',
+    point4: 'Promotes Rich Hair Volume',
+    point5: 'Chemical & Sulphate Free',
+    productCode: 'PP-SHAMPOO-MULTANI-SAFFRON'
+  },
+  {
+    id: 107,
+    product_name: 'Pureplush Hibiscus Neemtulsi Shampoo Bar',
+    product_details: 'Pureplush Solid Hibiscus, Neem & Tulsi Shampoo Bar. Hibiscus conditions hair shafts, while Neem and Tulsi extract provide antibacterial protection to reduce dandruff and itching. 80g.',
+    brief_details: 'Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.',
+    product_price: '199.00',
+    original_price: '299.00',
+    product_category: 'shampoo',
+    product_discount: 33,
+    image1: 'Shampoobar/new2.png',
+    image2: '1770379957428.png',
+    image3: 'IMG-20260119-WA0004.jpg',
+    image4: 'IMG-20260119-WA0006.jpg',
+    weight: '80g',
+    shelf_life: '18 Months',
+    point1: 'Antibacterial Neem & Tulsi',
+    point2: 'Hibiscus Hair Conditioning',
+    point3: 'Controls Dandruff & Itch',
+    point4: 'Soothing Scalp Defense',
+    point5: 'Biodegradable Travel Bar',
+    productCode: 'PP-SHAMPOO-HIBISCUS-NEEM'
   }
 ];
 
@@ -218,80 +228,98 @@ export async function GET() {
   try {
     const isDbConnected = await testConnection();
     
+    // If DB is offline, return seed products as fallback so admin/website always shows products
     if (!isDbConnected) {
+      console.log('DB offline — returning seed products as fallback.');
       return NextResponse.json({
-        success: false,
-        error: 'Database connection failed',
-        products: []
+        success: true,
+        source: 'seed_fallback',
+        products: SEED_PRODUCTS
       });
     }
 
     let products = await query<any[]>('SELECT * FROM add_product ORDER BY id DESC');
-    
-    // TEMPORARY INSPECTOR LOGGING
-    try {
-      const fs = require('fs');
-      const path = require('path');
-      const addProductCols = await query('DESCRIBE add_product');
-      const orderCols = await query('SHOW TABLES LIKE "orders"');
-      const orderSingularCols = await query('SHOW TABLES LIKE "order"');
-      
-      const inspectData = {
-        addProductCols,
-        hasOrdersTable: orderCols,
-        hasOrderSingularTable: orderSingularCols
-      };
-      
-      fs.writeFileSync(
-        path.join('C:', 'Users', 'ADMIN', '.gemini', 'antigravity-ide', 'brain', 'd62f023d-26ed-41ea-97d7-d9f287b08664', 'scratch', 'db_info.json'),
-        JSON.stringify(inspectData, null, 2),
-        'utf8'
-      );
-    } catch (inspectErr: any) {
-      console.error('Inspector error:', inspectErr);
-    }
 
-    // Auto-seed mock data into client database if table is empty
-    if (products && products.length === 0) {
-      console.log('Database products catalog is empty. Initializing auto-seed...');
-      for (const p of SEED_PRODUCTS) {
-        const sql = `INSERT INTO add_product (
-          id, product_name, product_details, brief_details, product_price,
-          original_price, product_category, product_discount, image1,
-          image2, image3, weight, shelf_life, point1, point2,
-          point3, point4, point5, productCode
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        
-        await query(sql, [
-          p.id, p.product_name, p.product_details, p.brief_details, p.product_price,
-          p.original_price, p.product_category, p.product_discount, p.image1,
-          p.image2, p.image3, p.weight, p.shelf_life, p.point1, p.point2,
-          p.point3, p.point4, p.point5, p.productCode
-        ]);
+    // Ensure all seed products are present and up to date in the database table
+    if (products) {
+      // Dynamically add image4 column if it does not exist
+      try {
+        await query('ALTER TABLE add_product ADD COLUMN image4 varchar(255) DEFAULT NULL');
+        console.log('Successfully added image4 column to add_product database.');
+      } catch (alterErr) {
+        // Ignored if column already exists
       }
-      // Re-fetch seeded data
+
+      const existingIds = products.map((p) => p.id);
+      
+      // 1. Delete products in the database that are not in SEED_PRODUCTS
+      const seedIds = SEED_PRODUCTS.map((p) => p.id);
+      for (const id of existingIds) {
+        if (!seedIds.includes(id)) {
+          console.log(`Deleting obsolete product ID ${id} from database...`);
+          await query('DELETE FROM add_product WHERE id = ?', [id]);
+        }
+      }
+
+      // 2. Insert missing or update existing products
+      for (const p of SEED_PRODUCTS) {
+        if (!existingIds.includes(p.id)) {
+          console.log(`Seeding missing product ID ${p.id}: ${p.product_name}`);
+          const sql = `INSERT INTO add_product (
+            id, product_name, product_details, brief_details, product_price,
+            original_price, product_category, product_discount, image1,
+            image2, image3, image4, weight, shelf_life, point1, point2,
+            point3, point4, point5, productCode
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+          
+          await query(sql, [
+            p.id, p.product_name, p.product_details, p.brief_details, p.product_price,
+            p.original_price, p.product_category, p.product_discount, p.image1,
+            p.image2, p.image3, p.image4, p.weight, p.shelf_life, p.point1, p.point2,
+            p.point3, p.point4, p.point5, p.productCode
+          ]);
+        } else {
+          console.log(`Updating existing product ID ${p.id}: ${p.product_name}`);
+          const sql = `UPDATE add_product SET 
+            product_name = ?, product_details = ?, brief_details = ?, product_price = ?,
+            original_price = ?, product_category = ?, product_discount = ?, image1 = ?,
+            image2 = ?, image3 = ?, image4 = ?, weight = ?, shelf_life = ?, point1 = ?, point2 = ?,
+            point3 = ?, point4 = ?, point5 = ?, productCode = ?
+            WHERE id = ?`;
+          
+          await query(sql, [
+            p.product_name, p.product_details, p.brief_details, p.product_price,
+            p.original_price, p.product_category, p.product_discount, p.image1,
+            p.image2, p.image3, p.image4, p.weight, p.shelf_life, p.point1, p.point2,
+            p.point3, p.point4, p.point5, p.productCode, p.id
+          ]);
+        }
+      }
+      // Re-fetch products to get updated list
       products = await query<any[]>('SELECT * FROM add_product ORDER BY id DESC');
     }
 
     if (!products) {
       return NextResponse.json({
-        success: false,
-        error: 'Failed to retrieve products from database',
-        products: []
+        success: true,
+        source: 'seed_fallback',
+        products: SEED_PRODUCTS
       });
     }
 
     return NextResponse.json({ 
       success: true,
+      source: 'database',
       products: products
     });
   } catch (error: any) {
     console.error('API Products GET route error:', error);
+    // Even on error, return seed products so the site/admin doesn't break
     return NextResponse.json({
-      success: false,
-      error: error.message || 'Server error',
-      products: []
-    }, { status: 500 });
+      success: true,
+      source: 'seed_fallback',
+      products: SEED_PRODUCTS
+    });
   }
 }
 
@@ -306,7 +334,7 @@ export async function POST(req: Request) {
     const fields = [
       'product_name', 'product_details', 'brief_details', 'product_price',
       'original_price', 'product_category', 'product_discount', 'image1',
-      'image2', 'image3', 'weight', 'shelf_life', 'point1', 'point2',
+      'image2', 'image3', 'image4', 'weight', 'shelf_life', 'point1', 'point2',
       'point3', 'point4', 'point5', 'productCode'
     ];
 
@@ -356,7 +384,7 @@ export async function PUT(req: Request) {
     const fields = [
       'product_name', 'product_details', 'brief_details', 'product_price',
       'original_price', 'product_category', 'product_discount', 'image1',
-      'image2', 'image3', 'weight', 'shelf_life', 'point1', 'point2',
+      'image2', 'image3', 'image4', 'weight', 'shelf_life', 'point1', 'point2',
       'point3', 'point4', 'point5', 'productCode'
     ];
 

@@ -60,12 +60,12 @@ function ProductImage({ src, alt }: { src: string; alt: string }) {
   }
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center p-0 bg-cream/20">
+    <div className="relative w-full h-full flex items-center justify-center p-5 bg-cream/20">
       <img
         src={path}
         alt={alt}
         onError={() => setHasError(true)}
-        className="w-full h-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.12)] scale-[1.38] group-hover:scale-[1.46] transition-transform duration-500 ease-out z-10 mix-blend-multiply"
+        className="max-w-full max-h-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)] group-hover:scale-105 transition-transform duration-500 ease-out z-10 mix-blend-multiply"
       />
     </div>
   );
@@ -171,10 +171,10 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
         {/* Action Row */}
         <div className="mt-4 pt-3 border-t border-forest/5 flex items-center justify-between">
           <div className="flex flex-col">
-            <span className="text-[10px] text-charcoal/40 line-through leading-none mb-0.5 font-sans font-medium">
+            <span className="text-[11px] text-charcoal/40 line-through leading-none mb-1 font-sans font-medium">
               ₹{parseFloat(product.original_price).toFixed(0)}
             </span>
-            <span className="text-base font-serif font-bold text-forest leading-none">
+            <span className="text-lg font-sans font-extrabold text-forest leading-none">
               ₹{parseFloat(product.product_price).toFixed(0)}
             </span>
           </div>

@@ -11,38 +11,44 @@ export default function SignupPage() {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !password || !phone) return;
 
     setLoading(true);
-    setTimeout(() => {
-      // Mock registration - store user and redirect to login
-      localStorage.setItem(
-        'registeredUser',
-        JSON.stringify({
-          name,
-          email,
-          phone,
-        })
-      );
-      
-      // Auto login user directly for improved UX
-      localStorage.setItem(
-        'user',
-        JSON.stringify({
-          name: name,
-          email: email,
-        })
-      );
+    setError('');
 
-      // Trigger custom storage event to update Navbar
-      window.dispatchEvent(new Event('storage'));
+    try {
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password, phone }),
+      });
 
-      // Redirect home
-      window.location.href = '/';
-    }, 1000);
+      const data = await res.json();
+
+      if (data.success) {
+        // Auto login user directly by setting localStorage item
+        localStorage.setItem('user', JSON.stringify(data.user));
+
+        // Trigger custom storage event to update Navbar
+        window.dispatchEvent(new Event('storage'));
+
+        // Redirect home
+        window.location.href = '/';
+      } else {
+        setError(data.error || 'Registration failed. Please try again.');
+      }
+    } catch (err: any) {
+      console.error(err);
+      setError('A connection error occurred. Make sure your MySQL database is active.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -64,6 +70,12 @@ export default function SignupPage() {
             Join Pureplush to experience Ayurvedic natural goodness
           </p>
         </div>
+
+        {error && (
+          <div className="bg-red-50 border border-red-200/60 text-red-600 px-4 py-2.5 rounded-xl text-xs text-center font-medium">
+            {error}
+          </div>
+        )}
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md space-y-4">
