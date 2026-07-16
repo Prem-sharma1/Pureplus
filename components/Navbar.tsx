@@ -4,21 +4,21 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Search, 
-  ShoppingCart, 
-  User, 
-  LogIn, 
-  LogOut, 
-  ClipboardList, 
-  Menu, 
-  X, 
-  Leaf, 
-  ChevronDown, 
-  Sprout, 
-  Sparkles, 
-  Wind, 
-  Droplets 
+import {
+  Search,
+  ShoppingCart,
+  User,
+  LogIn,
+  LogOut,
+  ClipboardList,
+  Menu,
+  X,
+  Leaf,
+  ChevronDown,
+  Sprout,
+  Sparkles,
+  Wind,
+  Droplets
 } from 'lucide-react';
 import CartDrawer from './CartDrawer';
 import SearchOverlay from './SearchOverlay';
@@ -38,13 +38,13 @@ export default function Navbar() {
   const [announcementIndex, setAnnouncementIndex] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileShopOpen, setMobileShopOpen] = useState(false);
-  
+
   // Overlay Open States
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [isShopHovered, setIsShopHovered] = useState(false);
   const [isUserHovered, setIsUserHovered] = useState(false);
-  
+
   // Hover Capsule Navigation State
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
@@ -100,7 +100,7 @@ export default function Navbar() {
     let lastScrollY = window.scrollY;
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // Is Scrolled Check
       if (currentScrollY > 50) {
         setIsScrolled(true);
@@ -160,380 +160,196 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-transform duration-300 w-full ${
-          scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'
-        }`}
+        className="fixed top-0 left-0 right-0 z-40 w-full bg-white border-b border-forest/10 transition-all duration-300"
       >
         {/* Announcement Banner */}
-        <div className="bg-forest text-cream py-2 px-4 text-center text-[10px] md:text-xs font-semibold tracking-wider uppercase flex items-center justify-center overflow-hidden h-9 select-none">
-          <AnimatePresence mode="wait">
+        <AnimatePresence>
+          {!isScrolled && (
             <motion.div
-              key={announcementIndex}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.35, ease: 'easeInOut' }}
-              className="text-center font-sans tracking-widest text-[10px] sm:text-xs text-cream-light font-bold"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 36, opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="bg-forest text-cream px-4 text-center text-[10px] md:text-xs font-semibold tracking-wider uppercase flex items-center justify-center overflow-hidden select-none"
             >
-              {ANNOUNCEMENTS[announcementIndex]}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={announcementIndex}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  className="text-center font-sans tracking-widest text-[10px] sm:text-xs text-cream-light font-bold"
+                >
+                  {ANNOUNCEMENTS[announcementIndex]}
+                </motion.div>
+              </AnimatePresence>
             </motion.div>
-          </AnimatePresence>
-        </div>
+          )}
+        </AnimatePresence>
 
-        {/* Main Navbar Wrapper */}
-        <div className="w-full px-4 sm:px-6 lg:px-8 transition-all duration-500 flex justify-center">
-          <div
-            className={`w-full transition-all duration-500 ${
-              isScrolled
-                ? 'max-w-5xl mx-auto rounded-full mt-3 bg-white/85 backdrop-blur-xl border border-forest/10 shadow-lg px-6 py-2.5 dark:bg-charcoal/85'
-                : 'w-full max-w-7xl mx-auto bg-transparent py-5 border-b border-forest/5 px-4 sm:px-6 lg:px-8'
-            }`}
-          >
-            <div className="flex items-center justify-between h-12">
-              
-              {/* Logo Section */}
-              <div className="flex-shrink-0 flex items-center">
-                <Link href="/" className="flex items-center space-x-2 group">
-                  <motion.div 
-                    whileHover={{ rotate: 12, scale: 1.05 }}
-                    className="relative flex items-center justify-center w-9 h-9 bg-forest rounded-xl shadow-md transition-all duration-300"
-                  >
-                    <Leaf className="w-5 h-5 text-cream" />
-                  </motion.div>
-                  <div className="flex flex-col">
-                    <span className="font-serif text-2xl font-bold tracking-tight text-forest leading-none">
-                      pureplush
-                    </span>
-                    <span className="text-[9px] uppercase tracking-widest text-sage-dark font-semibold">
-                      organics & ayurveda
-                    </span>
-                  </div>
-                </Link>
-              </div>
+        {/* Main Navbar */}
+        <div className="w-full bg-white px-4 sm:px-6 lg:px-8 border-b border-forest/5">
+          <div className="max-w-7xl mx-auto flex items-center justify-between h-20">
 
-              {/* Minimal Menu Links - Center */}
-              <div className="hidden lg:flex items-center space-x-6">
-                
-                {/* Home Link */}
-                <div
-                  onMouseEnter={() => setHoveredPath('/')}
-                  onMouseLeave={() => setHoveredPath(null)}
-                  className="relative py-2 px-3.5 rounded-full"
-                >
-                  <Link
-                    href="/"
-                    className={`text-sm font-semibold transition-all relative z-10 hover:text-forest ${
-                      isActive('/') ? 'text-forest font-bold' : 'text-charcoal'
-                    }`}
-                  >
-                    <span>Home</span>
-                  </Link>
-                  {hoveredPath === '/' && (
-                    <motion.div
-                      layoutId="navHoverCapsule"
-                      className="absolute inset-0 bg-forest/5 rounded-full z-0"
-                      transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                    />
-                  )}
-                  {isActive('/') && (
-                    <motion.div
-                      layoutId="activeNavLine"
-                      className="absolute bottom-1 inset-x-5 h-0.5 bg-gold rounded-full z-10"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
+            {/* Left: Search Link */}
+            <div className="flex items-center w-1/3">
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="hidden lg:flex items-center space-x-2 text-charcoal/70 hover:text-forest transition-colors text-xs font-bold uppercase tracking-wider focus:outline-none"
+              >
+                <Search className="w-4 h-4 text-forest" />
+                <span>Search</span>
+              </button>
+
+              {/* Mobile Search Icon */}
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="lg:hidden p-2 text-forest hover:bg-forest/5 rounded-full transition-colors"
+                aria-label="Open Search"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Center: Brand Logo */}
+            <div className="flex justify-center items-center w-1/3 text-center">
+              <Link href="/" className="flex flex-col items-center group">
+                <div className="flex items-center space-x-1.5">
+                  <Leaf className="w-5.5 h-5.5 text-forest" />
+                  <span className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-forest leading-none">
+                    pureplush
+                  </span>
                 </div>
+                <span className="text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-sage-dark font-bold mt-1">
+                  organics & ayurveda
+                </span>
+              </Link>
+            </div>
 
-                {/* Shop Megamenu Trigger */}
+            {/* Right: User & Cart Icons */}
+            <div className="flex items-center justify-end space-x-3 sm:space-x-4 w-1/3">
+              {isLoggedIn ? (
                 <div
-                  onMouseEnter={() => {
-                    setIsShopHovered(true);
-                    setHoveredPath('/shop');
-                  }}
-                  onMouseLeave={() => {
-                    setIsShopHovered(false);
-                    setHoveredPath(null);
-                  }}
-                  className="relative py-2 px-3.5 rounded-full"
+                  onMouseEnter={() => setIsUserHovered(true)}
+                  onMouseLeave={() => setIsUserHovered(false)}
+                  className="relative py-1"
                 >
-                  <Link
-                    href="/shop"
-                    className={`flex items-center space-x-1 text-sm font-semibold hover:text-forest transition-colors focus:outline-none relative z-10 ${
-                      pathname?.startsWith('/shop') || pathname?.startsWith('/category') ? 'text-forest font-bold' : 'text-charcoal'
-                    }`}
-                  >
-                    <span>Shop</span>
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isShopHovered ? 'rotate-180' : 'rotate-0'}`} />
-                  </Link>
-                  {hoveredPath === '/shop' && (
-                    <motion.div
-                      layoutId="navHoverCapsule"
-                      className="absolute inset-0 bg-forest/5 rounded-full z-0"
-                      transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                    />
-                  )}
-                  {(pathname?.startsWith('/shop') || pathname?.startsWith('/category')) && (
-                    <motion.div
-                      layoutId="activeNavLine"
-                      className="absolute bottom-1 inset-x-5 h-0.5 bg-gold rounded-full z-10"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-
-                  {/* Mega Menu Dropdown */}
-                  <AnimatePresence>
-                    {isShopHovered && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 12, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 12, scale: 0.98 }}
-                        transition={{ duration: 0.22, ease: 'easeOut' }}
-                        className="absolute top-[42px] left-1/2 -translate-x-1/2 w-[850px] bg-white border border-forest/10 rounded-3xl shadow-2xl p-8 grid grid-cols-4 gap-6 z-50 backdrop-blur-md bg-white/95"
-                      >
-                        {/* Column 1: Botanical Powders */}
-                        <div className="flex flex-col space-y-4">
-                          <div className="flex items-center space-x-2 border-b border-forest/5 pb-2">
-                            <Sprout className="w-4 h-4 text-forest" />
-                            <span className="text-xs uppercase tracking-wider font-bold text-sage-dark font-sans">Botanical Powders</span>
-                          </div>
-                          <div className="flex flex-col space-y-3">
-                            <div className="group/item flex flex-col space-y-0.5">
-                              <Link href="/category/moringa" className="flex items-center justify-between text-xs font-semibold text-charcoal hover:text-forest transition-colors group-hover/item:translate-x-1 duration-200">
-                                <span>ABC Latte Mix Powder</span>
-                                <span className="text-[7px] bg-gold/25 text-gold-dark px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider scale-90">Bestseller</span>
-                              </Link>
-                              <span className="text-[10px] text-charcoal/50 leading-relaxed font-normal">Pure beetroot & moringa wellness mix</span>
-                            </div>
-                            <div className="group/item flex flex-col space-y-0.5">
-                              <Link href="/category/moringa" className="flex items-center justify-between text-xs font-semibold text-charcoal hover:text-forest transition-colors group-hover/item:translate-x-1 duration-200">
-                                <span>Choco Multigrain Mix</span>
-                              </Link>
-                              <span className="text-[10px] text-charcoal/50 leading-relaxed font-normal">Rich cocoa & multi-millet nourishment</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Column 2: Luxury Cleansers */}
-                        <div className="flex flex-col space-y-4">
-                          <div className="flex items-center space-x-2 border-b border-forest/5 pb-2">
-                            <Droplets className="w-4 h-4 text-forest" />
-                            <span className="text-xs uppercase tracking-wider font-bold text-sage-dark font-sans">Luxury Cleansers</span>
-                          </div>
-                          <div className="flex flex-col space-y-3">
-                            <div className="group/item flex flex-col space-y-0.5">
-                              <Link href="/category/soaps" className="flex items-center justify-between text-xs font-semibold text-charcoal hover:text-forest transition-colors group-hover/item:translate-x-1 duration-200">
-                                <span>Handcrafted Soaps</span>
-                                <span className="text-[7px] bg-sage/20 text-sage-dark px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider scale-90">Organic</span>
-                              </Link>
-                              <span className="text-[10px] text-charcoal/50 leading-relaxed font-normal">Cold-pressed luxury cleansing bars</span>
-                            </div>
-                            <div className="group/item flex flex-col space-y-0.5">
-                              <Link href="/category/shampoo" className="flex items-center justify-between text-xs font-semibold text-charcoal hover:text-forest transition-colors group-hover/item:translate-x-1 duration-200">
-                                <span>Luxury Shampoo Bars</span>
-                              </Link>
-                              <span className="text-[10px] text-charcoal/50 leading-relaxed font-normal">Organic nourishment for strong roots</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Column 3: Self-Care */}
-                        <div className="flex flex-col space-y-4">
-                          <div className="flex items-center space-x-2 border-b border-forest/5 pb-2">
-                            <Sparkles className="w-4 h-4 text-forest" />
-                            <span className="text-xs uppercase tracking-wider font-bold text-sage-dark font-sans">Self-Care</span>
-                          </div>
-                          <div className="flex flex-col space-y-3">
-                            <div className="group/item flex flex-col space-y-0.5">
-                              <Link href="/shop" className="flex items-center justify-between text-xs font-semibold text-charcoal hover:text-forest transition-colors group-hover/item:translate-x-1 duration-200">
-                                <span>Hair & Body Care</span>
-                                <span className="text-[7px] bg-forest/10 text-forest px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider scale-90">New</span>
-                              </Link>
-                              <span className="text-[10px] text-charcoal/50 leading-relaxed font-normal">Pure botanical oils & remedies</span>
-                            </div>
-                            <div className="group/item flex flex-col space-y-0.5">
-                              <Link href="/shop" className="flex items-center justify-between text-xs font-semibold text-charcoal hover:text-forest transition-colors group-hover/item:translate-x-1 duration-200">
-                                <span>Wellness Kits</span>
-                              </Link>
-                              <span className="text-[10px] text-charcoal/50 leading-relaxed font-normal">Curated self-care gift sets</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Column 4: Promo Box */}
-                        <div className="bg-gradient-to-br from-cream-dark to-sage-light/20 rounded-2xl p-5 flex flex-col justify-between border border-forest/5 shadow-inner group/promo relative overflow-hidden">
-                          <div className="absolute -right-6 -bottom-6 w-20 h-20 bg-forest/5 rounded-full blur-xl group-hover/promo:scale-150 transition-transform duration-500" />
-                          <div className="relative z-10">
-                            <span className="font-serif italic text-sm font-bold text-forest block">pureplush promise</span>
-                            <p className="text-[10px] text-charcoal/70 mt-2 leading-relaxed">
-                              100% farm-direct, organic Ayurvedic ingredients sourced sustainably from the pristine hills of Uttara Kannada.
-                            </p>
-                          </div>
-                          <div className="relative z-10 mt-4">
-                            <Link href="/shop" className="text-[10px] text-forest font-bold uppercase tracking-wider inline-flex items-center hover:underline">
-                              <span>Explore Collection</span>
-                              <motion.span
-                                animate={{ x: [0, 4, 0] }}
-                                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                                className="ml-1"
-                              >
-                                →
-                              </motion.span>
-                            </Link>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* Our Story Link */}
-                <div
-                  onMouseEnter={() => setHoveredPath('/#about')}
-                  onMouseLeave={() => setHoveredPath(null)}
-                  className="relative py-2 px-3.5 rounded-full"
-                >
-                  <Link
-                    href="/#about"
-                    className="text-sm font-semibold text-charcoal hover:text-forest transition-colors relative z-10"
-                  >
-                    Our Story
-                  </Link>
-                  {hoveredPath === '/#about' && (
-                    <motion.div
-                      layoutId="navHoverCapsule"
-                      className="absolute inset-0 bg-forest/5 rounded-full z-0"
-                      transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                    />
-                  )}
-                </div>
-
-              </div>
-
-              {/* Minimal Icon Controls - Right */}
-              <div className="hidden lg:flex items-center space-x-3">
-                {/* Search Toggle */}
-                <button
-                  onClick={() => setSearchOpen(true)}
-                  className="p-2.5 text-sage-dark hover:text-forest hover:bg-forest/5 rounded-full transition-all duration-300 hover:scale-105"
-                  aria-label="Open Search"
-                >
-                  <Search className="w-4.5 h-4.5" />
-                </button>
-
-                {/* Auth Profile Dropdown */}
-                {!isLoggedIn ? (
-                  <Link
-                    href="/login"
-                    className="p-2.5 text-sage-dark hover:text-forest hover:bg-forest/5 rounded-full transition-all duration-300 hover:scale-105"
-                    aria-label="Account Login"
-                  >
-                    <User className="w-4.5 h-4.5" />
-                  </Link>
-                ) : (
-                  <div 
-                    onMouseEnter={() => setIsUserHovered(true)}
-                    onMouseLeave={() => setIsUserHovered(false)}
-                    className="relative py-1"
-                  >
-                    <Link 
-                      href="/profile"
-                      className="flex items-center justify-center w-8 h-8 rounded-full bg-forest text-cream hover:bg-forest-light font-bold text-sm shadow-sm transition-all duration-300 hover:scale-105 active:scale-95"
-                    >
-                      {username.charAt(0).toUpperCase() || 'P'}
-                    </Link>
-                    {/* Account Dropdown popup on hover */}
-                    <AnimatePresence>
-                      {isUserHovered && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute right-0 top-[38px] w-56 bg-white border border-forest/10 rounded-2xl shadow-xl p-3 z-50 backdrop-blur-md bg-white/95"
-                        >
-                          <div className="px-3 py-2 border-b border-forest/5 mb-2">
-                            <p className="text-[9px] uppercase font-bold tracking-widest text-sage-dark">Account</p>
-                            <p className="text-xs font-semibold text-charcoal truncate">{username}</p>
-                          </div>
-                          <Link href="/orders" className="flex items-center space-x-2.5 py-2 px-3 rounded-xl text-xs hover:bg-forest/5 text-charcoal font-semibold transition-all duration-200">
-                            <ClipboardList className="w-4 h-4 text-sage" />
-                            <span>My Orders</span>
-                          </Link>
-                          <button
-                            onClick={handleLogout}
-                            className="flex items-center space-x-2.5 py-2 px-3 rounded-xl text-xs hover:bg-red-50 text-red-650 w-full text-left font-semibold transition-all duration-200 cursor-pointer"
-                          >
-                            <LogOut className="w-4 h-4 text-red-500" />
-                            <span>Logout</span>
-                          </button>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                )}
-
-                {/* Cart Toggle */}
-                <button
-                  onClick={() => setCartOpen(true)}
-                  className="relative p-2.5 bg-forest text-cream rounded-full hover:bg-forest-light hover:scale-105 transition-all shadow-md group"
-                  aria-label="Open Cart"
-                >
-                  <ShoppingCart className="w-4.5 h-4.5 group-hover:animate-bounce" />
-                  <AnimatePresence>
-                    {cartCount > 0 && (
-                      <motion.span
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        exit={{ scale: 0 }}
-                        className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white ring-2 ring-cream"
-                      >
-                        {cartCount}
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </button>
-              </div>
-
-              {/* Hamburger Menu - Mobile */}
-              <div className="flex lg:hidden items-center space-x-2.5">
-                <button
-                  onClick={() => setSearchOpen(true)}
-                  className="p-2 text-forest hover:bg-forest/5 rounded-full transition-colors"
-                  aria-label="Open Search"
-                >
-                  <Search className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => setCartOpen(true)}
-                  className="relative p-2 text-forest bg-forest/5 rounded-full hover:bg-forest/10 transition-colors"
-                  aria-label="Open Cart"
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  {cartCount > 0 && (
-                    <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[8px] font-bold text-white ring-2 ring-cream">
-                      {cartCount}
-                    </span>
-                  )}
-                </button>
-                {isLoggedIn && (
                   <Link
                     href="/profile"
-                    className="flex items-center justify-center w-8 h-8 rounded-full bg-forest text-cream font-bold text-xs shadow-sm hover:scale-105 active:scale-95 transition-transform"
+                    className="flex items-center justify-center w-8 h-8 rounded-full bg-forest text-cream hover:bg-forest-light font-bold text-sm shadow-sm transition-all duration-300 hover:scale-105 active:scale-95"
                     aria-label="View Profile"
                   >
                     {username.charAt(0).toUpperCase() || 'P'}
                   </Link>
-                )}
-                <button
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="p-2 text-forest focus:outline-none z-50 relative hover:bg-forest/5 rounded-full transition-colors"
-                  aria-label="Toggle Menu"
+                  {/* Account Dropdown */}
+                  <AnimatePresence>
+                    {isUserHovered && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute right-0 top-[38px] w-56 bg-white border border-forest/10 rounded-2xl shadow-xl p-3 z-50 backdrop-blur-md bg-white/95"
+                      >
+                        <div className="px-3 py-2 border-b border-forest/5 mb-2">
+                          <p className="text-[9px] uppercase font-bold tracking-widest text-sage-dark">Account</p>
+                          <p className="text-xs font-semibold text-charcoal truncate">{username}</p>
+                        </div>
+                        <Link href="/orders" className="flex items-center space-x-2.5 py-2 px-3 rounded-xl text-xs hover:bg-forest/5 text-charcoal font-semibold transition-all duration-200">
+                          <ClipboardList className="w-4 h-4 text-sage" />
+                          <span>My Orders</span>
+                        </Link>
+                        <button
+                          onClick={handleLogout}
+                          className="flex items-center space-x-2.5 py-2 px-3 rounded-xl text-xs hover:bg-red-50 text-red-650 w-full text-left font-semibold transition-all duration-200 cursor-pointer"
+                        >
+                          <LogOut className="w-4 h-4 text-red-500" />
+                          <span>Logout</span>
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  className="p-2 text-forest hover:bg-forest/5 rounded-full transition-colors flex items-center justify-center"
+                  aria-label="Account Login"
                 >
-                  {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                </button>
-              </div>
+                  <User className="w-5 h-5" />
+                </Link>
+              )}
 
+              <button
+                onClick={() => setCartOpen(true)}
+                className="relative p-2 text-forest bg-forest/5 rounded-full hover:bg-forest/10 transition-colors"
+                aria-label="Open Cart"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white ring-2 ring-white">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 text-forest focus:outline-none z-50 relative hover:bg-forest/5 rounded-full transition-colors"
+                aria-label="Toggle Menu"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
             </div>
+
+          </div>
+        </div>
+
+        {/* Bottom Categories Sub-Navbar (Desktop Only) */}
+        <div className="hidden lg:block w-full bg-white">
+          <div className="max-w-5xl mx-auto flex items-center justify-center h-11 space-x-8">
+            <Link
+              href="/category/soaps"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/category/soaps' ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              SOAPS
+            </Link>
+            <Link
+              href="/category/shampoo"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/category/shampoo' ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              SHAMPOO BARS
+            </Link>
+            <Link
+              href="/category/moringa"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/category/moringa' ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              BOTANICAL MALT
+            </Link>
+            <Link
+              href="/category/others"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/category/others' ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              SKINCARE & GELS
+            </Link>
+            <Link
+              href="/shop"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/shop' ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              ALL PRODUCTS
+            </Link>
+            <Link
+              href="/#about"
+              className="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest text-charcoal/70"
+            >
+              OUR STORY
+            </Link>
           </div>
         </div>
       </header>
@@ -568,7 +384,7 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                <motion.div 
+                <motion.div
                   variants={{
                     hidden: { opacity: 0 },
                     show: {
@@ -587,9 +403,8 @@ export default function Navbar() {
                     <Link
                       href="/"
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${
-                        isActive('/') ? 'bg-forest/5 text-forest' : 'hover:bg-forest/5 text-charcoal'
-                      }`}
+                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/') ? 'bg-forest/5 text-forest' : 'hover:bg-forest/5 text-charcoal'
+                        }`}
                     >
                       <span>Home</span>
                     </Link>
@@ -604,7 +419,7 @@ export default function Navbar() {
                       <span>Shop</span>
                       <ChevronDown className={`w-4 h-4 text-sage-dark transition-transform duration-300 ${mobileShopOpen ? 'rotate-180' : 'rotate-0'}`} />
                     </button>
-                    
+
                     <AnimatePresence>
                       {mobileShopOpen && (
                         <motion.div
@@ -619,7 +434,7 @@ export default function Navbar() {
                             <Link href="/category/moringa" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs text-charcoal/80 hover:text-forest transition-colors">ABC Latte Mix Powder</Link>
                             <Link href="/category/moringa" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs text-charcoal/80 hover:text-forest transition-colors">Choco Multigrain Mix</Link>
                           </div>
-                          
+
                           <div className="py-1 border-t border-forest/5">
                             <p className="text-[10px] uppercase font-bold tracking-wider text-sage-dark mb-1.5 mt-1">Luxury Cleansers</p>
                             <Link href="/category/soaps" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs text-charcoal/80 hover:text-forest transition-colors">Handcrafted Soaps</Link>
@@ -676,7 +491,7 @@ export default function Navbar() {
                           </div>
                         </Link>
                       </motion.div>
-                      
+
                       <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
                         <Link
                           href="/orders"
@@ -687,7 +502,7 @@ export default function Navbar() {
                           <span>My Orders</span>
                         </Link>
                       </motion.div>
-                      
+
                       <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
                         <button
                           onClick={() => {

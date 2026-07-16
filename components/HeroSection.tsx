@@ -2,385 +2,142 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Leaf, Sparkles, ShieldCheck } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
-interface SlideItem {
+interface CarouselSlide {
   id: number;
-  product_name: string;
-  brief_details: string;
-  product_price: string;
-  image1: string;
-  product_category: string;
+  image: string;
+  link: string;
+  alt: string;
 }
 
-const FEATURED_FALLBACK: SlideItem[] = [
+const CAROUSEL_SLIDES: CarouselSlide[] = [
   {
-    id: 26,
-    product_name: 'ABC Latte Mix(Malt) Powder',
-    brief_details: 'Wholesome blend of Apple, Beetroot, and Carrot with natural malt for an energizing health drink.',
-    product_price: '199.00',
-    image1: 'FaceWash/Herbal2.png',
-    product_category: 'Moringa Powders'
+    id: 1,
+    image: "/uploads/HeaderImage/First.jpeg",
+    link: "/product/101",
+    alt: "Vedic Neem and Turmeric Soap Collection"
   },
   {
-    id: 28,
-    product_name: 'Choco Multigrain Millet Malt Mix',
-    brief_details: 'A delicious and nutritious blend of wholesome millets, grains, and natural cocoa, crafted for strength and taste.',
-    product_price: '199.00',
-    image1: 'FaceWash/Herbal3.png',
-    product_category: 'Moringa Powders'
+    id: 2,
+    image: "/uploads/HeaderImage/header3.jpeg",
+    link: "/product/26",
+    alt: "ABC Latte Mix and Choco Millet Mix Collection"
   },
   {
-    id: 101,
-    product_name: 'Vedic Neem & Turmeric Soap',
-    brief_details: 'Handcrafted soap with fresh neem extracts and wild turmeric root oil for daily skin defense.',
-    product_price: '120.00',
-    image1: 'Soap/Soap.png',
-    product_category: 'Natural Soaps'
+    id: 3,
+    image: "/uploads/HeaderImage/third.jpeg",
+    link: "/product/104",
+    alt: "Rosemary and Tea Tree Solid Shampoo Bars"
   },
   {
-    id: 104,
-    product_name: 'Rosemary & Tea Tree Shampoo Bar',
-    brief_details: 'Luxurious solid shampoo bar with rosemary and tea tree oil to reduce dandruff and strengthen hair.',
-    product_price: '220.00',
-    image1: 'Shampoobar/Shampoobar.png',
-    product_category: 'Shampoo Bars'
+    id: 4,
+    image: "/uploads/HeaderImage/header4.jpeg",
+    link: "/product/106",
+    alt: "Pure Saffron and Aloe Vera Rejuvenating Skincare"
   }
 ];
 
-// Magic UI Spotlight SVG Component
-function Spotlight({ className = '', fill = 'white' }: { className?: string; fill?: string }) {
-  return (
-    <svg
-      className={`animate-spotlight pointer-events-none absolute z-[1] h-[169%] w-[138%] lg:w-[84%] opacity-0 ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 3787 2842"
-      fill="none"
-    >
-      <g filter="url(#filter-spotlight)">
-        <ellipse
-          cx="1924.57"
-          cy="273.89"
-          rx="1924.57"
-          ry="273.89"
-          transform="matrix(-0.822377 -0.568943 0.568943 -0.822377 3631.88 2291.09)"
-          fill={fill}
-          fillOpacity="0.22"
-        />
-      </g>
-      <defs>
-        <filter
-          id="filter-spotlight"
-          x="0.860352"
-          y="-893.87"
-          width="3788.16"
-          height="3788.16"
-          filterUnits="userSpaceOnUse"
-          colorInterpolationFilters="sRGB"
-        >
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
-          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-          <feGaussianBlur stdDeviation="151" result="effect1_foregroundBlur_1065_8" />
-        </filter>
-      </defs>
-    </svg>
-  );
-}
+const SLIDE_DURATION = 5000; // 5 seconds per slide
 
 export default function HeroSection() {
-  const [slides, setSlides] = useState<SlideItem[]>(FEATURED_FALLBACK);
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    async function getFeaturedProducts() {
-      try {
-        const res = await fetch('/api/products');
-        const data = await res.json();
-        if (data.success && data.products && data.products.length > 0) {
-          const filtered = data.products
-            .filter((p: any) => {
-              const catKey = (p.product_category || '').toLowerCase().trim();
-              return catKey !== 'others' && catKey !== 'wellness' && p.id !== 102;
-            })
-            .map((p: any) => {
-              let catName = p.product_category || 'Wellness';
-              let catKey = catName.toLowerCase().trim();
-              if (catKey === 'abc malt' || catKey === 'choco' || catKey === 'moringa') {
-                catName = 'Moringa Powders';
-              } else if (catKey === 'soap' || catKey === 'soaps') {
-                catName = 'Natural Soaps';
-              } else if (catKey === 'shampoo' || catKey === 'shampoos') {
-                catName = 'Shampoo Bars';
-              }
-              return {
-                id: p.id,
-                product_name: p.product_name,
-                brief_details: p.brief_details || (p.product_details.slice(0, 115) + '...'),
-                product_price: p.product_price,
-                image1: p.image1,
-                product_category: catName
-              };
-            })
-            .slice(0, 5);
-
-          if (filtered.length > 0) {
-            setSlides(filtered);
-          }
-        }
-      } catch (err) {
-        console.warn('API error fetching hero products. Using fallbacks.');
-      }
-    }
-    getFeaturedProducts();
-  }, []);
-
-  useEffect(() => {
-    if (slides.length <= 1) return;
+    if (isPaused) return;
     const timer = setInterval(() => {
-      setCurrentIdx((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 6000);
+      setCurrentIdx((prev) => (prev + 1) % CAROUSEL_SLIDES.length);
+    }, SLIDE_DURATION);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [isPaused]);
 
-  const activeSlide = slides[currentIdx] || FEATURED_FALLBACK[0];
-
-  const getImagePath = (img?: string) => {
-    if (!img) return '';
-    if (img.startsWith('http') || img.startsWith('/') || img.startsWith('data:')) return img;
-    return `/uploads/${img}`;
+  const handleNext = () => {
+    setCurrentIdx((prev) => (prev + 1) % CAROUSEL_SLIDES.length);
   };
 
+  const handlePrev = () => {
+    setCurrentIdx((prev) => (prev - 1 + CAROUSEL_SLIDES.length) % CAROUSEL_SLIDES.length);
+  };
+
+  const handleDotClick = (idx: number) => {
+    setCurrentIdx(idx);
+  };
+
+  const activeSlide = CAROUSEL_SLIDES[currentIdx];
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-cream/25 via-cream to-cream-light py-12 md:py-20 lg:py-24">
-      {/* CSS Keyframes for Mesh Drift, Spotlights, and Shiny Text */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        @keyframes spotlight {
-          0% {
-            opacity: 0;
-            transform: translate(-3%, -18%) scale(0.9);
-          }
-          100% {
-            opacity: 1;
-            transform: translate(-50%, -62%) scale(1);
-          }
-        }
-        @keyframes shine {
-          0% { background-position: 200% center; }
-          100% { background-position: -200% center; }
-        }
-        @keyframes drift-1 {
-          0% { transform: translate(0px, 0px) scale(1); }
-          50% { transform: translate(80px, -50px) scale(1.15); }
-          100% { transform: translate(-30px, 40px) scale(0.9); }
-        }
-        @keyframes drift-2 {
-          0% { transform: translate(0px, 0px) scale(1); }
-          50% { transform: translate(-60px, 70px) scale(0.85); }
-          100% { transform: translate(50px, -40px) scale(1.1); }
-        }
-        @keyframes drift-3 {
-          0% { transform: translate(0px, 0px) scale(1); }
-          50% { transform: translate(40px, 30px) scale(1.2); }
-          100% { transform: translate(-50px, -60px) scale(0.95); }
-        }
-        @keyframes aura-pulse {
-          0%, 100% { opacity: 0.35; transform: scale(1); filter: blur(130px); }
-          50% { opacity: 0.85; transform: scale(1.18); filter: blur(100px); }
-        }
-        .animate-spotlight {
-          animation: spotlight 2s ease .75s 1 forwards;
-        }
-        .animate-shiny-text {
-          background: linear-gradient(120deg, rgba(74, 119, 60, 0.45) 30%, rgba(74, 119, 60, 1) 50%, rgba(74, 119, 60, 0.45) 70%);
-          background-size: 200% auto;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: shine 6s linear infinite;
-        }
-        .animate-aura-pulse {
-          animation: aura-pulse 9s infinite alternate ease-in-out;
-        }
-        .mesh-circle-1 { animation: drift-1 25s infinite alternate ease-in-out; }
-        .mesh-circle-2 { animation: drift-2 30s infinite alternate ease-in-out; }
-        .mesh-circle-3 { animation: drift-3 20s infinite alternate ease-in-out; }
-      ` }} />
-
-      {/* Magic UI Spotlight effect sweeping down the hero page */}
-      <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="#a27b38" />
-
-      {/* Animated Mesh Backdrops & Lightning Glows (Slow-shifting background colors) */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[10%] left-[5%] w-80 h-80 rounded-full bg-sage/20 filter blur-3xl mesh-circle-1 opacity-70" />
-        <div className="absolute bottom-[20%] right-[10%] w-96 h-96 rounded-full bg-forest/10 filter blur-3xl mesh-circle-2 opacity-60" />
-        <div className="absolute top-[40%] left-[45%] w-72 h-72 rounded-full bg-gold/15 filter blur-3xl mesh-circle-3 opacity-55" />
-
-        {/* Background Lightening Aurora Blob */}
-        <div className="absolute top-[15%] right-[-10%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-gold/15 to-emerald-500/10 blur-[130px] animate-aura-pulse pointer-events-none" />
+    <section 
+      className="relative w-full overflow-hidden bg-white group"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Ghost spacer to establish natural banner aspect ratio height dynamically */}
+      <div className="w-full relative z-0 select-none pointer-events-none">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={CAROUSEL_SLIDES[0].image}
+          alt="ghost-spacer"
+          className="w-full h-auto opacity-0 block select-none pointer-events-none"
+        />
       </div>
 
-      {/* Decorative Floating Leaves (SVG) */}
-      <div className="absolute top-10 left-[5%] w-16 h-16 opacity-20 pointer-events-none leaf-animate-1 z-10">
-        <Leaf className="w-full h-full text-forest" />
-      </div>
-      <div className="absolute bottom-12 right-[8%] w-24 h-24 opacity-15 pointer-events-none leaf-animate-2 z-10">
-        <Leaf className="w-full h-full text-sage rotate-45" />
-      </div>
-      <div className="absolute top-1/3 right-[12%] w-12 h-12 opacity-10 pointer-events-none leaf-animate-3 z-10">
-        <Leaf className="w-full h-full text-gold -rotate-12" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-          {/* Hero Left Content Slider */}
-          <div className="lg:col-span-7 flex flex-col justify-center min-h-[360px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeSlide.id}
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -25 }}
-                transition={{ duration: 0.45, ease: 'easeOut' }}
-                className="flex flex-col space-y-5 items-start"
-              >
-                {/* Minimal, modern category tag */}
-                <div className="inline-flex items-center space-x-2.5 bg-white/40 backdrop-blur-sm border border-forest/10 px-3.5 py-1.5 rounded-full shadow-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-                  <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-forest font-sans">
-                    {activeSlide.product_category || 'Pureplush Ayurveda'}
-                  </span>
-                </div>
-
-                {/* Clean, luxury heading showing the full product name */}
-                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-forest tracking-tight leading-[1.08]">
-                  {activeSlide.product_name}
-                </h1>
-
-                {/* Modern simple description */}
-                <p className="text-xs sm:text-sm text-charcoal/60 max-w-lg leading-relaxed text-left font-sans">
-                  {activeSlide.brief_details}
-                </p>
-
-                {/* Modern clean button CTAs */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3 w-full sm:w-auto z-20">
-                  <Link
-                    href={`/product/${activeSlide.id}`}
-                    className="inline-flex items-center justify-center space-x-2 px-8 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 group"
-                  >
-                    <span>Shop Now</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                  <Link
-                    href="/shop"
-                    className="inline-flex items-center justify-center px-8 py-3.5 bg-white/50 backdrop-blur-sm border border-forest/10 hover:border-forest/30 text-forest rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 transform hover:-translate-y-0.5"
-                  >
-                    <span>Explore Collection</span>
-                  </Link>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Minimal slide indicators */}
-            {slides.length > 1 && (
-              <div className="flex space-x-2.5 mt-10">
-                {slides.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentIdx(idx)}
-                    className="group py-2 focus:outline-none"
-                    aria-label={`Go to slide ${idx + 1}`}
-                  >
-                    <div className="h-[2px] rounded-full bg-forest/15 w-8 overflow-hidden transition-all group-hover:bg-forest/35">
-                      <div
-                        className={`h-full rounded-full bg-forest transition-all duration-500 ${
-                          currentIdx === idx ? 'w-full' : 'w-0'
-                        }`}
-                      />
-                    </div>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Hero Right Visual Column */}
-          <div className="lg:col-span-5 relative flex justify-center items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, type: 'spring' }}
-              className="relative w-80 h-80 sm:w-96 sm:h-96 z-10 flex items-center justify-center"
-            >
-              {/* Outer decorative gold ring */}
-              <div className="absolute inset-0 rounded-full border border-dashed border-gold/30 animate-[spin_40s_linear_infinite] z-0" />
-
-              {/* Inner subtle cream/sage/gold gradient circle (Option 4) */}
-              <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-cream-dark via-sage-light/20 to-gold/15 shadow-inner flex flex-col items-center justify-center p-2 sm:p-4 text-center border border-forest/10 overflow-hidden z-5">
-                <div className="absolute inset-0 opacity-[0.07] bg-[radial-gradient(#0E5E1C_1px,transparent_1px)] [background-size:16px_16px]" />
-
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeSlide.id}
-                    initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, rotate: 5 }}
-                    transition={{ duration: 0.45, ease: 'easeOut' }}
-                    className="z-10 flex items-center justify-center w-full h-full animate-[float_6s_ease-in-out_infinite]"
-                  >
-                    {activeSlide.image1 ? (
-                      <img
-                        src={getImagePath(activeSlide.image1)}
-                        alt={activeSlide.product_name}
-                        className="w-[82%] h-[82%] sm:w-[86%] h-[86%] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.15)] hover:scale-105 transition-transform duration-300 mix-blend-multiply"
-                      />
-                    ) : (
-                      <Leaf className="w-28 h-28 text-forest animate-[pulse_3s_infinite]" />
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Floating tags */}
-              <div className="absolute top-10 -left-6 z-25 bg-white border border-forest/10 text-forest text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-lg select-none hover:scale-105 transition-transform">
-                {activeSlide.product_category || 'Ayurvedic'}
-              </div>
-              <div className="absolute bottom-12 -right-6 z-25 bg-gold text-forest text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-lg select-none hover:scale-105 transition-transform">
-                100% Organic
-              </div>
-            </motion.div>
-          </div>
-
-        </div>
+      {/* Active Slides Container */}
+      <div className="absolute inset-0 z-10 w-full h-full">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIdx}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="absolute inset-0 w-full h-full"
+          >
+            <Link href={activeSlide.link} className="block w-full h-full relative cursor-pointer">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={activeSlide.image}
+                alt={activeSlide.alt}
+                className="w-full h-full object-cover object-center select-none"
+              />
+            </Link>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      {/* Bottom Features Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-16 pt-8 border-t border-forest/10 hidden md:block">
-        <div className="grid grid-cols-3 gap-6">
-          <div className="flex items-center space-x-3 text-charcoal/80">
-            <ShieldCheck className="w-6 h-6 text-sage flex-shrink-0" />
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider block text-forest">Lab Tested Remedies</span>
-              <span className="text-[10px] text-charcoal/50">Clinically clean botanical purity</span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-3 text-charcoal/80">
-            <Leaf className="w-6 h-6 text-sage flex-shrink-0" />
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider block text-forest">Vegan & Organic</span>
-              <span className="text-[10px] text-charcoal/50">Zero chemical toxins or fillers</span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-3 text-charcoal/80">
-            <Sparkles className="w-6 h-6 text-sage flex-shrink-0" />
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider block text-forest">100% Cruelty-Free</span>
-              <span className="text-[10px] text-charcoal/50">Safely handcrafted locally</span>
-            </div>
-          </div>
-        </div>
+      {/* Navigation Arrows (Reveal beautifully on hover) */}
+      <button
+        onClick={handlePrev}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/70 hover:bg-white text-forest border border-forest/10 hover:border-forest/30 backdrop-blur-sm shadow-md transition-all duration-300 transform active:scale-95 opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+      </button>
+      <button
+        onClick={handleNext}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/70 hover:bg-white text-forest border border-forest/10 hover:border-forest/30 backdrop-blur-sm shadow-md transition-all duration-300 transform active:scale-95 opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+      </button>
+
+      {/* Modern bottom dots indicators */}
+      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex space-x-2.5 bg-black/10 backdrop-blur-md px-3.5 py-2 rounded-full">
+        {CAROUSEL_SLIDES.map((slide, idx) => (
+          <button
+            key={slide.id}
+            onClick={() => handleDotClick(idx)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none ${
+              currentIdx === idx 
+                ? 'bg-gold w-6' 
+                : 'bg-white/60 hover:bg-white'
+            }`}
+            aria-label={`Go to slide ${idx + 1}`}
+          />
+        ))}
       </div>
     </section>
   );
 }
+

@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="min-h-screen flex flex-col bg-cream-light text-charcoal">
         <Navbar />
-        <main className="flex-grow pt-20">
+        <main className="flex-grow pt-[116px] lg:pt-[160px]">
           {children}
         </main>
         <Footer />
