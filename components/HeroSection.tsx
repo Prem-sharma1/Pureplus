@@ -16,26 +16,26 @@ const CAROUSEL_SLIDES: CarouselSlide[] = [
   {
     id: 1,
     image: "/uploads/HeaderImage/First.jpeg",
-    link: "/product/101",
-    alt: "Vedic Neem and Turmeric Soap Collection"
+    link: "/product/26",
+    alt: "Pureplush Herbal Waxing Powder"
   },
   {
     id: 2,
     image: "/uploads/HeaderImage/header3.jpeg",
-    link: "/product/26",
-    alt: "ABC Latte Mix and Choco Millet Mix Collection"
+    link: "/product/109",
+    alt: "Pureplush Goatmilk Coffee D Tan Soap"
   },
   {
     id: 3,
     image: "/uploads/HeaderImage/third.jpeg",
-    link: "/product/104",
-    alt: "Rosemary and Tea Tree Solid Shampoo Bars"
+    link: "/product/108",
+    alt: "Pureplush Herbal Facepack"
   },
   {
     id: 4,
     image: "/uploads/HeaderImage/header4.jpeg",
-    link: "/product/106",
-    alt: "Pure Saffron and Aloe Vera Rejuvenating Skincare"
+    link: "/product/107",
+    alt: "Pureplush Hibiscus Neemtulsi Shampoo Bar"
   }
 ];
 

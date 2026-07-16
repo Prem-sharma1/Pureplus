@@ -198,10 +198,10 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
               <div className="space-y-1">
                 <div className="flex items-baseline space-x-2">
                   <span className="text-red-650 text-2xl font-sans font-light">-{product.product_discount}%</span>
-                  <span className="text-3xl font-serif font-bold text-forest">₹{parseFloat(product.product_price).toFixed(0)}</span>
+                  <span className="text-3xl font-sans font-extrabold text-forest">₹{parseFloat(product.product_price).toFixed(0)}</span>
                 </div>
                 <p className="text-xs text-charcoal/50">
-                  List Price: <span className="line-through">₹{parseFloat(product.original_price).toFixed(0)}</span>
+                  List Price: <span className="line-through font-sans font-medium">₹{parseFloat(product.original_price).toFixed(0)}</span>
                 </p>
                 <div className="inline-flex items-center space-x-1 text-[10px] bg-green-50 text-green-800 border border-green-200 px-2 py-0.5 rounded">
                   <span>Inclusive of all taxes</span>

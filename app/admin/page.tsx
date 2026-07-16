@@ -447,7 +447,7 @@ export default function AdminDashboard() {
               <div className="bg-white border border-forest/10 p-6 rounded-2xl shadow-sm flex items-center justify-between">
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-bold tracking-wider text-charcoal/40 block">Total Revenue</span>
-                  <span className="text-2xl font-serif font-bold text-forest">₹{totalRevenue.toFixed(0)}</span>
+                  <span className="text-2xl font-sans font-extrabold text-forest">₹{totalRevenue.toFixed(0)}</span>
                 </div>
                 <div className="w-12 h-12 bg-green-50 text-[#4a773c] rounded-xl flex items-center justify-center">
                   <DollarSign className="w-6 h-6" />
@@ -458,7 +458,7 @@ export default function AdminDashboard() {
               <div className="bg-white border border-forest/10 p-6 rounded-2xl shadow-sm flex items-center justify-between">
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-bold tracking-wider text-charcoal/40 block">Sales Completed</span>
-                  <span className="text-2xl font-serif font-bold text-forest">{totalSalesCount}</span>
+                  <span className="text-2xl font-sans font-extrabold text-forest">{totalSalesCount}</span>
                 </div>
                 <div className="w-12 h-12 bg-blue-50 text-blue-700 rounded-xl flex items-center justify-center">
                   <ShoppingBag className="w-6 h-6" />
@@ -469,7 +469,7 @@ export default function AdminDashboard() {
               <div className="bg-white border border-forest/10 p-6 rounded-2xl shadow-sm flex items-center justify-between">
                 <div className="space-y-1">
                   <span className="text-[10px] uppercase font-bold tracking-wider text-charcoal/40 block">Average Order</span>
-                  <span className="text-2xl font-serif font-bold text-forest">₹{avgOrderValue.toFixed(0)}</span>
+                  <span className="text-2xl font-sans font-extrabold text-forest">₹{avgOrderValue.toFixed(0)}</span>
                 </div>
                 <div className="w-12 h-12 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center">
                   <BarChart3 className="w-6 h-6" />
@@ -822,7 +822,7 @@ export default function AdminDashboard() {
                       <span className="text-[10px] text-charcoal/50 font-mono">Payment ID: {o.payment_id}</span>
                       <div className="flex items-baseline space-x-1.5">
                         <span className="text-xs text-charcoal/50">Total Paid:</span>
-                        <span className="text-lg font-serif font-bold text-forest">₹{parseFloat(o.total_amount as any).toFixed(0)}</span>
+                        <span className="text-lg font-sans font-extrabold text-forest">₹{parseFloat(o.total_amount as any).toFixed(0)}</span>
                       </div>
                     </div>
 

@@ -223,7 +223,7 @@ export default function OrdersPage() {
                   <span className="text-xs text-charcoal/50 font-medium">Paid via Razorpay Secure</span>
                   <div className="flex items-baseline space-x-1.5">
                     <span className="text-xs text-charcoal/50">Total Amount:</span>
-                    <span className="text-lg font-serif font-bold text-forest">₹{parseFloat(order.total_amount as any).toFixed(0)}</span>
+                    <span className="text-lg font-sans font-extrabold text-forest">₹{parseFloat(order.total_amount as any).toFixed(0)}</span>
                   </div>
                 </div>
               </motion.div>
