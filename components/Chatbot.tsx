@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, Send, Leaf, Sparkles, Phone, ArrowRight, User, HelpCircle, Check, ShoppingCart } from 'lucide-react';
+import { Headset, X, Send, Leaf, Sparkles, Phone, ArrowRight, User, HelpCircle, Check, ShoppingCart } from 'lucide-react';
 
 interface Product {
   id: number;
@@ -13,98 +13,109 @@ interface Product {
   desc: string;
   image: string;
   benefits: string[];
+  weight?: string;
 }
 
 const PRODUCTS_DB: Product[] = [
   {
     id: 26,
-    name: 'ABC Latte Mix (Malt) Powder',
-    category: 'ABC malt',
-    price: '₹199.00',
-    desc: 'A wholesome blend of Apple, Beetroot, and Carrot with natural malt for a nourishing health drink.',
+    name: 'Pureplush Herbal Waxing Powder',
+    category: 'moringa',
+    price: '₹249.00',
+    desc: 'Pain-free, natural hair removal powder made with organic botanical ingredients for smooth skin.',
     image: '/uploads/FaceWash/Herbal2.png',
-    benefits: ['Rich in Nutrients', 'Immunity Support', 'Glowing Skin & Eyes']
+    benefits: ['100% Organic & Natural', 'Pain-Free Hair Removal', 'Soft & Smooth Results'],
+    weight: '100g'
   },
   {
     id: 28,
-    name: 'Choco Multigrain Millet Malt Mix',
-    category: 'choco',
-    price: '₹199.00',
-    desc: 'Wholesome millets, grains, and natural cocoa, crafted for strength and taste in every sip.',
-    image: '/uploads/FaceWash/Herbal3.png',
-    benefits: ['Rich in Protein & Fiber', 'No Preservatives', 'Suitable for All Ages']
-  },
-  {
-    id: 101,
-    name: 'Vedic Neem & Turmeric Soap',
-    category: 'Soaps',
-    price: '₹120.00',
-    desc: 'Combines natural skin protection with gentle botanical nourishment, leaving skin refreshed.',
-    image: '/uploads/Soap/Soap.png',
-    benefits: ['100% Handcrafted Soap', 'Antibacterial Neem Extract', 'Soothes Dry Skin']
-  },
-  {
-    id: 102,
-    name: 'Honey & Sandalwood Glow Soap',
-    category: 'Soaps',
-    price: '₹140.00',
-    desc: 'A moisturizing, glow-enhancing soap bar loaded with organic forest honey and sandalwood oils.',
-    image: '/uploads/Soap/Soap2.jpg',
-    benefits: ['Forest Wild Honey', 'Steam-Distilled Sandalwood', 'Restores Natural Glow']
-  },
-  {
-    id: 103,
-    name: 'Lavender Relaxation Soap',
-    category: 'Soaps',
-    price: '₹130.00',
-    desc: 'Calm mind and body with French lavender essential oils and cold-pressed botanical bases.',
-    image: '/uploads/Soap/Soap3.jpg',
-    benefits: ['French Lavender Oil', 'Calming Aromatherapy', 'Rich Conditioning Lather']
-  },
-  {
-    id: 104,
-    name: 'Rosemary & Tea Tree Shampoo Bar',
-    category: 'Shampoo',
-    price: '₹220.00',
-    desc: 'Solid shampoo bar formulated with fresh rosemary and tea tree to reduce dandruff and strengthen hair roots.',
-    image: '/uploads/Shampoobar/Shampoobar.png',
-    benefits: ['Zero Waste Solid Bar', 'Reduces Dandruff', 'Strengthens Root Follicles']
-  },
-  {
-    id: 105,
-    name: 'Aloe Vera Rejuvenating Gel',
-    category: 'Others',
-    price: '₹180.00',
-    desc: 'Natural cooling moisturizer made with 99% pure aloe vera juice to soothe sunburn and redness.',
-    image: '/uploads/6330345451856531104.jpg',
-    benefits: ['99% Pure Aloe', 'Cools Sunburns & Redness', 'Non-Greasy Hydration']
-  },
-  {
-    id: 106,
-    name: 'Kashmiri Saffron Glow Face Oil',
-    category: 'Moringa',
-    price: '₹399.00',
-    desc: 'Authentic Kumkumadi tailam night serum with saffron threads, sandalwood, and licorice.',
+    name: 'Pureplush Herbal Facewash powder',
+    category: 'moringa',
+    price: '₹249.00',
+    desc: 'Traditional dry face wash powder blend to cleanse pores and restore natural glow.',
     image: '/uploads/FaceWash/Herbal4.png',
-    benefits: ['Authentic Kumkumadi Formula', 'Real Saffron Threads', 'Fades Dark Spots']
-  },
-  {
-    id: 107,
-    name: 'Charcoal & Bamboo Shampoo Bar',
-    category: 'Shampoo',
-    price: '₹230.00',
-    desc: 'Provides deep scalp detox, pulling out oils and impurities with bamboo charcoal and tea tree.',
-    image: '/uploads/Shampoobar/Shampoobar2.png',
-    benefits: ['Active Bamboo Charcoal', 'Deep Scalp Detox', 'Restores Volume & Shine']
+    benefits: ['Deep Cleanses Pores', 'Controls Excess Oil', 'Gentle Natural Exfoliation'],
+    weight: '100g'
   },
   {
     id: 108,
-    name: 'Vedic Neem & Aloe Facewash',
-    category: 'Moringa',
-    price: '₹190.00',
-    desc: 'Gentle, non-drying foaming facewash packed with active neem leaves and cooling aloe vera.',
+    name: 'Pureplush Herbal Facepack',
+    category: 'moringa',
+    price: '₹249.00',
+    desc: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
     image: '/uploads/FaceWash/Herbal1.png',
-    benefits: ['Purifying Organic Neem', 'Hydrating Aloe Vera Gel', 'Fights Acne & Impurities']
+    benefits: ['Detoxifies Skin Barrier', 'Soothes Irritated Skin', 'Brightens & Clarifies Tone'],
+    weight: '100g'
+  },
+  {
+    id: 105,
+    name: 'PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj',
+    category: 'moringa',
+    price: '₹249.00',
+    desc: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.',
+    image: '/uploads/FaceWash/Herbal3.png',
+    benefits: ['Amla & Shikakai Cleanser', 'Bhringraj for Hair Growth', 'Prevents Premature Graying'],
+    weight: '100g'
+  },
+  {
+    id: 101,
+    name: 'Pureplush mangobutter Mud Sea Clay Soap',
+    category: 'soaps',
+    price: '₹99.00',
+    desc: 'Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.',
+    image: '/uploads/Soap/Soap.png',
+    benefits: ['Deep Purifying Mud', 'Moisturizing Mango Butter', 'Handcrafted & Vegan'],
+    weight: '100g'
+  },
+  {
+    id: 102,
+    name: 'Pureplush Sheabutter Multani Mitti Soap',
+    category: 'soaps',
+    price: '₹99.00',
+    desc: 'Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.',
+    image: '/uploads/Soap/Soap3.png',
+    benefits: ['Absorbs Excess Oils', 'Nourishing Shea Butter', 'Combats Acne & Pimples'],
+    weight: '100g'
+  },
+  {
+    id: 103,
+    name: 'Pureplush Goatmilk French Green Clay Soap',
+    category: 'soaps',
+    price: '₹99.00',
+    desc: 'Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.',
+    image: '/uploads/Soap/Soap2.png',
+    benefits: ['Toxin-Extracting Green Clay', 'Soften & Hydrates Skin', 'Rich Goat Milk Proteins'],
+    weight: '100g'
+  },
+  {
+    id: 109,
+    name: 'Pureplush Goatmilk Coffee D Tan Soap',
+    category: 'soaps',
+    price: '₹99.00',
+    desc: 'Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.',
+    image: '/uploads/Soap/new1.png',
+    benefits: ['Brightens & Evens Skin', 'Fresh Farm Goat Milk', 'Natural Coffee Scrub'],
+    weight: '100g'
+  },
+  {
+    id: 104,
+    name: 'Pureplush Multani Mitti Saffron Shampoo Bar',
+    category: 'shampoo',
+    price: '₹199.00',
+    desc: 'Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.',
+    image: '/uploads/Shampoobar/Shampoobar2.png',
+    benefits: ['Scale-Free Scalp Cleansing', 'Infused with Real Saffron', 'Zero Waste Solid Bar'],
+    weight: '80g'
+  },
+  {
+    id: 107,
+    name: 'Pureplush Hibiscus Neemtulsi Shampoo Bar',
+    category: 'shampoo',
+    price: '₹199.00',
+    desc: 'Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.',
+    image: '/uploads/Shampoobar/new2.png',
+    benefits: ['Antibacterial Neem & Tulsi', 'Hibiscus Hair Conditioning', 'Controls Dandruff & Itch'],
+    weight: '80g'
   }
 ];
 
@@ -135,11 +146,12 @@ export default function Chatbot() {
 
   const quickSuggestions = [
     "🌿 Tell me about Pureplush",
-    "🧼 Show Ayurvedic Soaps",
-    "💆‍♀️ Solutions for Hair & Dandruff",
+    "🧼 Handcrafted Ayurvedic Soaps",
+    "💆‍♀️ Hair Wash & Shampoo Bars",
+    "✨ Facepack & Facewash Powders",
+    "✨ Herbal Waxing Powder",
     "🚚 Shipping & Delivery info",
-    "✨ Any current discounts?",
-    "📞 How to contact support?"
+    "🏷️ Current discount codes"
   ];
 
   // Scroll to bottom whenever messages or typing state changes
@@ -186,13 +198,33 @@ export default function Chatbot() {
       if (data.success) {
         replyText = data.reply;
       } else {
-        replyText = data.reply || "I encountered an error. Please try again! 🌸";
+        replyText = data.reply || "Namaste! I am here to help you choose the best Ayurvedic products for your skin and hair care routine! 🌸";
       }
 
-      // Check if any product names are mentioned in the response to dynamically render cards
-      const matchedProducts = PRODUCTS_DB.filter(p => 
-        replyText.toLowerCase().includes(p.name.toLowerCase())
-      );
+      // Check if any product names or distinct product key phrases are mentioned to render cards
+      const matchedProducts = PRODUCTS_DB.filter(p => {
+        const lowerText = replyText.toLowerCase();
+        const lowerName = p.name.toLowerCase();
+        if (lowerText.includes(lowerName)) return true;
+
+        // Match clean name without prefix
+        const cleanName = lowerName.replace(/^pureplush\s+/i, '');
+        if (lowerText.includes(cleanName)) return true;
+
+        // Key product phrase checks
+        if (p.id === 26 && (lowerText.includes('waxing powder') || lowerText.includes('herbal waxing'))) return true;
+        if (p.id === 28 && lowerText.includes('facewash powder')) return true;
+        if (p.id === 108 && lowerText.includes('facepack')) return true;
+        if (p.id === 105 && lowerText.includes('hair wash powder')) return true;
+        if (p.id === 101 && lowerText.includes('mangobutter')) return true;
+        if (p.id === 102 && lowerText.includes('multani mitti soap')) return true;
+        if (p.id === 103 && lowerText.includes('green clay soap')) return true;
+        if (p.id === 109 && lowerText.includes('coffee d tan')) return true;
+        if (p.id === 104 && lowerText.includes('saffron shampoo')) return true;
+        if (p.id === 107 && lowerText.includes('hibiscus neem')) return true;
+
+        return false;
+      });
 
       const botMessage: Message = {
         id: Math.random().toString(36).substring(2, 9),
@@ -210,7 +242,7 @@ export default function Chatbot() {
         {
           id: Math.random().toString(36).substring(2, 9),
           sender: 'bot',
-          text: "I am having trouble connecting to my Ayurvedic repository right now. Please try again in a moment! 🌸",
+          text: "Namaste! 🙏 Welcome to Pureplush. I am your Ayurvedic wellness advisor. How can I guide your natural beauty and health journey today? 🌸",
           timestamp: new Date()
         }
       ]);
@@ -220,18 +252,19 @@ export default function Chatbot() {
   };
 
   const handleProductAction = (productName: string) => {
-    // Add to cart simulation or notify user
     try {
       const existingCart = localStorage.getItem('cart');
       let cart = existingCart ? JSON.parse(existingCart) : [];
-      const dbProduct = PRODUCTS_DB.find(p => p.name === productName);
+      const dbProduct = PRODUCTS_DB.find(p => p.name === productName || p.name.toLowerCase() === productName.toLowerCase());
       
       if (dbProduct) {
         const cartItem = {
           id: dbProduct.id,
           product_name: dbProduct.name,
-          product_price: dbProduct.price.replace('₹', '').replace('.00', ''),
-          image1: dbProduct.image.replace('/uploads/', ''),
+          product_price: dbProduct.price.replace('₹', ''),
+          weight: dbProduct.weight || '100g',
+          brief_details: dbProduct.desc,
+          image1: dbProduct.image.startsWith('/') ? dbProduct.image.substring(1) : dbProduct.image,
           quantity: 1
         };
         
@@ -253,7 +286,7 @@ export default function Chatbot() {
           {
             id: Math.random().toString(36).substring(2, 9),
             sender: 'bot',
-            text: `Added **${productName}** to your cart! 🛍️ You can check the cart drawer in the navbar to checkout.`,
+            text: `Added **${dbProduct.name}** to your cart! 🛍️ You can click the shopping bag in the top header to view your cart and checkout.`,
             timestamp: new Date()
           }
         ]);
@@ -271,7 +304,7 @@ export default function Chatbot() {
           {/* Tooltip */}
           <span className="absolute left-16 ml-2 scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 origin-left bg-white text-forest text-xs font-bold px-3.5 py-2 rounded-xl shadow-xl border border-forest/5 flex items-center space-x-1.5 whitespace-nowrap pointer-events-none text-forest">
             <span className="w-1.5 h-1.5 bg-gold rounded-full animate-ping"></span>
-            <span>Ayurvedic Assistant</span>
+            <span>Ayurvedic Call Support</span>
           </span>
 
           {/* Pulse Glow Effect */}
@@ -290,7 +323,7 @@ export default function Chatbot() {
             } rounded-full shadow-lg text-white transition-all duration-300 focus:outline-none`}
             aria-label="Chat with wellness advisor"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Bot className="w-6 h-6 animate-float" />}
+            {isOpen ? <X className="w-6 h-6" /> : <Headset className="w-6 h-6 animate-float" />}
             {/* Unread dot */}
             {!isOpen && (
               <span className="absolute top-0 right-0 w-3 h-3 bg-gold border-2 border-white rounded-full"></span>
@@ -313,7 +346,7 @@ export default function Chatbot() {
             <div className="p-4 bg-gradient-to-r from-forest to-sage-dark text-white flex items-center justify-between shadow-md">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20 relative shadow-inner">
-                  <Bot className="w-5 h-5 text-gold-light" />
+                  <Headset className="w-5 h-5 text-gold-light" />
                   <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border border-white rounded-full"></span>
                 </div>
                 <div>
@@ -321,7 +354,7 @@ export default function Chatbot() {
                     Pureplush Advisor
                     <Sparkles className="w-3.5 h-3.5 ml-1 text-gold-light" />
                   </h3>
-                  <span className="text-[10px] text-emerald-200">Online | Ayurvedic Expert</span>
+                  <span className="text-[10px] text-emerald-200">Online | Call Support Expert</span>
                 </div>
               </div>
               <button 
@@ -339,7 +372,7 @@ export default function Chatbot() {
                   <div className={`flex items-start space-x-2 ${msg.sender === 'user' ? 'justify-end' : ''}`}>
                     {msg.sender === 'bot' && (
                       <div className="w-7 h-7 rounded-full bg-forest/10 flex items-center justify-center border border-forest/5 flex-shrink-0">
-                        <Bot className="w-3.5 h-3.5 text-forest" />
+                        <Headset className="w-3.5 h-3.5 text-forest" />
                       </div>
                     )}
                     
@@ -394,7 +427,7 @@ export default function Chatbot() {
               {isTyping && (
                 <div className="flex items-start space-x-2">
                   <div className="w-7 h-7 rounded-full bg-forest/10 flex items-center justify-center border border-forest/5 flex-shrink-0">
-                    <Bot className="w-3.5 h-3.5 text-forest" />
+                    <Headset className="w-3.5 h-3.5 text-forest" />
                   </div>
                   <div className="bg-white border border-neutral-100 rounded-2xl rounded-tl-none p-3 shadow-sm flex items-center space-x-1">
                     <div className="w-1.5 h-1.5 bg-forest/60 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
