@@ -6,6 +6,7 @@ import CategorySection from '@/components/CategorySection';
 import ProductCard from '@/components/ProductCard';
 import ProcessSection from '@/components/ProcessSection';
 import BenefitSection from '@/components/BenefitSection';
+import FounderVisionSection from '@/components/FounderVisionSection';
 import { motion } from 'framer-motion';
 import { Leaf, Award, Compass, RefreshCw, ShoppingCart, Tag, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -528,6 +529,9 @@ export default function Home() {
 
       {/* Sourcing Process Timeline */}
       <ProcessSection />
+
+      {/* Founder Story, Vision Statement & Company Details */}
+      <FounderVisionSection />
 
       {/* Featured Products Showcase */}
       <section id="products" className="py-20 bg-cream-light border-t border-forest/5">
