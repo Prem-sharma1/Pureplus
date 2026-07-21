@@ -248,7 +248,17 @@ const MOCK_PRODUCTS: Product[] = [
     point3: 'Controls Dandruff & Itch',
     point4: 'Soothing Scalp Defense',
     point5: 'Biodegradable Travel Bar',
-    productCode: 'PP-SHAMPOO-HIBISCUS-NEEM'
+    productCode: 'PP-SHAMPOO-HIBISCUS-NEEM',
+    product_price: '99.00',
+    original_price: '149.00',
+    product_category: 'soaps',
+    product_discount: 33,
+    image1: 'Soap/new1.png',
+    weight: '100g',
+    point1: 'Brightens & Evens Skin',
+    point2: 'Fresh Farm Goat Milk',
+    point3: 'Natural Coffee Scrub',
+
   }
 ];
 

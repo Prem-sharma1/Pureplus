@@ -46,19 +46,7 @@ export default function OrdersPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const userStored = localStorage.getItem('user');
-    if (userStored) {
-      setIsLoggedIn(true);
-      const user = JSON.parse(userStored);
-      if (user.email) {
-        fetchOrders(user.email);
-      } else {
-        setLoading(false);
-      }
-    } else {
-      setIsLoggedIn(false);
-      setLoading(false);
-    }
+    window.location.href = '/';
   }, []);
 
   const fetchOrders = async (email: string) => {

@@ -20,7 +20,7 @@ const SEED_PRODUCTS = [
     point1: '100% Organic & Natural',
     point2: 'Pain-Free Hair Removal',
     point3: 'Soft & Smooth Results',
-    point4: 'No Skin Irritation',
+    point4: 'No Skin Irrigation',
     point5: 'Chemical Free Base',
     productCode: 'PP-POWDER-WAXING'
   },
@@ -227,8 +227,6 @@ const SEED_PRODUCTS = [
 export async function GET() {
   try {
     const isDbConnected = await testConnection();
-    
-    // If DB is offline, return seed products as fallback so admin/website always shows products
     if (!isDbConnected) {
       console.log('DB offline — returning seed products as fallback.');
       return NextResponse.json({
@@ -239,206 +237,111 @@ export async function GET() {
     }
 
     let products = await query<any[]>('SELECT * FROM add_product ORDER BY id DESC');
-
-    // Ensure all seed products are present and up to date in the database table
     if (products) {
-      // Dynamically add image4 column if it does not exist
+      // Ensure image4 column exists
       try {
         await query('ALTER TABLE add_product ADD COLUMN image4 varchar(255) DEFAULT NULL');
         console.log('Successfully added image4 column to add_product database.');
-      } catch (alterErr) {
-        // Ignored if column already exists
-      }
+      } catch (e) {}
 
-      const existingIds = products.map((p) => p.id);
-      
-      // 1. Delete products in the database that are not in SEED_PRODUCTS
-      const seedIds = SEED_PRODUCTS.map((p) => p.id);
+      const existingIds = products.map(p => p.id);
+      const seedIds = SEED_PRODUCTS.map(p => p.id);
+
+      // Delete obsolete products
       for (const id of existingIds) {
         if (!seedIds.includes(id)) {
-          console.log(`Deleting obsolete product ID ${id} from database...`);
           await query('DELETE FROM add_product WHERE id = ?', [id]);
         }
       }
 
-      // 2. Insert missing or update existing products
+      // Insert missing or update existing
       for (const p of SEED_PRODUCTS) {
         if (!existingIds.includes(p.id)) {
-          console.log(`Seeding missing product ID ${p.id}: ${p.product_name}`);
-          const sql = `INSERT INTO add_product (
-            id, product_name, product_details, brief_details, product_price,
-            original_price, product_category, product_discount, image1,
-            image2, image3, image4, weight, shelf_life, point1, point2,
-            point3, point4, point5, productCode
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-          
-          await query(sql, [
-            p.id, p.product_name, p.product_details, p.brief_details, p.product_price,
-            p.original_price, p.product_category, p.product_discount, p.image1,
-            p.image2, p.image3, p.image4, p.weight, p.shelf_life, p.point1, p.point2,
-            p.point3, p.point4, p.point5, p.productCode
-          ]);
+          const sql = `INSERT INTO add_product (id, product_name, product_details, brief_details, product_price,
+            original_price, product_category, product_discount, image1, image2, image3, image4, weight, shelf_life,
+            point1, point2, point3, point4, point5, productCode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+          await query(sql, [p.id, p.product_name, p.product_details, p.brief_details, p.product_price,
+            p.original_price, p.product_category, p.product_discount, p.image1, p.image2, p.image3, p.image4,
+            p.weight, p.shelf_life, p.point1, p.point2, p.point3, p.point4, p.point5, p.productCode]);
         } else {
-          console.log(`Updating existing product ID ${p.id}: ${p.product_name}`);
-          const sql = `UPDATE add_product SET 
-            product_name = ?, product_details = ?, brief_details = ?, product_price = ?,
-            original_price = ?, product_category = ?, product_discount = ?, image1 = ?,
-            image2 = ?, image3 = ?, image4 = ?, weight = ?, shelf_life = ?, point1 = ?, point2 = ?,
-            point3 = ?, point4 = ?, point5 = ?, productCode = ?
-            WHERE id = ?`;
-          
-          await query(sql, [
-            p.product_name, p.product_details, p.brief_details, p.product_price,
-            p.original_price, p.product_category, p.product_discount, p.image1,
-            p.image2, p.image3, p.image4, p.weight, p.shelf_life, p.point1, p.point2,
-            p.point3, p.point4, p.point5, p.productCode, p.id
-          ]);
+          const sql = `UPDATE add_product SET product_name = ?, product_details = ?, brief_details = ?, product_price = ?,
+            original_price = ?, product_category = ?, product_discount = ?, image1 = ?, image2 = ?, image3 = ?, image4 = ?,
+            weight = ?, shelf_life = ?, point1 = ?, point2 = ?, point3 = ?, point4 = ?, point5 = ?, productCode = ? WHERE id = ?`;
+          await query(sql, [p.product_name, p.product_details, p.brief_details, p.product_price,
+            p.original_price, p.product_category, p.product_discount, p.image1, p.image2, p.image3, p.image4,
+            p.weight, p.shelf_life, p.point1, p.point2, p.point3, p.point4, p.point5, p.productCode, p.id]);
         }
       }
-      // Re-fetch products to get updated list
       products = await query<any[]>('SELECT * FROM add_product ORDER BY id DESC');
     }
 
     if (!products) {
-      return NextResponse.json({
-        success: true,
-        source: 'seed_fallback',
-        products: SEED_PRODUCTS
-      });
+      return NextResponse.json({ success: true, source: 'seed_fallback', products: SEED_PRODUCTS });
     }
-
-    return NextResponse.json({ 
-      success: true,
-      source: 'database',
-      products: products
-    });
-  } catch (error: any) {
+    return NextResponse.json({ success: true, source: 'database', products });
+  } catch (error) {
     console.error('API Products GET route error:', error);
-    // Even on error, return seed products so the site/admin doesn't break
-    return NextResponse.json({
-      success: true,
-      source: 'seed_fallback',
-      products: SEED_PRODUCTS
-    });
+    return NextResponse.json({ success: true, source: 'seed_fallback', products: SEED_PRODUCTS });
   }
 }
 
 export async function POST(req: Request) {
   try {
     const isDbConnected = await testConnection();
-    if (!isDbConnected) {
-      return NextResponse.json({ success: false, error: 'Database connection failed' }, { status: 500 });
-    }
-
+    if (!isDbConnected) return NextResponse.json({ success: false, error: 'Database connection failed' }, { status: 500 });
     const data = await req.json();
-    const fields = [
-      'product_name', 'product_details', 'brief_details', 'product_price',
-      'original_price', 'product_category', 'product_discount', 'image1',
-      'image2', 'image3', 'image4', 'weight', 'shelf_life', 'point1', 'point2',
-      'point3', 'point4', 'point5', 'productCode'
-    ];
-
-    const values: any[] = [];
-    const placeholders: string[] = [];
+    const fields = ['product_name','product_details','brief_details','product_price','original_price','product_category','product_discount','image1','image2','image3','image4','weight','shelf_life','point1','point2','point3','point4','point5','productCode'];
     const insertFields: string[] = [];
-
+    const placeholders: string[] = [];
+    const values: any[] = [];
     for (const f of fields) {
-      if (data[f] !== undefined) {
-        insertFields.push(f);
-        placeholders.push('?');
-        values.push(data[f]);
-      }
+      if (data[f] !== undefined) { insertFields.push(f); placeholders.push('?'); values.push(data[f]); }
     }
-
-    if (insertFields.length === 0) {
-      return NextResponse.json({ success: false, error: 'No fields provided' }, { status: 400 });
-    }
-
+    if (!insertFields.length) return NextResponse.json({ success: false, error: 'No fields provided' }, { status: 400 });
     const sql = `INSERT INTO add_product (${insertFields.join(', ')}) VALUES (${placeholders.join(', ')})`;
     const result: any = await query(sql, values);
-
-    return NextResponse.json({
-      success: true,
-      message: 'Product created successfully',
-      productId: result?.insertId
-    });
-  } catch (error: any) {
-    console.error('API Products POST route error:', error);
-    return NextResponse.json({ success: false, error: error.message || 'Server error' }, { status: 500 });
+    return NextResponse.json({ success: true, message: 'Product created successfully', productId: result?.insertId });
+  } catch (e) {
+    console.error('API Products POST route error:', e);
+    return NextResponse.json({ success: false, error: e.message || 'Server error' }, { status: 500 });
   }
 }
 
 export async function PUT(req: Request) {
   try {
     const isDbConnected = await testConnection();
-    if (!isDbConnected) {
-      return NextResponse.json({ success: false, error: 'Database connection failed' }, { status: 500 });
-    }
-
+    if (!isDbConnected) return NextResponse.json({ success: false, error: 'Database connection failed' }, { status: 500 });
     const data = await req.json();
     const id = data.id;
-    if (!id) {
-      return NextResponse.json({ success: false, error: 'Product ID is required for updates' }, { status: 400 });
-    }
-
-    const fields = [
-      'product_name', 'product_details', 'brief_details', 'product_price',
-      'original_price', 'product_category', 'product_discount', 'image1',
-      'image2', 'image3', 'image4', 'weight', 'shelf_life', 'point1', 'point2',
-      'point3', 'point4', 'point5', 'productCode'
-    ];
-
-    const updateClauses: string[] = [];
+    if (!id) return NextResponse.json({ success: false, error: 'Product ID is required for updates' }, { status: 400 });
+    const fields = ['product_name','product_details','brief_details','product_price','original_price','product_category','product_discount','image1','image2','image3','image4','weight','shelf_life','point1','point2','point3','point4','point5','productCode'];
+    const clauses: string[] = [];
     const values: any[] = [];
-
     for (const f of fields) {
-      if (data[f] !== undefined) {
-        updateClauses.push(`${f} = ?`);
-        values.push(data[f]);
-      }
+      if (data[f] !== undefined) { clauses.push(`${f} = ?`); values.push(data[f]); }
     }
-
-    if (updateClauses.length === 0) {
-      return NextResponse.json({ success: false, error: 'No fields provided for update' }, { status: 400 });
-    }
-
+    if (!clauses.length) return NextResponse.json({ success: false, error: 'No fields provided for update' }, { status: 400 });
     values.push(id);
-    const sql = `UPDATE add_product SET ${updateClauses.join(', ')} WHERE id = ?`;
+    const sql = `UPDATE add_product SET ${clauses.join(', ')} WHERE id = ?`;
     await query(sql, values);
-
-    return NextResponse.json({
-      success: true,
-      message: 'Product updated successfully'
-    });
-  } catch (error: any) {
-    console.error('API Products PUT route error:', error);
-    return NextResponse.json({ success: false, error: error.message || 'Server error' }, { status: 500 });
+    return NextResponse.json({ success: true, message: 'Product updated successfully' });
+  } catch (e) {
+    console.error('API Products PUT route error:', e);
+    return NextResponse.json({ success: false, error: e.message || 'Server error' }, { status: 500 });
   }
 }
 
 export async function DELETE(req: Request) {
   try {
     const isDbConnected = await testConnection();
-    if (!isDbConnected) {
-      return NextResponse.json({ success: false, error: 'Database connection failed' }, { status: 500 });
-    }
-
+    if (!isDbConnected) return NextResponse.json({ success: false, error: 'Database connection failed' }, { status: 500 });
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
-
-    if (!id) {
-      return NextResponse.json({ success: false, error: 'Product ID is required for deletion' }, { status: 400 });
-    }
-
-    const sql = 'DELETE FROM add_product WHERE id = ?';
-    await query(sql, [id]);
-
-    return NextResponse.json({
-      success: true,
-      message: 'Product deleted successfully'
-    });
-  } catch (error: any) {
-    console.error('API Products DELETE route error:', error);
-    return NextResponse.json({ success: false, error: error.message || 'Server error' }, { status: 500 });
+    if (!id) return NextResponse.json({ success: false, error: 'Product ID is required for deletion' }, { status: 400 });
+    await query('DELETE FROM add_product WHERE id = ?', [id]);
+    return NextResponse.json({ success: true, message: 'Product deleted successfully' });
+  } catch (e) {
+    console.error('API Products DELETE route error:', e);
+    return NextResponse.json({ success: false, error: e.message || 'Server error' }, { status: 500 });
   }
 }

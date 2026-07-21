@@ -73,6 +73,7 @@ function ProductImage({ src, alt }: { src: string; alt: string }) {
 
 export default function ProductCard({ product, addingToCartId, onAddToCart, index }: ProductCardProps) {
   const isAdding = addingToCartId === product.id;
+  const displayName = product.product_name.replace(/^Pureplush\s+/i, '');
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
@@ -110,7 +111,7 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
 
       {/* Visual Image Container */}
       <div className="relative h-72 w-full overflow-hidden bg-cream/30 border-b border-charcoal/5 z-10">
-        <ProductImage src={product.image1} alt={product.product_name} />
+        <ProductImage src={product.image1} alt={displayName} />
 
         {/* Shimmer animation on card hover */}
         <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 pointer-events-none" />
@@ -149,7 +150,7 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
 
           {/* Product Name */}
           <h3 className="text-sm font-bold font-serif text-forest tracking-tight group-hover:text-[#4a773c] transition-colors leading-tight">
-            {product.product_name}
+            {displayName}
           </h3>
 
           {/* Short Description */}

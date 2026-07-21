@@ -404,7 +404,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                     {/* Info */}
                     <div className="flex-grow min-w-0">
-                      <h4 className="text-sm font-bold text-forest truncate">{item.product_name}</h4>
+                      <h4 className="text-sm font-bold text-forest truncate">{item.product_name.replace(/^Pureplush\s+/i, '')}</h4>
                       {item.brief_details && (
                         <p className="text-[10px] text-charcoal/60 line-clamp-1 mt-0.5 leading-snug">
                           {item.brief_details}
@@ -498,26 +498,13 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     </>
                   ) : (
                     <>
-                      {!isLoggedIn ? (
-                        <button
-                          onClick={() => {
-                            window.location.href = '/login?redirect=/';
-                            onClose();
-                          }}
-                          className="w-full inline-flex items-center justify-center space-x-2 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group"
-                        >
-                          <span>Login to Checkout</span>
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => setShowShippingForm(true)}
-                          className="w-full inline-flex items-center justify-center space-x-2 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group"
-                        >
-                          <span>Proceed to Checkout</span>
-                          <ShoppingCart className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </button>
-                      )}
+                      <button
+                        onClick={() => setShowShippingForm(true)}
+                        className="w-full inline-flex items-center justify-center space-x-2 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group"
+                      >
+                        <span>Proceed to Checkout</span>
+                        <ShoppingCart className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </button>
                       <button
                         onClick={onClose}
                         className="w-full py-2.5 text-center text-xs font-bold uppercase tracking-wider text-forest/75 hover:text-forest transition-colors"

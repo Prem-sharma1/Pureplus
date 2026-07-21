@@ -135,18 +135,6 @@ export default function Navbar() {
     };
   }, []);
 
-  // Client-side authentication route guard
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    const isLoggedIn = !!user;
-
-    const publicPaths = ['/', '/login', '/signup'];
-    const isPublic = publicPaths.includes(pathname || '') || pathname?.startsWith('/api');
-
-    if (!isLoggedIn && !isPublic) {
-      window.location.href = `/login?redirect=${encodeURIComponent(pathname || '/')}`;
-    }
-  }, [pathname, isLoggedIn]);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -229,58 +217,6 @@ export default function Navbar() {
 
             {/* Right: User & Cart Icons */}
             <div className="flex items-center justify-end space-x-3 sm:space-x-4 w-1/3">
-              {isLoggedIn ? (
-                <div
-                  onMouseEnter={() => setIsUserHovered(true)}
-                  onMouseLeave={() => setIsUserHovered(false)}
-                  className="relative py-1"
-                >
-                  <Link
-                    href="/profile"
-                    className="flex items-center justify-center w-8 h-8 rounded-full bg-forest text-cream hover:bg-forest-light font-bold text-sm shadow-sm transition-all duration-300 hover:scale-105 active:scale-95"
-                    aria-label="View Profile"
-                  >
-                    {username.charAt(0).toUpperCase() || 'P'}
-                  </Link>
-                  {/* Account Dropdown */}
-                  <AnimatePresence>
-                    {isUserHovered && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute right-0 top-[38px] w-56 bg-white border border-forest/10 rounded-2xl shadow-xl p-3 z-50 backdrop-blur-md bg-white/95"
-                      >
-                        <div className="px-3 py-2 border-b border-forest/5 mb-2">
-                          <p className="text-[9px] uppercase font-bold tracking-widest text-sage-dark">Account</p>
-                          <p className="text-xs font-semibold text-charcoal truncate">{username}</p>
-                        </div>
-                        <Link href="/orders" className="flex items-center space-x-2.5 py-2 px-3 rounded-xl text-xs hover:bg-forest/5 text-charcoal font-semibold transition-all duration-200">
-                          <ClipboardList className="w-4 h-4 text-sage" />
-                          <span>My Orders</span>
-                        </Link>
-                        <button
-                          onClick={handleLogout}
-                          className="flex items-center space-x-2.5 py-2 px-3 rounded-xl text-xs hover:bg-red-50 text-red-650 w-full text-left font-semibold transition-all duration-200 cursor-pointer"
-                        >
-                          <LogOut className="w-4 h-4 text-red-500" />
-                          <span>Logout</span>
-                        </button>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ) : (
-                <Link
-                  href="/login"
-                  className="p-2 text-forest hover:bg-forest/5 rounded-full transition-colors flex items-center justify-center"
-                  aria-label="Account Login"
-                >
-                  <User className="w-5 h-5" />
-                </Link>
-              )}
-
               <button
                 onClick={() => setCartOpen(true)}
                 className="relative p-2 text-forest bg-forest/5 rounded-full hover:bg-forest/10 transition-colors"
@@ -462,61 +398,7 @@ export default function Navbar() {
                     </Link>
                   </motion.div>
 
-                  {/* Auth Conditional Mobile Rendering */}
-                  {!isLoggedIn ? (
-                    <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
-                      <Link
-                        href="/login"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center space-x-3 py-2 px-3 rounded-xl hover:bg-forest/5 text-charcoal font-semibold text-sm transition-all"
-                      >
-                        <LogIn className="w-4 h-4 text-sage-dark" />
-                        <span>Login / Signup</span>
-                      </Link>
-                    </motion.div>
-                  ) : (
-                    <>
-                      <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
-                        <Link
-                          href="/profile"
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center space-x-3 py-2.5 px-3 rounded-xl text-forest font-bold text-sm border-b border-forest/5 bg-forest/5 hover:bg-forest/10 transition-colors font-sans"
-                        >
-                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-forest text-cream font-bold text-xs shadow-sm">
-                            {username.charAt(0).toUpperCase() || 'P'}
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-[10px] text-charcoal/40 font-normal">Profile Page</span>
-                            <span className="font-semibold text-charcoal">{username}</span>
-                          </div>
-                        </Link>
-                      </motion.div>
 
-                      <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
-                        <Link
-                          href="/orders"
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center space-x-3 py-2 px-3 rounded-xl hover:bg-forest/5 text-charcoal font-semibold text-sm transition-all"
-                        >
-                          <ClipboardList className="w-4 h-4 text-sage-dark" />
-                          <span>My Orders</span>
-                        </Link>
-                      </motion.div>
-
-                      <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
-                        <button
-                          onClick={() => {
-                            handleLogout();
-                            setMobileMenuOpen(false);
-                          }}
-                          className="flex items-center space-x-3 py-2 px-3 rounded-xl hover:bg-red-50 text-red-650 text-left w-full cursor-pointer text-sm font-semibold transition-all"
-                        >
-                          <LogOut className="w-4 h-4 text-red-500" />
-                          <span>Logout</span>
-                        </button>
-                      </motion.div>
-                    </>
-                  )}
                 </motion.div>
               </div>
 

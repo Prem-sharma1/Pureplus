@@ -34,26 +34,7 @@ export default function ProfilePage() {
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   useEffect(() => {
-    // Check authentication
-    const stored = localStorage.getItem('user');
-    if (!stored) {
-      window.location.href = '/login?redirect=/profile';
-      return;
-    }
-    
-    try {
-      const parsed: UserData = JSON.parse(stored);
-      setUser(parsed);
-      setName(parsed.name || '');
-      setEmail(parsed.email || '');
-      setPhone(parsed.phone || '');
-      setAddress(parsed.address || '');
-      setAvatarUrl(parsed.avatarUrl || AVATAR_PRESETS[0]);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    window.location.href = '/';
   }, []);
 
   const handleSave = (e: React.FormEvent) => {
