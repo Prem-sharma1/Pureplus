@@ -29,14 +29,13 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
             className="flex flex-col space-y-4"
           >
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-cream text-forest rounded-lg flex items-center justify-center shadow-md">
-                <Leaf className="w-4.5 h-4.5" />
-              </div>
-              <span className="font-serif text-2xl font-bold tracking-wide text-white">
-                pureplush
-              </span>
-            </div>
+            <Link href="/" className="inline-block">
+              <img
+                src="/Pureplus.png"
+                alt="Pureplus Logo"
+                className="h-12 md:h-14 w-auto object-contain bg-white/95 px-3 py-1.5 rounded-xl shadow-md hover:scale-105 transition-transform duration-300"
+              />
+            </Link>
             <p className="text-xs text-sage-light leading-relaxed max-w-xs">
               Handcrafting organic remedies and Ayurvedic solutions for modern lives. We harvest natural goodness to provide instant daily wellness.
             </p>

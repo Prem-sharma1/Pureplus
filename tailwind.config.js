@@ -9,24 +9,24 @@ module.exports = {
     extend: {
       colors: {
         forest: {
-          light: "#188a2a",
-          DEFAULT: "#0E5E1C",
-          dark: "#07350f",
+          light: "#28ad37", // Vibrant leaf green from logo leaf
+          DEFAULT: "#0c5b18", // Deep green from Pureplush logo text
+          dark: "#073e10", // Dark botanical shade
         },
         sage: {
-          light: "#81c784",
-          DEFAULT: "#4CAF50",
-          dark: "#2e7d32",
+          light: "#82e08c", // Soft sprout accent
+          DEFAULT: "#34c745", // Bright leaf accent from logo
+          dark: "#1b6323", // Tagline "nature to nurture" green
         },
         cream: {
-          light: "#f9fbf8",
-          DEFAULT: "#f4f8f3",
-          dark: "#e2ede0",
+          light: "#f9fcf8", // Fresh eco background
+          DEFAULT: "#f3f8f2", // Light botanical cream
+          dark: "#dcebd8", // Soft mint-sage wash
         },
         gold: {
-          light: "#ffd54f",
-          DEFAULT: "#FFB300",
-          dark: "#ff8f00",
+          light: "#ffd75e",
+          DEFAULT: "#f5a623",
+          dark: "#d48806",
         },
         charcoal: {
           DEFAULT: "#2C2C2C",

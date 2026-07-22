@@ -332,12 +332,9 @@ export default function AdminDashboard() {
       {/* Mobile Header Topbar */}
       <header className="md:hidden bg-forest text-cream px-5 py-3 flex items-center justify-between border-b border-[#24481f] sticky top-0 z-40 shadow-sm w-full">
         <div className="flex items-center space-x-2.5">
-          <div className="w-8 h-8 rounded-lg bg-sage flex items-center justify-center text-forest text-base font-bold font-serif shadow-inner">
-            P
-          </div>
+          <img src="/Pureplus.png" alt="Pureplus Admin" className="h-7 w-auto object-contain bg-white/90 px-2 py-1 rounded-lg" />
           <div>
-            <span className="font-serif text-base font-bold tracking-tight block">Pureplush</span>
-            <span className="text-[9px] text-sage font-bold tracking-widest uppercase -mt-0.5 block">Admin</span>
+            <span className="text-[9px] text-sage font-bold tracking-widest uppercase block">Admin Panel</span>
           </div>
         </div>
         
@@ -357,12 +354,9 @@ export default function AdminDashboard() {
         <div>
           {/* Brand Logo header */}
           <div className="p-6 border-b border-[#24481f] flex items-center space-x-3 hidden md:flex">
-            <div className="w-9 h-9 rounded-xl bg-sage flex items-center justify-center text-forest text-xl font-bold font-serif shadow-inner">
-              P
-            </div>
+            <img src="/Pureplus.png" alt="Pureplus" className="h-9 w-auto object-contain bg-white/95 px-2.5 py-1 rounded-xl shadow-sm" />
             <div>
-              <span className="font-serif text-xl font-bold tracking-tight block">Pureplush</span>
-              <span className="text-[10px] text-sage font-bold tracking-widest uppercase -mt-1 block">Apothecary Admin</span>
+              <span className="text-[10px] text-sage font-bold tracking-widest uppercase block">Admin Panel</span>
             </div>
           </div>
 

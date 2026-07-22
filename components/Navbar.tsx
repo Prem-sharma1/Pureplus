@@ -202,16 +202,12 @@ export default function Navbar() {
 
             {/* Center: Brand Logo */}
             <div className="flex justify-center items-center w-1/3 text-center">
-              <Link href="/" className="flex flex-col items-center group">
-                <div className="flex items-center space-x-1.5">
-                  <Leaf className="w-5.5 h-5.5 text-forest" />
-                  <span className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-forest leading-none">
-                    pureplush
-                  </span>
-                </div>
-                <span className="text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-sage-dark font-bold mt-1">
-                  nature to nurture
-                </span>
+              <Link href="/" className="flex flex-col items-center group py-1">
+                <img
+                  src="/Pureplus.png"
+                  alt="Pureplus Logo"
+                  className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-sm"
+                />
               </Link>
             </div>
 
@@ -312,12 +308,13 @@ export default function Navbar() {
             >
               <div className="flex flex-col h-full mt-10">
                 <div className="flex items-center justify-between mb-8 border-b border-forest/5 pb-4">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-7 h-7 bg-forest rounded-lg flex items-center justify-center">
-                      <Leaf className="w-4 h-4 text-cream" />
-                    </div>
-                    <span className="font-serif text-lg font-bold text-forest">pureplush</span>
-                  </div>
+                  <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center space-x-2">
+                    <img
+                      src="/Pureplus.png"
+                      alt="Pureplus"
+                      className="h-8 w-auto object-contain"
+                    />
+                  </Link>
                 </div>
 
                 <motion.div

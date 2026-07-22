@@ -6,33 +6,33 @@
 
 @layer base {
   :root {
-    --background: 100 13% 98%; /* #f9fbf8 (clean cream) */
+    --background: 110 30% 97%; /* #f3f8f2 (fresh botanical cream) */
     --foreground: 0 0% 17%;    /* #2C2C2C (charcoal) */
     
-    --card: 100 13% 99%;
+    --card: 110 30% 99%;
     --card-foreground: 0 0% 17%;
     
-    --popover: 100 13% 99%;
+    --popover: 110 30% 99%;
     --popover-foreground: 0 0% 17%;
     
-    --primary: 130 74% 21%;   /* #0E5E1C (forest green) */
-    --primary-foreground: 100 13% 98%;
+    --primary: 129 77% 21%;   /* #0c5b18 (Pureplush logo text green) */
+    --primary-foreground: 110 30% 97%;
     
-    --secondary: 122 39% 49%; /* #4CAF50 (vibrant leaf green) */
-    --secondary-foreground: 130 74% 21%;
+    --secondary: 128 62% 46%; /* #2dbe3d (Pureplush leaf emblem green) */
+    --secondary-foreground: 129 77% 21%;
     
-    --muted: 100 10% 92%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 110 20% 92%;
+    --muted-foreground: 129 30% 30%;
     
-    --accent: 42 100% 50%;     /* #FFB300 (vibrant amber) */
-    --accent-foreground: 130 74% 21%;
+    --accent: 128 60% 49%;    /* #34c745 (Bright leaf green) */
+    --accent-foreground: 129 77% 21%;
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 100 10% 88%;
-    --input: 100 10% 90%;
-    --ring: 130 74% 21%;
+    --border: 110 20% 88%;
+    --input: 110 20% 90%;
+    --ring: 129 77% 21%;
 
     --radius: 0.75rem;
 
