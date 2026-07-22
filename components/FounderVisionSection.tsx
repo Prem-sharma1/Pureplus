@@ -224,7 +224,7 @@ export default function FounderVisionSection() {
           </div>
         </div>
 
-        {/* SECTION 3: COMPANY & GST DETAILS (ROYAL WINGS TRADERS) */}
+        {/* SECTION 3: COMPANY & GST DETAILS (NEXORA TRADING CO - OFFICIAL BRAND MARKETING PARTNER) */}
         <div className="pt-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -242,10 +242,10 @@ export default function FounderVisionSection() {
                   <span>Corporate Details</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white">
-                  Royal Wings Traders
+                  Nexora Trading Co
                 </h3>
                 <p className="text-sage-light text-xs sm:text-sm leading-relaxed">
-                  Pureplush is owned & operated under Royal Wings Traders, committing to transparent business practices, authentic sourcing, and registered tax compliance.
+                  Pureplush is marketed by Nexora Trading Co (Official Brand Marketing Partner), committing to transparent business practices, authentic sourcing, and registered tax compliance.
                 </p>
                 <div className="pt-2 flex items-center space-x-2 text-gold font-sans font-semibold text-xs uppercase tracking-wider">
                   <FileText className="w-4 h-4" />
@@ -258,10 +258,10 @@ export default function FounderVisionSection() {
                 <div className="bg-forest-light/40 backdrop-blur-sm p-5 rounded-2xl border border-cream/10 space-y-2">
                   <div className="flex items-center space-x-2 text-gold">
                     <Building2 className="w-4 h-4" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-white">Legal Entity Name</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-white">Legal Marketing Partner</span>
                   </div>
-                  <p className="text-sm font-semibold text-cream">Royal Wings Traders</p>
-                  <p className="text-[11px] text-sage-light">Official Merchant & Operating Company</p>
+                  <p className="text-sm font-semibold text-cream">Nexora Trading Co</p>
+                  <p className="text-[11px] text-sage-light">Official Brand Marketing Partner</p>
                 </div>
 
                 <div className="bg-forest-light/40 backdrop-blur-sm p-5 rounded-2xl border border-cream/10 space-y-2">
@@ -269,8 +269,8 @@ export default function FounderVisionSection() {
                     <FileText className="w-4 h-4" />
                     <span className="text-xs font-bold uppercase tracking-wider text-white">GST Compliance</span>
                   </div>
-                  <p className="text-sm font-semibold text-cream">GST Registered Entity</p>
-                  <p className="text-[11px] text-sage-light">GST tax details provided on official invoice</p>
+                  <p className="text-xs font-semibold text-cream">GSTIN: 27IAFPK3618R1ZZ</p>
+                  <p className="text-[11px] text-sage-light">Proprietorship (Jatin Ramesh Kotani)</p>
                 </div>
 
                 <div className="bg-forest-light/40 backdrop-blur-sm p-5 rounded-2xl border border-cream/10 space-y-2">
@@ -279,7 +279,7 @@ export default function FounderVisionSection() {
                     <span className="text-xs font-bold uppercase tracking-wider text-white">Registered Address</span>
                   </div>
                   <p className="text-xs text-cream leading-relaxed font-medium">
-                    Royal Wings Traders, Block I 137/5, Uttara Kannada, Karnataka - 581362, India
+                    SR NO. 27/2, Near Viman Build, Munjaba Wasti, Sudama Nagar, Dhanori, Pune, Maharashtra - 411015
                   </p>
                 </div>
 

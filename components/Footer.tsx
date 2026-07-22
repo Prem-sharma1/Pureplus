@@ -105,11 +105,11 @@ export default function Footer() {
               <li className="flex items-start space-x-2.5">
                 <MapPin className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
-                  Royal Wings Traders, Block I 137/5, Uttara Kannada, Karnataka - 581362
+                  Nexora Trading Co, SR NO. 27/2, Near Viman Build, Munjaba Wasti, Sudama Nagar, Dhanori, Pune, Maharashtra - 411015
                 </span>
               </li>
               <li className="pt-2 text-[11px] text-gold/90 font-medium">
-                <span>GST Registered Entity: <strong className="text-white">Royal Wings Traders</strong></span>
+                <span>Official Brand Marketing Partner: <strong className="text-white">Nexora Trading Co</strong> (GSTIN: 27IAFPK3618R1ZZ)</span>
               </li>
             </ul>
           </motion.div>
@@ -147,7 +147,7 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 text-[11px] text-sage-light/75">
-          <p>© {new Date().getFullYear()} pureplush by Royal Wings Traders. Nature to Nurture. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} pureplush. Marketed by Nexora Trading Co (Official Brand Marketing Partner). Nature to Nurture. All Rights Reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

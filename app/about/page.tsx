@@ -32,7 +32,7 @@ export default function AboutPage() {
               Rooted in Nature, Crafted with Purpose
             </h1>
             <p className="text-sage-light text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-              Discover the heart behind Pureplush, our Ayurvedic roots, founder's journey, vision for holistic wellness, and our operating parent company Royal Wings Traders.
+              Discover the heart behind Pureplush, our Ayurvedic roots, founder's journey, vision for holistic wellness, and our official brand marketing partner Nexora Trading Co.
             </p>
           </motion.div>
         </div>
