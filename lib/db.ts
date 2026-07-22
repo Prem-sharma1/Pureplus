@@ -56,7 +56,11 @@ export async function testConnection(): Promise<boolean> {
     connection.release();
     return true;
   } catch (error: any) {
-    console.warn('Database connection test failed:', error);
+    if (error?.code === 'ECONNREFUSED') {
+      console.log(`[DB] MySQL offline (${dbConfig.host}:${dbConfig.port}) — fallback mode active.`);
+    } else {
+      console.warn('Database connection test failed:', error?.message || error);
+    }
     return false;
   }
 }

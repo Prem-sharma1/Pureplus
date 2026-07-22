@@ -238,11 +238,11 @@ export async function GET() {
 
     let products = await query<any[]>('SELECT * FROM add_product ORDER BY id DESC');
     if (products) {
-      // Ensure image4 column exists
-      try {
+      // Ensure image4 column exists if missing
+      if (products.length > 0 && !('image4' in products[0])) {
         await query('ALTER TABLE add_product ADD COLUMN image4 varchar(255) DEFAULT NULL');
         console.log('Successfully added image4 column to add_product database.');
-      } catch (e) {}
+      }
 
       const existingIds = products.map(p => p.id);
       const seedIds = SEED_PRODUCTS.map(p => p.id);
