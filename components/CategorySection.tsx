@@ -8,7 +8,7 @@ const categories = [
   {
     id: 1,
     title: 'SHAMPOO BARS',
-    image: '/Categoryimg/Category3.jpeg',
+    image: '/Categoryimg/Category1.jpeg',
     link: '/category/shampoo',
   },
   {
@@ -20,7 +20,7 @@ const categories = [
   {
     id: 3,
     title: 'HERBAL POWDERS',
-    image: '/Categoryimg/Category1.jpeg',
+    image: '/Categoryimg/Category3.jpeg',
     link: '/category/moringa',
   },
 ];
