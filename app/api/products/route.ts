@@ -301,9 +301,9 @@ export async function POST(req: Request) {
     const sql = `INSERT INTO add_product (${insertFields.join(', ')}) VALUES (${placeholders.join(', ')})`;
     const result: any = await query(sql, values);
     return NextResponse.json({ success: true, message: 'Product created successfully', productId: result?.insertId });
-  } catch (e) {
+  } catch (e: any) {
     console.error('API Products POST route error:', e);
-    return NextResponse.json({ success: false, error: e.message || 'Server error' }, { status: 500 });
+    return NextResponse.json({ success: false, error: e?.message || 'Server error' }, { status: 500 });
   }
 }
 
@@ -325,9 +325,9 @@ export async function PUT(req: Request) {
     const sql = `UPDATE add_product SET ${clauses.join(', ')} WHERE id = ?`;
     await query(sql, values);
     return NextResponse.json({ success: true, message: 'Product updated successfully' });
-  } catch (e) {
+  } catch (e: any) {
     console.error('API Products PUT route error:', e);
-    return NextResponse.json({ success: false, error: e.message || 'Server error' }, { status: 500 });
+    return NextResponse.json({ success: false, error: e?.message || 'Server error' }, { status: 500 });
   }
 }
 
@@ -340,8 +340,8 @@ export async function DELETE(req: Request) {
     if (!id) return NextResponse.json({ success: false, error: 'Product ID is required for deletion' }, { status: 400 });
     await query('DELETE FROM add_product WHERE id = ?', [id]);
     return NextResponse.json({ success: true, message: 'Product deleted successfully' });
-  } catch (e) {
+  } catch (e: any) {
     console.error('API Products DELETE route error:', e);
-    return NextResponse.json({ success: false, error: e.message || 'Server error' }, { status: 500 });
+    return NextResponse.json({ success: false, error: e?.message || 'Server error' }, { status: 500 });
   }
 }
