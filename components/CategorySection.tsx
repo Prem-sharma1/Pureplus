@@ -7,9 +7,9 @@ import { motion } from 'framer-motion';
 const categories = [
   {
     id: 1,
-    title: 'HERBAL POWDERS',
-    image: '/Categoryimg/Category1.jpeg',
-    link: '/category/moringa',
+    title: 'SHAMPOO BARS',
+    image: '/Categoryimg/Category3.jpeg',
+    link: '/category/shampoo',
   },
   {
     id: 2,
@@ -19,9 +19,9 @@ const categories = [
   },
   {
     id: 3,
-    title: 'SHAMPOO BARS',
-    image: '/Categoryimg/Category3.jpeg',
-    link: '/category/shampoo',
+    title: 'HERBAL POWDERS',
+    image: '/Categoryimg/Category1.jpeg',
+    link: '/category/moringa',
   },
 ];
 
