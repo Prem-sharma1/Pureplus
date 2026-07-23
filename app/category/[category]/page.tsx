@@ -24,6 +24,8 @@ interface Product {
   point3?: string;
 }
 
+import { resolveImagePath } from '@/lib/imageUtils';
+
 function ProductImage({ src, alt }: { src: string; alt: string }) {
   const [hasError, setHasError] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
@@ -33,7 +35,7 @@ function ProductImage({ src, alt }: { src: string; alt: string }) {
       setHasError(true);
       return;
     }
-    const path = src.startsWith('uploads/') ? `/${src}` : `/uploads/${src}`;
+    const path = resolveImagePath(src);
     setImageSrc(path);
     setHasError(false);
   }, [src]);
@@ -631,7 +633,7 @@ export default function CategoryPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 sm:gap-10">
             {filteredProducts.map((product, idx) => (
               <motion.div
                 key={product.id}
@@ -642,9 +644,9 @@ export default function CategoryPage() {
                 onClick={() => {
                   window.location.href = `/product/${product.id}`;
                 }}
-                className="bg-white border border-forest/10 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group cursor-pointer"
+                className="bg-white border border-forest/10 rounded-3xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between group cursor-pointer"
               >
-                <div className="relative bg-cream h-64 w-full border-b border-forest/5 overflow-hidden">
+                <div className="relative bg-white h-80 sm:h-96 min-h-[340px] w-full border-b border-forest/5 overflow-hidden p-3 flex items-center justify-center">
                   <ProductImage src={product.image1} alt={product.product_name} />
                   {product.product_discount > 0 && (
                     <span className="absolute top-4 left-4 bg-gold text-forest text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center space-x-1 shadow-sm">

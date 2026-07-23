@@ -8,6 +8,11 @@ import Chatbot from '@/components/Chatbot';
 export const metadata: Metadata = {
   title: 'Pureplush | Premium Ayurvedic & Natural Wellness Shop',
   description: 'Pureplush brings you premium Ayurvedic, handcrafted skincare powders, luxury soaps, shampoo bars, and natural wellness products designed for ultimate body care.',
+  icons: {
+    icon: '/Pureplus.png',
+    shortcut: '/Pureplus.png',
+    apple: '/Pureplus.png',
+  },
 };
 
 export default function RootLayout({

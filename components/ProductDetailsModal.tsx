@@ -33,6 +33,8 @@ interface ProductDetailsModalProps {
   onAddToCart: (id: number, quantity: number) => void;
 }
 
+import { resolveImagePath } from '@/lib/imageUtils';
+
 export default function ProductDetailsModal({ product, isOpen, onClose, onAddToCart }: ProductDetailsModalProps) {
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -67,30 +69,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
     }, 800);
   };
 
-  const getImagePath = (imgName: string) => {
-    if (!imgName) return '';
-    if (imgName.startsWith('/') || imgName.startsWith('http')) return imgName;
-    if (
-      imgName.startsWith('CoffeeD/') ||
-      imgName.startsWith('Categoryimg/') ||
-      imgName.startsWith('FaceWash/') ||
-      imgName.startsWith('Shampoobar/') ||
-      imgName.startsWith('Soap/') ||
-      imgName.startsWith('Herbal/') ||
-      imgName.startsWith('Multanimitti/') ||
-      imgName.startsWith('MangoButter/') ||
-      imgName.startsWith('Frenchgreenclay/') ||
-      imgName.startsWith('Herbalfacepack/') ||
-      imgName.startsWith('Hibisus neem/') ||
-      imgName.startsWith('multanimittishampoo/')
-    ) {
-      return `/${imgName}`;
-    }
-    if (imgName.startsWith('uploads/')) {
-      return `/${imgName}`;
-    }
-    return `/uploads/${imgName}`;
-  };
+  const getImagePath = (imgName: string) => resolveImagePath(imgName);
 
   return (
     <AnimatePresence>

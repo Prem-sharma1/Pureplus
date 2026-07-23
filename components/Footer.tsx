@@ -65,19 +65,22 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3.5 text-xs text-sage-light">
               <li>
-                <Link href="/" className="hover:text-gold transition-colors">Home Page</Link>
+                <Link href="/privacy-policy" className="hover:text-gold transition-colors">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="#categories" className="hover:text-gold transition-colors">Categories</Link>
+                <Link href="/shipping-policy" className="hover:text-gold transition-colors">Shipping & Delivery Policy</Link>
               </li>
               <li>
-                <Link href="#products" className="hover:text-gold transition-colors">Featured Products</Link>
+                <Link href="/refund-policy" className="hover:text-gold transition-colors">Refund & Return Policy</Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-gold transition-colors">Founder's Story & Vision</Link>
+                <Link href="/terms-and-conditions" className="hover:text-gold transition-colors">Terms and Conditions</Link>
               </li>
               <li>
-                <Link href="/admin" className="hover:text-gold transition-colors text-white font-medium border-t border-cream/10 pt-2 block mt-1">Admin Panel</Link>
+                <Link href="/contact-us" className="hover:text-gold transition-colors">Contact Us & CallBack</Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-gold transition-colors">Founder&apos;s Story & Vision</Link>
               </li>
             </ul>
           </motion.div>
@@ -96,7 +99,11 @@ export default function Footer() {
             <ul className="space-y-3.5 text-xs text-sage-light">
               <li className="flex items-center space-x-2.5">
                 <Mail className="w-4 h-4 text-gold flex-shrink-0" />
-                <span className="break-all">support@pureplush.in</span>
+                <span className="break-all">impexsaish@gmail.com</span>
+              </li>
+              <li className="flex items-center space-x-2.5">
+                <Mail className="w-4 h-4 text-gold flex-shrink-0" />
+                <span className="break-all">info@pureplush.in</span>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Phone className="w-4 h-4 text-gold flex-shrink-0" />
@@ -105,7 +112,7 @@ export default function Footer() {
               <li className="flex items-start space-x-2.5">
                 <MapPin className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
-                  Nexora Trading Co, SR NO. 27/2, Near Viman Build, Munjaba Wasti, Sudama Nagar, Dhanori, Pune, Maharashtra - 411015
+                  Nexora Trading Co, SR NO. 27/2, Near Viman Build, Dhanori, Pune, Maharashtra - 411015
                 </span>
               </li>
               <li className="pt-2 text-[11px] text-gold/90 font-medium">
@@ -148,10 +155,12 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 text-[11px] text-sage-light/75">
           <p>© {new Date().getFullYear()} pureplush. Marketed by Nexora Trading Co (Official Brand Marketing Partner). Nature to Nurture. All Rights Reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Shipping & Returns</a>
+          <div className="flex flex-wrap gap-4 sm:gap-6 mt-4 md:mt-0 justify-center">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/shipping-policy" className="hover:text-white transition-colors">Shipping Policy</Link>
+            <Link href="/refund-policy" className="hover:text-white transition-colors">Refund Policy</Link>
+            <Link href="/terms-and-conditions" className="hover:text-white transition-colors">Terms and Conditions</Link>
+            <Link href="/contact-us" className="hover:text-white transition-colors">Contact Us</Link>
           </div>
         </div>
 

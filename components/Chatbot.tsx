@@ -309,23 +309,22 @@ export default function Chatbot() {
   return (
     <>
       {/* Floating Chat Trigger Button */}
-      <div className="fixed bottom-6 left-6 z-50 flex items-center">
-        <div className="relative group">
+      <div className="fixed bottom-5 left-6 z-50 flex flex-col items-center">
+        <div className="relative group flex flex-col items-center cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
           {/* Tooltip */}
-          <span className="absolute left-16 ml-2 scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 origin-left bg-white text-forest text-xs font-bold px-3.5 py-2 rounded-xl shadow-xl border border-forest/5 flex items-center space-x-1.5 whitespace-nowrap pointer-events-none text-forest">
+          <span className="absolute left-16 top-1 ml-2 scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 origin-left bg-white text-forest text-xs font-bold px-3.5 py-2 rounded-xl shadow-xl border border-forest/5 flex items-center space-x-1.5 whitespace-nowrap pointer-events-none text-forest">
             <span className="w-1.5 h-1.5 bg-gold rounded-full animate-ping"></span>
-            <span>Ayurvedic Call Support</span>
+            <span>Ayurvedic Support & AI Assistant</span>
           </span>
 
           {/* Pulse Glow Effect */}
           {!isOpen && (
-            <span className="absolute inset-0 rounded-full bg-forest/20 animate-ping opacity-75 pointer-events-none"></span>
+            <span className="absolute top-0 left-0 w-14 h-14 rounded-full bg-forest/20 animate-ping opacity-75 pointer-events-none"></span>
           )}
 
           <motion.button
-            onClick={() => setIsOpen(!isOpen)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
             className={`relative flex items-center justify-center w-14 h-14 bg-gradient-to-tr ${
               isOpen 
                 ? 'from-charcoal via-neutral-700 to-charcoal hover:shadow-black/20' 
@@ -336,9 +335,15 @@ export default function Chatbot() {
             {isOpen ? <X className="w-6 h-6" /> : <Headset className="w-6 h-6 animate-float" />}
             {/* Unread dot */}
             {!isOpen && (
-              <span className="absolute top-0 right-0 w-3 h-3 bg-gold border-2 border-white rounded-full"></span>
+              <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-gold border-2 border-white rounded-full"></span>
             )}
           </motion.button>
+
+          {/* Ask Me Badge directly down to icon */}
+          <span className="mt-1.5 px-3 py-0.5 bg-forest text-gold text-[11px] font-extrabold tracking-wider uppercase rounded-full shadow-md border border-gold/40 hover:bg-forest-dark hover:text-white transition-all flex items-center space-x-1">
+            <Sparkles className="w-3 h-3 text-gold" />
+            <span>Ask Me</span>
+          </span>
         </div>
       </div>
 

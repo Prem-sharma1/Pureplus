@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ShoppingCart, Plus, Minus, Trash2, ArrowRight, ShieldCheck, RefreshCw } from 'lucide-react';
+import { resolveImagePath } from '@/lib/imageUtils';
 
 interface CartItem {
   id: number;
@@ -391,7 +392,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       {item.image1 ? (
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img
-                          src={item.image1.startsWith('uploads/') ? `/${item.image1}` : `/uploads/${item.image1}`}
+                          src={resolveImagePath(item.image1)}
                           alt={item.product_name}
                           className="w-full h-full object-cover"
                           onError={(e) => {

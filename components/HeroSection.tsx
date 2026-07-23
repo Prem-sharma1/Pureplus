@@ -69,12 +69,12 @@ export default function HeroSection() {
 
   return (
     <section 
-      className="relative w-full overflow-hidden bg-white group h-[190px] xs:h-[225px] sm:h-auto"
+      className="relative w-full overflow-hidden bg-white group h-auto"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Ghost spacer to establish natural banner aspect ratio height dynamically for Tablet, PC & Laptop */}
-      <div className="w-full relative z-0 select-none pointer-events-none hidden sm:block">
+      {/* Ghost spacer to establish natural banner aspect ratio height dynamically for Mobile, Tablet, PC & Laptop */}
+      <div className="w-full relative z-0 select-none pointer-events-none block">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={CAROUSEL_SLIDES[0].image}
@@ -99,7 +99,7 @@ export default function HeroSection() {
               <img
                 src={activeSlide.image}
                 alt={activeSlide.alt}
-                className="w-full h-full object-cover object-center scale-[1.06] sm:scale-100 transition-transform duration-500 select-none"
+                className="w-full h-full object-cover object-center scale-[1.13] transition-transform duration-500 select-none"
               />
             </Link>
           </motion.div>
@@ -109,28 +109,28 @@ export default function HeroSection() {
       {/* Navigation Arrows (Reveal beautifully on hover) */}
       <button
         onClick={handlePrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/70 hover:bg-white text-forest border border-forest/10 hover:border-forest/30 backdrop-blur-sm shadow-md transition-all duration-300 transform active:scale-95 opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/70 hover:bg-white text-forest border border-forest/10 hover:border-forest/30 backdrop-blur-sm shadow-md transition-all duration-300 transform active:scale-95 opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+        <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
       </button>
       <button
         onClick={handleNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/70 hover:bg-white text-forest border border-forest/10 hover:border-forest/30 backdrop-blur-sm shadow-md transition-all duration-300 transform active:scale-95 opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/70 hover:bg-white text-forest border border-forest/10 hover:border-forest/30 backdrop-blur-sm shadow-md transition-all duration-300 transform active:scale-95 opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none"
         aria-label="Next slide"
       >
-        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+        <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
       </button>
 
       {/* Modern bottom dots indicators */}
-      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex space-x-2.5 bg-black/10 backdrop-blur-md px-3.5 py-2 rounded-full">
+      <div className="absolute bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex space-x-1.5 sm:space-x-2.5 bg-black/20 backdrop-blur-md px-2.5 py-1 sm:px-3.5 sm:py-2 rounded-full">
         {CAROUSEL_SLIDES.map((slide, idx) => (
           <button
             key={slide.id}
             onClick={() => handleDotClick(idx)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none ${
+            className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 focus:outline-none ${
               currentIdx === idx 
-                ? 'bg-gold w-6' 
+                ? 'bg-gold w-4 sm:w-6' 
                 : 'bg-white/60 hover:bg-white'
             }`}
             aria-label={`Go to slide ${idx + 1}`}

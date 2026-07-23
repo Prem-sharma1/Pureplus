@@ -23,6 +23,8 @@ interface Product {
   point3?: string;
 }
 
+import { resolveImagePath } from '@/lib/imageUtils';
+
 function ProductImage({ src, alt }: { src: string; alt: string }) {
   const [hasError, setHasError] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
@@ -32,7 +34,7 @@ function ProductImage({ src, alt }: { src: string; alt: string }) {
       setHasError(true);
       return;
     }
-    const path = src.startsWith('uploads/') ? `/${src}` : `/uploads/${src}`;
+    const path = resolveImagePath(src);
     setImageSrc(path);
     setHasError(false);
   }, [src]);
@@ -714,7 +716,7 @@ export default function ShopPage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 sm:gap-10">
             {filteredProducts.map((product, idx) => (
               <ProductCard
                 key={`shop-${product.id}-${idx}`}
