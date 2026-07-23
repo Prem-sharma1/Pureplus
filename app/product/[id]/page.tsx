@@ -39,8 +39,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal2.png',
-    image2: 'Artboard 1 (2).png',
+    image1: 'uploads/Herbal2.png',
+    image2: 'uploads/herbal_waxing_powder_banner_1784778537801.png',
     image3: '',
     image4: '',
     weight: '100g',
@@ -61,8 +61,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal4.png',
-    image2: 'Artboard 1 (1).png',
+    image1: 'uploads/Herbal4.png',
+    image2: 'uploads/Artboard 1 (1).png',
     image3: '',
     image4: '',
     weight: '100g',
@@ -83,10 +83,10 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal1.png',
-    image2: 'Artboard 1.png',
-    image3: 'Artboard 2.png',
-    image4: 'Artboard 5 (1).png',
+    image1: 'Herbalfacepack/Artboard 1.png',
+    image2: 'Herbalfacepack/Artboard 2.png',
+    image3: '',
+    image4: '',
     weight: '100g',
     shelf_life: '12 Months',
     point1: 'Detoxifies Skin Barrier',
@@ -105,10 +105,10 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '349.00',
     product_category: 'moringa',
     product_discount: 29,
-    image1: 'FaceWash/Herbal3.png',
-    image2: 'WhatsApp Image 2026-01-27 at 11.19.00 AM (1).jpeg',
-    image3: 'WhatsApp Image 2026-01-27 at 11.19.00 AM (2).jpeg',
-    image4: 'WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
+    image1: 'Herbal/Herbal3.png',
+    image2: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
+    image3: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM (1).jpeg',
+    image4: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM (2).jpeg',
     weight: '100g',
     shelf_life: '12 Months',
     point1: 'Amla & Shikakai Cleanser',
@@ -127,10 +127,10 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/Soap.png',
-    image2: '1770431215716.png',
-    image3: 'IMG-20260123-WA0020.jpg',
-    image4: 'IMG-20260123-WA0021.jpg',
+    image1: 'MangoButter/Soap.png',
+    image2: 'MangoButter/WhatsApp Image 2026-07-15 at 5.18.11 PM.jpeg',
+    image3: 'MangoButter/IMG-20260123-WA0020.jpg',
+    image4: '',
     weight: '100g',
     shelf_life: '24 Months',
     point1: 'Deep Purifying Mud',
@@ -149,9 +149,9 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/Soap3.png',
-    image2: '1770431254493.png',
-    image3: 'IMG-20260205-WA0002.jpg',
+    image1: 'Multanimitti/Soap3.png',
+    image2: 'Multanimitti/WhatsApp Image 2026-07-10 at 7.10.16 PM (1).jpeg',
+    image3: '',
     image4: '',
     weight: '100g',
     shelf_life: '24 Months',
@@ -171,10 +171,10 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/Soap2.png',
-    image2: '1770431142988.png',
-    image3: 'IMG-20260123-WA0014.jpg',
-    image4: 'IMG-20260205-WA0000.jpg',
+    image1: 'Frenchgreenclay/Soap2.png',
+    image2: 'Frenchgreenclay/WhatsApp Image 2026-07-10 at 7.10.16 PM.jpeg',
+    image3: '',
+    image4: '',
     weight: '100g',
     shelf_life: '24 Months',
     point1: 'Toxin-Extracting Green Clay',
@@ -193,8 +193,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/new1.png',
-    image2: '',
+    image1: 'CoffeeD/new1.png',
+    image2: 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg',
     image3: '',
     image4: '',
     weight: '100g',
@@ -215,10 +215,10 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'shampoo',
     product_discount: 33,
-    image1: 'Shampoobar/Shampoobar2.png',
-    image2: '1770380073526.png',
-    image3: 'file_00000000267071f8b9d3086f51ee7abc(3).png',
-    image4: 'file_00000000267071f8b9d3086f51ee7abc(4).png',
+    image1: 'multanimittishampoo/Shampoobar2.png',
+    image2: 'multanimittishampoo/1770380073526.png',
+    image3: '',
+    image4: '',
     weight: '80g',
     shelf_life: '18 Months',
     point1: 'Scale-Free Scalp Cleansing',
@@ -237,10 +237,10 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'shampoo',
     product_discount: 33,
-    image1: 'Shampoobar/new2.png',
-    image2: '1770379957428.png',
-    image3: 'IMG-20260119-WA0004.jpg',
-    image4: 'IMG-20260119-WA0006.jpg',
+    image1: 'Hibisus neem/new2.png',
+    image2: 'Hibisus neem/Hibiscus neem tulsi1.jpeg',
+    image3: 'Hibisus neem/hibiscus neem tulsi2.jpeg',
+    image4: '',
     weight: '80g',
     shelf_life: '18 Months',
     point1: 'Antibacterial Neem & Tulsi',
@@ -248,17 +248,7 @@ const MOCK_PRODUCTS: Product[] = [
     point3: 'Controls Dandruff & Itch',
     point4: 'Soothing Scalp Defense',
     point5: 'Biodegradable Travel Bar',
-    productCode: 'PP-SHAMPOO-HIBISCUS-NEEM',
-    product_price: '99.00',
-    original_price: '149.00',
-    product_category: 'soaps',
-    product_discount: 33,
-    image1: 'Soap/new1.png',
-    weight: '100g',
-    point1: 'Brightens & Evens Skin',
-    point2: 'Fresh Farm Goat Milk',
-    point3: 'Natural Coffee Scrub',
-
+    productCode: 'PP-SHAMPOO-HIBISCUS-NEEM'
   }
 ];
 
@@ -277,9 +267,14 @@ const getFolderWiseImages = (
   databaseImage4?: string
 ): FolderWiseImages => {
   if (databaseImage1 && databaseImage1.trim() !== '') {
+    const name = productName.toLowerCase();
+    let img2 = databaseImage2;
+    if ((name.includes('coffee') || name.includes('d tan') || name.includes('d-tan')) && (!img2 || img2.trim() === '')) {
+      img2 = 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg';
+    }
     return {
       image1: databaseImage1,
-      image2: databaseImage2,
+      image2: img2,
       image3: databaseImage3,
       image4: databaseImage4
     };
@@ -288,6 +283,38 @@ const getFolderWiseImages = (
   const name = productName.toLowerCase();
 
   if (name.includes('soap')) {
+    if (name.includes('coffee') || name.includes('d tan') || name.includes('d-tan')) {
+      return {
+        image1: databaseImage1 || 'CoffeeD/new1.png',
+        image2: databaseImage2 || 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg',
+        image3: databaseImage3,
+        image4: databaseImage4
+      };
+    }
+    if (name.includes('mango') || name.includes('sea clay') || name.includes('mud')) {
+      return {
+        image1: databaseImage1 || 'MangoButter/Soap.png',
+        image2: databaseImage2 || 'MangoButter/WhatsApp Image 2026-07-15 at 5.18.11 PM.jpeg',
+        image3: databaseImage3 || 'MangoButter/IMG-20260123-WA0020.jpg',
+        image4: ''
+      };
+    }
+    if (name.includes('french') || name.includes('green clay')) {
+      return {
+        image1: databaseImage1 || 'Frenchgreenclay/Soap2.png',
+        image2: databaseImage2 || 'Frenchgreenclay/WhatsApp Image 2026-07-10 at 7.10.16 PM.jpeg',
+        image3: databaseImage3 || '',
+        image4: databaseImage4 || ''
+      };
+    }
+    if (name.includes('multani') || name.includes('shea')) {
+      return {
+        image1: databaseImage1 || 'Multanimitti/Soap3.png',
+        image2: databaseImage2 || 'Multanimitti/WhatsApp Image 2026-07-10 at 7.10.16 PM (1).jpeg',
+        image3: '',
+        image4: ''
+      };
+    }
     if (name.includes('neem')) {
       return {
         image1: 'Soap/Soap.png',
@@ -317,6 +344,22 @@ const getFolderWiseImages = (
   }
 
   if (name.includes('shampoo')) {
+    if (name.includes('hibiscus') || name.includes('neem') || name.includes('tulsi')) {
+      return {
+        image1: 'Hibisus neem/new2.png',
+        image2: 'Hibisus neem/Hibiscus neem tulsi1.jpeg',
+        image3: 'Hibisus neem/hibiscus neem tulsi2.jpeg',
+        image4: ''
+      };
+    }
+    if (name.includes('multani') || name.includes('saffron')) {
+      return {
+        image1: databaseImage1 || 'multanimittishampoo/Shampoobar2.png',
+        image2: databaseImage2 || 'multanimittishampoo/1770380073526.png',
+        image3: '',
+        image4: ''
+      };
+    }
     if (name.includes('rosemary') || name.includes('tea tree')) {
       return {
         image1: 'Shampoobar/Shampoobar.png',
@@ -330,8 +373,28 @@ const getFolderWiseImages = (
       };
     }
     return {
-      image1: 'Shampoobar/Shampoobar.png',
-      image2: 'Shampoobar/Shampoobar2.png'
+      image1: databaseImage1 || 'Hibisus neem/new2.png',
+      image2: databaseImage2 || 'Hibisus neem/Hibiscus neem tulsi1.jpeg',
+      image3: databaseImage3 || 'Hibisus neem/hibiscus neem tulsi2.jpeg',
+      image4: databaseImage4 || 'Hibisus neem/Hibiscus neem tulsi3.jpeg'
+    };
+  }
+
+  if (name.includes('waxing') || name.includes('herbal waxing')) {
+    return {
+      image1: databaseImage1 || 'uploads/Herbal2.png',
+      image2: databaseImage2 || 'uploads/herbal_waxing_powder_banner_1784778537801.png',
+      image3: databaseImage3 || '',
+      image4: databaseImage4 || ''
+    };
+  }
+
+  if (name.includes('facepack') || name.includes('face pack')) {
+    return {
+      image1: databaseImage1 || 'Herbalfacepack/Artboard 1.png',
+      image2: databaseImage2 || 'Herbalfacepack/Artboard 2.png',
+      image3: databaseImage3 || '',
+      image4: databaseImage4 || ''
     };
   }
 
@@ -345,9 +408,9 @@ const getFolderWiseImages = (
   ) {
     if (name.includes('facewash') || name.includes('face wash')) {
       return {
-        image1: 'FaceWash/Herbal1.png',
-        image2: 'FaceWash/Herbal2.png',
-        image3: 'FaceWash/Herbal3.png'
+        image1: databaseImage1 || 'uploads/Herbal4.png',
+        image2: databaseImage2 || 'uploads/Artboard 1 (1).png',
+        image3: ''
       };
     }
     if (name.includes('gel') || name.includes('aloe')) {
@@ -368,6 +431,15 @@ const getFolderWiseImages = (
       image1: 'FaceWash/Herbal1.png',
       image2: 'FaceWash/Herbal2.png',
       image3: 'FaceWash/Herbal3.png'
+    };
+  }
+
+  if (name.includes('hair wash') || name.includes('hairwash') || name.includes('amla') || name.includes('shikakai') || name.includes('bhringraj')) {
+    return {
+      image1: databaseImage1 || 'Herbal/Herbal3.png',
+      image2: databaseImage2 || 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
+      image3: databaseImage3 || 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM (1).jpeg',
+      image4: databaseImage4 || 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM (2).jpeg'
     };
   }
 
@@ -415,26 +487,31 @@ export default function ProductPage() {
   const [buyNowLoading, setBuyNowLoading] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
+  const images = product ? ([product.image1, product.image2, product.image3, product.image4].filter(Boolean).filter((img) => typeof img === 'string' && img.trim() !== '') as string[]) : [];
+
   useEffect(() => {
     async function fetchProduct() {
       try {
         const res = await fetch('/api/products');
-        const data = await res.json();
-        
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        const text = await res.text();
+        const data = text ? JSON.parse(text) : {};
+
         let foundProduct: Product | null = null;
         if (data.success && data.products && data.products.length > 0) {
           const matchingDbProduct = data.products.find((p: any) => p.id === productId);
           if (matchingDbProduct) {
-            const folderWise = getFolderWiseImages(matchingDbProduct.product_name, matchingDbProduct.image1, matchingDbProduct.image2, matchingDbProduct.image3);
+            const folderWise = getFolderWiseImages(matchingDbProduct.product_name, matchingDbProduct.image1, matchingDbProduct.image2, matchingDbProduct.image3, matchingDbProduct.image4);
             foundProduct = {
               ...matchingDbProduct,
               image1: folderWise.image1,
               image2: folderWise.image2 || matchingDbProduct.image2,
-              image3: folderWise.image3 || matchingDbProduct.image3
+              image3: folderWise.image3 || matchingDbProduct.image3,
+              image4: folderWise.image4 || matchingDbProduct.image4
             };
           }
         }
-        
+
         // Fallback to mock catalog
         if (!foundProduct) {
           const matchMock = MOCK_PRODUCTS.find((p) => p.id === productId);
@@ -454,6 +531,15 @@ export default function ProductPage() {
       fetchProduct();
     }
   }, [productId]);
+
+  // Auto-slide carousel effect to transition images one by one
+  useEffect(() => {
+    if (!images || images.length <= 1) return;
+    const timer = setInterval(() => {
+      setSelectedImageIdx((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [images.length]);
 
   if (loading) {
     return (
@@ -478,14 +564,12 @@ export default function ProductPage() {
     );
   }
 
-  const images = [product.image1, product.image2, product.image3].filter(Boolean) as string[];
-
   const handleAddToCart = () => {
     setCartAdding(true);
     try {
       const stored = localStorage.getItem('cart');
       let cart = stored ? JSON.parse(stored) : [];
-      
+
       const existingItemIdx = cart.findIndex((item: any) => item.id === product.id);
       if (existingItemIdx > -1) {
         cart[existingItemIdx].quantity += quantity;
@@ -500,7 +584,7 @@ export default function ProductPage() {
           image1: product.image1
         });
       }
-      
+
       localStorage.setItem('cart', JSON.stringify(cart));
       window.dispatchEvent(new Event('storage'));
       window.dispatchEvent(new Event('open-cart'));
@@ -522,13 +606,34 @@ export default function ProductPage() {
   };
 
   const getImagePath = (imgName: string) => {
-    return imgName.startsWith('uploads/') ? `/${imgName}` : `/uploads/${imgName}`;
+    if (!imgName) return '';
+    if (imgName.startsWith('/') || imgName.startsWith('http')) return imgName;
+    if (
+      imgName.startsWith('CoffeeD/') ||
+      imgName.startsWith('Categoryimg/') ||
+      imgName.startsWith('FaceWash/') ||
+      imgName.startsWith('Shampoobar/') ||
+      imgName.startsWith('Soap/') ||
+      imgName.startsWith('Herbal/') ||
+      imgName.startsWith('Multanimitti/') ||
+      imgName.startsWith('MangoButter/') ||
+      imgName.startsWith('Frenchgreenclay/') ||
+      imgName.startsWith('Herbalfacepack/') ||
+      imgName.startsWith('Hibisus neem/') ||
+      imgName.startsWith('multanimittishampoo/')
+    ) {
+      return `/${imgName}`;
+    }
+    if (imgName.startsWith('uploads/')) {
+      return `/${imgName}`;
+    }
+    return `/uploads/${imgName}`;
   };
 
   return (
     <div className="min-h-screen bg-cream-light py-12 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Back navigation */}
         <div className="mb-8">
           <Link
@@ -542,12 +647,12 @@ export default function ProductPage() {
 
         {/* Product Details Wrapper */}
         <div className="bg-white border border-forest/10 rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row min-h-[500px]">
-          
+
           {/* Left Column: Image Gallery */}
           <div className="w-full md:w-1/2 p-6 md:p-12 bg-white flex flex-col justify-between border-r border-forest/5">
             <div className="flex flex-col items-center">
-              {/* Main Image Carousel (Enlarged size & p-2 to increase product dimensions) */}
-              <div className="w-full aspect-square max-h-[500px] md:max-h-[550px] bg-cream rounded-2xl overflow-hidden relative border border-forest/5 flex items-center justify-center p-1.5 sm:p-3 group/carousel">
+              {/* Main Image Carousel (Enlarged size & 100% full bleed dimensions) */}
+              <div className="w-full aspect-[4/5] sm:aspect-square max-h-[550px] md:max-h-[600px] bg-cream rounded-2xl overflow-hidden relative border border-forest/5 flex items-center justify-center p-0 group/carousel">
                 {images.length > 0 ? (
                   <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
                     <AnimatePresence mode="wait">
@@ -573,7 +678,7 @@ export default function ProductPage() {
                         <img
                           src={getImagePath(images[selectedImageIdx])}
                           alt={product.product_name}
-                          className="max-w-full max-h-full object-contain select-none pointer-events-none"
+                          className="w-full h-full object-cover select-none pointer-events-none"
                         />
                       </motion.div>
                     </AnimatePresence>
@@ -605,9 +710,8 @@ export default function ProductPage() {
                           <button
                             key={idx}
                             onClick={() => setSelectedImageIdx(idx)}
-                            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                              selectedImageIdx === idx ? 'bg-forest w-4' : 'bg-forest/20'
-                            }`}
+                            className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedImageIdx === idx ? 'bg-forest w-4' : 'bg-forest/20'
+                              }`}
                             aria-label={`Go to slide ${idx + 1}`}
                           />
                         ))}
@@ -632,14 +736,20 @@ export default function ProductPage() {
                     <button
                       key={idx}
                       onClick={() => setSelectedImageIdx(idx)}
-                      className={`w-20 h-20 rounded-xl border-2 bg-cream overflow-hidden p-1 transition-all ${
-                        selectedImageIdx === idx ? 'border-forest ring-2 ring-forest/10' : 'border-forest/5 hover:border-forest/30'
-                      }`}
+                      className={`w-20 h-20 rounded-xl border-2 bg-cream overflow-hidden p-1 transition-all ${selectedImageIdx === idx ? 'border-forest ring-2 ring-forest/10' : 'border-forest/5 hover:border-forest/30'
+                        }`}
                     >
                       <img
                         src={getImagePath(img)}
-                        alt={`thumbnail ${idx}`}
+                        alt={product.product_name}
                         className="w-full h-full object-cover rounded-lg"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          if (target.parentElement) {
+                            target.parentElement.style.display = 'none';
+                          }
+                        }}
                       />
                     </button>
                   ))}
@@ -819,20 +929,20 @@ export default function ProductPage() {
             >
               <span className="text-2xl font-sans font-light">✕</span>
             </button>
-            
+
             {/* Modal Image container */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="relative max-w-5xl w-full max-h-[85vh] aspect-square flex items-center justify-center bg-white rounded-3xl p-6 shadow-2xl"
+              className="relative max-w-4xl w-full max-h-[90vh] overflow-hidden flex items-center justify-center bg-white rounded-3xl p-0 shadow-2xl"
               onClick={(e) => e.stopPropagation()} // Prevent closing when clicking card
             >
               <img
                 src={getImagePath(images[selectedImageIdx])}
                 alt={product.product_name}
-                className="max-w-full max-h-full object-contain rounded-xl select-none"
+                className="w-full h-full max-h-[85vh] object-cover rounded-3xl select-none"
               />
 
               {/* Lightbox Flipping Chevrons */}

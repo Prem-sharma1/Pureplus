@@ -68,7 +68,28 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
   };
 
   const getImagePath = (imgName: string) => {
-    return imgName.startsWith('uploads/') ? `/${imgName}` : `/uploads/${imgName}`;
+    if (!imgName) return '';
+    if (imgName.startsWith('/') || imgName.startsWith('http')) return imgName;
+    if (
+      imgName.startsWith('CoffeeD/') ||
+      imgName.startsWith('Categoryimg/') ||
+      imgName.startsWith('FaceWash/') ||
+      imgName.startsWith('Shampoobar/') ||
+      imgName.startsWith('Soap/') ||
+      imgName.startsWith('Herbal/') ||
+      imgName.startsWith('Multanimitti/') ||
+      imgName.startsWith('MangoButter/') ||
+      imgName.startsWith('Frenchgreenclay/') ||
+      imgName.startsWith('Herbalfacepack/') ||
+      imgName.startsWith('Hibisus neem/') ||
+      imgName.startsWith('multanimittishampoo/')
+    ) {
+      return `/${imgName}`;
+    }
+    if (imgName.startsWith('uploads/')) {
+      return `/${imgName}`;
+    }
+    return `/uploads/${imgName}`;
   };
 
   return (
@@ -103,13 +124,13 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
           <div className="w-full md:w-1/2 p-6 md:p-8 bg-white flex flex-col justify-between border-r border-forest/5 overflow-y-auto">
             <div className="flex flex-col items-center">
               {/* Main Image View */}
-              <div className="w-full aspect-square max-h-[360px] bg-cream rounded-2xl overflow-hidden relative border border-forest/5 flex items-center justify-center p-4">
+              <div className="w-full aspect-square max-h-[360px] bg-cream rounded-2xl overflow-hidden relative border border-forest/5 flex items-center justify-center p-0">
                 {images.length > 0 ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     src={getImagePath(images[selectedImageIdx])}
                     alt={product.product_name}
-                    className="max-w-full max-h-full object-contain transition-all duration-300"
+                    className="w-full h-full object-cover transition-all duration-300"
                     onError={(e) => {
                       // fallback
                       (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=300&auto=format&fit=crop';

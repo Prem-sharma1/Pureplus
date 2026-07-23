@@ -69,12 +69,12 @@ export default function HeroSection() {
 
   return (
     <section 
-      className="relative w-full overflow-hidden bg-white group"
+      className="relative w-full overflow-hidden bg-white group h-[190px] xs:h-[225px] sm:h-auto"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Ghost spacer to establish natural banner aspect ratio height dynamically */}
-      <div className="w-full relative z-0 select-none pointer-events-none">
+      {/* Ghost spacer to establish natural banner aspect ratio height dynamically for Tablet, PC & Laptop */}
+      <div className="w-full relative z-0 select-none pointer-events-none hidden sm:block">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={CAROUSEL_SLIDES[0].image}
@@ -84,7 +84,7 @@ export default function HeroSection() {
       </div>
 
       {/* Active Slides Container */}
-      <div className="absolute inset-0 z-10 w-full h-full">
+      <div className="absolute inset-0 z-10 w-full h-full flex items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIdx}
@@ -92,14 +92,14 @@ export default function HeroSection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute inset-0 w-full h-full"
+            className="w-full h-full flex items-center justify-center overflow-hidden"
           >
-            <Link href={activeSlide.link} className="block w-full h-full relative cursor-pointer">
+            <Link href={activeSlide.link} className="block w-full h-full relative cursor-pointer overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={activeSlide.image}
                 alt={activeSlide.alt}
-                className="w-full h-full object-cover object-center select-none"
+                className="w-full h-full object-cover object-center scale-[1.06] sm:scale-100 transition-transform duration-500 select-none"
               />
             </Link>
           </motion.div>
@@ -140,4 +140,3 @@ export default function HeroSection() {
     </section>
   );
 }
-

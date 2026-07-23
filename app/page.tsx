@@ -96,7 +96,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal2.png',
+    image1: 'uploads/Herbal2.png',
+    image2: 'uploads/herbal_waxing_powder_banner_1784778537801.png',
     weight: '100g',
     point1: '100% Organic & Natural',
     point2: 'Pain-Free Hair Removal',
@@ -111,7 +112,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal4.png',
+    image1: 'uploads/Herbal4.png',
+    image2: 'uploads/Artboard 1 (1).png',
     weight: '100g',
     point1: 'Deep Cleanses Pores',
     point2: 'Controls Excess Oil',
@@ -126,7 +128,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal1.png',
+    image1: 'Herbalfacepack/Artboard 1.png',
+    image2: 'Herbalfacepack/Artboard 2.png',
     weight: '100g',
     point1: 'Detoxifies Skin Barrier',
     point2: 'Soothes Irritated Skin',
@@ -231,7 +234,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/new1.png',
+    image1: 'CoffeeD/new1.png',
+    image2: 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg',
     weight: '100g',
     point1: 'Brightens & Evens Skin',
     point2: 'Fresh Farm Goat Milk',
@@ -253,9 +257,14 @@ const getFolderWiseImages = (
   databaseImage3?: string
 ): FolderWiseImages => {
   if (databaseImage1 && databaseImage1.trim() !== '') {
+    const name = productName.toLowerCase();
+    let img2 = databaseImage2;
+    if ((name.includes('coffee') || name.includes('d tan') || name.includes('d-tan')) && (!img2 || img2.trim() === '')) {
+      img2 = 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg';
+    }
     return {
       image1: databaseImage1,
-      image2: databaseImage2,
+      image2: img2,
       image3: databaseImage3
     };
   }
@@ -264,6 +273,41 @@ const getFolderWiseImages = (
 
   // Soaps mapping
   if (name.includes('soap')) {
+    if (name.includes('coffee') || name.includes('d tan') || name.includes('d-tan')) {
+      return {
+        image1: databaseImage1 || 'CoffeeD/new1.png',
+        image2: databaseImage2 || 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg',
+        image3: databaseImage3
+      };
+    }
+
+    if (name.includes('mango') || name.includes('sea clay') || name.includes('mud')) {
+      return {
+        image1: databaseImage1 || 'MangoButter/Soap.png',
+        image2: databaseImage2 || 'MangoButter/WhatsApp Image 2026-07-15 at 5.18.11 PM.jpeg',
+        image3: databaseImage3 || 'MangoButter/IMG-20260123-WA0020.jpg',
+        image4: ''
+      };
+    }
+
+    if (name.includes('french') || name.includes('green clay')) {
+      return {
+        image1: databaseImage1 || 'Frenchgreenclay/Soap2.png',
+        image2: databaseImage2 || 'Frenchgreenclay/WhatsApp Image 2026-07-10 at 7.10.16 PM.jpeg',
+        image3: databaseImage3 || '',
+        image4: databaseImage4 || ''
+      };
+    }
+
+    if (name.includes('multani') || name.includes('shea')) {
+      return {
+        image1: databaseImage1 || 'Multanimitti/Soap3.png',
+        image2: databaseImage2 || 'Multanimitti/WhatsApp Image 2026-07-10 at 7.10.16 PM (1).jpeg',
+        image3: '',
+        image4: ''
+      };
+    }
+
     if (name.includes('neem')) {
       return {
         image1: 'Soap/Soap.png',
@@ -294,6 +338,22 @@ const getFolderWiseImages = (
 
   // Shampoo bars mapping
   if (name.includes('shampoo')) {
+    if (name.includes('hibiscus') || name.includes('neem') || name.includes('tulsi')) {
+      return {
+        image1: 'Hibisus neem/new2.png',
+        image2: 'Hibisus neem/Hibiscus neem tulsi1.jpeg',
+        image3: 'Hibisus neem/hibiscus neem tulsi2.jpeg',
+        image4: ''
+      };
+    }
+    if (name.includes('multani') || name.includes('saffron')) {
+      return {
+        image1: databaseImage1 || 'multanimittishampoo/Shampoobar2.png',
+        image2: databaseImage2 || 'multanimittishampoo/1770380073526.png',
+        image3: '',
+        image4: ''
+      };
+    }
     if (name.includes('rosemary') || name.includes('tea tree')) {
       return {
         image1: 'Shampoobar/Shampoobar.png',
@@ -307,8 +367,19 @@ const getFolderWiseImages = (
       };
     }
     return {
-      image1: 'Shampoobar/Shampoobar.png',
-      image2: 'Shampoobar/Shampoobar2.png'
+      image1: databaseImage1 || 'Hibisus neem/new2.png',
+      image2: databaseImage2 || 'Hibisus neem/Hibiscus neem tulsi1.jpeg',
+      image3: databaseImage3 || 'Hibisus neem/hibiscus neem tulsi2.jpeg',
+      image4: databaseImage4 || 'Hibisus neem/Hibiscus neem tulsi3.jpeg'
+    };
+  }
+
+  if (name.includes('facepack') || name.includes('face pack')) {
+    return {
+      image1: databaseImage1 || 'Herbalfacepack/Artboard 1.png',
+      image2: databaseImage2 || 'Herbalfacepack/Artboard 2.png',
+      image3: databaseImage3 || '',
+      image4: databaseImage4 || ''
     };
   }
 
@@ -323,9 +394,9 @@ const getFolderWiseImages = (
   ) {
     if (name.includes('facewash') || name.includes('face wash')) {
       return {
-        image1: 'FaceWash/Herbal1.png',
-        image2: 'FaceWash/Herbal2.png',
-        image3: 'FaceWash/Herbal3.png'
+        image1: databaseImage1 || 'uploads/Herbal4.png',
+        image2: databaseImage2 || 'uploads/Artboard 1 (1).png',
+        image3: ''
       };
     }
     if (name.includes('gel') || name.includes('aloe')) {
@@ -346,6 +417,15 @@ const getFolderWiseImages = (
       image1: 'FaceWash/Herbal1.png',
       image2: 'FaceWash/Herbal2.png',
       image3: 'FaceWash/Herbal3.png'
+    };
+  }
+
+  if (name.includes('hair wash') || name.includes('hairwash') || name.includes('amla') || name.includes('shikakai') || name.includes('bhringraj')) {
+    return {
+      image1: databaseImage1 || 'Herbal/Herbal3.png',
+      image2: databaseImage2 || 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
+      image3: databaseImage3 || 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM (1).jpeg',
+      image4: databaseImage4 || 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM (2).jpeg'
     };
   }
 
@@ -567,10 +647,10 @@ export default function Home() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
                 {products.slice(0, 3).map((product, idx) => (
                   <ProductCard
-                    key={product.id}
+                    key={`home-${product.id}-${idx}`}
                     product={product}
                     addingToCartId={addingToCartId}
                     onAddToCart={handleAddToCart}

@@ -33,7 +33,7 @@ const PRODUCTS_DB: Product[] = [
     category: 'moringa',
     price: '₹249.00',
     desc: 'Traditional dry face wash powder blend to cleanse pores and restore natural glow.',
-    image: '/uploads/FaceWash/Herbal4.png',
+    image: '/uploads/Herbal4.png',
     benefits: ['Deep Cleanses Pores', 'Controls Excess Oil', 'Gentle Natural Exfoliation'],
     weight: '100g'
   },
@@ -43,7 +43,7 @@ const PRODUCTS_DB: Product[] = [
     category: 'moringa',
     price: '₹249.00',
     desc: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
-    image: '/uploads/FaceWash/Herbal1.png',
+    image: '/Herbalfacepack/Artboard 1.png',
     benefits: ['Detoxifies Skin Barrier', 'Soothes Irritated Skin', 'Brightens & Clarifies Tone'],
     weight: '100g'
   },
@@ -53,7 +53,7 @@ const PRODUCTS_DB: Product[] = [
     category: 'moringa',
     price: '₹249.00',
     desc: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.',
-    image: '/uploads/FaceWash/Herbal3.png',
+    image: '/Herbal/Herbal3.png',
     benefits: ['Amla & Shikakai Cleanser', 'Bhringraj for Hair Growth', 'Prevents Premature Graying'],
     weight: '100g'
   },
@@ -63,7 +63,7 @@ const PRODUCTS_DB: Product[] = [
     category: 'soaps',
     price: '₹99.00',
     desc: 'Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.',
-    image: '/uploads/Soap/Soap.png',
+    image: '/MangoButter/Soap.png',
     benefits: ['Deep Purifying Mud', 'Moisturizing Mango Butter', 'Handcrafted & Vegan'],
     weight: '100g'
   },
@@ -73,7 +73,7 @@ const PRODUCTS_DB: Product[] = [
     category: 'soaps',
     price: '₹99.00',
     desc: 'Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.',
-    image: '/uploads/Soap/Soap3.png',
+    image: '/Multanimitti/Soap3.png',
     benefits: ['Absorbs Excess Oils', 'Nourishing Shea Butter', 'Combats Acne & Pimples'],
     weight: '100g'
   },
@@ -83,7 +83,7 @@ const PRODUCTS_DB: Product[] = [
     category: 'soaps',
     price: '₹99.00',
     desc: 'Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.',
-    image: '/uploads/Soap/Soap2.png',
+    image: '/Frenchgreenclay/Soap2.png',
     benefits: ['Toxin-Extracting Green Clay', 'Soften & Hydrates Skin', 'Rich Goat Milk Proteins'],
     weight: '100g'
   },
@@ -93,7 +93,7 @@ const PRODUCTS_DB: Product[] = [
     category: 'soaps',
     price: '₹99.00',
     desc: 'Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.',
-    image: '/uploads/Soap/new1.png',
+    image: '/CoffeeD/new1.png',
     benefits: ['Brightens & Evens Skin', 'Fresh Farm Goat Milk', 'Natural Coffee Scrub'],
     weight: '100g'
   },
@@ -103,7 +103,7 @@ const PRODUCTS_DB: Product[] = [
     category: 'shampoo',
     price: '₹199.00',
     desc: 'Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.',
-    image: '/uploads/Shampoobar/Shampoobar2.png',
+    image: '/multanimittishampoo/Shampoobar2.png',
     benefits: ['Scale-Free Scalp Cleansing', 'Infused with Real Saffron', 'Zero Waste Solid Bar'],
     weight: '80g'
   },
@@ -113,9 +113,19 @@ const PRODUCTS_DB: Product[] = [
     category: 'shampoo',
     price: '₹199.00',
     desc: 'Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.',
-    image: '/uploads/Shampoobar/new2.png',
+    image: '/Hibisus neem/new2.png',
     benefits: ['Antibacterial Neem & Tulsi', 'Hibiscus Hair Conditioning', 'Controls Dandruff & Itch'],
     weight: '80g'
+  },
+  {
+    id: 108,
+    name: 'Pureplush Herbal Facepack',
+    category: 'moringa',
+    price: '₹249.00',
+    desc: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
+    image: '/Herbal/Herbal3.png',
+    benefits: ['Detoxifies Skin Barrier', 'Soothes Irritated Skin', 'Brightens & Clarifies Tone'],
+    weight: '100g'
   }
 ];
 

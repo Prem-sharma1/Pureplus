@@ -8,13 +8,13 @@ const categories = [
   {
     id: 1,
     title: 'SHAMPOO BARS',
-    image: '/Categoryimg/Category1.jpeg',
+    image: '/Categoryimg/Category2.jpeg',
     link: '/category/shampoo',
   },
   {
     id: 2,
     title: 'HANDCRAFTED SOAPS',
-    image: '/Categoryimg/Category2.jpeg',
+    image: '/Categoryimg/Category1.jpeg',
     link: '/category/soaps',
   },
   {
@@ -55,7 +55,7 @@ export default function CategorySection() {
 
               {/* Title & Button Aligned at Identical Vertical Baselines */}
               <div className="flex flex-col items-center text-center w-full mt-auto">
-                <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-light tracking-[0.22em] text-white uppercase mb-6 leading-snug max-w-[260px] min-h-[58px] flex items-center justify-center">
+                <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-light tracking-[0.22em] text-white uppercase mb-4 sm:mb-6 leading-snug max-w-[260px] min-h-[44px] md:min-h-[58px] flex items-center justify-center">
                   {category.title}
                 </h3>
 

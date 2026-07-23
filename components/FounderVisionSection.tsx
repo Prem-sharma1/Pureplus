@@ -288,8 +288,8 @@ export default function FounderVisionSection() {
                     <Mail className="w-4 h-4" />
                     <span className="text-xs font-bold uppercase tracking-wider text-white">Customer Support</span>
                   </div>
-                  <p className="text-xs text-cream font-medium break-all">Saishtechnofarms@gmail.com</p>
-                  <p className="text-xs text-cream font-medium">+91 7483849998</p>
+                  <p className="text-xs text-cream font-medium break-all">support@pureplush.in</p>
+                  <p className="text-xs text-cream font-medium">+91 87628 77755</p>
                 </div>
 
               </div>

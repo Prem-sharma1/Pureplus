@@ -33,7 +33,7 @@ export default function Footer() {
               <img
                 src="/Pureplus.png"
                 alt="Pureplus Logo"
-                className="h-12 md:h-14 w-auto object-contain bg-white/95 px-3 py-1.5 rounded-xl shadow-md hover:scale-105 transition-transform duration-300"
+                className="h-12 md:h-14 w-auto object-contain mix-blend-multiply px-2 py-1 hover:scale-105 transition-transform duration-300"
               />
             </Link>
             <p className="text-xs text-sage-light leading-relaxed max-w-xs">
@@ -96,11 +96,11 @@ export default function Footer() {
             <ul className="space-y-3.5 text-xs text-sage-light">
               <li className="flex items-center space-x-2.5">
                 <Mail className="w-4 h-4 text-gold flex-shrink-0" />
-                <span className="break-all">Saishtechnofarms@gmail.com</span>
+                <span className="break-all">support@pureplush.in</span>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Phone className="w-4 h-4 text-gold flex-shrink-0" />
-                <span>+91 7483849998</span>
+                <span>+91 87628 77755</span>
               </li>
               <li className="flex items-start space-x-2.5">
                 <MapPin className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />

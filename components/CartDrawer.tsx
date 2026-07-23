@@ -90,7 +90,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
         currency: orderData.currency,
         name: 'Pureplush',
         description: 'Apothecary Collection Purchase',
-        image: '/uploads/Artboard 1.png',
+        image: '/Pureplus.png',
         order_id: orderData.orderId,
         handler: async function (response: any) {
           try {
@@ -420,16 +420,16 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       <div className="flex items-center space-x-2 mt-2.5">
                         <button
                           onClick={() => updateQuantity(item.id, -1)}
-                          className="p-1 border border-forest/10 hover:border-forest/30 rounded-md text-charcoal hover:bg-forest/5"
+                          className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center border border-forest/10 hover:border-forest/30 rounded-lg text-charcoal hover:bg-forest/5 active:scale-95 transition-transform"
                         >
-                          <Minus className="w-3 h-3" />
+                          <Minus className="w-3.5 h-3.5" />
                         </button>
-                        <span className="text-xs font-semibold text-forest px-1.5">{item.quantity}</span>
+                        <span className="text-xs font-bold text-forest px-2">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, 1)}
-                          className="p-1 border border-forest/10 hover:border-forest/30 rounded-md text-charcoal hover:bg-forest/5"
+                          className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center border border-forest/10 hover:border-forest/30 rounded-lg text-charcoal hover:bg-forest/5 active:scale-95 transition-transform"
                         >
-                          <Plus className="w-3 h-3" />
+                          <Plus className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>

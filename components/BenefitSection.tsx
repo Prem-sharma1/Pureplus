@@ -33,7 +33,7 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal2.png',
+    image1: 'uploads/Herbal2.png',
     weight: '100g',
     point1: '100% Organic & Natural',
     point2: 'Pain-Free Hair Removal',
@@ -48,7 +48,7 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal4.png',
+    image1: 'uploads/Herbal4.png',
     weight: '100g',
     point1: 'Deep Cleanses Pores',
     point2: 'Controls Excess Oil',
@@ -63,7 +63,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal1.png',
+    image1: 'Herbalfacepack/Artboard 1.png',
+    image2: 'Herbalfacepack/Artboard 2.png',
     weight: '100g',
     point1: 'Detoxifies Skin Barrier',
     point2: 'Soothes Irritated Skin',
@@ -78,7 +79,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '349.00',
     product_category: 'moringa',
     product_discount: 29,
-    image1: 'FaceWash/Herbal3.png',
+    image1: 'Herbal/Herbal3.png',
+    image2: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
     weight: '100g',
     point1: 'Amla & Shikakai Cleanser',
     point2: 'Bhringraj for Hair Growth',
@@ -93,7 +95,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/Soap.png',
+    image1: 'MangoButter/Soap.png',
+    image2: 'MangoButter/WhatsApp Image 2026-07-15 at 5.18.11 PM.jpeg',
     weight: '100g',
     point1: 'Deep Purifying Mud',
     point2: 'Moisturizing Mango Butter',
@@ -108,7 +111,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/Soap3.png',
+    image1: 'Multanimitti/Soap3.png',
+    image2: 'Multanimitti/WhatsApp Image 2026-07-10 at 7.10.16 PM (1).jpeg',
     weight: '100g',
     point1: 'Absorbs Excess Oils',
     point2: 'Nourishing Shea Butter',
@@ -123,7 +127,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/Soap2.png',
+    image1: 'Frenchgreenclay/Soap2.png',
+    image2: 'Frenchgreenclay/WhatsApp Image 2026-07-10 at 7.10.16 PM.jpeg',
     weight: '100g',
     point1: 'Toxin-Extracting Green Clay',
     point2: 'Soften & Hydrates Skin',
@@ -138,7 +143,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'shampoo',
     product_discount: 33,
-    image1: 'Shampoobar/Shampoobar2.png',
+    image1: 'multanimittishampoo/Shampoobar2.png',
+    image2: 'multanimittishampoo/1770380073526.png',
     weight: '80g',
     point1: 'Scale-Free Scalp Cleansing',
     point2: 'Infused with Real Saffron',
@@ -153,7 +159,8 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '299.00',
     product_category: 'shampoo',
     product_discount: 33,
-    image1: 'Shampoobar/new2.png',
+    image1: 'Hibisus neem/new2.png',
+    image2: 'Hibisus neem/Hibiscus neem tulsi1.jpeg',
     weight: '80g',
     point1: 'Antibacterial Neem & Tulsi',
     point2: 'Hibiscus Hair Conditioning',
@@ -168,11 +175,28 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/new1.png',
+    image1: 'CoffeeD/new1.png',
+    image2: 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg',
     weight: '100g',
     point1: 'Brightens & Evens Skin',
     point2: 'Fresh Farm Goat Milk',
     point3: 'Natural Coffee Scrub',
+  },
+  {
+    id: 108,
+    product_name: 'Pureplush Herbal Facepack',
+    product_details: 'Pureplush Herbal Facepack is a nutrient-rich skin reviving treatment. Infused with organic herbs to detoxify, soothe, and brighten the skin barrier. 100g.',
+    brief_details: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
+    product_price: '249.00',
+    original_price: '299.00',
+    product_category: 'moringa',
+    product_discount: 16,
+    image1: 'Herbalfacepack/Artboard 1.png',
+    image2: 'Herbalfacepack/Artboard 2.png',
+    weight: '100g',
+    point1: 'Detoxifies Skin Barrier',
+    point2: 'Soothes Irritated Skin',
+    point3: 'Brightens & Clarifies Tone',
   }
 ];
 
@@ -273,10 +297,14 @@ export default function BenefitSection() {
 
   const activeTabInfo = CONCERN_TABS.find(t => t.id === activeConcern) || CONCERN_TABS[0];
   
-  // Dynamic concern-matching filter based on explicit product ID mapping
+  // Dynamic concern-matching filter based on explicit product ID mapping & deduplicated by ID
+  const seenIds = new Set<number>();
   const filteredProducts = products.filter(p => {
     const id = Number(p.id);
-    return activeTabInfo.productIds.includes(id);
+    if (!activeTabInfo.productIds.includes(id)) return false;
+    if (seenIds.has(id)) return false;
+    seenIds.add(id);
+    return true;
   });
 
   return (
@@ -347,11 +375,11 @@ export default function BenefitSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.45 }}
-                className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"
+                className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8"
               >
                 {filteredProducts.map((product, idx) => (
                   <ProductCard
-                    key={product.id}
+                    key={`benefit-${product.id}-${idx}`}
                     product={product}
                     addingToCartId={addingToCartId}
                     onAddToCart={handleAddToCart}

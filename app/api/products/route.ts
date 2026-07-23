@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { query, testConnection } from '@/lib/db';
+import fs from 'fs';
+import path from 'path';
 
 const SEED_PRODUCTS = [
   {
@@ -11,8 +13,8 @@ const SEED_PRODUCTS = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal2.png',
-    image2: 'Artboard 1 (2).png',
+    image1: 'uploads/Herbal2.png',
+    image2: 'uploads/herbal_waxing_powder_banner_1784778537801.png',
     image3: '',
     image4: '',
     weight: '100g',
@@ -33,8 +35,8 @@ const SEED_PRODUCTS = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal4.png',
-    image2: 'Artboard 1 (1).png',
+    image1: 'uploads/Herbal4.png',
+    image2: 'uploads/Artboard 1 (1).png',
     image3: '',
     image4: '',
     weight: '100g',
@@ -55,10 +57,10 @@ const SEED_PRODUCTS = [
     original_price: '299.00',
     product_category: 'moringa',
     product_discount: 16,
-    image1: 'FaceWash/Herbal1.png',
-    image2: 'Artboard 1.png',
-    image3: 'Artboard 2.png',
-    image4: 'Artboard 5 (1).png',
+    image1: 'Herbalfacepack/Artboard 1.png',
+    image2: 'Herbalfacepack/Artboard 2.png',
+    image3: '',
+    image4: '',
     weight: '100g',
     shelf_life: '12 Months',
     point1: 'Detoxifies Skin Barrier',
@@ -77,10 +79,10 @@ const SEED_PRODUCTS = [
     original_price: '349.00',
     product_category: 'moringa',
     product_discount: 29,
-    image1: 'FaceWash/Herbal3.png',
-    image2: 'WhatsApp Image 2026-01-27 at 11.19.00 AM (1).jpeg',
-    image3: 'WhatsApp Image 2026-01-27 at 11.19.00 AM (2).jpeg',
-    image4: 'WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
+    image1: 'Herbal/Herbal3.png',
+    image2: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
+    image3: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM (1).jpeg',
+    image4: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM (2).jpeg',
     weight: '100g',
     shelf_life: '12 Months',
     point1: 'Amla & Shikakai Cleanser',
@@ -99,10 +101,10 @@ const SEED_PRODUCTS = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/Soap.png',
-    image2: '1770431215716.png',
-    image3: 'IMG-20260123-WA0020.jpg',
-    image4: 'IMG-20260123-WA0021.jpg',
+    image1: 'MangoButter/Soap.png',
+    image2: 'MangoButter/WhatsApp Image 2026-07-15 at 5.18.11 PM.jpeg',
+    image3: 'MangoButter/IMG-20260123-WA0020.jpg',
+    image4: '',
     weight: '100g',
     shelf_life: '24 Months',
     point1: 'Deep Purifying Mud',
@@ -121,9 +123,9 @@ const SEED_PRODUCTS = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/Soap3.png',
-    image2: '1770431254493.png',
-    image3: 'IMG-20260205-WA0002.jpg',
+    image1: 'Multanimitti/Soap3.png',
+    image2: 'Multanimitti/WhatsApp Image 2026-07-10 at 7.10.16 PM (1).jpeg',
+    image3: '',
     image4: '',
     weight: '100g',
     shelf_life: '24 Months',
@@ -143,10 +145,10 @@ const SEED_PRODUCTS = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/Soap2.png',
-    image2: '1770431142988.png',
-    image3: 'IMG-20260123-WA0014.jpg',
-    image4: 'IMG-20260205-WA0000.jpg',
+    image1: 'Frenchgreenclay/Soap2.png',
+    image2: 'Frenchgreenclay/WhatsApp Image 2026-07-10 at 7.10.16 PM.jpeg',
+    image3: '',
+    image4: '',
     weight: '100g',
     shelf_life: '24 Months',
     point1: 'Toxin-Extracting Green Clay',
@@ -165,8 +167,8 @@ const SEED_PRODUCTS = [
     original_price: '149.00',
     product_category: 'soaps',
     product_discount: 33,
-    image1: 'Soap/new1.png',
-    image2: '',
+    image1: 'CoffeeD/new1.png',
+    image2: 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg',
     image3: '',
     image4: '',
     weight: '100g',
@@ -187,10 +189,10 @@ const SEED_PRODUCTS = [
     original_price: '299.00',
     product_category: 'shampoo',
     product_discount: 33,
-    image1: 'Shampoobar/Shampoobar2.png',
-    image2: '1770380073526.png',
-    image3: 'file_00000000267071f8b9d3086f51ee7abc(3).png',
-    image4: 'file_00000000267071f8b9d3086f51ee7abc(4).png',
+    image1: 'multanimittishampoo/Shampoobar2.png',
+    image2: 'multanimittishampoo/1770380073526.png',
+    image3: '',
+    image4: '',
     weight: '80g',
     shelf_life: '18 Months',
     point1: 'Scale-Free Scalp Cleansing',
@@ -209,10 +211,10 @@ const SEED_PRODUCTS = [
     original_price: '299.00',
     product_category: 'shampoo',
     product_discount: 33,
-    image1: 'Shampoobar/new2.png',
-    image2: '1770379957428.png',
-    image3: 'IMG-20260119-WA0004.jpg',
-    image4: 'IMG-20260119-WA0006.jpg',
+    image1: 'Hibisus neem/new2.png',
+    image2: 'Hibisus neem/Hibiscus neem tulsi1.jpeg',
+    image3: 'Hibisus neem/hibiscus neem tulsi2.jpeg',
+    image4: '',
     weight: '80g',
     shelf_life: '18 Months',
     point1: 'Antibacterial Neem & Tulsi',
@@ -226,6 +228,18 @@ const SEED_PRODUCTS = [
 
 export async function GET() {
   try {
+    // Copy generated waxing powder banner if it does not exist
+    try {
+      const srcPath = "C:\\Users\\ADMIN\\.gemini\\antigravity-ide\\brain\\b1f4f283-0e9a-4001-bf68-d558a82a29f3\\herbal_waxing_powder_banner_1784778537801.png";
+      const destPath = path.join(process.cwd(), 'public', 'uploads', 'HerbalWaxingBanner.png');
+      if (fs.existsSync(srcPath) && !fs.existsSync(destPath)) {
+        fs.copyFileSync(srcPath, destPath);
+        console.log('Successfully copied waxing banner to public/uploads/HerbalWaxingBanner.png');
+      }
+    } catch (err) {
+      console.error('Error copying waxing banner:', err);
+    }
+
     const isDbConnected = await testConnection();
     if (!isDbConnected) {
       console.log('DB offline — returning seed products as fallback.');

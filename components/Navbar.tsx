@@ -206,7 +206,7 @@ export default function Navbar() {
                 <img
                   src="/Pureplus.png"
                   alt="Pureplus Logo"
-                  className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-sm"
+                  className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-sm mix-blend-multiply"
                 />
               </Link>
             </div>
@@ -304,10 +304,10 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="lg:hidden fixed inset-y-0 right-0 z-40 w-80 bg-cream-light/95 backdrop-blur-md border-l border-forest/10 p-6 shadow-2xl flex flex-col justify-between"
+              className="lg:hidden fixed inset-y-0 right-0 z-50 w-80 max-w-[88vw] overflow-y-auto bg-cream-light/95 backdrop-blur-md border-l border-forest/10 p-6 shadow-2xl flex flex-col justify-between"
             >
-              <div className="flex flex-col h-full mt-10">
-                <div className="flex items-center justify-between mb-8 border-b border-forest/5 pb-4">
+              <div className="flex flex-col h-full mt-4">
+                <div className="flex items-center justify-between mb-8 border-b border-forest/10 pb-4">
                   <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center space-x-2">
                     <img
                       src="/Pureplus.png"
@@ -315,6 +315,13 @@ export default function Navbar() {
                       className="h-8 w-auto object-contain"
                     />
                   </Link>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-9 h-9 rounded-full bg-forest/10 hover:bg-forest/20 text-forest flex items-center justify-center transition-colors border border-forest/10 shadow-sm"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-5 h-5 text-forest" />
+                  </button>
                 </div>
 
                 <motion.div
@@ -402,7 +409,7 @@ export default function Navbar() {
               {/* Mobile Drawer Bottom Brand tagline */}
               <div className="border-t border-forest/5 pt-4 text-center mt-auto">
                 <span className="font-serif italic text-xs text-forest/70 block">pureplush ayurveda</span>
-                <span className="text-[9px] text-charcoal/40 block mt-1">Uttara Kannada, Karnataka</span>
+                <span className="text-[9px] text-charcoal/40 block mt-1">Dhanori, Pune, Maharashtra</span>
               </div>
             </motion.div>
           </>

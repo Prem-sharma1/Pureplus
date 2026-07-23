@@ -17,6 +17,28 @@ export async function GET(req: Request) {
 
     let dbOrders: any[] | null = null;
 
+    // Ensure orders table exists in MySQL database
+    await query(`
+      CREATE TABLE IF NOT EXISTS orders (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        customer_name VARCHAR(255),
+        customer_email VARCHAR(255),
+        customer_phone VARCHAR(50),
+        address TEXT,
+        city VARCHAR(100),
+        state VARCHAR(100),
+        pincode VARCHAR(20),
+        items_json LONGTEXT,
+        total_amount DECIMAL(10, 2),
+        payment_method VARCHAR(50) DEFAULT 'COD',
+        payment_status VARCHAR(50) DEFAULT 'Pending',
+        shipping_status VARCHAR(50) DEFAULT 'Processing',
+        courier_partner VARCHAR(100) DEFAULT NULL,
+        tracking_number VARCHAR(100) DEFAULT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
     if (email && email !== 'all') {
       dbOrders = await query<any[]>(
         'SELECT * FROM orders WHERE customer_email = ? ORDER BY id DESC',
