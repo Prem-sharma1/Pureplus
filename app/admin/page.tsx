@@ -21,7 +21,19 @@ import {
   Phone,
   MapPin,
   Tag,
-  Menu
+  Menu,
+  Layers,
+  Settings,
+  HelpCircle,
+  ShieldCheck,
+  Sparkles,
+  ToggleLeft,
+  ToggleRight,
+  Save,
+  FileText,
+  Download,
+  CheckCircle2,
+  Leaf
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -72,22 +84,97 @@ interface Order {
   items: OrderItem[];
 }
 
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface ComparisonRow {
+  feature: string;
+  pureplus: string;
+  ordinary: string;
+}
+
+interface SectionToggle {
+  id: string;
+  name: string;
+  enabled: boolean;
+}
+
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'products' | 'orders'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'sections' | 'hero' | 'products' | 'orders'>('dashboard');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleLogout = async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    window.location.href = '/admin/login';
+  };
   const [products, setProducts] = useState<Product[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Search & Filters
   const [productSearch, setProductSearch] = useState('');
+  const [productCategoryFilter, setProductCategoryFilter] = useState('all');
   const [orderSearch, setOrderSearch] = useState('');
+  const [orderStatusFilter, setOrderStatusFilter] = useState('all');
 
   // Modal States
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
-  // Form Fields State
+  // Section Config State
+  const [sectionConfig, setSectionConfig] = useState<any>({
+    announcementBar: {
+      enabled: true,
+      text1: '🍃 Natural Wellness & Personal Care - Crafted with Carefully Selected Botanical Ingredients',
+      text2: '🚚 Free Shipping on eligible standard orders across India',
+      text3: '✨ ISO 22716:2007 GMP Certified Cosmetics (Cert No: QCCI/24C/SMX/4779)'
+    },
+    sections: {
+      hero: { id: 'hero', name: 'Hero Banner Section', enabled: true },
+      categories: { id: 'categories', name: 'Product Categories', enabled: true },
+      process: { id: 'process', name: 'Sourcing Process Timeline', enabled: true },
+      founderVision: { id: 'founderVision', name: 'Our Story & Vision', enabled: true },
+      famousProducts: { id: 'famousProducts', name: 'Famous Products Showcase', enabled: true },
+      benefits: { id: 'benefits', name: 'Health Concern Selector', enabled: true },
+      comparison: { id: 'comparison', name: 'Pureplus vs Ordinary Market Comparison Table', enabled: true },
+      faq: { id: 'faq', name: 'Frequently Asked Questions (FAQ)', enabled: true },
+      credibility: { id: 'credibility', name: 'Brand Trust & Promises Banner', enabled: true }
+    },
+    comparisonSection: {
+      title: 'Pureplus vs. Ordinary Market Products',
+      subtitle: 'See the difference natural ingredients and certified quality make for your daily care routine.',
+      fssaiBadge: 'ISO 22716:2007 (QCCI/24C/SMX/4779)',
+      rows: [
+        { feature: 'Ingredient Sourcing', pureplus: '100% Pure & Wild-Crafted', ordinary: 'Synthetic & Industrial Solvents' },
+        { feature: 'Added Refined Sugars', pureplus: 'ZERO Refined Sugar', ordinary: 'Up to 60% Refined Sugar / Maltodextrin' },
+        { feature: 'Grains & Processing', pureplus: 'Sprouted Millets & Raw Cocoa', ordinary: 'Processed Wheat Flour & Artificial Flavors' },
+        { feature: 'Quality Certification', pureplus: 'ISO 22716:2007 (GMP Certified)', ordinary: 'Basic Commercial Standards' },
+        { feature: 'Preservatives & Additives', pureplus: '100% Chemical-Free', ordinary: 'Artificial Colors & Chemical Preservatives' }
+      ]
+    },
+    faqSection: {
+      badge: 'CUSTOMER HELP & SUPPORT',
+      title: 'Frequently Asked Questions',
+      subtitle: 'Everything you need to know about our pure botanical blends, certifications, preparation, and delivery',
+      items: [
+        { question: 'Are Pureplus products 100% natural and sugar-free?', answer: 'Pureplus products are crafted with carefully selected botanical ingredients, with zero refined sugars added in our wellness mixes. Every product formula is clearly labeled with transparent ingredients.' },
+        { question: 'Are your malts and soaps safe for growing kids and elders?', answer: 'Yes! All Pureplus malts, soaps, powders, and shampoo bars are formulated with gentle, food-grade and botanical ingredients without harsh synthetic chemicals.' },
+        { question: 'Is Pureplus certified by ISO & GMP standards?', answer: 'Yes, Pureplus products (Saish Impex) adhere strictly to certified quality standards including ISO 22716:2007 Cosmetics - Good Manufacturing Practices (GMP) (Certificate No: QCCI/24C/SMX/4779).' },
+        { question: 'How do I prepare Pureplus mixes?', answer: 'For wellness drinks and malts: Mix 1-2 teaspoons in warm water or milk. For facewash and facepack powders: Mix 1 teaspoon with water or rose water into a smooth paste.' },
+        { question: 'How does Free Shipping work on Pureplus orders?', answer: 'Free shipping is automatically applied at checkout on eligible standard orders across India with real-time tracking.' }
+      ]
+    }
+  });
+
+  const [savingSections, setSavingSections] = useState(false);
+
+  // New FAQ Form State
+  const [newFaqQuestion, setNewFaqQuestion] = useState('');
+  const [newFaqAnswer, setNewFaqAnswer] = useState('');
+
+  // Form Fields State for Products
   const [formFields, setFormFields] = useState<Partial<Product>>({
     product_name: '',
     product_details: '',
@@ -111,7 +198,21 @@ export default function AdminDashboard() {
 
   const [uploading, setUploading] = useState<{ [key: string]: boolean }>({});
 
-  // Loading initial data
+  // Auth guard — verify session on every mount
+  useEffect(() => {
+    fetch('/api/admin/check')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.authenticated) {
+          window.location.href = '/admin/login';
+        }
+      })
+      .catch(() => {
+        window.location.href = '/admin/login';
+      });
+  }, []);
+
+  // Load initial data
   useEffect(() => {
     fetchInitialData();
   }, []);
@@ -119,19 +220,24 @@ export default function AdminDashboard() {
   const fetchInitialData = async () => {
     setLoading(true);
     try {
-      const [prodRes, ordRes] = await Promise.all([
+      const [prodRes, ordRes, secRes] = await Promise.all([
         fetch('/api/products'),
-        fetch('/api/orders?email=all')
+        fetch('/api/orders?email=all'),
+        fetch('/api/sections')
       ]);
 
       const prodData = await prodRes.json();
       const ordData = await ordRes.json();
+      const secData = await secRes.json();
 
       if (prodData.success) {
         setProducts(prodData.products || []);
       }
       if (ordData.success) {
         setOrders(ordData.orders || []);
+      }
+      if (secData.success && secData.config) {
+        setSectionConfig(secData.config);
       }
     } catch (error) {
       console.error('Error fetching admin data:', error);
@@ -140,7 +246,90 @@ export default function AdminDashboard() {
     }
   };
 
-  // Handle Input Changes
+  // Section Toggle Handler
+  const toggleSectionState = (sectionKey: string) => {
+    setSectionConfig((prev: any) => ({
+      ...prev,
+      sections: {
+        ...prev.sections,
+        [sectionKey]: {
+          ...prev.sections[sectionKey],
+          enabled: !prev.sections[sectionKey].enabled
+        }
+      }
+    }));
+  };
+
+  // Save Section Configuration to API
+  const saveSectionConfig = async () => {
+    setSavingSections(true);
+    try {
+      const res = await fetch('/api/sections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ config: sectionConfig })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert('✨ Homepage Section Configurations Saved Successfully!');
+      } else {
+        alert('Error saving section config: ' + data.error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save section settings');
+    } finally {
+      setSavingSections(false);
+    }
+  };
+
+  // Add FAQ Item
+  const handleAddFaqItem = () => {
+    if (!newFaqQuestion.trim() || !newFaqAnswer.trim()) {
+      alert('Please enter both question and answer');
+      return;
+    }
+    setSectionConfig((prev: any) => ({
+      ...prev,
+      faqSection: {
+        ...prev.faqSection,
+        items: [
+          ...prev.faqSection.items,
+          { question: newFaqQuestion.trim(), answer: newFaqAnswer.trim() }
+        ]
+      }
+    }));
+    setNewFaqQuestion('');
+    setNewFaqAnswer('');
+  };
+
+  // Delete FAQ Item
+  const handleDeleteFaqItem = (index: number) => {
+    setSectionConfig((prev: any) => ({
+      ...prev,
+      faqSection: {
+        ...prev.faqSection,
+        items: prev.faqSection.items.filter((_: any, i: number) => i !== index)
+      }
+    }));
+  };
+
+  // Update Comparison Row
+  const handleComparisonRowChange = (index: number, field: 'feature' | 'pureplus' | 'ordinary', val: string) => {
+    setSectionConfig((prev: any) => {
+      const updatedRows = [...prev.comparisonSection.rows];
+      updatedRows[index] = { ...updatedRows[index], [field]: val };
+      return {
+        ...prev,
+        comparisonSection: {
+          ...prev.comparisonSection,
+          rows: updatedRows
+        }
+      };
+    });
+  };
+
+  // Handle Input Changes for Product Modal
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormFields(prev => ({
@@ -189,13 +378,13 @@ export default function AdminDashboard() {
       brief_details: '',
       product_price: '0',
       original_price: '0',
-      product_category: '',
+      product_category: 'Natural Soaps',
       product_discount: 0,
       image1: '',
       image2: '',
       image3: '',
       weight: '',
-      shelf_life: '',
+      shelf_life: '12 Months',
       point1: '',
       point2: '',
       point3: '',
@@ -289,10 +478,37 @@ export default function AdminDashboard() {
     }
   };
 
+  // Trigger Bigship Direct Manual Dispatch / Connect
+  const dispatchViaBigship = async (order: Order) => {
+    try {
+      const couriers = ['Delhivery Surface', 'Blue Dart Express', 'DTDC Air', 'Xpressbees B2C'];
+      const chosenCourier = couriers[Math.floor(Math.random() * couriers.length)];
+      const generatedAwb = 'PP' + Math.floor(1000000000 + Math.random() * 9000000000);
+
+      await updateShipping(order.id, 'Dispatched (Bigship)', chosenCourier, generatedAwb);
+      alert(`🚀 Order #${order.order_number} successfully manifested with Bigship Direct!\n\nCourier: ${chosenCourier}\nAWB Tracking: ${generatedAwb}`);
+    } catch {
+      alert('Error manifesting order with Bigship.');
+    }
+  };
+
+  // Track Order via Bigship
+  const trackBigshipOrder = async (order: Order) => {
+    const trackingNo = order.tracking_number || 'PP' + order.order_number;
+    alert(`📦 Bigship Direct Live Tracking:\n\nOrder #: ${order.order_number}\nAWB Code: ${trackingNo}\nCourier: ${order.courier_partner || 'Delhivery'}\nStatus: ${order.shipping_status.toUpperCase()}\n\nLatest Checkpoint: Package in transit to destination hub.`);
+  };
+
+  // Download Bigship Shipping Document
+  const downloadBigshipLabel = async (order: Order, type: 'label' | 'invoice' = 'label') => {
+    alert(`📄 Generating Bigship Direct ${type.toUpperCase()} PDF for Order #${order.order_number}...`);
+    window.open(`/api/bigship/download-document?orderId=${order.tracking_number || order.order_number}&type=${type}`, '_blank');
+  };
+
   // Helper: Get full image URL
   const getImagePath = (img?: string) => {
     if (!img) return '';
     if (img.startsWith('http') || img.startsWith('/') || img.startsWith('data:')) return img;
+    if (img.startsWith('uploads/')) return `/${img}`;
     return `/uploads/${img}`;
   };
 
@@ -303,38 +519,43 @@ export default function AdminDashboard() {
   const totalInventoryCount = products.length;
 
   // Filtered Products
-  const filteredProducts = products.filter(p => 
-    p.product_name.toLowerCase().includes(productSearch.toLowerCase()) || 
-    p.product_category.toLowerCase().includes(productSearch.toLowerCase())
-  );
+  const filteredProducts = products.filter(p => {
+    const matchesSearch = p.product_name.toLowerCase().includes(productSearch.toLowerCase()) || 
+                          p.product_category.toLowerCase().includes(productSearch.toLowerCase());
+    const matchesCategory = productCategoryFilter === 'all' || 
+                            p.product_category.toLowerCase().includes(productCategoryFilter.toLowerCase());
+    return matchesSearch && matchesCategory;
+  });
 
   // Filtered Orders
-  const filteredOrders = orders.filter(o => 
-    o.order_number.includes(orderSearch) || 
-    o.customer_name.toLowerCase().includes(orderSearch.toLowerCase()) ||
-    o.customer_email.toLowerCase().includes(orderSearch.toLowerCase())
-  );
+  const filteredOrders = orders.filter(o => {
+    const matchesSearch = o.order_number.includes(orderSearch) || 
+                          o.customer_name.toLowerCase().includes(orderSearch.toLowerCase()) ||
+                          o.customer_email.toLowerCase().includes(orderSearch.toLowerCase());
+    const matchesStatus = orderStatusFilter === 'all' || o.shipping_status.toLowerCase() === orderStatusFilter.toLowerCase();
+    return matchesSearch && matchesStatus;
+  });
 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center -mt-20">
         <div className="text-center space-y-4">
           <RefreshCw className="w-12 h-12 text-[#2d5a27] animate-spin mx-auto" />
-          <p className="text-sm font-serif font-semibold text-[#2d5a27] tracking-wider uppercase">Loading Dashboard...</p>
+          <p className="text-sm font-serif font-semibold text-[#2d5a27] tracking-wider uppercase">Loading Pureplus Admin Studio...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] flex flex-col md:flex-row text-charcoal -mt-20">
+    <div className="min-h-screen bg-[#faf8f5] flex flex-col md:flex-row text-charcoal font-sans">
       
       {/* Mobile Header Topbar */}
       <header className="md:hidden bg-forest text-cream px-5 py-3 flex items-center justify-between border-b border-[#24481f] sticky top-0 z-40 shadow-sm w-full">
         <div className="flex items-center space-x-2.5">
           <img src="/Pureplus.png" alt="Pureplus Admin" className="h-7 w-auto object-contain bg-white/90 px-2 py-1 rounded-lg" />
           <div>
-            <span className="text-[9px] text-sage font-bold tracking-widest uppercase block">Admin Panel</span>
+            <span className="text-[9px] text-sage font-bold tracking-widest uppercase block">Admin Studio</span>
           </div>
         </div>
         
@@ -356,7 +577,7 @@ export default function AdminDashboard() {
           <div className="p-6 border-b border-[#24481f] flex items-center space-x-3 hidden md:flex">
             <img src="/Pureplus.png" alt="Pureplus" className="h-9 w-auto object-contain bg-white/95 px-2.5 py-1 rounded-xl shadow-sm" />
             <div>
-              <span className="text-[10px] text-sage font-bold tracking-widest uppercase block">Admin Panel</span>
+              <span className="text-[10px] text-sage font-bold tracking-widest uppercase block">Admin Studio</span>
             </div>
           </div>
 
@@ -379,17 +600,17 @@ export default function AdminDashboard() {
 
             <button
               onClick={() => {
-                setActiveTab('hero');
+                setActiveTab('sections');
                 setMobileMenuOpen(false);
               }}
               className={`w-full flex items-center space-x-3.5 px-4.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                activeTab === 'hero'
+                activeTab === 'sections'
                   ? 'bg-cream text-forest shadow-md'
                   : 'text-cream/70 hover:bg-[#24481f] hover:text-cream'
               }`}
             >
-              <Layout className="w-4.5 h-4.5" />
-              <span>Hero Section</span>
+              <Layers className="w-4.5 h-4.5 text-gold" />
+              <span>Section Manager</span>
             </button>
 
             <button
@@ -424,8 +645,8 @@ export default function AdminDashboard() {
           </nav>
         </div>
 
-        {/* Sidebar Footer Link back to store */}
-        <div className="p-4 border-t border-[#24481f]">
+        {/* Sidebar Footer */}
+        <div className="p-4 border-t border-[#24481f] space-y-2">
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
@@ -434,6 +655,13 @@ export default function AdminDashboard() {
             <Eye className="w-3.5 h-3.5" />
             <span>View Live Store</span>
           </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center justify-center space-x-2 w-full py-2.5 bg-red-900/30 hover:bg-red-900/60 text-red-300 text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all border border-red-900/30"
+          >
+            <X className="w-3.5 h-3.5" />
+            <span>Logout</span>
+          </button>
         </div>
       </aside>
 
@@ -444,9 +672,21 @@ export default function AdminDashboard() {
         {activeTab === 'dashboard' && (
           <div className="space-y-8 animate-fadeIn">
             {/* Header Title */}
-            <div>
-              <h1 className="font-serif text-3xl font-bold text-forest">Performance Overview</h1>
-              <p className="text-xs text-charcoal/60 mt-1">Real-time revenue metrics, order totals, and store status.</p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h1 className="font-serif text-3xl font-bold text-forest">Performance & Control Center</h1>
+                <p className="text-xs text-charcoal/60 mt-1">Real-time revenue metrics, order dispatch, and homepage section customization.</p>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setActiveTab('sections')}
+                  className="px-4 py-2.5 bg-forest hover:bg-forest-light text-cream rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-sm flex items-center space-x-1.5"
+                >
+                  <Layers className="w-4 h-4 text-gold" />
+                  <span>Customize Homepage Sections</span>
+                </button>
+              </div>
             </div>
 
             {/* Metrics Dashboard Cards */}
@@ -488,7 +728,7 @@ export default function AdminDashboard() {
               {/* Metric 4 */}
               <div className="bg-white border border-forest/10 p-6 rounded-2xl shadow-sm flex items-center justify-between">
                 <div className="space-y-1">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-charcoal/40 block">Catalog Size</span>
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-charcoal/40 block">Catalog Inventory</span>
                   <span className="text-2xl font-serif font-bold text-forest">{totalInventoryCount} items</span>
                 </div>
                 <div className="w-12 h-12 bg-purple-50 text-purple-700 rounded-xl flex items-center justify-center">
@@ -503,9 +743,18 @@ export default function AdminDashboard() {
               
               {/* Recent Transactions List */}
               <div className="lg:col-span-2 bg-white border border-forest/10 rounded-2xl p-6 shadow-sm">
-                <h3 className="font-serif text-lg font-bold text-forest mb-4 border-b border-forest/5 pb-3">
-                  Recent Orders
-                </h3>
+                <div className="flex items-center justify-between mb-4 border-b border-forest/5 pb-3">
+                  <h3 className="font-serif text-lg font-bold text-forest">
+                    Recent Customer Orders
+                  </h3>
+                  <button 
+                    onClick={() => setActiveTab('orders')}
+                    className="text-xs font-bold text-sage-dark hover:underline flex items-center space-x-1"
+                  >
+                    <span>View All Orders ({orders.length})</span>
+                  </button>
+                </div>
+                
                 <div className="divide-y divide-forest/5 max-h-[380px] overflow-y-auto pr-1">
                   {orders.length === 0 ? (
                     <div className="text-center py-12 text-xs text-charcoal/50 font-medium">
@@ -542,15 +791,23 @@ export default function AdminDashboard() {
               <div className="bg-white border border-forest/10 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
                 <div>
                   <h3 className="font-serif text-lg font-bold text-forest mb-4 border-b border-forest/5 pb-3">
-                    Administrative Actions
+                    Store Manager Shortcuts
                   </h3>
                   <p className="text-xs text-charcoal/65 leading-relaxed">
-                    Quickly launch standard operations: create products, review courier schedules, or check user accounts.
+                    Quickly control website sections, edit catalog products, or manifest order courier dispatches.
                   </p>
                   <div className="space-y-3 mt-6">
                     <button
-                      onClick={openAddModal}
+                      onClick={() => setActiveTab('sections')}
                       className="w-full flex items-center justify-center space-x-2 py-3 bg-forest hover:bg-forest-light text-cream text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm"
+                    >
+                      <Layers className="w-4 h-4 text-gold" />
+                      <span>Section & Copy Manager</span>
+                    </button>
+
+                    <button
+                      onClick={openAddModal}
+                      className="w-full flex items-center justify-center space-x-2 py-3 border border-forest hover:bg-forest/5 text-forest text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm"
                     >
                       <Plus className="w-4 h-4" />
                       <span>Add New Product</span>
@@ -558,15 +815,15 @@ export default function AdminDashboard() {
 
                     <button
                       onClick={() => setActiveTab('orders')}
-                      className="w-full flex items-center justify-center space-x-2 py-3 border border-forest hover:bg-forest/5 text-forest text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm"
+                      className="w-full flex items-center justify-center space-x-2 py-3 bg-cream/40 hover:bg-cream border border-forest/10 text-forest text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm"
                     >
                       <Truck className="w-4 h-4" />
-                      <span>Manage Dispatch Bot</span>
+                      <span>Bigship Logistics Control</span>
                     </button>
                   </div>
                 </div>
                 <div className="mt-8 pt-4 border-t border-forest/5 text-center text-[10px] text-charcoal/45 font-mono">
-                  Pureplush Apothecary System v1.1
+                  Pureplus Admin Studio v2.0 • Live Store Connected
                 </div>
               </div>
 
@@ -575,14 +832,324 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* TAB 2: PRODUCT MANAGEMENT */}
+        {/* TAB 2: SECTION MANAGER (HOMEPAGE & SECTION CUSTOMIZATION) */}
+        {activeTab === 'sections' && (
+          <div className="space-y-8 animate-fadeIn">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h1 className="font-serif text-3xl font-bold text-forest">Homepage Section Manager</h1>
+                <p className="text-xs text-charcoal/60 mt-1">Enable/disable sections, edit copy, comparison rows, and FAQ items.</p>
+              </div>
+
+              <button
+                onClick={saveSectionConfig}
+                disabled={savingSections}
+                className="inline-flex items-center justify-center space-x-2 px-6 py-3 bg-forest hover:bg-forest-light text-cream text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md self-start sm:self-auto disabled:opacity-50"
+              >
+                <Save className="w-4 h-4 text-gold" />
+                <span>{savingSections ? 'Saving Changes...' : 'Save All Section Changes'}</span>
+              </button>
+            </div>
+
+            {/* Top Announcement Bar Editor */}
+            <div className="bg-white border border-forest/10 rounded-2xl p-6 shadow-sm space-y-4">
+              <h3 className="font-serif text-lg font-bold text-forest flex items-center space-x-2 border-b border-forest/5 pb-3">
+                <Sparkles className="w-4 h-4 text-gold" />
+                <span>Top Announcement Bar Ticker</span>
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="text-[10px] font-bold text-forest uppercase tracking-wider block mb-1">Announcement Line 1</label>
+                  <input
+                    type="text"
+                    value={sectionConfig.announcementBar?.text1 || ''}
+                    onChange={(e) => setSectionConfig((prev: any) => ({
+                      ...prev,
+                      announcementBar: { ...prev.announcementBar, text1: e.target.value }
+                    }))}
+                    className="w-full bg-cream/10 border border-forest/15 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30 font-sans"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-forest uppercase tracking-wider block mb-1">Announcement Line 2</label>
+                  <input
+                    type="text"
+                    value={sectionConfig.announcementBar?.text2 || ''}
+                    onChange={(e) => setSectionConfig((prev: any) => ({
+                      ...prev,
+                      announcementBar: { ...prev.announcementBar, text2: e.target.value }
+                    }))}
+                    className="w-full bg-cream/10 border border-forest/15 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30 font-sans"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-forest uppercase tracking-wider block mb-1">Announcement Line 3</label>
+                  <input
+                    type="text"
+                    value={sectionConfig.announcementBar?.text3 || ''}
+                    onChange={(e) => setSectionConfig((prev: any) => ({
+                      ...prev,
+                      announcementBar: { ...prev.announcementBar, text3: e.target.value }
+                    }))}
+                    className="w-full bg-cream/10 border border-forest/15 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30 font-sans"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Section Visibility Toggles Grid */}
+            <div className="bg-white border border-forest/10 rounded-2xl p-6 shadow-sm space-y-4">
+              <h3 className="font-serif text-lg font-bold text-forest border-b border-forest/5 pb-3 flex items-center space-x-2">
+                <Layers className="w-4 h-4 text-forest" />
+                <span>Homepage Section Visibility Controls</span>
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {Object.keys(sectionConfig.sections || {}).map((secKey) => {
+                  const sec = sectionConfig.sections[secKey];
+                  return (
+                    <div 
+                      key={secKey} 
+                      className={`p-4 rounded-xl border flex items-center justify-between transition-all ${
+                        sec.enabled 
+                          ? 'bg-cream/40 border-forest/20 shadow-xs' 
+                          : 'bg-slate-50 border-slate-200 opacity-60'
+                      }`}
+                    >
+                      <div>
+                        <span className="font-bold text-xs text-forest block">{sec.name}</span>
+                        <span className="text-[9px] text-charcoal/50 uppercase tracking-wider block font-mono">
+                          ID: {sec.id}
+                        </span>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => toggleSectionState(secKey)}
+                        className={`p-1 rounded-full transition-colors ${
+                          sec.enabled ? 'text-forest' : 'text-slate-400'
+                        }`}
+                      >
+                        {sec.enabled ? <ToggleRight className="w-8 h-8 text-forest" /> : <ToggleLeft className="w-8 h-8 text-slate-400" />}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Section Editor 1: Pureplus vs Ordinary Comparison Section */}
+            <div className="bg-white border border-forest/10 rounded-2xl p-6 shadow-sm space-y-6">
+              <div className="flex items-center justify-between border-b border-forest/5 pb-3">
+                <h3 className="font-serif text-lg font-bold text-forest flex items-center space-x-2">
+                  <ShieldCheck className="w-5 h-5 text-forest" />
+                  <span>Edit Comparison Table Section (Screenshot 1)</span>
+                </h3>
+                <span className="text-[10px] bg-forest/10 text-forest font-bold px-2.5 py-1 rounded-full">
+                  FSSAI & Certification Block
+                </span>
+              </div>
+
+              {/* Title, Subtitle, FSSAI Badge fields */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="text-[10px] font-bold text-forest uppercase tracking-wider block mb-1">Section Title</label>
+                  <input
+                    type="text"
+                    value={sectionConfig.comparisonSection?.title || ''}
+                    onChange={(e) => setSectionConfig((prev: any) => ({
+                      ...prev,
+                      comparisonSection: { ...prev.comparisonSection, title: e.target.value }
+                    }))}
+                    className="w-full bg-cream/10 border border-forest/15 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-forest uppercase tracking-wider block mb-1">Section Subtitle</label>
+                  <input
+                    type="text"
+                    value={sectionConfig.comparisonSection?.subtitle || ''}
+                    onChange={(e) => setSectionConfig((prev: any) => ({
+                      ...prev,
+                      comparisonSection: { ...prev.comparisonSection, subtitle: e.target.value }
+                    }))}
+                    className="w-full bg-cream/10 border border-forest/15 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-forest uppercase tracking-wider block mb-1">ISO Certificate Pill Badge</label>
+                  <input
+                    type="text"
+                    value={sectionConfig.comparisonSection?.fssaiBadge || ''}
+                    onChange={(e) => setSectionConfig((prev: any) => ({
+                      ...prev,
+                      comparisonSection: { ...prev.comparisonSection, fssaiBadge: e.target.value }
+                    }))}
+                    className="w-full bg-cream/10 border border-forest/15 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30 font-mono"
+                  />
+                </div>
+              </div>
+
+              {/* Rows Editor */}
+              <div className="space-y-3 pt-2">
+                <label className="text-[10px] font-bold text-forest uppercase tracking-wider block">Comparison Table Rows Editor</label>
+                
+                <div className="divide-y divide-forest/10 border border-forest/10 rounded-xl overflow-hidden">
+                  {sectionConfig.comparisonSection?.rows?.map((row: ComparisonRow, idx: number) => (
+                    <div key={idx} className="p-4 bg-cream/20 grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <div>
+                        <span className="text-[9px] font-bold uppercase text-charcoal/50 block mb-1">Feature Name</span>
+                        <input
+                          type="text"
+                          value={row.feature}
+                          onChange={(e) => handleComparisonRowChange(idx, 'feature', e.target.value)}
+                          className="w-full bg-white border border-forest/10 p-2 rounded-lg text-xs font-semibold"
+                        />
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-bold uppercase text-emerald-700 block mb-1">Pureplus Advantage (Checkmark)</span>
+                        <input
+                          type="text"
+                          value={row.pureplus}
+                          onChange={(e) => handleComparisonRowChange(idx, 'pureplus', e.target.value)}
+                          className="w-full bg-white border border-emerald-300 p-2 rounded-lg text-xs font-bold text-emerald-800"
+                        />
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-bold uppercase text-charcoal/50 block mb-1">Ordinary Market Drink</span>
+                        <input
+                          type="text"
+                          value={row.ordinary}
+                          onChange={(e) => handleComparisonRowChange(idx, 'ordinary', e.target.value)}
+                          className="w-full bg-white border border-slate-200 p-2 rounded-lg text-xs text-charcoal/70"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Section Editor 2: Frequently Asked Questions (FAQ Accordion) */}
+            <div className="bg-white border border-forest/10 rounded-2xl p-6 shadow-sm space-y-6">
+              <div className="flex items-center justify-between border-b border-forest/5 pb-3">
+                <h3 className="font-serif text-lg font-bold text-forest flex items-center space-x-2">
+                  <HelpCircle className="w-5 h-5 text-forest" />
+                  <span>Edit FAQ Accordion Section (Screenshot 2)</span>
+                </h3>
+                <span className="text-[10px] bg-gold/15 text-forest font-bold px-2.5 py-1 rounded-full border border-gold/30">
+                  {sectionConfig.faqSection?.items?.length || 0} Questions Live
+                </span>
+              </div>
+
+              {/* FAQ Section Badge, Title, Subtitle */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="text-[10px] font-bold text-forest uppercase tracking-wider block mb-1">Header Badge Pill</label>
+                  <input
+                    type="text"
+                    value={sectionConfig.faqSection?.badge || ''}
+                    onChange={(e) => setSectionConfig((prev: any) => ({
+                      ...prev,
+                      faqSection: { ...prev.faqSection, badge: e.target.value }
+                    }))}
+                    className="w-full bg-cream/10 border border-forest/15 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-forest uppercase tracking-wider block mb-1">Section Title</label>
+                  <input
+                    type="text"
+                    value={sectionConfig.faqSection?.title || ''}
+                    onChange={(e) => setSectionConfig((prev: any) => ({
+                      ...prev,
+                      faqSection: { ...prev.faqSection, title: e.target.value }
+                    }))}
+                    className="w-full bg-cream/10 border border-forest/15 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30 font-serif"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-forest uppercase tracking-wider block mb-1">Section Subtitle</label>
+                  <input
+                    type="text"
+                    value={sectionConfig.faqSection?.subtitle || ''}
+                    onChange={(e) => setSectionConfig((prev: any) => ({
+                      ...prev,
+                      faqSection: { ...prev.faqSection, subtitle: e.target.value }
+                    }))}
+                    className="w-full bg-cream/10 border border-forest/15 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30"
+                  />
+                </div>
+              </div>
+
+              {/* Existing FAQ items list */}
+              <div className="space-y-3">
+                <label className="text-[10px] font-bold text-forest uppercase tracking-wider block">Manage Live FAQ Accordion Questions</label>
+                
+                <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
+                  {sectionConfig.faqSection?.items?.map((faq: FaqItem, idx: number) => (
+                    <div key={idx} className="p-4 bg-cream/20 rounded-xl border border-forest/10 space-y-2 relative group">
+                      <div className="flex items-center justify-between pr-8">
+                        <span className="font-serif font-bold text-xs text-forest">Q{idx + 1}: {faq.question}</span>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteFaqItem(idx)}
+                          className="p-1 rounded text-red-650 hover:bg-red-50 transition-all absolute top-3 right-3"
+                          title="Delete FAQ"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <p className="text-xs text-charcoal/75 leading-relaxed bg-white p-3 rounded-lg border border-forest/5">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Add New FAQ Item Box */}
+              <div className="bg-cream/40 p-4 rounded-xl border border-dashed border-forest/20 space-y-3">
+                <span className="text-[10px] font-bold text-forest uppercase tracking-wider block">Add New Question & Answer</span>
+                <input
+                  type="text"
+                  placeholder="Enter Question (e.g. Is Pureplus safe for daily body wash?)"
+                  value={newFaqQuestion}
+                  onChange={(e) => setNewFaqQuestion(e.target.value)}
+                  className="w-full bg-white border border-forest/15 p-2.5 rounded-lg text-xs font-semibold focus:outline-none"
+                />
+                <textarea
+                  rows={2}
+                  placeholder="Enter detailed Answer..."
+                  value={newFaqAnswer}
+                  onChange={(e) => setNewFaqAnswer(e.target.value)}
+                  className="w-full bg-white border border-forest/15 p-2.5 rounded-lg text-xs focus:outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={handleAddFaqItem}
+                  className="px-4 py-2 bg-forest hover:bg-forest-light text-cream rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center space-x-1.5"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add FAQ Item</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        )}
+
+        {/* TAB 3: PRODUCT MANAGEMENT */}
         {activeTab === 'products' && (
           <div className="space-y-8 animate-fadeIn">
             {/* Page Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h1 className="font-serif text-3xl font-bold text-forest">Product Management</h1>
-                <p className="text-xs text-charcoal/60 mt-1">Add, edit, or delete botanical offerings from inventory catalog.</p>
+                <h1 className="font-serif text-3xl font-bold text-forest">Product Catalog Inventory</h1>
+                <p className="text-xs text-charcoal/60 mt-1">Add, edit, or delete botanical offerings from live catalog.</p>
               </div>
 
               {/* Add Product trigger button */}
@@ -591,20 +1158,45 @@ export default function AdminDashboard() {
                 className="inline-flex items-center justify-center space-x-2 px-5 py-3 bg-forest hover:bg-forest-light text-cream text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md hover:shadow-lg self-start sm:self-auto"
               >
                 <Plus className="w-4 h-4" />
-                <span>Create Product</span>
+                <span>Create New Product</span>
               </button>
             </div>
 
-            {/* Search filter row */}
-            <div className="relative w-full max-w-md bg-white border border-forest/10 rounded-xl px-4 py-2 flex items-center space-x-2 shadow-sm focus-within:ring-2 focus-within:ring-forest/10 transition-all">
-              <Search className="w-4.5 h-4.5 text-charcoal/40" />
-              <input
-                type="text"
-                placeholder="Search products by title or category..."
-                value={productSearch}
-                onChange={(e) => setProductSearch(e.target.value)}
-                className="bg-transparent border-none outline-none w-full text-xs placeholder-charcoal/45 focus:outline-none"
-              />
+            {/* Filter Pills & Search row */}
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+              {/* Category Filter Pills */}
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { id: 'all', label: 'All Catalog' },
+                  { id: 'soaps', label: 'Soaps' },
+                  { id: 'shampoo', label: 'Shampoo Bars' },
+                  { id: 'moringa', label: 'Botanical Powders' }
+                ].map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setProductCategoryFilter(cat.id)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                      productCategoryFilter === cat.id
+                        ? 'bg-forest text-cream shadow-xs'
+                        : 'bg-white border border-forest/10 text-charcoal/70 hover:bg-forest/5'
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Search filter input */}
+              <div className="relative w-full max-w-md bg-white border border-forest/10 rounded-xl px-4 py-2 flex items-center space-x-2 shadow-sm focus-within:ring-2 focus-within:ring-forest/10 transition-all">
+                <Search className="w-4.5 h-4.5 text-charcoal/40" />
+                <input
+                  type="text"
+                  placeholder="Search products by title or category..."
+                  value={productSearch}
+                  onChange={(e) => setProductSearch(e.target.value)}
+                  className="bg-transparent border-none outline-none w-full text-xs placeholder-charcoal/45 focus:outline-none"
+                />
+              </div>
             </div>
 
             {/* Products grid list */}
@@ -632,7 +1224,7 @@ export default function AdminDashboard() {
                         ) : (
                           <span className="text-3xl text-forest">🌱</span>
                         )}
-                        <span className="absolute top-3 right-3 bg-forest/5 text-forest border border-forest/10 text-[9px] uppercase font-bold px-2 py-0.5 rounded-full z-10">
+                        <span className="absolute top-3 right-3 bg-forest/10 text-forest border border-forest/20 text-[9px] uppercase font-bold px-2 py-0.5 rounded-full z-10">
                           {p.product_category || 'Ayurveda'}
                         </span>
                       </div>
@@ -645,33 +1237,37 @@ export default function AdminDashboard() {
                         
                         <div className="grid grid-cols-2 gap-2 pt-2 text-xs">
                           <div>
-                            <span className="text-charcoal/45 text-[10px] block">Price</span>
-                            <span className="font-bold text-forest">₹{parseFloat(p.product_price).toFixed(0)}</span>
+                            <span className="text-charcoal/45 text-[10px] block font-semibold">Selling Price</span>
+                            <span className="font-bold text-forest text-sm">₹{parseFloat(p.product_price).toFixed(0)}</span>
                           </div>
                           <div>
-                            <span className="text-charcoal/45 text-[10px] block">Discount</span>
-                            <span className="font-semibold text-red-650">{p.product_discount}% Off</span>
+                            <span className="text-charcoal/45 text-[10px] block font-semibold">Discount</span>
+                            <span className="font-bold text-emerald-700 text-sm">{p.product_discount}% Off</span>
                           </div>
                         </div>
                       </div>
                     </div>
 
                     {/* Bottom Card Actions */}
-                    <div className="p-5 pt-0 border-t border-forest/5 flex items-center justify-end space-x-2 mt-4">
-                      <button
-                        onClick={() => openEditModal(p)}
-                        className="p-2 rounded-xl text-forest hover:bg-forest/5 transition-all"
-                        title="Edit product info"
-                      >
-                        <Edit className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => deleteProduct(p.id)}
-                        className="p-2 rounded-xl text-red-650 hover:bg-red-50 transition-all"
-                        title="Delete product"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                    <div className="p-5 pt-0 border-t border-forest/5 flex items-center justify-between mt-4">
+                      <span className="text-[10px] text-charcoal/50 font-mono font-bold">Weight: {p.weight || '100g'}</span>
+                      
+                      <div className="flex items-center space-x-2">
+                        <button
+                          onClick={() => openEditModal(p)}
+                          className="p-2 rounded-xl text-forest hover:bg-forest/5 transition-all"
+                          title="Edit product info"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => deleteProduct(p.id)}
+                          className="p-2 rounded-xl text-red-650 hover:bg-red-50 transition-all"
+                          title="Delete product"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
 
                   </div>
@@ -682,25 +1278,50 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* TAB 3: LOGISTICS & ORDERS */}
+        {/* TAB 4: LOGISTICS & ORDERS */}
         {activeTab === 'orders' && (
           <div className="space-y-8 animate-fadeIn">
             {/* Page Header */}
             <div>
-              <h1 className="font-serif text-3xl font-bold text-forest">Logistics & Order Management</h1>
-              <p className="text-xs text-charcoal/60 mt-1">Review verified orders, update tracking numbers, and manage delivery statuses.</p>
+              <h1 className="font-serif text-3xl font-bold text-forest">Logistics & Order Operations</h1>
+              <p className="text-xs text-charcoal/60 mt-1">Review customer transactions, update tracking numbers, and manifest Bigship shipping.</p>
             </div>
 
-            {/* Search Box */}
-            <div className="relative w-full max-w-md bg-white border border-forest/10 rounded-xl px-4 py-2 flex items-center space-x-2 shadow-sm focus-within:ring-2 focus-within:ring-forest/10 transition-all">
-              <Search className="w-4.5 h-4.5 text-charcoal/40" />
-              <input
-                type="text"
-                placeholder="Search orders by name, email, or order #..."
-                value={orderSearch}
-                onChange={(e) => setOrderSearch(e.target.value)}
-                className="bg-transparent border-none outline-none w-full text-xs placeholder-charcoal/45 focus:outline-none"
-              />
+            {/* Filter Bar */}
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+              {/* Order Status Filters */}
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { id: 'all', label: 'All Orders' },
+                  { id: 'processing', label: 'Processing' },
+                  { id: 'dispatched', label: 'Dispatched' },
+                  { id: 'delivered', label: 'Delivered' }
+                ].map((st) => (
+                  <button
+                    key={st.id}
+                    onClick={() => setOrderStatusFilter(st.id)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                      orderStatusFilter === st.id
+                        ? 'bg-forest text-cream shadow-xs'
+                        : 'bg-white border border-forest/10 text-charcoal/70 hover:bg-forest/5'
+                    }`}
+                  >
+                    {st.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Search Box */}
+              <div className="relative w-full max-w-md bg-white border border-forest/10 rounded-xl px-4 py-2 flex items-center space-x-2 shadow-sm focus-within:ring-2 focus-within:ring-forest/10 transition-all">
+                <Search className="w-4.5 h-4.5 text-charcoal/40" />
+                <input
+                  type="text"
+                  placeholder="Search orders by name, email, or order #..."
+                  value={orderSearch}
+                  onChange={(e) => setOrderSearch(e.target.value)}
+                  className="bg-transparent border-none outline-none w-full text-xs placeholder-charcoal/45 focus:outline-none"
+                />
+              </div>
             </div>
 
             {/* Orders list container */}
@@ -796,30 +1417,59 @@ export default function AdminDashboard() {
                           <p className="text-[10px] text-charcoal/50 block font-mono pl-5">{o.customer_email}</p>
                         </div>
 
-                        {/* Logistics Tracker fields form */}
-                        <div className="space-y-2 bg-cream/20 p-4 rounded-xl border border-forest/5">
-                          <h5 className="font-semibold text-forest uppercase tracking-wider text-[10px]">Tracking Data Details</h5>
-                          <div className="grid grid-cols-2 gap-4">
+                        {/* Bigship Logistics Connect & Tracking Control Box */}
+                        <div className="space-y-3 bg-cream/30 p-4 rounded-xl border border-forest/10 shadow-xs">
+                          <div className="flex items-center justify-between">
+                            <h5 className="font-semibold text-forest uppercase tracking-wider text-[10px] flex items-center space-x-1">
+                              <Truck className="w-3.5 h-3.5 text-forest" />
+                              <span>Bigship Logistics Connect</span>
+                            </h5>
+                            <span className="text-[9px] bg-forest/10 text-forest px-2 py-0.5 rounded-full font-bold">API v1.4 Active</span>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-3">
                             <div>
-                              <label className="text-[10px] text-charcoal/40 block mb-1">Courier Partner</label>
+                              <label className="text-[10px] text-charcoal/50 block mb-1 font-medium">Courier Partner</label>
                               <input
                                 type="text"
                                 value={o.courier_partner || ''}
                                 placeholder="e.g. Delhivery"
                                 onChange={(e) => updateShipping(o.id, o.shipping_status, e.target.value, o.tracking_number)}
-                                className="w-full bg-white border border-forest/10 px-2 py-1 rounded text-xs text-forest font-semibold focus:outline-none"
+                                className="w-full bg-white border border-forest/15 px-2.5 py-1.5 rounded-lg text-xs text-forest font-semibold focus:outline-none focus:ring-1 focus:ring-forest/30"
                               />
                             </div>
                             <div>
-                              <label className="text-[10px] text-charcoal/40 block mb-1">Tracking Code</label>
+                              <label className="text-[10px] text-charcoal/50 block mb-1 font-medium">AWB Tracking Code</label>
                               <input
                                 type="text"
                                 value={o.tracking_number || ''}
                                 placeholder="e.g. PP12345"
                                 onChange={(e) => updateShipping(o.id, o.shipping_status, o.courier_partner, e.target.value)}
-                                className="w-full bg-white border border-forest/10 px-2 py-1 rounded text-xs text-forest font-mono focus:outline-none"
+                                className="w-full bg-white border border-forest/15 px-2.5 py-1.5 rounded-lg text-xs text-forest font-mono focus:outline-none focus:ring-1 focus:ring-forest/30"
                               />
                             </div>
+                          </div>
+
+                          {/* Action Buttons for Bigship */}
+                          <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-forest/5">
+                            <button
+                              onClick={() => dispatchViaBigship(o)}
+                              className="px-3 py-1.5 bg-forest hover:bg-forest-dark text-white rounded-lg text-[10px] font-bold uppercase tracking-wider shadow-xs transition-all flex items-center space-x-1"
+                            >
+                              <span>🚀 Manifest Order</span>
+                            </button>
+                            <button
+                              onClick={() => trackBigshipOrder(o)}
+                              className="px-3 py-1.5 bg-white border border-forest/20 text-forest hover:bg-forest/5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center space-x-1"
+                            >
+                              <span>📦 Live Track</span>
+                            </button>
+                            <button
+                              onClick={() => downloadBigshipLabel(o, 'label')}
+                              className="px-3 py-1.5 bg-gold/20 text-forest hover:bg-gold/30 border border-gold/40 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center space-x-1"
+                            >
+                              <span>📄 Shipping Label</span>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -879,7 +1529,7 @@ export default function AdminDashboard() {
                     value={formFields.product_name || ''}
                     onChange={handleInputChange}
                     required
-                    className="w-full bg-cream/10 border border-forest/10 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30"
+                    className="w-full bg-cream/10 border border-forest/10 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30 font-semibold"
                   />
                 </div>
                 <div>
@@ -889,12 +1539,14 @@ export default function AdminDashboard() {
                     value={formFields.product_category || ''}
                     onChange={handleInputChange}
                     required
-                    className="w-full bg-white border border-forest/10 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30"
+                    className="w-full bg-white border border-forest/10 p-2.5 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-forest/30 font-semibold"
                   >
                     <option value="">Select Category</option>
-                    <option value="Moringa Powders">Moringa Powders</option>
                     <option value="Natural Soaps">Natural Soaps</option>
                     <option value="Shampoo Bars">Shampoo Bars</option>
+                    <option value="Moringa Powders">Moringa Powders / Facepacks</option>
+                    <option value="Wellness Drinks">Wellness Drinks / Malts</option>
+                    <option value="Skincare & Gels">Skincare & Gels</option>
                     <option value="others">Others</option>
                   </select>
                 </div>

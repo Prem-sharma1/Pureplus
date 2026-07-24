@@ -97,10 +97,10 @@ const SEED_PRODUCTS = [
     product_name: 'Pureplush mangobutter Mud Sea Clay Soap',
     product_details: 'Pureplush Handcrafted Mango Butter, Mud & Sea Clay Soap. Deeply purifies with sea clay, extracts impurities with natural mud, and intensely moisturizes with organic mango butter. 100g.',
     brief_details: 'Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'MangoButter/Soap.png',
     image2: 'MangoButter/WhatsApp Image 2026-07-15 at 5.18.11 PM.jpeg',
     image3: 'MangoButter/IMG-20260123-WA0020.jpg',
@@ -119,10 +119,10 @@ const SEED_PRODUCTS = [
     product_name: 'Pureplush Sheabutter Multani Mitti Soap',
     product_details: 'Pureplush Handcrafted Shea Butter & Multani Mitti Soap. Combines the oil-absorbing power of Multani Mitti (fullers earth) with the deep conditioning of organic raw shea butter. 100g.',
     brief_details: 'Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Multanimitti/Soap3.png',
     image2: 'Multanimitti/WhatsApp Image 2026-07-10 at 7.10.16 PM (1).jpeg',
     image3: '',
@@ -141,10 +141,10 @@ const SEED_PRODUCTS = [
     product_name: 'Pureplush Goatmilk French Green Clay Soap',
     product_details: 'Pureplush Handcrafted Goat Milk & French Green Clay Soap. French green clay draws out toxins, while fresh farm goat milk softens, hydrates, and restores natural pH. 100g.',
     brief_details: 'Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Frenchgreenclay/Soap2.png',
     image2: 'Frenchgreenclay/WhatsApp Image 2026-07-10 at 7.10.16 PM.jpeg',
     image3: '',
@@ -163,10 +163,10 @@ const SEED_PRODUCTS = [
     product_name: 'Pureplush Goatmilk Coffee D Tan Soap',
     product_details: 'Pureplush Handcrafted Goat Milk & Coffee D-Tan Soap. Gently exfoliates dead skin cells, draws out impurities, and deeply moisturizes with fresh farm goat milk and rich aromatic coffee. 100g.',
     brief_details: 'Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'CoffeeD/new1.png',
     image2: 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg',
     image3: '',
@@ -185,10 +185,10 @@ const SEED_PRODUCTS = [
     product_name: 'Pureplush Multani Mitti Saffron Shampoo Bar',
     product_details: 'Pureplush Solid Multani Mitti & Saffron Shampoo Bar. Saffron extracts enhance natural hair shine, while Multani Mitti clay gently cleanses the scalp of grease and build-up. 80g.',
     brief_details: 'Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.',
-    product_price: '199.00',
-    original_price: '299.00',
+    product_price: '299.00',
+    original_price: '399.00',
     product_category: 'shampoo',
-    product_discount: 33,
+    product_discount: 25,
     image1: 'multanimittishampoo/Shampoobar2.png',
     image2: 'multanimittishampoo/1770380073526.png',
     image3: '',
@@ -207,10 +207,10 @@ const SEED_PRODUCTS = [
     product_name: 'Pureplush Hibiscus Neemtulsi Shampoo Bar',
     product_details: 'Pureplush Solid Hibiscus, Neem & Tulsi Shampoo Bar. Hibiscus conditions hair shafts, while Neem and Tulsi extract provide antibacterial protection to reduce dandruff and itching. 80g.',
     brief_details: 'Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.',
-    product_price: '199.00',
-    original_price: '299.00',
+    product_price: '299.00',
+    original_price: '399.00',
     product_category: 'shampoo',
-    product_discount: 33,
+    product_discount: 25,
     image1: 'Hibisus neem/new2.png',
     image2: 'Hibisus neem/Hibiscus neem tulsi1.jpeg',
     image3: 'Hibisus neem/hibiscus neem tulsi2.jpeg',
@@ -223,23 +223,33 @@ const SEED_PRODUCTS = [
     point4: 'Soothing Scalp Defense',
     point5: 'Biodegradable Travel Bar',
     productCode: 'PP-SHAMPOO-HIBISCUS-NEEM'
+  },
+  {
+    id: 110,
+    product_name: 'Herbal Kesh Oil',
+    product_details: 'Herbal Kesh Oil is an intensive Ayurvedic hair treatment blend. Formulated with authentic Bhringraj, Amla, Sesame oil, and botanical herbs to deeply nourish the scalp, strengthen hair roots, control hair fall, and restore natural shine. 100ml.',
+    brief_details: 'Traditional botanical hair oil infused with Bhringraj & Amla to nourish scalp and promote strong hair growth.',
+    product_price: '499.00',
+    original_price: '649.00',
+    product_category: 'others',
+    product_discount: 23,
+    image1: 'Keshoil/Kesh1.jpeg',
+    image2: 'Keshoil/kesh2.jpeg',
+    image3: '',
+    image4: '',
+    weight: '100ml',
+    shelf_life: '24 Months',
+    point1: 'Nourishes Scalp & Hair Roots',
+    point2: 'Infused with Bhringraj & Amla',
+    point3: 'Controls Hair Fall & Dryness',
+    point4: 'Promotes Natural Shine & Growth',
+    point5: 'Zero Mineral Oils & Parabens',
+    productCode: 'PP-OIL-KESHOIL'
   }
 ];
 
 export async function GET() {
   try {
-    // Copy generated waxing powder banner if it does not exist
-    try {
-      const srcPath = "C:\\Users\\ADMIN\\.gemini\\antigravity-ide\\brain\\b1f4f283-0e9a-4001-bf68-d558a82a29f3\\herbal_waxing_powder_banner_1784778537801.png";
-      const destPath = path.join(process.cwd(), 'public', 'uploads', 'HerbalWaxingBanner.png');
-      if (fs.existsSync(srcPath) && !fs.existsSync(destPath)) {
-        fs.copyFileSync(srcPath, destPath);
-        console.log('Successfully copied waxing banner to public/uploads/HerbalWaxingBanner.png');
-      }
-    } catch (err) {
-      console.error('Error copying waxing banner:', err);
-    }
-
     const isDbConnected = await testConnection();
     if (!isDbConnected) {
       console.log('DB offline — returning seed products as fallback.');
@@ -250,54 +260,37 @@ export async function GET() {
       });
     }
 
-    let products = await query<any[]>('SELECT * FROM add_product ORDER BY id DESC');
-    if (products) {
-      // Ensure image4 column exists if missing
-      if (products.length > 0 && !('image4' in products[0])) {
+    // Ensure image4 column exists
+    try {
+      const products = await query<any[]>('SELECT * FROM add_product ORDER BY id DESC LIMIT 1');
+      if (products && products.length > 0 && !('image4' in products[0])) {
         await query('ALTER TABLE add_product ADD COLUMN image4 varchar(255) DEFAULT NULL');
-        console.log('Successfully added image4 column to add_product database.');
       }
+    } catch {}
 
-      const existingIds = products.map(p => p.id);
-      const seedIds = SEED_PRODUCTS.map(p => p.id);
+    const products = await query<any[]>('SELECT * FROM add_product ORDER BY id DESC');
 
-      // Delete obsolete products
-      for (const id of existingIds) {
-        if (!seedIds.includes(id)) {
-          await query('DELETE FROM add_product WHERE id = ?', [id]);
-        }
-      }
-
-      // Insert missing or update existing
+    // If table is empty, seed initial data once
+    if (!products || products.length === 0) {
       for (const p of SEED_PRODUCTS) {
-        if (!existingIds.includes(p.id)) {
-          const sql = `INSERT INTO add_product (id, product_name, product_details, brief_details, product_price,
-            original_price, product_category, product_discount, image1, image2, image3, image4, weight, shelf_life,
-            point1, point2, point3, point4, point5, productCode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
-          await query(sql, [p.id, p.product_name, p.product_details, p.brief_details, p.product_price,
-            p.original_price, p.product_category, p.product_discount, p.image1, p.image2, p.image3, p.image4,
-            p.weight, p.shelf_life, p.point1, p.point2, p.point3, p.point4, p.point5, p.productCode]);
-        } else {
-          const sql = `UPDATE add_product SET product_name = ?, product_details = ?, brief_details = ?, product_price = ?,
-            original_price = ?, product_category = ?, product_discount = ?, image1 = ?, image2 = ?, image3 = ?, image4 = ?,
-            weight = ?, shelf_life = ?, point1 = ?, point2 = ?, point3 = ?, point4 = ?, point5 = ?, productCode = ? WHERE id = ?`;
-          await query(sql, [p.product_name, p.product_details, p.brief_details, p.product_price,
-            p.original_price, p.product_category, p.product_discount, p.image1, p.image2, p.image3, p.image4,
-            p.weight, p.shelf_life, p.point1, p.point2, p.point3, p.point4, p.point5, p.productCode, p.id]);
-        }
+        const sql = `INSERT INTO add_product (id, product_name, product_details, brief_details, product_price,
+          original_price, product_category, product_discount, image1, image2, image3, image4, weight, shelf_life,
+          point1, point2, point3, point4, point5, productCode) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+        await query(sql, [p.id, p.product_name, p.product_details, p.brief_details, p.product_price,
+          p.original_price, p.product_category, p.product_discount, p.image1, p.image2, p.image3, (p as any).image4 || '',
+          p.weight, p.shelf_life, p.point1, p.point2, p.point3, p.point4, p.point5, p.productCode]);
       }
-      products = await query<any[]>('SELECT * FROM add_product ORDER BY id DESC');
+      const seeded = await query<any[]>('SELECT * FROM add_product ORDER BY id DESC');
+      return NextResponse.json({ success: true, source: 'database_seeded', products: seeded });
     }
 
-    if (!products) {
-      return NextResponse.json({ success: true, source: 'seed_fallback', products: SEED_PRODUCTS });
-    }
     return NextResponse.json({ success: true, source: 'database', products });
   } catch (error) {
     console.error('API Products GET route error:', error);
     return NextResponse.json({ success: true, source: 'seed_fallback', products: SEED_PRODUCTS });
   }
 }
+
 
 export async function POST(req: Request) {
   try {

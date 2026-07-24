@@ -106,7 +106,19 @@ export default function ContactUsPage() {
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 mt-10">
 
         {/* Top Info Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div className="bg-white p-6 rounded-3xl border border-forest/10 shadow-sm flex items-start space-x-4">
+            <div className="w-10 h-10 rounded-2xl bg-forest/10 text-forest flex items-center justify-center flex-shrink-0 mt-0.5">
+              <Smartphone className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-forest uppercase tracking-wider block">Phone & WhatsApp</span>
+              <a href="tel:+918446816247" className="text-sm font-semibold text-charcoal hover:text-forest transition-colors break-all">
+                +91 84468 16247
+              </a>
+            </div>
+          </div>
+
           <div className="bg-white p-6 rounded-3xl border border-forest/10 shadow-sm flex items-start space-x-4">
             <div className="w-10 h-10 rounded-2xl bg-forest/10 text-forest flex items-center justify-center flex-shrink-0 mt-0.5">
               <Mail className="w-5 h-5" />

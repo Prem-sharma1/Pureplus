@@ -8,7 +8,7 @@ export default function WhatsAppButton() {
   const pathname = usePathname();
   if (pathname?.startsWith('/admin')) return null;
 
-  const phoneNumber = '918762877755';
+  const phoneNumber = '918446816247';
   const message = encodeURIComponent("Hello Pureplush! I'd like to inquire about your products.");
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 

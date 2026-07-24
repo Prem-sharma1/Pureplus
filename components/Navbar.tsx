@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -24,9 +25,9 @@ import CartDrawer from './CartDrawer';
 import SearchOverlay from './SearchOverlay';
 
 const ANNOUNCEMENTS = [
-  '🍃 100% Ayurvedic, Vegan & Farm-Direct Wellness',
-  '🚚 Free Shipping on orders above ₹499 in India',
-  '✨ Handcrafted Local Ingredients - Ancient Treatises'
+  '🍃 Natural Wellness & Personal Care - Crafted with Carefully Selected Botanical Ingredients',
+  '🚚 Free Shipping on eligible standard orders across India',
+  '✨ ISO 22716:2007 GMP Certified Cosmetics (Cert No: QCCI/24C/SMX/4779)'
 ];
 
 export default function Navbar() {
@@ -147,6 +148,24 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Meta Pixel Code (Header) */}
+      <Script
+        id="meta-pixel-header"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            if(window.fbq) { fbq('init', '768046529349085'); fbq('track', 'PageView'); }
+          `,
+        }}
+      />
       <header
         className="fixed top-0 left-0 right-0 z-40 w-full bg-white border-b border-forest/10 transition-all duration-300"
       >
@@ -239,8 +258,22 @@ export default function Navbar() {
         </div>
 
         {/* Bottom Categories Sub-Navbar (Desktop Only) */}
-        <div className="hidden lg:block w-full bg-white">
+        <div className="hidden lg:block w-full bg-white border-t border-forest/5">
           <div className="max-w-5xl mx-auto flex items-center justify-center h-11 space-x-8">
+            <Link
+              href="/"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/' ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              HOME
+            </Link>
+            <Link
+              href="/shop"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/shop' ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              ALL PRODUCTS
+            </Link>
             <Link
               href="/category/soaps"
               className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/category/soaps' ? 'text-forest' : 'text-charcoal/70'
@@ -256,25 +289,11 @@ export default function Navbar() {
               SHAMPOO BARS
             </Link>
             <Link
-              href="/category/moringa"
-              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/category/moringa' ? 'text-forest' : 'text-charcoal/70'
-                }`}
-            >
-              BOTANICAL MALT
-            </Link>
-            <Link
               href="/category/others"
               className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/category/others' ? 'text-forest' : 'text-charcoal/70'
                 }`}
             >
               SKINCARE & GELS
-            </Link>
-            <Link
-              href="/shop"
-              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/shop' ? 'text-forest' : 'text-charcoal/70'
-                }`}
-            >
-              ALL PRODUCTS
             </Link>
             <Link
               href="/#about"
@@ -343,52 +362,54 @@ export default function Navbar() {
                     <Link
                       href="/"
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/') ? 'bg-forest/5 text-forest' : 'hover:bg-forest/5 text-charcoal'
-                        }`}
+                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/') ? 'bg-forest/5 text-forest font-bold' : 'hover:bg-forest/5 text-charcoal'}`}
                     >
                       <span>Home</span>
                     </Link>
                   </motion.div>
 
-                  {/* Shop Expandable Accordion */}
-                  <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }} className="flex flex-col">
-                    <button
-                      onClick={() => setMobileShopOpen(!mobileShopOpen)}
-                      className="flex items-center justify-between py-2 px-3 rounded-xl hover:bg-forest/5 text-charcoal font-semibold text-sm w-full text-left focus:outline-none"
+                  {/* All Products Link */}
+                  <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
+                    <Link
+                      href="/shop"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/shop') ? 'bg-forest/5 text-forest font-bold' : 'hover:bg-forest/5 text-charcoal'}`}
                     >
-                      <span>Shop</span>
-                      <ChevronDown className={`w-4 h-4 text-sage-dark transition-transform duration-300 ${mobileShopOpen ? 'rotate-180' : 'rotate-0'}`} />
-                    </button>
+                      <span>All Products</span>
+                    </Link>
+                  </motion.div>
 
-                    <AnimatePresence>
-                      {mobileShopOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: 'easeInOut' }}
-                          className="overflow-hidden pl-4 pr-2 mt-1 space-y-1.5 border-l border-forest/10 ml-5"
-                        >
-                          <div className="py-1">
-                            <p className="text-[10px] uppercase font-bold tracking-wider text-sage-dark mb-1.5">Botanical Powders</p>
-                            <Link href="/category/moringa" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs text-charcoal/80 hover:text-forest transition-colors">ABC Latte Mix Powder</Link>
-                            <Link href="/category/moringa" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs text-charcoal/80 hover:text-forest transition-colors">Choco Multigrain Mix</Link>
-                          </div>
+                  {/* Soaps Link */}
+                  <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
+                    <Link
+                      href="/category/soaps"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/category/soaps') ? 'bg-forest/5 text-forest font-bold' : 'hover:bg-forest/5 text-charcoal'}`}
+                    >
+                      <span>Soaps</span>
+                    </Link>
+                  </motion.div>
 
-                          <div className="py-1 border-t border-forest/5">
-                            <p className="text-[10px] uppercase font-bold tracking-wider text-sage-dark mb-1.5 mt-1">Luxury Cleansers</p>
-                            <Link href="/category/soaps" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs text-charcoal/80 hover:text-forest transition-colors">Handcrafted Soaps</Link>
-                            <Link href="/category/shampoo" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs text-charcoal/80 hover:text-forest transition-colors">Luxury Shampoo Bars</Link>
-                          </div>
+                  {/* Shampoo Bars Link */}
+                  <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
+                    <Link
+                      href="/category/shampoo"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/category/shampoo') ? 'bg-forest/5 text-forest font-bold' : 'hover:bg-forest/5 text-charcoal'}`}
+                    >
+                      <span>Shampoo Bars</span>
+                    </Link>
+                  </motion.div>
 
-                          <div className="py-1 border-t border-forest/5">
-                            <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="block py-1.5 text-xs text-forest font-bold hover:underline">
-                              Explore All Products →
-                            </Link>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                  {/* Skincare & Gels Link */}
+                  <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
+                    <Link
+                      href="/category/others"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/category/others') ? 'bg-forest/5 text-forest font-bold' : 'hover:bg-forest/5 text-charcoal'}`}
+                    >
+                      <span>Skincare & Gels</span>
+                    </Link>
                   </motion.div>
 
                   {/* Our Story Link */}

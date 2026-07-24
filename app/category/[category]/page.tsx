@@ -586,13 +586,13 @@ export default function CategoryPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Back Link */}
-        <div className="mb-8">
+        <div className="mb-6 pt-4">
           <Link
-            href="/shop"
-            className="inline-flex items-center space-x-2 text-forest hover:text-forest-light text-xs font-bold uppercase tracking-wider transition-colors"
+            href="/"
+            className="inline-flex items-center space-x-2 bg-white text-forest hover:bg-forest hover:text-white border border-forest/20 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm hover:shadow-md transition-all group cursor-pointer"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to All Products</span>
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            <span>Back</span>
           </Link>
         </div>
 

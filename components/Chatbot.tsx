@@ -203,7 +203,7 @@ export default function Chatbot() {
       });
 
       const data = await res.json();
-      
+
       let replyText = "";
       if (data.success) {
         replyText = data.reply;
@@ -266,7 +266,7 @@ export default function Chatbot() {
       const existingCart = localStorage.getItem('cart');
       let cart = existingCart ? JSON.parse(existingCart) : [];
       const dbProduct = PRODUCTS_DB.find(p => p.name === productName || p.name.toLowerCase() === productName.toLowerCase());
-      
+
       if (dbProduct) {
         const cartItem = {
           id: dbProduct.id,
@@ -277,19 +277,19 @@ export default function Chatbot() {
           image1: dbProduct.image.startsWith('/') ? dbProduct.image.substring(1) : dbProduct.image,
           quantity: 1
         };
-        
+
         const existingItemIndex = cart.findIndex((item: any) => item.id === dbProduct.id);
         if (existingItemIndex > -1) {
           cart[existingItemIndex].quantity += 1;
         } else {
           cart.push(cartItem);
         }
-        
+
         localStorage.setItem('cart', JSON.stringify(cart));
-        
+
         // Dispatch storage event to trigger Navbar sync
         window.dispatchEvent(new Event('storage'));
-        
+
         // Add a bot message saying product is added
         setMessages(prev => [
           ...prev,
@@ -325,11 +325,10 @@ export default function Chatbot() {
           <motion.button
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.92 }}
-            className={`relative flex items-center justify-center w-14 h-14 bg-gradient-to-tr ${
-              isOpen 
-                ? 'from-charcoal via-neutral-700 to-charcoal hover:shadow-black/20' 
+            className={`relative flex items-center justify-center w-14 h-14 bg-gradient-to-tr ${isOpen
+                ? 'from-charcoal via-neutral-700 to-charcoal hover:shadow-black/20'
                 : 'from-forest via-sage to-forest-light hover:shadow-forest/30'
-            } rounded-full shadow-lg text-white transition-all duration-300 focus:outline-none`}
+              } rounded-full shadow-lg text-white transition-all duration-300 focus:outline-none`}
             aria-label="Chat with wellness advisor"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Headset className="w-6 h-6 animate-float" />}
@@ -355,7 +354,7 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-            className="fixed bottom-24 left-6 z-50 w-[calc(100vw-32px)] sm:w-[380px] h-[520px] rounded-2xl shadow-2xl border border-forest/10 bg-white/95 backdrop-blur-md overflow-hidden flex flex-col font-sans"
+            className="fixed bottom-24 left-6 z-50 w-[calc(100vw-32px)] sm:w-[360px] h-[480px] rounded-2xl shadow-2xl border border-forest/10 bg-white/95 backdrop-blur-md overflow-hidden flex flex-col font-sans"
           >
             {/* Header */}
             <div className="p-4 bg-gradient-to-r from-forest to-sage-dark text-white flex items-center justify-between shadow-md">
@@ -369,10 +368,10 @@ export default function Chatbot() {
                     Pureplush Advisor
                     <Sparkles className="w-3.5 h-3.5 ml-1 text-gold-light" />
                   </h3>
-                  <span className="text-[10px] text-emerald-200">Online | Call Support Expert</span>
+
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-full hover:bg-white/10 transition-colors text-white/80 hover:text-white"
               >
@@ -386,24 +385,23 @@ export default function Chatbot() {
                 <div key={msg.id} className="space-y-2">
                   <div className={`flex items-start space-x-2 ${msg.sender === 'user' ? 'justify-end' : ''}`}>
                     {msg.sender === 'bot' && (
-                      <div className="w-7 h-7 rounded-full bg-forest/10 flex items-center justify-center border border-forest/5 flex-shrink-0">
-                        <Headset className="w-3.5 h-3.5 text-forest" />
+                      <div className="w-8 h-8 rounded-full bg-forest/10 flex items-center justify-center border border-forest/20 flex-shrink-0 shadow-sm">
+                        <Headset className="w-4 h-4 text-forest" />
                       </div>
                     )}
-                    
+
                     <div
-                      className={`max-w-[80%] rounded-2xl p-3 text-xs leading-relaxed shadow-sm ${
-                        msg.sender === 'user'
+                      className={`max-w-[80%] rounded-2xl p-3 text-xs leading-relaxed shadow-sm ${msg.sender === 'user'
                           ? 'bg-gradient-to-tr from-forest-dark to-forest text-white rounded-tr-none'
                           : 'bg-white text-charcoal border border-neutral-100 rounded-tl-none whitespace-pre-line'
-                      }`}
+                        }`}
                     >
                       {msg.text}
                     </div>
 
                     {msg.sender === 'user' && (
-                      <div className="w-7 h-7 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0">
-                        <User className="w-3.5 h-3.5 text-neutral-600" />
+                      <div className="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <User className="w-4 h-4 text-neutral-600" />
                       </div>
                     )}
                   </div>
@@ -487,11 +485,10 @@ export default function Chatbot() {
               <button
                 type="submit"
                 disabled={!inputValue.trim()}
-                className={`p-2.5 rounded-xl text-white shadow-md flex items-center justify-center transition-all ${
-                  inputValue.trim()
+                className={`p-2.5 rounded-xl text-white shadow-md flex items-center justify-center transition-all ${inputValue.trim()
                     ? 'bg-gradient-to-tr from-forest to-sage hover:shadow-forest/20 hover:brightness-105 active:scale-95'
                     : 'bg-neutral-300 shadow-none cursor-not-allowed'
-                }`}
+                  }`}
               >
                 <Send className="w-4 h-4" />
               </button>

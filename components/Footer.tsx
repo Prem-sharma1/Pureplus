@@ -2,8 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { usePathname } from 'next/navigation';
-import { Leaf, Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Leaf, Mail, Phone, MapPin, Send, ShieldCheck, Building2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Footer() {
@@ -12,6 +13,34 @@ export default function Footer() {
 
   return (
     <footer className="bg-forest text-cream py-16 border-t border-forest-light relative overflow-hidden">
+      {/* Meta Pixel Code (Footer) */}
+      <Script
+        id="meta-pixel-footer"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            if(window.fbq) { fbq('init', '768046529349085'); fbq('track', 'PageView'); }
+          `,
+        }}
+      />
+      <noscript>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          height="1"
+          width="1"
+          style={{ display: 'none' }}
+          src="https://www.facebook.com/tr?id=768046529349085&ev=PageView&noscript=1"
+          alt=""
+        />
+      </noscript>
       {/* Abstract vector leaf glow in background */}
       <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-sage/5 rounded-full filter blur-3xl pointer-events-none" />
       <div className="absolute top-12 right-12 w-80 h-80 bg-gold/5 rounded-full filter blur-3xl pointer-events-none" />
@@ -19,7 +48,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Footer Top */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-cream/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-10 border-b border-cream/10">
           
           {/* Brand Info */}
           <motion.div 
@@ -31,23 +60,38 @@ export default function Footer() {
           >
             <Link href="/" className="inline-block">
               <img
-                src="/Pureplus.png"
+                src="/whitepureplus.jpeg"
                 alt="Pureplus Logo"
-                className="h-12 md:h-14 w-auto object-contain mix-blend-multiply px-2 py-1 hover:scale-105 transition-transform duration-300"
+                className="h-12 md:h-14 w-auto object-contain hover:scale-105 transition-transform duration-300"
               />
             </Link>
             <p className="text-xs text-sage-light leading-relaxed max-w-xs">
-              Handcrafting organic remedies and Ayurvedic solutions for modern lives. We harvest natural goodness to provide instant daily wellness.
+              Pureplus offers botanical personal care and wellness products designed for simple, mindful everyday routines.
             </p>
-            <div className="flex space-x-4 pt-2">
-              <a href="#" className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-forest transition-colors shadow-sm">
-                <span className="text-xs font-semibold">Fb</span>
+            <div className="flex space-x-3 pt-2">
+              {/* Facebook */}
+              <a
+                href="https://www.facebook.com/share/1EKcfVeWfX/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-12 h-12 rounded-full border-2 border-cream/30 flex items-center justify-center hover:bg-[#1877F2] hover:border-[#1877F2] hover:scale-110 transition-all duration-200 shadow-md group"
+              >
+                <svg className="w-6 h-6 text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
               </a>
-              <a href="#" className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-forest transition-colors shadow-sm">
-                <span className="text-xs font-semibold">Ig</span>
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-cream hover:text-forest transition-colors shadow-sm">
-                <span className="text-xs font-semibold">Yt</span>
+              {/* Instagram */}
+              <a
+                href="https://www.instagram.com/pureplush.in?igsh=anRzdWMxNDB0cTZ3"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-12 h-12 rounded-full border-2 border-cream/30 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:border-transparent hover:scale-110 transition-all duration-200 shadow-md group"
+              >
+                <svg className="w-6 h-6 text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
               </a>
             </div>
           </motion.div>
@@ -107,16 +151,13 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2.5">
                 <Phone className="w-4 h-4 text-gold flex-shrink-0" />
-                <span>+91 87628 77755</span>
+                <a href="tel:+918446816247" className="hover:text-gold transition-colors">+91 84468 16247</a>
               </li>
               <li className="flex items-start space-x-2.5">
                 <MapPin className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
                   Nexora Trading Co, SR NO. 27/2, Near Viman Build, Dhanori, Pune, Maharashtra - 411015
                 </span>
-              </li>
-              <li className="pt-2 text-[11px] text-gold/90 font-medium">
-                <span>Official Brand Marketing Partner: <strong className="text-white">Nexora Trading Co</strong> (GSTIN: 27IAFPK3618R1ZZ)</span>
               </li>
             </ul>
           </motion.div>
@@ -133,7 +174,7 @@ export default function Footer() {
               Newsletter
             </h4>
             <p className="text-xs text-sage-light mb-4">
-              Subscribe to receive updates on herbal farming recipes and new wellness products.
+              Subscribe for product launches, skincare tips, hair-care routines, ingredient stories and exclusive offers.
             </p>
             <div className="relative">
               <input
@@ -148,13 +189,32 @@ export default function Footer() {
                 <Send className="w-3.5 h-3.5" />
               </button>
             </div>
+
+            {/* Nexora Trading Co Official Marketing Partner - Professional Luxury Card */}
+            <div className="mt-6 pt-5 border-t border-cream/15">
+              <div className="bg-forest-dark/60 backdrop-blur-md rounded-2xl p-4 border border-gold/30 shadow-sm space-y-2">
+                <div className="flex items-center space-x-2 text-gold text-sm font-bold uppercase tracking-wider">
+                  <ShieldCheck className="w-4 h-4 text-gold flex-shrink-0" />
+                  <span>Official Marketing Partner</span>
+                </div>
+                <h5 className="font-serif text-xl sm:text-2xl font-bold text-white tracking-wide">
+                  Marketed by <span className="text-gold font-sans font-extrabold">Nexora Trading Co</span>
+                </h5>
+                <div className="pt-1 flex items-center space-x-2 text-xs font-semibold text-sage-light">
+                  <span className="text-cream/80 font-medium">GSTIN:</span>
+                  <span className="font-mono text-gold font-bold tracking-wider bg-forest-light/30 px-3 py-1 rounded-lg border border-gold/30 text-xs shadow-inner">
+                    27IAFPK3618R1ZZ
+                  </span>
+                </div>
+              </div>
+            </div>
           </motion.div>
 
         </div>
 
         {/* Footer Bottom */}
-        <div className="flex flex-col md:flex-row items-center justify-between pt-8 text-[11px] text-sage-light/75">
-          <p>© {new Date().getFullYear()} pureplush. Marketed by Nexora Trading Co (Official Brand Marketing Partner). Nature to Nurture. All Rights Reserved.</p>
+        <div className="flex flex-col md:flex-row items-center justify-between pt-6 text-base text-sage-light/75 border-t border-cream/10">
+          <p>© {new Date().getFullYear()} pureplush. Marketed by <strong className="text-white">Nexora Trading Co</strong> (Official Brand Marketing Partner). All Rights Reserved.</p>
           <div className="flex flex-wrap gap-4 sm:gap-6 mt-4 md:mt-0 justify-center">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/shipping-policy" className="hover:text-white transition-colors">Shipping Policy</Link>

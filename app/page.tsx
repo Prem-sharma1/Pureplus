@@ -7,6 +7,8 @@ import ProductCard from '@/components/ProductCard';
 import ProcessSection from '@/components/ProcessSection';
 import BenefitSection from '@/components/BenefitSection';
 import FounderVisionSection from '@/components/FounderVisionSection';
+import ComparisonSection from '@/components/ComparisonSection';
+import FaqSection from '@/components/FaqSection';
 import { motion } from 'framer-motion';
 import { Leaf, Award, Compass, RefreshCw, ShoppingCart, Tag, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -72,13 +74,13 @@ function ProductImage({ src, alt }: { src: string; alt: string }) {
   }
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center p-0 bg-cream/30">
+    <div className="relative w-full h-full flex items-center justify-center p-3 bg-cream/30">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imageSrc}
         alt={alt}
         onError={() => setHasError(true)}
-        className="max-w-full max-h-full object-contain scale-110 group-hover:scale-115 transition-transform duration-500"
+        className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500"
       />
       <div className="absolute inset-0 bg-black/[0.015] group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
     </div>
@@ -155,10 +157,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush mangobutter Mud Sea Clay Soap',
     product_details: 'Pureplush Handcrafted Mango Butter, Mud & Sea Clay Soap. Deeply purifies with sea clay, extracts impurities with natural mud, and intensely moisturizes with organic mango butter. 100g.',
     brief_details: 'Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Soap/Soap.png',
     weight: '100g',
     point1: 'Deep Purifying Mud',
@@ -170,10 +172,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Sheabutter Multani Mitti Soap',
     product_details: 'Pureplush Handcrafted Shea Butter & Multani Mitti Soap. Combines the oil-absorbing power of Multani Mitti (fullers earth) with the deep conditioning of organic raw shea butter. 100g.',
     brief_details: 'Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Soap/Soap3.png',
     weight: '100g',
     point1: 'Absorbs Excess Oils',
@@ -185,10 +187,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Goatmilk French Green Clay Soap',
     product_details: 'Pureplush Handcrafted Goat Milk & French Green Clay Soap. French green clay draws out toxins, while fresh farm goat milk softens, hydrates, and restores natural pH. 100g.',
     brief_details: 'Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Soap/Soap2.png',
     weight: '100g',
     point1: 'Toxin-Extracting Green Clay',
@@ -200,10 +202,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Multani Mitti Saffron Shampoo Bar',
     product_details: 'Pureplush Solid Multani Mitti & Saffron Shampoo Bar. Saffron extracts enhance natural hair shine, while Multani Mitti clay gently cleanses the scalp of grease and build-up. 80g.',
     brief_details: 'Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.',
-    product_price: '199.00',
-    original_price: '299.00',
+    product_price: '299.00',
+    original_price: '399.00',
     product_category: 'shampoo',
-    product_discount: 33,
+    product_discount: 25,
     image1: 'Shampoobar/Shampoobar2.png',
     weight: '80g',
     point1: 'Scale-Free Scalp Cleansing',
@@ -215,10 +217,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Hibiscus Neemtulsi Shampoo Bar',
     product_details: 'Pureplush Solid Hibiscus, Neem & Tulsi Shampoo Bar. Hibiscus conditions hair shafts, while Neem and Tulsi extract provide antibacterial protection to reduce dandruff and itching. 80g.',
     brief_details: 'Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.',
-    product_price: '199.00',
-    original_price: '299.00',
+    product_price: '299.00',
+    original_price: '399.00',
     product_category: 'shampoo',
-    product_discount: 33,
+    product_discount: 25,
     image1: 'Shampoobar/new2.png',
     weight: '80g',
     point1: 'Antibacterial Neem & Tulsi',
@@ -230,16 +232,30 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Goatmilk Coffee D Tan Soap',
     product_details: 'Pureplush Handcrafted Goat Milk & Coffee D-Tan Soap. Gently exfoliates dead skin cells, draws out impurities, and deeply moisturizes with fresh farm goat milk and rich aromatic coffee. 100g.',
     brief_details: 'Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'CoffeeD/new1.png',
-    image2: 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg',
-    weight: '100g',
     point1: 'Brightens & Evens Skin',
     point2: 'Fresh Farm Goat Milk',
     point3: 'Natural Coffee Scrub',
+  },
+  {
+    id: 110,
+    product_name: 'Herbal Kesh Oil',
+    product_details: 'Herbal Kesh Oil is an intensive Ayurvedic hair treatment blend. Formulated with authentic Bhringraj, Amla, Sesame oil, and botanical herbs to deeply nourish the scalp, strengthen hair roots, control hair fall, and restore natural shine. 100ml.',
+    brief_details: 'Traditional botanical hair oil infused with Bhringraj & Amla to nourish scalp and promote strong hair growth.',
+    product_price: '499.00',
+    original_price: '649.00',
+    product_category: 'others',
+    product_discount: 23,
+    image1: 'Keshoil/Kesh1.jpeg',
+    image2: 'Keshoil/kesh2.jpeg',
+    weight: '100ml',
+    point1: 'Nourishes Scalp & Hair Roots',
+    point2: 'Infused with Bhringraj & Amla',
+    point3: 'Controls Hair Fall & Dryness',
   }
 ];
 
@@ -270,6 +286,15 @@ const getFolderWiseImages = (
   }
 
   const name = productName.toLowerCase();
+
+  // Keshoil mapping
+  if (name.includes('kesh') || name.includes('keshoil')) {
+    return {
+      image1: databaseImage1 || 'Keshoil/Kesh1.jpeg',
+      image2: databaseImage2 || 'Keshoil/kesh2.jpeg',
+      image3: databaseImage3
+    };
+  }
 
   // Soaps mapping
   if (name.includes('soap')) {
@@ -469,15 +494,23 @@ export default function Home() {
   const [dbConnected, setDbConnected] = useState(false);
   const [addingToCartId, setAddingToCartId] = useState<number | null>(null);
   
+  // Section Config State from Admin Studio
+  const [sectionConfig, setSectionConfig] = useState<any>(null);
+
   // Amazon details modal state
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [detailsModalOpen, setDetailsModalOpen] = useState(false);
 
   useEffect(() => {
-    async function fetchProducts() {
+    async function fetchData() {
       try {
-        const res = await fetch('/api/products');
-        const data = await res.json();
+        const [prodRes, secRes] = await Promise.all([
+          fetch('/api/products'),
+          fetch('/api/sections')
+        ]);
+        
+        const data = await prodRes.json();
+        const secData = await secRes.json();
         
         if (data.success && data.products && data.products.length > 0) {
           const mapped = data.products
@@ -493,16 +526,18 @@ export default function Home() {
             });
           setProducts(mapped);
           setDbConnected(true);
-        } else {
-          console.warn('Using premium mock products due to database offline status.');
+        }
+
+        if (secData.success && secData.config) {
+          setSectionConfig(secData.config);
         }
       } catch (err) {
-        console.warn('API error. Falling back to offline mock catalog.');
+        console.warn('API error. Falling back to default catalog and section configs.');
       } finally {
         setLoading(false);
       }
     }
-    fetchProducts();
+    fetchData();
   }, []);
 
   const handleAddToCart = (id: number, quantity: number = 1) => {
@@ -675,7 +710,29 @@ export default function Home() {
       </section>
 
       {/* Targeted Health Concern Selector */}
-      <BenefitSection />
+      {(!sectionConfig || sectionConfig?.sections?.benefits?.enabled !== false) && (
+        <BenefitSection />
+      )}
+
+      {/* Pureplus vs Ordinary Market Comparison Section */}
+      {(!sectionConfig || sectionConfig?.sections?.comparison?.enabled !== false) && (
+        <ComparisonSection 
+          title={sectionConfig?.comparisonSection?.title}
+          subtitle={sectionConfig?.comparisonSection?.subtitle}
+          fssaiBadge={sectionConfig?.comparisonSection?.fssaiBadge}
+          rows={sectionConfig?.comparisonSection?.rows}
+        />
+      )}
+
+      {/* Frequently Asked Questions Section */}
+      {(!sectionConfig || sectionConfig?.sections?.faq?.enabled !== false) && (
+        <FaqSection 
+          badge={sectionConfig?.faqSection?.badge}
+          title={sectionConfig?.faqSection?.title}
+          subtitle={sectionConfig?.faqSection?.subtitle}
+          items={sectionConfig?.faqSection?.items}
+        />
+      )}
 
       {/* Credibility / Brand Promise Banner */}
       <section className="py-20 bg-forest text-cream">

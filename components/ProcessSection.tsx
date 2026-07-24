@@ -18,41 +18,41 @@ interface Step {
 const PROCESS_STEPS: Step[] = [
   {
     id: 1,
-    title: 'Peak Sourcing',
-    shortDesc: 'Hand-picked botanical harvest.',
-    longDesc: 'We partner directly with certified organic micro-farms in the pristine Western Ghats of Uttara Kannada. Sourcing is done at peak dawn hours to ensure raw moringa leaves and herbs preserve maximum vital sap.',
-    statLabel: 'Direct Partner Farms',
-    statVal: '14 Local Farms',
+    title: 'Ingredient Selection',
+    shortDesc: 'Botanicals selected for freshness & aroma.',
+    longDesc: 'Botanicals are carefully selected for freshness, aroma, texture and suitability for each specific formulation.',
+    statLabel: 'Source Quality',
+    statVal: 'Verified Sources',
     icon: Leaf,
     color: 'from-emerald-500 to-green-600'
   },
   {
     id: 2,
-    title: 'Natural Shade Drying',
-    shortDesc: 'Slow moisture extraction.',
-    longDesc: 'Instead of rapid industrial oven heating which destroys delicate enzymes, leaves are shade-dried on elevated bamboo platforms. This slow 48-hour extraction locks in bioactive nutrients.',
-    statLabel: 'Bioactive Retention',
-    statVal: '98.4% Potency',
+    title: 'Gentle Drying',
+    shortDesc: 'Preserving natural colour & aroma.',
+    longDesc: 'Ingredients are dried with care to help preserve natural colour, aroma and usability for everyday care.',
+    statLabel: 'Drying Method',
+    statVal: 'Gentle Air Care',
     icon: Sun,
     color: 'from-amber-400 to-orange-500'
   },
   {
     id: 3,
-    title: 'Granite Stone Grinding',
-    shortDesc: 'Cold milling to fine powder.',
-    longDesc: 'We avoid high-heat metal blenders. Sourced ingredients are cold-ground on traditional granite stone mills at less than 40 RPM, yielding ultra-fine microparticles for instant skin and cellular absorption.',
-    statLabel: 'Grinding Temperature',
-    statVal: 'Below 32°C',
+    title: 'Fine Grinding',
+    shortDesc: 'Usable texture for easy application.',
+    longDesc: 'Powders are ground to a usable texture for easy mixing, cleansing or personal care application.',
+    statLabel: 'Texture Control',
+    statVal: 'Fine Micro-Milled',
     icon: Hammer,
     color: 'from-sage to-forest'
   },
   {
     id: 4,
-    title: 'Treatise Blending',
-    shortDesc: 'Small batch botanical recipes.',
-    longDesc: 'Final apothecary blending is formulated strictly under traditional Ayurvedic treatises (Charaka Samhita). We seal each small, sterile batch with zero synthetic fillers, sulfates, or chemical preservatives.',
-    statLabel: 'Chemical Fillers',
-    statVal: '0% Synthetic',
+    title: 'Small Batch Blending',
+    shortDesc: 'Controlled batches for quality.',
+    longDesc: 'Ingredients are blended in controlled batches to ensure consistent quality, freshness and transparent labeling.',
+    statLabel: 'Batch Records',
+    statVal: '100% Quality Checked',
     icon: ShieldCheck,
     color: 'from-[#4a773c] to-[#24481f]'
   }
@@ -75,14 +75,14 @@ export default function ProcessSection() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-sage flex items-center justify-center space-x-1.5">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
-            <span>Farm to Bottle</span>
+            <span>From Botanical Sourcing to Thoughtful Formulation</span>
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold font-serif text-forest mt-3">
-            Our Ayurvedic Extraction Process
+            How Pureplus Products Are Crafted
           </h2>
           <div className="w-12 h-1 bg-gold/50 mx-auto mt-4 rounded-full" />
           <p className="text-charcoal/70 mt-4 text-xs sm:text-sm">
-            Learn how we transform raw wild harvest into premium, highly-absorbable apothecary remedies.
+            See how carefully selected botanicals are cleaned, dried, ground and blended into convenient personal care and wellness products for modern daily routines.
           </p>
         </div>
 

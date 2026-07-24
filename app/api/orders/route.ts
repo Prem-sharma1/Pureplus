@@ -60,8 +60,10 @@ export async function GET(req: Request) {
     const orders = dbOrders.map(order => {
       let items = [];
       try {
-        if (order.items_json) {
+        if (typeof order.items_json === 'string' && order.items_json.trim() !== '') {
           items = JSON.parse(order.items_json);
+        } else if (Array.isArray(order.items_json)) {
+          items = order.items_json;
         }
       } catch (err) {
         console.error(`Error parsing items_json for order ${order.id}:`, err);

@@ -60,26 +60,26 @@ function ProductImage({
   }
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center p-0 bg-neutral-100/50 overflow-hidden rounded-t-3xl">
-      {/* Primary Image (image1) - 100% Full Container */}
+    <div className="relative w-full h-full flex items-center justify-center p-3 sm:p-4 bg-neutral-50/50 overflow-hidden rounded-t-3xl">
+      {/* Primary Image (image1) */}
       <img
         src={path1}
         alt={alt}
         onError={() => setHasError1(true)}
-        className={`w-full h-full object-cover transition-all duration-700 ease-out z-10 rounded-t-3xl ${
+        className={`max-w-full max-h-full object-contain transition-all duration-500 ease-out z-10 ${
           hasSecondary && isHovered
             ? 'opacity-0 scale-105 pointer-events-none'
             : 'opacity-100 scale-100 group-hover:scale-105'
         }`}
       />
 
-      {/* Card Flipper: Secondary Image (image2) on Hover - 100% Full Container */}
+      {/* Card Flipper: Secondary Image (image2) on Hover */}
       {hasSecondary && (
         <img
           src={path2}
           alt={`${alt} - second view`}
           onError={() => setHasError2(true)}
-          className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out z-20 rounded-t-3xl ${
+          className={`absolute inset-0 max-w-full max-h-full m-auto p-3 sm:p-4 object-contain transition-all duration-500 ease-out z-20 ${
             isHovered
               ? 'opacity-100 scale-105'
               : 'opacity-0 scale-100 pointer-events-none'

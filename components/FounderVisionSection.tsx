@@ -32,7 +32,7 @@ export default function FounderVisionSection() {
               transition={{ delay: 0.1 }}
               className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-forest leading-tight"
             >
-              A Letter from Our Founder
+              Our Story - Nature to Nurture
             </motion.h2>
             <div className="w-24 h-1 bg-gold mx-auto mt-4 rounded-full" />
           </div>
@@ -50,11 +50,11 @@ export default function FounderVisionSection() {
                 <div className="absolute -right-12 -top-12 w-48 h-48 bg-gold/20 rounded-full blur-2xl pointer-events-none" />
                 
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-cream/10 border border-cream/20 flex items-center justify-center text-gold">
-                    <Leaf className="w-6 h-6" />
+                  <div className="w-14 h-14 rounded-2xl bg-cream/10 border border-cream/20 flex items-center justify-center overflow-hidden p-1">
+                    <img src="/whitepureplus.jpeg" alt="Pureplus Logo" className="w-full h-full object-contain rounded-xl" />
                   </div>
                   <div>
-                    <h3 className="font-serif text-xl font-bold text-white">Pureplush</h3>
+                    <h3 className="font-serif text-xl font-bold text-white">Pureplus</h3>
                     <p className="text-xs text-sage-light tracking-widest uppercase font-semibold">Nature to Nurture</p>
                   </div>
                 </div>
@@ -62,25 +62,25 @@ export default function FounderVisionSection() {
                 <div className="bg-forest-light/40 backdrop-blur-sm p-6 rounded-2xl border border-cream/10 my-6 relative">
                   <span className="absolute -top-4 -left-2 text-6xl text-gold/30 font-serif leading-none select-none">“</span>
                   <p className="text-sm italic font-serif leading-relaxed text-cream/90 relative z-10 pt-2">
-                    Every meaningful journey begins with a purpose. For me, that purpose was to bring people back to the healing power of nature.
+                    Pureplus was created with a simple purpose: to make natural personal care and wellness routines easier, cleaner and more accessible for modern homes.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 text-xs pt-2">
                   <div className="bg-cream/5 rounded-xl p-3 border border-cream/10">
-                    <span className="block font-bold text-gold text-lg">100%</span>
-                    <span className="text-sage-light text-[11px]">Ayurvedic Wisdom</span>
+                    <span className="block font-bold text-gold text-lg">Botanical</span>
+                    <span className="text-sage-light text-[11px]">Traditional Care</span>
                   </div>
                   <div className="bg-cream/5 rounded-xl p-3 border border-cream/10">
-                    <span className="block font-bold text-gold text-lg">Clean</span>
-                    <span className="text-sage-light text-[11px]">Zero Harsh Chemicals</span>
+                    <span className="block font-bold text-gold text-lg">Selected</span>
+                    <span className="text-sage-light text-[11px]">Quality Ingredients</span>
                   </div>
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-cream/10 flex items-center justify-between">
                   <div>
                     <p className="font-serif font-bold text-base text-white">Founder & Storyteller</p>
-                    <p className="text-xs text-sage-light">Pureplush Herbal Care</p>
+                    <p className="text-xs text-sage-light">Pureplus Botanical Care</p>
                   </div>
                   <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold">
                     <Sparkles className="w-5 h-5" />
@@ -99,23 +99,23 @@ export default function FounderVisionSection() {
             >
               <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 sm:p-10 shadow-xl border border-forest/10 space-y-6">
                 <p className="first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-forest first-letter:mr-3 first-letter:float-left">
-                  Every meaningful journey begins with a purpose. For me, that purpose was to bring people back to the healing power of nature.
+                  Pureplus was created with a simple purpose: to make natural personal care and wellness routines easier, cleaner and more accessible for modern homes.
                 </p>
                 
                 <p>
-                  Growing up, I witnessed how traditional herbs, natural oils, and sacred rituals were an essential part of everyday life. They weren't just remedies—they were expressions of love, care, and wellbeing.
+                  Our products are inspired by everyday Indian traditions - herbal cleansing, natural oils, nourishing powders and simple self-care rituals - redesigned for busy lifestyles.
                 </p>
 
                 <p>
-                  As modern lifestyles became busier, I noticed that many of these timeless traditions were being replaced by products filled with harsh chemicals and artificial ingredients.
+                  Many customers today want products that are simple to understand, easy to use and transparent about ingredients. Pureplus is built around that need.
                 </p>
 
                 <div className="p-6 bg-cream rounded-2xl border-l-4 border-gold text-forest font-serif italic text-lg shadow-inner">
-                  "That realization inspired the birth of Pureplush. I wanted to create a brand that honors India's rich heritage while meeting the quality expectations of today's world."
+                  "Pureplus blends traditional ingredient wisdom with modern product convenience, clear labelling and quality-focused manufacturing."
                 </div>
 
                 <p>
-                  Every Pureplush product is thoughtfully crafted with carefully selected natural ingredients, ensuring that each jar, bottle, and bar carries the purity of nature directly into your daily wellness routine.
+                  Every Pureplus product is developed to deliver a pleasant user experience - good texture, practical usage, clean aroma, easy application and transparent product information.
                 </p>
               </div>
             </motion.div>
@@ -144,7 +144,7 @@ export default function FounderVisionSection() {
               Our Vision
             </motion.h2>
             <p className="text-charcoal/70 text-sm sm:text-base mt-3 max-w-2xl mx-auto">
-              Inspiring people to embrace a healthier, more mindful lifestyle rooted in nature.
+              To make natural personal care and wellness products simple, trustworthy and enjoyable for everyday Indian homes.
             </p>
           </div>
 
@@ -160,10 +160,10 @@ export default function FounderVisionSection() {
             
             <div className="max-w-4xl mx-auto text-center space-y-4 relative z-10">
               <span className="text-gold text-xs font-bold uppercase tracking-[0.3em]">
-                Pureplush Vision Statement
+                Pureplus Vision Statement
               </span>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-white leading-snug">
-                “To enrich everyday life through pure, natural, and thoughtful natural wellness solutions.”
+                “To make natural personal care and wellness products simple, trustworthy and enjoyable for everyday Indian homes.”
               </h3>
             </div>
           </motion.div>

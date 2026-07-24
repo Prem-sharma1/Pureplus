@@ -21,6 +21,7 @@ export function resolveImagePath(s?: string): string {
     'herbal',
     'herbalfacepack',
     'hibisus neem',
+    'keshoil',
     'mangobutter',
     'multanimitti',
     'multanimittishampoo',

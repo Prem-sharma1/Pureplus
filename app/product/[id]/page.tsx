@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, CreditCard, Star, ShieldCheck, Truck, RefreshCw, Tag, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { resolveImagePath } from '@/lib/imageUtils';
 import { useParams } from 'next/navigation';
 
 interface Product {
@@ -123,10 +124,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush mangobutter Mud Sea Clay Soap',
     product_details: 'Pureplush Handcrafted Mango Butter, Mud & Sea Clay Soap. Deeply purifies with sea clay, extracts impurities with natural mud, and intensely moisturizes with organic mango butter. 100g.',
     brief_details: 'Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'MangoButter/Soap.png',
     image2: 'MangoButter/WhatsApp Image 2026-07-15 at 5.18.11 PM.jpeg',
     image3: 'MangoButter/IMG-20260123-WA0020.jpg',
@@ -145,10 +146,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Sheabutter Multani Mitti Soap',
     product_details: 'Pureplush Handcrafted Shea Butter & Multani Mitti Soap. Combines the oil-absorbing power of Multani Mitti (fullers earth) with the deep conditioning of organic raw shea butter. 100g.',
     brief_details: 'Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Multanimitti/Soap3.png',
     image2: 'Multanimitti/WhatsApp Image 2026-07-10 at 7.10.16 PM (1).jpeg',
     image3: '',
@@ -167,10 +168,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Goatmilk French Green Clay Soap',
     product_details: 'Pureplush Handcrafted Goat Milk & French Green Clay Soap. French green clay draws out toxins, while fresh farm goat milk softens, hydrates, and restores natural pH. 100g.',
     brief_details: 'Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Frenchgreenclay/Soap2.png',
     image2: 'Frenchgreenclay/WhatsApp Image 2026-07-10 at 7.10.16 PM.jpeg',
     image3: '',
@@ -189,10 +190,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Goatmilk Coffee D Tan Soap',
     product_details: 'Pureplush Handcrafted Goat Milk & Coffee D-Tan Soap. Gently exfoliates dead skin cells, draws out impurities, and deeply moisturizes with fresh farm goat milk and rich aromatic coffee. 100g.',
     brief_details: 'Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'CoffeeD/new1.png',
     image2: 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg',
     image3: '',
@@ -211,10 +212,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Multani Mitti Saffron Shampoo Bar',
     product_details: 'Pureplush Solid Multani Mitti & Saffron Shampoo Bar. Saffron extracts enhance natural hair shine, while Multani Mitti clay gently cleanses the scalp of grease and build-up. 80g.',
     brief_details: 'Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.',
-    product_price: '199.00',
-    original_price: '299.00',
+    product_price: '299.00',
+    original_price: '399.00',
     product_category: 'shampoo',
-    product_discount: 33,
+    product_discount: 25,
     image1: 'multanimittishampoo/Shampoobar2.png',
     image2: 'multanimittishampoo/1770380073526.png',
     image3: '',
@@ -233,10 +234,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Hibiscus Neemtulsi Shampoo Bar',
     product_details: 'Pureplush Solid Hibiscus, Neem & Tulsi Shampoo Bar. Hibiscus conditions hair shafts, while Neem and Tulsi extract provide antibacterial protection to reduce dandruff and itching. 80g.',
     brief_details: 'Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.',
-    product_price: '199.00',
-    original_price: '299.00',
+    product_price: '299.00',
+    original_price: '399.00',
     product_category: 'shampoo',
-    product_discount: 33,
+    product_discount: 25,
     image1: 'Hibisus neem/new2.png',
     image2: 'Hibisus neem/Hibiscus neem tulsi1.jpeg',
     image3: 'Hibisus neem/hibiscus neem tulsi2.jpeg',
@@ -249,6 +250,28 @@ const MOCK_PRODUCTS: Product[] = [
     point4: 'Soothing Scalp Defense',
     point5: 'Biodegradable Travel Bar',
     productCode: 'PP-SHAMPOO-HIBISCUS-NEEM'
+  },
+  {
+    id: 110,
+    product_name: 'Herbal Kesh Oil',
+    product_details: 'Herbal Kesh Oil is an intensive Ayurvedic hair treatment blend. Formulated with authentic Bhringraj, Amla, Sesame oil, and botanical herbs to deeply nourish the scalp, strengthen hair roots, control hair fall, and restore natural shine. 100ml.',
+    brief_details: 'Traditional botanical hair oil infused with Bhringraj & Amla to nourish scalp and promote strong hair growth.',
+    product_price: '499.00',
+    original_price: '649.00',
+    product_category: 'others',
+    product_discount: 23,
+    image1: 'Keshoil/Kesh1.jpeg',
+    image2: 'Keshoil/kesh2.jpeg',
+    image3: '',
+    image4: '',
+    weight: '100ml',
+    shelf_life: '24 Months',
+    point1: 'Nourishes Scalp & Hair Roots',
+    point2: 'Infused with Bhringraj & Amla',
+    point3: 'Controls Hair Fall & Dryness',
+    point4: 'Promotes Natural Shine & Growth',
+    point5: 'Zero Mineral Oils & Parabens',
+    productCode: 'PP-OIL-KESHOIL'
   }
 ];
 
@@ -281,6 +304,15 @@ const getFolderWiseImages = (
   }
 
   const name = productName.toLowerCase();
+
+  if (name.includes('kesh') || name.includes('keshoil')) {
+    return {
+      image1: databaseImage1 || 'Keshoil/Kesh1.jpeg',
+      image2: databaseImage2 || 'Keshoil/kesh2.jpeg',
+      image3: databaseImage3 || '',
+      image4: databaseImage4 || ''
+    };
+  }
 
   if (name.includes('soap')) {
     if (name.includes('coffee') || name.includes('d tan') || name.includes('d-tan')) {
@@ -537,7 +569,7 @@ export default function ProductPage() {
     if (!images || images.length <= 1) return;
     const timer = setInterval(() => {
       setSelectedImageIdx((prev) => (prev + 1) % images.length);
-    }, 4000);
+    }, 8000);
     return () => clearInterval(timer);
   }, [images.length]);
 
@@ -603,31 +635,9 @@ export default function ProductPage() {
       setBuyNowLoading(false);
       window.dispatchEvent(new Event('open-cart'));
     }, 800);
-  };
-
-  const getImagePath = (imgName: string) => {
+  };  const getImagePath = (imgName?: string) => {
     if (!imgName) return '';
-    if (imgName.startsWith('/') || imgName.startsWith('http')) return imgName;
-    if (
-      imgName.startsWith('CoffeeD/') ||
-      imgName.startsWith('Categoryimg/') ||
-      imgName.startsWith('FaceWash/') ||
-      imgName.startsWith('Shampoobar/') ||
-      imgName.startsWith('Soap/') ||
-      imgName.startsWith('Herbal/') ||
-      imgName.startsWith('Multanimitti/') ||
-      imgName.startsWith('MangoButter/') ||
-      imgName.startsWith('Frenchgreenclay/') ||
-      imgName.startsWith('Herbalfacepack/') ||
-      imgName.startsWith('Hibisus neem/') ||
-      imgName.startsWith('multanimittishampoo/')
-    ) {
-      return `/${imgName}`;
-    }
-    if (imgName.startsWith('uploads/')) {
-      return `/${imgName}`;
-    }
-    return `/uploads/${imgName}`;
+    return resolveImagePath(imgName);
   };
 
   return (
@@ -651,8 +661,8 @@ export default function ProductPage() {
           {/* Left Column: Image Gallery */}
           <div className="w-full md:w-1/2 p-6 md:p-12 bg-white flex flex-col justify-between border-r border-forest/5">
             <div className="flex flex-col items-center">
-              {/* Main Image Carousel (Enlarged size & 100% full bleed dimensions) */}
-              <div className="w-full aspect-[4/5] sm:aspect-square max-h-[550px] md:max-h-[600px] bg-cream rounded-2xl overflow-hidden relative border border-forest/5 flex items-center justify-center p-0 group/carousel">
+              {/* Main Image Carousel */}
+              <div className="w-full aspect-[4/5] sm:aspect-square max-h-[550px] md:max-h-[600px] bg-cream/50 rounded-2xl overflow-hidden relative border border-forest/5 flex items-center justify-center p-2 sm:p-4 group/carousel">
                 {images.length > 0 ? (
                   <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
                     <AnimatePresence mode="wait">
@@ -678,7 +688,7 @@ export default function ProductPage() {
                         <img
                           src={getImagePath(images[selectedImageIdx])}
                           alt={product.product_name}
-                          className="w-full h-full object-cover select-none pointer-events-none"
+                          className="max-w-full max-h-full object-contain p-2 sm:p-4 select-none pointer-events-none transition-all duration-300"
                         />
                       </motion.div>
                     </AnimatePresence>
@@ -758,7 +768,7 @@ export default function ProductPage() {
             </div>
 
             {/* Extra trust badges */}
-            <div className="mt-12 border-t border-forest/5 pt-8 grid grid-cols-2 gap-4 text-xs text-charcoal/70">
+            <div className="mt-12 border-t border-forest/5 pt-8 grid grid-cols-2 gap-4 text-sm text-charcoal/70">
               <div className="flex items-center space-x-2">
                 <Truck className="w-5 h-5 text-sage" />
                 <span>Free Shipping above ₹499</span>
@@ -774,7 +784,7 @@ export default function ProductPage() {
           <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-start space-y-2.5 bg-cream/10">
             {/* Category */}
             <div>
-              <span className="bg-forest/5 border border-forest/10 text-charcoal/80 text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+              <span className="bg-forest/5 border border-forest/10 text-charcoal/80 text-xs uppercase tracking-wider font-bold px-3 py-1 rounded-full">
                 {product.product_category || 'Ayurveda'}
               </span>
             </div>
@@ -791,8 +801,8 @@ export default function ProductPage() {
                   <Star key={s} className="w-4 h-4 fill-current" />
                 ))}
               </div>
-              <span className="text-xs font-semibold text-forest">4.9 out of 5 stars</span>
-              <span className="text-xs text-charcoal/40">| 18 customer reviews</span>
+              <span className="text-sm font-semibold text-forest">4.9 out of 5 stars</span>
+              <span className="text-sm text-charcoal/40">| 18 customer reviews</span>
             </div>
 
             {/* Price Details */}
@@ -801,16 +811,16 @@ export default function ProductPage() {
                 <span className="text-red-650 text-xl font-sans font-light">-{product.product_discount}%</span>
                 <span className="text-2xl md:text-3xl font-sans font-extrabold text-forest">₹{(parseFloat(product.product_price) * quantity).toFixed(0)}</span>
               </div>
-              <p className="text-xs text-charcoal/50">
+              <p className="text-sm text-charcoal/50">
                 List Price: <span className="line-through font-sans font-medium">₹{(parseFloat(product.original_price) * quantity).toFixed(0)}</span>
               </p>
-              <div className="inline-flex items-center space-x-1 text-[9px] bg-green-50 text-green-800 border border-green-200 px-2 py-0.5 rounded font-bold mt-1">
+              <div className="inline-flex items-center space-x-1 text-xs bg-green-50 text-green-800 border border-green-200 px-2 py-0.5 rounded font-bold mt-1">
                 <span>Inclusive of all taxes</span>
               </div>
             </div>
 
             {/* Specifications */}
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1 border-t border-b border-forest/5 py-1.5 text-xs">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1 border-t border-b border-forest/5 py-1.5 text-sm">
               <div>
                 <span className="text-charcoal/40 font-medium">Net Weight:</span>
                 <span className="text-forest font-bold ml-1">{product.weight}</span>
@@ -887,8 +897,8 @@ export default function ProductPage() {
 
             {/* Bullet highlights */}
             <div className="space-y-1">
-              <h4 className="text-[11px] uppercase tracking-wider font-bold text-forest">About this item:</h4>
-              <ul className="space-y-1 text-xs text-charcoal/80 pl-4 list-disc marker:text-sage leading-relaxed">
+              <h4 className="text-sm uppercase tracking-wider font-bold text-forest">About this item:</h4>
+              <ul className="space-y-1 text-sm text-charcoal/80 pl-4 list-disc marker:text-sage leading-relaxed">
                 {product.point1 && <li>{product.point1}</li>}
                 {product.point2 && <li>{product.point2}</li>}
                 {product.point3 && <li>{product.point3}</li>}
@@ -899,8 +909,8 @@ export default function ProductPage() {
 
             {/* Detailed description */}
             <div className="space-y-1.5 pt-1">
-              <h4 className="text-[11px] uppercase tracking-wider font-bold text-forest">Product Description:</h4>
-              <p className="text-xs text-charcoal/85 leading-relaxed bg-white/50 p-4 rounded-xl border border-forest/5">
+              <h4 className="text-sm uppercase tracking-wider font-bold text-forest">Product Description:</h4>
+              <p className="text-sm text-charcoal/85 leading-relaxed bg-white/50 p-4 rounded-xl border border-forest/5">
                 {product.product_details}
               </p>
             </div>
