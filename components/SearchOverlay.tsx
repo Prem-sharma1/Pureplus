@@ -254,7 +254,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             {/* Header badge */}
             <div className="flex items-center space-x-2 text-forest/70 justify-center">
               <Leaf className="w-4 h-4 text-gold" />
-              <span className="text-xs uppercase tracking-widest font-bold">Search Pureplus Botanical Catalog</span>
+              <span className="text-xs uppercase tracking-widest font-bold">Search Pureplush Botanical Catalog</span>
             </div>
 
             {/* Input Form with instant clear button */}

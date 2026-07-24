@@ -59,14 +59,15 @@ export default function Footer() {
             className="flex flex-col space-y-4"
           >
             <Link href="/" className="inline-block">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/whitepureplus.jpeg"
-                alt="Pureplus Logo"
+                alt="Pureplush Logo"
                 className="h-12 md:h-14 w-auto object-contain hover:scale-105 transition-transform duration-300"
               />
             </Link>
             <p className="text-xs text-sage-light leading-relaxed max-w-xs">
-              Pureplus offers botanical personal care and wellness products designed for simple, mindful everyday routines.
+              Pureplush offers botanical personal care and wellness products designed for simple, mindful everyday routines.
             </p>
             <div className="flex space-x-3 pt-2">
               {/* Facebook */}

@@ -151,7 +151,7 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '249.00',
     product_category: 'soaps',
     product_discount: 20,
-    image1: 'Soap/Soap.png',
+    image1: 'MangoButter/Soap.png',
     weight: '100g',
     point1: 'Deep Purifying Mud',
     point2: 'Moisturizing Mango Butter',
@@ -166,7 +166,7 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '249.00',
     product_category: 'soaps',
     product_discount: 20,
-    image1: 'Soap/Soap3.png',
+    image1: 'Multanimitti/Soap3.png',
     weight: '100g',
     point1: 'Absorbs Excess Oils',
     point2: 'Nourishing Shea Butter',
@@ -181,7 +181,7 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '249.00',
     product_category: 'soaps',
     product_discount: 20,
-    image1: 'Soap/Soap2.png',
+    image1: 'Frenchgreenclay/Soap2.png',
     weight: '100g',
     point1: 'Toxin-Extracting Green Clay',
     point2: 'Soften & Hydrates Skin',
@@ -196,7 +196,7 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '399.00',
     product_category: 'shampoo',
     product_discount: 25,
-    image1: 'Shampoobar/Shampoobar2.png',
+    image1: 'multanimittishampoo/Shampoobar2.png',
     weight: '80g',
     point1: 'Scale-Free Scalp Cleansing',
     point2: 'Infused with Real Saffron',
@@ -211,7 +211,7 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '399.00',
     product_category: 'shampoo',
     product_discount: 25,
-    image1: 'Shampoobar/new2.png',
+    image1: 'Hibisus neem/new2.png',
     weight: '80g',
     point1: 'Antibacterial Neem & Tulsi',
     point2: 'Hibiscus Hair Conditioning',
@@ -322,29 +322,29 @@ const getFolderWiseImages = (
 
     if (name.includes('neem')) {
       return {
-        image1: 'Soap/Soap.png',
-        image2: 'Soap/Soap2.jpg',
-        image3: 'Soap/Soap3.jpg'
+        image1: 'Hibisus neem/new2.png',
+        image2: 'Hibisus neem/Hibiscus neem tulsi1.jpeg',
+        image3: 'Hibisus neem/hibiscus neem tulsi2.jpeg'
       };
     }
     if (name.includes('honey') || name.includes('sandalwood')) {
       return {
-        image1: 'Soap/Soap2.jpg',
-        image2: 'Soap/Soap.png',
-        image3: 'Soap/Soap3.jpg'
+        image1: 'MangoButter/Soap.png',
+        image2: 'MangoButter/WhatsApp Image 2026-07-15 at 5.18.11 PM.jpeg',
+        image3: 'MangoButter/IMG-20260123-WA0020.jpg'
       };
     }
     if (name.includes('lavender')) {
       return {
-        image1: 'Soap/Soap3.jpg',
-        image2: 'Soap/Soap.png',
-        image3: 'Soap/Soap2.jpg'
+        image1: 'Multanimitti/Soap3.png',
+        image2: 'Multanimitti/WhatsApp Image 2026-07-10 at 7.10.16 PM (1).jpeg',
+        image3: ''
       };
     }
     return {
-      image1: 'Soap/Soap.png',
-      image2: 'Soap/Soap2.jpg',
-      image3: 'Soap/Soap3.jpg'
+      image1: 'Frenchgreenclay/Soap2.png',
+      image2: 'Frenchgreenclay/WhatsApp Image 2026-07-10 at 7.10.16 PM.jpeg',
+      image3: ''
     };
   }
 

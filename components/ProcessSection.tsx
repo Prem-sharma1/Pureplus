@@ -78,7 +78,7 @@ export default function ProcessSection() {
             <span>From Botanical Sourcing to Thoughtful Formulation</span>
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold font-serif text-forest mt-3">
-            How Pureplus Products Are Crafted
+            How Pureplush Products Are Crafted
           </h2>
           <div className="w-12 h-1 bg-gold/50 mx-auto mt-4 rounded-full" />
           <p className="text-charcoal/70 mt-4 text-xs sm:text-sm">

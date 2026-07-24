@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { downloadBigshipDocument } from '@/lib/bigship';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -29,10 +31,13 @@ export async function GET(req: Request) {
       }, { status: 400 });
     }
   } catch (error: any) {
+    if (error?.digest === 'DYNAMIC_SERVER_USAGE' || error?.message?.includes('DYNAMIC_SERVER_USAGE')) {
+      throw error;
+    }
     console.error('Bigship Document Download API Error:', error);
     return NextResponse.json({
       success: false,
-      error: error.message || 'Internal Server Error',
+      error: 'Failed to download Bigship document',
     }, { status: 500 });
   }
 }

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { trackBigshipShipment } from '@/lib/bigship';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -27,10 +29,13 @@ export async function GET(req: Request) {
       }, { status: 400 });
     }
   } catch (error: any) {
+    if (error?.digest === 'DYNAMIC_SERVER_USAGE' || error?.message?.includes('DYNAMIC_SERVER_USAGE')) {
+      throw error;
+    }
     console.error('Bigship Tracking API Error:', error);
     return NextResponse.json({
       success: false,
-      error: error.message || 'Internal Server Error',
+      error: 'Failed to fetch Bigship tracking info',
     }, { status: 500 });
   }
 }
