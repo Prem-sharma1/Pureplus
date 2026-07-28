@@ -87,7 +87,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Pain-free natural hair removal powder made with organic botanical ingredients for smooth skin.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'uploads/Herbal2.png',
     weight: '100g',
@@ -102,7 +102,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Traditional exfoliating dry face wash powder to cleanse pores and restore natural glow.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'uploads/Herbal4.png',
     image2: 'uploads/Artboard 1 (1).png',
@@ -118,7 +118,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'Herbalfacepack/Artboard 1.png',
     image2: 'Herbalfacepack/Artboard 2.png',
@@ -134,7 +134,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.',
     product_price: '249.00',
     original_price: '349.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 29,
     image1: 'FaceWash/Herbal3.png',
     weight: '100g',
@@ -147,10 +147,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush mangobutter Mud Sea Clay Soap',
     product_details: 'Pureplush Handcrafted Mango Butter, Mud & Sea Clay Soap. Deeply purifies with sea clay, extracts impurities with natural mud, and intensely moisturizes with organic mango butter. 100g.',
     brief_details: 'Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Soap/Soap.png',
     weight: '100g',
     point1: 'Deep Purifying Mud',
@@ -162,10 +162,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Sheabutter Multani Mitti Soap',
     product_details: 'Pureplush Handcrafted Shea Butter & Multani Mitti Soap. Combines the oil-absorbing power of Multani Mitti (fullers earth) with the deep conditioning of organic raw shea butter. 100g.',
     brief_details: 'Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Soap/Soap3.png',
     weight: '100g',
     point1: 'Absorbs Excess Oils',
@@ -177,10 +177,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Goatmilk French Green Clay Soap',
     product_details: 'Pureplush Handcrafted Goat Milk & French Green Clay Soap. French green clay draws out toxins, while fresh farm goat milk softens, hydrates, and restores natural pH. 100g.',
     brief_details: 'Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Soap/Soap2.png',
     weight: '100g',
     point1: 'Toxin-Extracting Green Clay',
@@ -193,9 +193,9 @@ const MOCK_PRODUCTS: Product[] = [
     product_details: 'Pureplush Solid Multani Mitti & Saffron Shampoo Bar. Saffron extracts enhance natural hair shine, while Multani Mitti clay gently cleanses the scalp of grease and build-up. 80g.',
     brief_details: 'Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.',
     product_price: '199.00',
-    original_price: '299.00',
+    original_price: '249.00',
     product_category: 'shampoo',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Shampoobar/Shampoobar2.png',
     weight: '80g',
     point1: 'Scale-Free Scalp Cleansing',
@@ -208,9 +208,9 @@ const MOCK_PRODUCTS: Product[] = [
     product_details: 'Pureplush Solid Hibiscus, Neem & Tulsi Shampoo Bar. Hibiscus conditions hair shafts, while Neem and Tulsi extract provide antibacterial protection to reduce dandruff and itching. 80g.',
     brief_details: 'Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.',
     product_price: '199.00',
-    original_price: '299.00',
+    original_price: '249.00',
     product_category: 'shampoo',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'Shampoobar/new2.png',
     weight: '80g',
     point1: 'Antibacterial Neem & Tulsi',
@@ -222,10 +222,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Goatmilk Coffee D Tan Soap',
     product_details: 'Pureplush Handcrafted Goat Milk & Coffee D-Tan Soap. Gently exfoliates dead skin cells, draws out impurities, and deeply moisturizes with fresh farm goat milk and rich aromatic coffee. 100g.',
     brief_details: 'Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.',
-    product_price: '99.00',
-    original_price: '149.00',
+    product_price: '199.00',
+    original_price: '249.00',
     product_category: 'soaps',
-    product_discount: 33,
+    product_discount: 20,
     image1: 'CoffeeD/new1.png',
     image2: 'CoffeeD/WhatsApp Image 2026-07-15 at 5.18.10 PM.jpeg',
     weight: '100g',
@@ -417,7 +417,7 @@ const getFolderWiseImages = (
     };
   }
 
-  if (name.includes('moringa') || name.includes('soup')) {
+  if (name.includes('powder') || name.includes('soup')) {
     return {
       image1: '6330345451856531101.jpg',
       image2: 'FaceWash/Herbal1.png',
@@ -468,7 +468,7 @@ export default function CategoryPage() {
         
         if (data.success && data.products && data.products.length > 0) {
           const mapped = data.products
-            .filter((p: any) => p.id !== 22 && !p.product_name.toLowerCase().includes('moringa premix'))
+            .filter((p: any) => p.id !== 22 && !p.product_name.toLowerCase().includes('premix'))
             .map((p: any) => {
               const folderWise = getFolderWiseImages(p.product_name, p.image1, p.image2, p.image3);
               return {
@@ -525,58 +525,60 @@ export default function CategoryPage() {
   };
 
   const filteredProducts = products.filter((product) => {
-    const pCat = product.product_category.toLowerCase();
+    const pCat = (product.product_category || '').toLowerCase();
+    const cat = categoryId.toLowerCase();
     
-    if (categoryId === 'moringa' || categoryId === 'powders') {
-      return pCat === 'moringa';
+    if (cat === 'powders' || cat === 'herbal-powders' || cat === 'herbalpowders' || cat === 'moringa') {
+      return pCat.includes('powder') || pCat.includes('herbal');
     }
-    if (categoryId === 'soaps') {
-      return pCat === 'soaps';
+    if (cat === 'soaps' || cat === 'soap' || cat === 'handcrafted-soaps') {
+      return pCat.includes('soap');
     }
-    if (categoryId === 'shampoo') {
-      return pCat === 'shampoo';
+    if (cat === 'shampoo' || cat === 'shampoo-bars' || cat === 'shampoos') {
+      return pCat.includes('shampoo');
     }
-    if (categoryId === 'others') {
-      return pCat !== 'moringa' && pCat !== 'soaps' && pCat !== 'shampoo';
+    if (cat === 'others' || cat === 'skincare-gels' || cat === 'skincare' || cat === 'gels' || cat === 'special-care') {
+      return !pCat.includes('soap') && !pCat.includes('shampoo') && !pCat.includes('powder');
     }
     return true;
   });
 
   // Get Page Header styling based on Category
   const getHeaderInfo = () => {
-    switch (categoryId) {
-      case 'moringa':
-      case 'powders':
-        return {
-          title: 'Herbal Skin & Hair Powders',
-          subtitle: 'Apothecary Collection',
-          desc: '100% natural, stone-ground wellness and skincare powders sourced directly from organic ingredients.'
-        };
-      case 'soaps':
-        return {
-          title: 'Handcrafted Premium Soaps',
-          subtitle: 'Bath & Body Collection',
-          desc: 'Organic cold-processed soap bars infused with organic essential oils and pure botanical herbs.'
-        };
-      case 'shampoo':
-        return {
-          title: 'Luxury Shampoo Bars',
-          subtitle: 'Hair Care Collection',
-          desc: 'Solid zero-waste shampoo bars formulated to deeply nourish and restore scalp and follicle health.'
-        };
-      case 'others':
-        return {
-          title: 'Special Care Remedies',
-          subtitle: 'Targeted Treatments',
-          desc: 'Rich soothing aloe vera gels, oils, and unique traditional wellness formulations.'
-        };
-      default:
-        return {
-          title: 'Wellness Apothecary',
-          subtitle: 'Our Collections',
-          desc: 'Explore all natural body, skin, and nutritional formulations crafted for holistic well-being.'
-        };
+    const cat = categoryId.toLowerCase();
+    if (cat === 'powders' || cat === 'herbal-powders' || cat === 'moringa') {
+      return {
+        title: 'Herbal Powders - Face, Hair & Body Care',
+        subtitle: 'Stone-Ground Botanical Powders',
+        desc: 'Stone-ground dry powders for daily facial cleansing, weekly face mask rituals, and botanical hair care.'
+      };
     }
+    if (cat === 'soaps' || cat === 'soap' || cat === 'handcrafted-soaps') {
+      return {
+        title: 'Handcrafted Soaps for Daily Bath & Body Care',
+        subtitle: 'Pureplush Artisanal Bath Bars',
+        desc: 'Explore handcrafted cold-processed soap bars made with botanical oils and clays for a soft, clean and refreshed skin feel after every bath.'
+      };
+    }
+    if (cat === 'shampoo' || cat === 'shampoo-bars' || cat === 'shampoos') {
+      return {
+        title: 'Solid Shampoo Bars for Clean, Travel-Friendly Hair Care',
+        subtitle: 'Zero-Waste Hair Cleansers',
+        desc: 'Zero-waste, travel-friendly solid shampoo bars formulated with Multani Mitti, Saffron, Hibiscus, Neem and Tulsi for scalp freshness and oil-control feel.'
+      };
+    }
+    if (cat === 'others' || cat === 'skincare-gels' || cat === 'skincare' || cat === 'gels' || cat === 'special-care') {
+      return {
+        title: 'Skincare, Gels & Special Care',
+        subtitle: 'Botanical Oils & Soothing Care',
+        desc: 'Soothing botanical oils and skin care formulations crafted for daily self-care routines.'
+      };
+    }
+    return {
+      title: 'Botanical Collection',
+      subtitle: 'Pureplush Care Range',
+      desc: 'Explore all natural body, skin, and hair care formulations crafted for simple, mindful daily routines.'
+    };
   };
 
   const header = getHeaderInfo();

@@ -182,7 +182,7 @@ export default function FounderVisionSection() {
               </div>
               <h3 className="font-serif text-xl font-bold text-forest mb-3">Trusted Natural Care</h3>
               <p className="text-charcoal/80 text-sm leading-relaxed">
-                At Pureplush, our vision is to become one of India's most trusted natural wellness and personal care brands by inspiring people to embrace a healthier, more mindful lifestyle rooted in nature.
+                Pureplush aims to become a trusted Indian natural care brand by offering products that are easy to use, clearly labelled, thoughtfully formulated and suitable for everyday routines.
               </p>
             </motion.div>
 
@@ -198,7 +198,7 @@ export default function FounderVisionSection() {
               </div>
               <h3 className="font-serif text-xl font-bold text-forest mb-3">Ayurvedic Wisdom & Modern Standards</h3>
               <p className="text-charcoal/80 text-sm leading-relaxed">
-                We envision a world where every home experiences the purity of authentic herbal care and the serenity of traditional wellness rituals. By blending timeless Ayurvedic wisdom with modern quality standards, we strive to create products that nurture the body, calm the mind, and uplift the spirit.
+                We combine traditional botanical inspiration with high hygiene, thoughtful packaging, ingredient transparency, responsive customer support and consistent quality for modern daily care routines.
               </p>
             </motion.div>
 
@@ -214,9 +214,9 @@ export default function FounderVisionSection() {
                   <ShieldCheck className="w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="font-serif text-xl font-bold text-forest mb-2">Uncompromising Quality & Innovation</h3>
+                  <h3 className="font-serif text-xl font-bold text-forest mb-2">Quality & Innovation Focus</h3>
                   <p className="text-charcoal/80 text-sm leading-relaxed">
-                    Our commitment is to continually innovate with natural ingredients, maintain uncompromising quality, and build a brand that stands for trust, purity, sustainability, and wellness across every home we touch.
+                    Our focus is on continually improving product quality, customer experience, ingredient clarity and practical packaging across every formulation we craft.
                   </p>
                 </div>
               </div>
@@ -288,8 +288,8 @@ export default function FounderVisionSection() {
                     <Mail className="w-4 h-4" />
                     <span className="text-xs font-bold uppercase tracking-wider text-white">Customer Support</span>
                   </div>
-                  <p className="text-xs text-cream font-medium break-all">support@pureplush.in</p>
-                  <p className="text-xs text-cream font-medium">+91 87628 77755</p>
+                  <p className="text-xs text-cream font-medium break-all">info@pureplush.in</p>
+                  <p className="text-xs text-cream font-medium">+91 84468 16247</p>
                 </div>
 
               </div>

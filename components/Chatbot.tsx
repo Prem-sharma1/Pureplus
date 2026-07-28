@@ -20,7 +20,7 @@ const PRODUCTS_DB: Product[] = [
   {
     id: 26,
     name: 'Pureplush Herbal Waxing Powder',
-    category: 'moringa',
+    category: 'powders',
     price: '₹249.00',
     desc: 'Pain-free, natural hair removal powder made with organic botanical ingredients for smooth skin.',
     image: '/uploads/FaceWash/Herbal2.png',
@@ -30,7 +30,7 @@ const PRODUCTS_DB: Product[] = [
   {
     id: 28,
     name: 'Pureplush Herbal Facewash powder',
-    category: 'moringa',
+    category: 'powders',
     price: '₹249.00',
     desc: 'Traditional dry face wash powder blend to cleanse pores and restore natural glow.',
     image: '/uploads/Herbal4.png',
@@ -40,7 +40,7 @@ const PRODUCTS_DB: Product[] = [
   {
     id: 108,
     name: 'Pureplush Herbal Facepack',
-    category: 'moringa',
+    category: 'powders',
     price: '₹249.00',
     desc: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
     image: '/Herbalfacepack/Artboard 1.png',
@@ -50,7 +50,7 @@ const PRODUCTS_DB: Product[] = [
   {
     id: 105,
     name: 'PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj',
-    category: 'moringa',
+    category: 'powders',
     price: '₹249.00',
     desc: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.',
     image: '/Herbal/Herbal3.png',
@@ -61,40 +61,40 @@ const PRODUCTS_DB: Product[] = [
     id: 101,
     name: 'Pureplush mangobutter Mud Sea Clay Soap',
     category: 'soaps',
-    price: '₹99.00',
+    price: '₹199.00',
     desc: 'Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.',
     image: '/MangoButter/Soap.png',
-    benefits: ['Deep Purifying Mud', 'Moisturizing Mango Butter', 'Handcrafted & Vegan'],
+    benefits: ['Moisturizing Mango Butter', 'Purifying Sea Clay Mud', 'Creamy Artisanal Lather'],
     weight: '100g'
   },
   {
     id: 102,
     name: 'Pureplush Sheabutter Multani Mitti Soap',
     category: 'soaps',
-    price: '₹99.00',
+    price: '₹199.00',
     desc: 'Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.',
-    image: '/Multanimitti/Soap3.png',
-    benefits: ['Absorbs Excess Oils', 'Nourishing Shea Butter', 'Combats Acne & Pimples'],
+    image: '/Sheabutter/Soap.png',
+    benefits: ['Oil Control Multani Mitti', 'Nourishing Shea Butter', 'Gentle Daily Bathing Bar'],
     weight: '100g'
   },
   {
     id: 103,
     name: 'Pureplush Goatmilk French Green Clay Soap',
     category: 'soaps',
-    price: '₹99.00',
+    price: '₹199.00',
     desc: 'Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.',
-    image: '/Frenchgreenclay/Soap2.png',
-    benefits: ['Toxin-Extracting Green Clay', 'Soften & Hydrates Skin', 'Rich Goat Milk Proteins'],
+    image: '/Greenclay/Soap.png',
+    benefits: ['Detoxifying French Green Clay', 'Fresh Farm Goat Milk', 'Soft & Smooth Skin Feel'],
     weight: '100g'
   },
   {
     id: 109,
     name: 'Pureplush Goatmilk Coffee D Tan Soap',
     category: 'soaps',
-    price: '₹99.00',
+    price: '₹199.00',
     desc: 'Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.',
-    image: '/CoffeeD/new1.png',
-    benefits: ['Brightens & Evens Skin', 'Fresh Farm Goat Milk', 'Natural Coffee Scrub'],
+    image: '/Sheabutter/Soap.png',
+    benefits: ['Exfoliating Coffee Scrub', 'Rich Goat Milk Base', 'Brightening Bath Ritual'],
     weight: '100g'
   },
   {
@@ -103,9 +103,9 @@ const PRODUCTS_DB: Product[] = [
     category: 'shampoo',
     price: '₹199.00',
     desc: 'Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.',
-    image: '/multanimittishampoo/Shampoobar2.png',
-    benefits: ['Scale-Free Scalp Cleansing', 'Infused with Real Saffron', 'Zero Waste Solid Bar'],
-    weight: '80g'
+    image: '/multanimittishampoo/Shampoobar.jpg',
+    benefits: ['Oil Control Multani Mitti', 'Shine-Enhancing Saffron', 'Travel-Friendly Solid Format'],
+    weight: '85g'
   },
   {
     id: 107,
@@ -113,14 +113,14 @@ const PRODUCTS_DB: Product[] = [
     category: 'shampoo',
     price: '₹199.00',
     desc: 'Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.',
-    image: '/Hibisus neem/new2.png',
-    benefits: ['Antibacterial Neem & Tulsi', 'Hibiscus Hair Conditioning', 'Controls Dandruff & Itch'],
-    weight: '80g'
+    image: '/HibiscusNeemTulsiShampoo/Artboard 1.png',
+    benefits: ['Antibacterial Neem & Tulsi', 'Conditioning Hibiscus', 'Scalp Clarifying Ritual'],
+    weight: '85g'
   },
   {
     id: 108,
     name: 'Pureplush Herbal Facepack',
-    category: 'moringa',
+    category: 'powders',
     price: '₹249.00',
     desc: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
     image: '/Herbal/Herbal3.png',
@@ -314,7 +314,7 @@ export default function Chatbot() {
           {/* Tooltip */}
           <span className="absolute left-16 top-1 ml-2 scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 origin-left bg-white text-forest text-xs font-bold px-3.5 py-2 rounded-xl shadow-xl border border-forest/5 flex items-center space-x-1.5 whitespace-nowrap pointer-events-none text-forest">
             <span className="w-1.5 h-1.5 bg-gold rounded-full animate-ping"></span>
-            <span>Ayurvedic Support & AI Assistant</span>
+            <span>Product Help Assistant</span>
           </span>
 
           {/* Pulse Glow Effect */}

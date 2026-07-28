@@ -4,12 +4,35 @@ import './globals.css';
 import RootLayoutClient from '@/components/RootLayoutClient';
 
 export const metadata: Metadata = {
-  title: 'Pureplush | Premium Ayurvedic & Natural Wellness Shop',
-  description: 'Pureplush brings you premium Ayurvedic, handcrafted skincare powders, luxury soaps, shampoo bars, and natural wellness products designed for ultimate body care.',
+  metadataBase: new URL('https://www.pureplush.in'),
+  title: 'Pureplush | Natural Personal Care, Soaps, Shampoo Bars & Herbal Powders',
+  description: 'Gentle Herbal Hair & Skin Care for Everyday Self-Care. Discover soaps, shampoo bars and herbal powders made with carefully selected botanical ingredients for simple daily routines.',
+  keywords: [
+    'Pureplush',
+    'Handcrafted Soaps',
+    'Solid Shampoo Bars',
+    'Herbal Powders',
+    'Multani Mitti Shampoo Bar',
+    'Goat Milk Soap',
+    'Facewash Powder',
+    'Herbal Facepack',
+    'Natural Personal Care India'
+  ],
+  alternates: {
+    canonical: 'https://www.pureplush.in',
+  },
   icons: {
     icon: '/Pureplus.png',
     shortcut: '/Pureplus.png',
     apple: '/Pureplus.png',
+  },
+  openGraph: {
+    title: 'Pureplush | Natural Personal Care, Soaps, Shampoo Bars & Herbal Powders',
+    description: 'Gentle Herbal Hair & Skin Care for Everyday Self-Care. Discover soaps, shampoo bars and herbal powders made with carefully selected botanical ingredients.',
+    url: 'https://www.pureplush.in',
+    siteName: 'Pureplush',
+    locale: 'en_IN',
+    type: 'website',
   },
 };
 
@@ -18,9 +41,38 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Pureplush',
+    url: 'https://www.pureplush.in',
+    logo: 'https://www.pureplush.in/whitepureplus.jpeg',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+91-8446816247',
+      contactType: 'customer service',
+      email: 'info@pureplush.in',
+      areaServed: 'IN',
+      availableLanguage: ['en', 'hi']
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'SR NO. 27/2, Near Viman Build, Dhanori',
+      addressLocality: 'Pune',
+      addressRegion: 'Maharashtra',
+      postalCode: '411015',
+      addressCountry: 'IN'
+    }
+  };
+
   return (
     <html lang="en">
       <head>
+        {/* Organization JSON-LD Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {/* Meta Pixel Code */}
         <Script
           id="meta-pixel"

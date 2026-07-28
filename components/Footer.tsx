@@ -122,6 +122,12 @@ export default function Footer() {
                 <Link href="/terms-and-conditions" className="hover:text-gold transition-colors">Terms and Conditions</Link>
               </li>
               <li>
+                <Link href="/blog" className="hover:text-gold transition-colors">Blog & Self-Care Guides</Link>
+              </li>
+              <li>
+                <Link href="/ingredients" className="hover:text-gold transition-colors">Botanical Ingredient Glossary</Link>
+              </li>
+              <li>
                 <Link href="/contact-us" className="hover:text-gold transition-colors">Contact Us & CallBack</Link>
               </li>
               <li>
@@ -144,11 +150,11 @@ export default function Footer() {
             <ul className="space-y-3.5 text-xs text-sage-light">
               <li className="flex items-center space-x-2.5">
                 <Mail className="w-4 h-4 text-gold flex-shrink-0" />
-                <span className="break-all">impexsaish@gmail.com</span>
+                <span className="break-all font-semibold text-white">info@pureplush.in</span>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Mail className="w-4 h-4 text-gold flex-shrink-0" />
-                <span className="break-all">info@pureplush.in</span>
+                <span className="break-all text-sage-light/80">impexsaish@gmail.com</span>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Phone className="w-4 h-4 text-gold flex-shrink-0" />
@@ -215,7 +221,7 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-6 text-base text-sage-light/75 border-t border-cream/10">
-          <p>© {new Date().getFullYear()} pureplush. Marketed by <strong className="text-white">Nexora Trading Co</strong> (Official Brand Marketing Partner). All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} Pureplush. Marketed by <strong className="text-white">Nexora Trading Co</strong> (Official Brand Marketing Partner). All Rights Reserved.</p>
           <div className="flex flex-wrap gap-4 sm:gap-6 mt-4 md:mt-0 justify-center">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/shipping-policy" className="hover:text-white transition-colors">Shipping Policy</Link>

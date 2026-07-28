@@ -28,7 +28,7 @@ const TRENDING_KEYWORDS = [
   { text: 'Multani Mitti Saffron', category: 'shampoo' },
   { text: 'Goat Milk Coffee', category: 'soaps' },
   { text: 'Mango Butter Mud', category: 'soaps' },
-  { text: 'Herbal Facewash Powder', category: 'moringa' },
+  { text: 'Herbal Facewash Powder', category: 'powders' },
   { text: 'Hibiscus Neem Shampoo', category: 'shampoo' }
 ];
 
@@ -265,7 +265,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search for soaps, shampoo bars, facewash powder, coffee scrub..."
+                placeholder="Search for soap, shampoo bar, facewash powder, hair wash, clay soap..."
                 className="w-full text-base md:text-xl font-serif text-forest bg-transparent outline-none border-none placeholder-sage-dark/50"
               />
               {query && (

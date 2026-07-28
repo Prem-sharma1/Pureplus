@@ -306,61 +306,63 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   <h3 className="font-serif text-base font-bold text-forest border-b border-forest/10 pb-2">
                     Shipping & Contact Information
                   </h3>
-                  <div className="space-y-4 text-xs text-charcoal">
+                  <div className="space-y-3.5 text-xs text-charcoal">
                     <div>
-                      <label className="block font-semibold mb-1.5 text-forest/85">Full Name</label>
+                      <label className="block text-xs font-semibold mb-1 text-forest">Full Name *</label>
                       <input 
                         type="text" 
                         required 
                         value={shippingName} 
                         onChange={e => setShippingName(e.target.value)} 
-                        className="w-full border border-forest/15 rounded-xl px-4 py-2.5 bg-white focus:outline-none focus:border-forest text-xs font-medium" 
-                        placeholder="John Doe" 
+                        className="w-full border border-forest/20 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 text-base sm:text-sm font-medium" 
+                        placeholder="Enter full name" 
                       />
                     </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-semibold mb-1 text-forest">Phone Number *</label>
+                        <input 
+                          type="tel" 
+                          required 
+                          value={shippingPhone} 
+                          onChange={e => setShippingPhone(e.target.value)} 
+                          className="w-full border border-forest/20 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 text-base sm:text-sm font-medium" 
+                          placeholder="10-digit mobile" 
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold mb-1 text-forest">Pincode *</label>
+                        <input 
+                          type="text" 
+                          required 
+                          maxLength={6}
+                          value={shippingPincode} 
+                          onChange={e => setShippingPincode(e.target.value)} 
+                          className="w-full border border-forest/20 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 text-base sm:text-sm font-medium" 
+                          placeholder="6-digit pincode" 
+                        />
+                      </div>
+                    </div>
                     <div>
-                      <label className="block font-semibold mb-1.5 text-forest/85">Email Address</label>
+                      <label className="block text-xs font-semibold mb-1 text-forest">Email Address *</label>
                       <input 
                         type="email" 
                         required 
                         value={shippingEmail} 
                         onChange={e => setShippingEmail(e.target.value)} 
-                        className="w-full border border-forest/15 rounded-xl px-4 py-2.5 bg-white focus:outline-none focus:border-forest text-xs font-medium" 
-                        placeholder="john@example.com" 
+                        className="w-full border border-forest/20 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 text-base sm:text-sm font-medium" 
+                        placeholder="name@example.com" 
                       />
                     </div>
                     <div>
-                      <label className="block font-semibold mb-1.5 text-forest/85">Phone Number</label>
-                      <input 
-                        type="tel" 
-                        required 
-                        value={shippingPhone} 
-                        onChange={e => setShippingPhone(e.target.value)} 
-                        className="w-full border border-forest/15 rounded-xl px-4 py-2.5 bg-white focus:outline-none focus:border-forest text-xs font-medium" 
-                        placeholder="9876543210" 
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-semibold mb-1.5 text-forest/85">Shipping Address</label>
+                      <label className="block text-xs font-semibold mb-1 text-forest">Shipping Address *</label>
                       <textarea 
                         rows={3} 
                         required 
                         value={shippingAddress} 
                         onChange={e => setShippingAddress(e.target.value)} 
-                        className="w-full border border-forest/15 rounded-xl px-4 py-2.5 bg-white focus:outline-none focus:border-forest text-xs font-medium resize-none leading-relaxed" 
-                        placeholder="Flat/House No., Building Name, Street, Landmark..." 
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-semibold mb-1.5 text-forest/85">Pincode</label>
-                      <input 
-                        type="text" 
-                        required 
-                        maxLength={6}
-                        value={shippingPincode} 
-                        onChange={e => setShippingPincode(e.target.value)} 
-                        className="w-full border border-forest/15 rounded-xl px-4 py-2.5 bg-white focus:outline-none focus:border-forest text-xs font-medium" 
-                        placeholder="600001" 
+                        className="w-full border border-forest/20 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 text-base sm:text-sm font-medium resize-none leading-relaxed" 
+                        placeholder="Flat/House No., Building, Street, Area, City, State" 
                       />
                     </div>
                   </div>

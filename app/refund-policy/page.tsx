@@ -1,11 +1,11 @@
 import React from 'react';
 import { Metadata } from 'next';
 import PolicyLayout from '@/components/PolicyLayout';
-import { Clock, CheckCircle, AlertTriangle, Smartphone, Shirt, Sparkles, Home } from 'lucide-react';
+import { Clock, CheckCircle, AlertTriangle, Sparkles, Droplets, Leaf } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Refund & Return Policy | pureplush',
-  description: 'Fair 3-day return & refund terms across all product categories sold via pureplush.',
+  title: 'Refund & Return Policy | Pureplush',
+  description: 'Fair return & refund terms for botanical personal care products sold via Pureplush.',
 };
 
 export default function RefundPolicyPage() {
@@ -16,35 +16,35 @@ export default function RefundPolicyPage() {
       content: (
         <div className="space-y-4">
           <p>
-            At <strong>pureplush</strong>, customer satisfaction is our top priority. We strive to offer a fair and transparent refund and return process across all categories of products we sell.
+            At <strong>Pureplush</strong> (marketed by Nexora Trading Co), customer trust and satisfaction are our top priorities. We strive to offer a fair and transparent refund and replacement process across all botanical personal care formulations we sell.
           </p>
           <p>
-            We offer a <strong>3-day return or refund policy</strong> on most items sold via pureplush, subject to the product category and return eligibility. Please ensure the following conditions are met:
+            We offer a <strong>3-day replacement or refund policy</strong> for damaged, defective, or incorrect items delivered, subject to personal care hygiene guidelines:
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
             <div className="bg-cream/60 p-4 rounded-xl border border-forest/10 space-y-1">
               <div className="flex items-center space-x-2 text-forest font-semibold text-xs">
                 <Clock className="w-4 h-4 text-gold-dark" />
-                <span>3-Day Window</span>
+                <span>48-Hour / 3-Day Notice</span>
               </div>
-              <p className="text-xs text-charcoal/80">Return/refund request must be initiated within 3 days of delivery.</p>
+              <p className="text-xs text-charcoal/80">Issues (damaged packaging, leakage, wrong item) must be reported within 48 hours to 3 days of delivery.</p>
             </div>
 
             <div className="bg-cream/60 p-4 rounded-xl border border-forest/10 space-y-1">
               <div className="flex items-center space-x-2 text-forest font-semibold text-xs">
                 <CheckCircle className="w-4 h-4 text-forest" />
-                <span>Original Packaging</span>
+                <span>Unopened & Sealed State</span>
               </div>
-              <p className="text-xs text-charcoal/80">Item must be unused, undamaged, and returned in original packaging with all accessories, manuals, and tags intact.</p>
+              <p className="text-xs text-charcoal/80">Returned items must be unused, un-tampered, and in original outer packaging for hygiene compliance.</p>
             </div>
 
             <div className="bg-cream/60 p-4 rounded-xl border border-forest/10 space-y-1">
               <div className="flex items-center space-x-2 text-forest font-semibold text-xs">
                 <AlertTriangle className="w-4 h-4 text-gold-dark" />
-                <span>Non-Returnable Items</span>
+                <span>Hygiene & Safety Exclusions</span>
               </div>
-              <p className="text-xs text-charcoal/80">Products like personal care, cosmetics, innerwear, food items, or custom orders are non-returnable unless defective or damaged.</p>
+              <p className="text-xs text-charcoal/80">Opened or used personal care products (soaps, shampoo bars, powders, oils) are non-returnable due to health and safety standards.</p>
             </div>
 
             <div className="bg-cream/60 p-4 rounded-xl border border-forest/10 space-y-1">
@@ -52,7 +52,7 @@ export default function RefundPolicyPage() {
                 <Clock className="w-4 h-4 text-forest" />
                 <span>Refund Timeline</span>
               </div>
-              <p className="text-xs text-charcoal/80">Once the return is approved and the product is inspected, a refund will be processed to your original payment method within 3–10 business days.</p>
+              <p className="text-xs text-charcoal/80">Once approved, refunds are credited back to your original payment method within 3–7 business days.</p>
             </div>
           </div>
         </div>
@@ -60,44 +60,35 @@ export default function RefundPolicyPage() {
     },
     {
       id: 'category-guidelines',
-      title: '2. Category-Specific Guidelines',
+      title: '2. Product Category Guidelines',
       content: (
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Electronics */}
+            {/* Handcrafted Soaps & Shampoo Bars */}
             <div className="bg-cream/50 p-4 rounded-2xl border border-forest/10 space-y-1">
               <div className="flex items-center space-x-2 font-bold text-forest text-xs uppercase tracking-wider">
-                <Smartphone className="w-4 h-4 text-gold-dark" />
-                <span>Electronics (Mobiles, Laptops, Accessories)</span>
+                <Droplets className="w-4 h-4 text-gold-dark" />
+                <span>Solid Soaps & Shampoo Bars</span>
               </div>
-              <p className="text-xs text-charcoal/80">Returns accepted only for defective, damaged, or incorrect products.</p>
+              <p className="text-xs text-charcoal/80">Replacements provided for transit damage or wrong product received. Opened soap/shampoo bars are non-refundable.</p>
             </div>
 
-            {/* Fashion */}
+            {/* Herbal Powders & Masks */}
             <div className="bg-cream/50 p-4 rounded-2xl border border-forest/10 space-y-1">
               <div className="flex items-center space-x-2 font-bold text-forest text-xs uppercase tracking-wider">
-                <Shirt className="w-4 h-4 text-gold-dark" />
-                <span>Fashion & Lifestyle</span>
+                <Leaf className="w-4 h-4 text-gold-dark" />
+                <span>Botanical Powders & Facepacks</span>
               </div>
-              <p className="text-xs text-charcoal/80">Returns allowed for size issues or if the product is not as described. Must be returned unused and with tags.</p>
+              <p className="text-xs text-charcoal/80">Must be returned in original sealed foil/jar. Please inspect outer seal before opening.</p>
             </div>
 
-            {/* Beauty */}
-            <div className="bg-cream/50 p-4 rounded-2xl border border-forest/10 space-y-1">
+            {/* Oils & Remedies */}
+            <div className="bg-cream/50 p-4 rounded-2xl border border-forest/10 space-y-1 sm:col-span-2">
               <div className="flex items-center space-x-2 font-bold text-forest text-xs uppercase tracking-wider">
                 <Sparkles className="w-4 h-4 text-gold-dark" />
-                <span>Beauty & Personal Care</span>
+                <span>Botanical Hair Oils & Care Remedies</span>
               </div>
-              <p className="text-xs text-charcoal/80">Returns allowed only if item is damaged or different from what was ordered. Products must be sealed and unused.</p>
-            </div>
-
-            {/* Home */}
-            <div className="bg-cream/50 p-4 rounded-2xl border border-forest/10 space-y-1">
-              <div className="flex items-center space-x-2 font-bold text-forest text-xs uppercase tracking-wider">
-                <Home className="w-4 h-4 text-gold-dark" />
-                <span>Home & Appliances</span>
-              </div>
-              <p className="text-xs text-charcoal/80">Returns accepted for defective or wrong items within 3 days. Installation issues must be reported with supporting photos/videos.</p>
+              <p className="text-xs text-charcoal/80">In case of bottle breakage or leakage during transit, please share unboxing photo/video proof within 48 hours for immediate replacement.</p>
             </div>
           </div>
         </div>
@@ -109,22 +100,29 @@ export default function RefundPolicyPage() {
       content: (
         <div className="space-y-4">
           <p>
-            If you need help with a return or refund, contact our support team:
+            If you received a damaged item or need assistance with your order, please contact our support team:
           </p>
           <div className="bg-cream/80 p-4 rounded-2xl border border-forest/10 inline-block space-y-2">
             <div>
-              <span className="text-xs font-bold text-forest uppercase tracking-wider block">Email Contact</span>
-              <a href="mailto:impexsaish@gmail.com" className="text-sm font-bold text-forest hover:text-gold transition-colors">
-                impexsaish@gmail.com
+              <span className="text-xs font-bold text-forest uppercase tracking-wider block">Customer Support Email</span>
+              <a href="mailto:info@pureplush.in" className="text-sm font-bold text-forest hover:text-gold transition-colors">
+                info@pureplush.in
+              </a>
+              <span className="text-xs text-charcoal/60 block font-mono">CC: impexsaish@gmail.com</span>
+            </div>
+            <div>
+              <span className="text-xs font-bold text-forest uppercase tracking-wider block">Phone & WhatsApp Support</span>
+              <a href="tel:+918446816247" className="text-sm font-bold text-forest hover:text-gold transition-colors">
+                +91 84468 16247
               </a>
             </div>
             <div>
               <span className="text-xs font-bold text-forest uppercase tracking-wider block">Support Hours</span>
-              <p className="text-xs text-charcoal/80 font-medium">10:00 AM – 6:00 PM (Mon–Sat)</p>
+              <p className="text-xs text-charcoal/80 font-medium">10:00 AM – 6:00 PM IST (Mon–Sat)</p>
             </div>
           </div>
           <p className="text-xs text-forest/90 font-medium pt-1">
-            Thank you for shopping with <strong>pureplush</strong>!
+            Thank you for choosing <strong>Pureplush</strong>!
           </p>
         </div>
       ),
@@ -134,12 +132,12 @@ export default function RefundPolicyPage() {
   return (
     <PolicyLayout
       title="Refund & Return Policy"
-      subtitle="At pureplush, customer satisfaction is our top priority. We offer a fair and transparent 3-day return policy."
+      subtitle="At Pureplush, customer satisfaction is our top priority. We offer a clear and transparent 3-day replacement policy for damaged or wrong items."
       categoryBadge="Returns & Refunds"
       lastUpdated="July 2026"
       sections={sections}
-      contactEmail="impexsaish@gmail.com"
-      supportHours="10:00 AM – 6:00 PM (Mon–Sat)"
+      contactEmail="info@pureplush.in"
+      supportHours="10:00 AM – 6:00 PM IST (Mon–Sat)"
     />
   );
 }

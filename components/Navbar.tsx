@@ -259,7 +259,7 @@ export default function Navbar() {
 
         {/* Bottom Categories Sub-Navbar (Desktop Only) */}
         <div className="hidden lg:block w-full bg-white border-t border-forest/5">
-          <div className="max-w-5xl mx-auto flex items-center justify-center h-11 space-x-8">
+          <div className="max-w-6xl mx-auto flex items-center justify-center h-11 space-x-6">
             <Link
               href="/"
               className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/' ? 'text-forest' : 'text-charcoal/70'
@@ -289,6 +289,13 @@ export default function Navbar() {
               SHAMPOO BARS
             </Link>
             <Link
+              href="/category/powders"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/category/powders' ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              HERBAL POWDERS
+            </Link>
+            <Link
               href="/category/others"
               className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/category/others' ? 'text-forest' : 'text-charcoal/70'
                 }`}
@@ -300,6 +307,27 @@ export default function Navbar() {
               className="text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest text-charcoal/70"
             >
               OUR STORY
+            </Link>
+            <Link
+              href="/blog"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname?.startsWith('/blog') ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              BLOG
+            </Link>
+            <Link
+              href="/ingredients"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/ingredients' ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              INGREDIENTS
+            </Link>
+            <Link
+              href="/contact-us"
+              className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/contact-us' ? 'text-forest' : 'text-charcoal/70'
+                }`}
+            >
+              CONTACT
             </Link>
           </div>
         </div>
@@ -401,6 +429,17 @@ export default function Navbar() {
                     </Link>
                   </motion.div>
 
+                  {/* Herbal Powders Link */}
+                  <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
+                    <Link
+                      href="/category/powders"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/category/powders') ? 'bg-forest/5 text-forest font-bold' : 'hover:bg-forest/5 text-charcoal'}`}
+                    >
+                      <span>Herbal Powders</span>
+                    </Link>
+                  </motion.div>
+
                   {/* Skincare & Gels Link */}
                   <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
                     <Link
@@ -420,6 +459,39 @@ export default function Navbar() {
                       className="flex items-center space-x-3 py-2 px-3 rounded-xl hover:bg-forest/5 text-charcoal font-semibold text-sm transition-all"
                     >
                       <span>Our Story</span>
+                    </Link>
+                  </motion.div>
+
+                  {/* Blog Link */}
+                  <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
+                    <Link
+                      href="/blog"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/blog') ? 'bg-forest/5 text-forest font-bold' : 'hover:bg-forest/5 text-charcoal'}`}
+                    >
+                      <span>Blog & Guides</span>
+                    </Link>
+                  </motion.div>
+
+                  {/* Ingredients Link */}
+                  <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
+                    <Link
+                      href="/ingredients"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/ingredients') ? 'bg-forest/5 text-forest font-bold' : 'hover:bg-forest/5 text-charcoal'}`}
+                    >
+                      <span>Ingredient Glossary</span>
+                    </Link>
+                  </motion.div>
+
+                  {/* Contact Link */}
+                  <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
+                    <Link
+                      href="/contact-us"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/contact-us') ? 'bg-forest/5 text-forest font-bold' : 'hover:bg-forest/5 text-charcoal'}`}
+                    >
+                      <span>Contact Us</span>
                     </Link>
                   </motion.div>
 

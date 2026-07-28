@@ -148,8 +148,8 @@ export default function ContactUsPage() {
               <MapPin className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs font-bold text-forest uppercase tracking-wider block">Location</span>
-              <span className="text-sm font-medium text-charcoal/80">pureplush, Karnataka.</span>
+              <span className="text-xs font-bold text-forest uppercase tracking-wider block">Official Address</span>
+              <span className="text-xs font-semibold text-charcoal/90">Nexora Trading Co, SR NO. 27/2, Near Viman Build, Dhanori, Pune, MH - 411015</span>
             </div>
           </div>
         </div>

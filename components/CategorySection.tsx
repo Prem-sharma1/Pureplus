@@ -8,24 +8,28 @@ const categories = [
   {
     id: 1,
     title: 'SHAMPOO BARS',
+    subtitle: 'Shampoo Bars - Solid, Travel-Friendly Hair Cleansers',
     image: '/Categoryimg/Category2.jpeg',
     link: '/category/shampoo',
   },
   {
     id: 2,
     title: 'HANDCRAFTED SOAPS',
+    subtitle: 'Handcrafted Soaps - Daily Bath & Body Care',
     image: '/Categoryimg/Category1.jpeg',
     link: '/category/soaps',
   },
   {
     id: 3,
     title: 'HERBAL POWDERS',
+    subtitle: 'Herbal Powders - Face, Hair & Wellness Care',
     image: '/Categoryimg/Category3.jpeg',
-    link: '/category/moringa',
+    link: '/category/powders',
   },
   {
     id: 4,
-    title: 'OTHERS',
+    title: 'SKINCARE & GELS',
+    subtitle: 'Skincare & Gels - Soothing Oils & Botanical Care',
     image: '/Keshoil/keshwoman.jpeg',
     link: '/category/others',
   },
@@ -59,11 +63,14 @@ export default function CategorySection() {
                 />
               </div>
 
-              {/* Title & Button Aligned at Identical Vertical Baselines */}
+              {/* Title & Subtitle & Button Aligned at Identical Vertical Baselines */}
               <div className="flex flex-col items-center text-center w-full mt-auto">
-                <h3 className="font-serif text-base sm:text-lg md:text-xl font-light tracking-[0.2em] text-white uppercase mb-4 sm:mb-6 leading-snug max-w-[260px] min-h-[44px] md:min-h-[52px] flex items-center justify-center">
+                <h3 className="font-serif text-base sm:text-lg md:text-xl font-light tracking-[0.2em] text-white uppercase mb-1 leading-snug max-w-[260px] flex items-center justify-center">
                   {category.title}
                 </h3>
+                <p className="text-[11px] text-cream/70 font-sans mb-4 max-w-[260px] line-clamp-2 min-h-[32px]">
+                  {category.subtitle}
+                </p>
 
                 <div className="bg-white text-black px-6 py-3 text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase transition-all duration-300 group-hover:bg-forest group-hover:text-white shadow-2xl text-center w-full max-w-[160px] font-sans">
                   VIEW PRODUCTS

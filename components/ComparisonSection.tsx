@@ -12,34 +12,24 @@ export interface ComparisonRow {
 
 export const COMPARISON_DATA: ComparisonRow[] = [
   {
-    feature: 'Natural Herbal Ingredients',
-    pureplus: 'Carefully selected herbal ingredients',
-    ordinary: 'Often synthetic ingredients'
+    feature: 'Natural Botanical Ingredients',
+    pureplus: 'Carefully selected botanical ingredients',
+    ordinary: 'Often synthetic ingredient bases'
   },
   {
-    feature: 'Sulfate Free (SLS/SLES)',
-    pureplus: 'Yes',
-    ordinary: 'Often included'
+    feature: 'Free-From Standards (SLS, Parabens)',
+    pureplus: 'See individual product label declarations',
+    ordinary: 'Commonly included'
   },
   {
-    feature: 'Paraben Free',
-    pureplus: 'Yes',
-    ordinary: 'May contain parabens'
-  },
-  {
-    feature: 'Silicone Free',
-    pureplus: 'Yes',
-    ordinary: 'Commonly used'
-  },
-  {
-    feature: 'Artificial Colors',
-    pureplus: 'No',
-    ordinary: 'Often added'
+    feature: 'Silicone & Artificial Colors',
+    pureplus: 'Free from silicones and artificial dyes',
+    ordinary: 'Often added for feel or color'
   },
   {
     feature: 'Gentle Daily Care',
-    pureplus: 'Designed for regular use',
-    ordinary: 'Varies by formulation'
+    pureplus: 'Formulated for gentle regular use',
+    ordinary: 'Varies by product type'
   },
   {
     feature: 'Suitable for Men & Women',
@@ -47,43 +37,38 @@ export const COMPARISON_DATA: ComparisonRow[] = [
     ordinary: 'Usually yes'
   },
   {
-    feature: 'Cruelty-Free',
-    pureplus: 'Yes',
-    ordinary: 'Depends on brand'
+    feature: 'Cruelty-Free & Animal Testing',
+    pureplus: '100% Cruelty-Free (Not tested on animals)',
+    ordinary: 'Varies by brand'
   },
   {
-    feature: 'Inspired by Traditional Herbal Care',
-    pureplus: 'Yes',
-    ordinary: 'Generally no'
+    feature: 'Vegan / Animal Derivative Declarations',
+    pureplus: 'Goat Milk soaps contain Goat Milk; powders & clay soaps are 100% plant-based',
+    ordinary: 'Not clearly declared'
   },
   {
-    feature: 'Eco-Friendly Powder Formula',
-    pureplus: 'Less water & packaging waste',
-    ordinary: 'Mostly liquid products'
+    feature: 'Traditional Botanical Inspiration',
+    pureplus: 'Inspired by everyday Indian self-care rituals',
+    ordinary: 'Generally synthetic'
   },
   {
-    feature: 'Travel Friendly',
-    pureplus: 'Lightweight powder',
-    ordinary: 'Bulky bottles'
+    feature: 'Compact & Travel-Friendly Formats',
+    pureplus: 'Solid bars and stone-ground dry powders',
+    ordinary: 'Bulky liquid packaging'
   },
   {
-    feature: 'Concentrated Formula',
-    pureplus: 'Mix only what you need',
-    ordinary: 'Ready-to-use liquids'
+    feature: 'Concentrated Formulations',
+    pureplus: 'Mix or lather only what you need',
+    ordinary: 'Water-heavy diluted liquids'
   },
   {
-    feature: 'No Harsh Foaming Agents',
-    pureplus: 'Yes',
-    ordinary: 'Often included'
-  },
-  {
-    feature: 'Easy to Store',
-    pureplus: 'Compact',
-    ordinary: 'Larger bottles'
+    feature: 'Manufacturing Quality Standard',
+    pureplus: 'ISO 22716:2007 GMP Certified Cosmetics',
+    ordinary: 'Varies by brand'
   },
   {
     feature: 'Made in India',
-    pureplus: 'Proudly Made in India',
+    pureplus: 'Proudly Formulated & Made in India',
     ordinary: 'Varies by brand'
   }
 ];
@@ -96,8 +81,8 @@ interface ComparisonSectionProps {
 }
 
 export default function ComparisonSection({
-  title = 'Why Choose PurePlush?',
-  subtitle = 'See the clear difference natural ingredients, eco-friendly formulas, and certified quality make for your daily care routine.',
+  title = 'Why Choose Pureplush?',
+  subtitle = 'See the practical difference natural ingredients, compact formats, and quality manufacturing standards make for your daily care routine.',
   fssaiBadge = 'ISO 22716:2007 (QCCI/24C/SMX/4779)',
   rows = COMPARISON_DATA
 }: ComparisonSectionProps) {
@@ -152,24 +137,24 @@ export default function ComparisonSection({
                 <tr className="text-xs uppercase tracking-wider font-bold">
                   {/* Feature Header */}
                   <th className="py-4 px-6 bg-forest-dark/80 text-cream/90 w-4/12 border-b border-forest-light/20 font-sans pl-8">
-                    Feature
+                    Product Feature
                   </th>
                   
-                  {/* PurePlush Header */}
+                  {/* Pureplush Header */}
                   <th className="py-4 px-6 bg-forest/90 text-sage-light w-4/12 border-b border-forest-light/20 font-sans">
                     <span className="flex items-center space-x-2 text-sm sm:text-base font-extrabold text-white">
                       <span className="w-5 h-5 rounded-full bg-sage text-forest-dark flex items-center justify-center text-xs font-black shadow-sm">
                         <Leaf className="w-3 h-3 fill-current" />
                       </span>
-                      <span className="tracking-wide text-gold">PurePlush Herbal Care</span>
+                      <span className="tracking-wide text-gold">Pureplush Formulations</span>
                     </span>
                   </th>
 
-                  {/* Typical Chemical-Based Header */}
+                  {/* What Customers Look For Header */}
                   <th className="py-4 px-6 bg-[#042008]/90 text-cream/90 w-4/12 border-b border-forest-light/20 font-sans">
                     <span className="text-xs sm:text-sm font-bold tracking-wider text-rose-200/90 flex items-center space-x-1.5">
-                      <X className="w-4 h-4 text-rose-400" />
-                      <span>Typical Chemical-Based Products</span>
+                      <Sparkles className="w-4 h-4 text-gold" />
+                      <span>What Customers Look For</span>
                     </span>
                   </th>
                 </tr>

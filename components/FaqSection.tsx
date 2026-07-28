@@ -11,44 +11,44 @@ export interface FaqItem {
 
 export const FAQ_DATA: FaqItem[] = [
   {
-    question: '1. Are PurePlush products 100% natural?',
-    answer: 'Yes. PurePlush products are made using carefully selected herbal and naturally derived ingredients. They are free from harsh chemicals such as parabens, sulfates (SLS/SLES), silicones, and artificial colors, making them a gentler choice for your skin and hair.'
+    question: '1. Are Pureplush products 100% natural?',
+    answer: 'Pureplush products are made with carefully selected ingredients. Please check each product page and individual packaging label for the complete ingredient list and specific claims.'
   },
   {
-    question: '2. Are PurePlush products suitable for all skin and hair types?',
-    answer: 'Yes. Our products are formulated for most skin and hair types, including normal, oily, dry, and combination skin. Since every individual is different, we recommend performing a patch test before first use.'
+    question: '2. Are Pureplush products suitable for all skin and hair types?',
+    answer: 'Product suitability varies by individual skin and hair type. We recommend reviewing the ingredients on each product page and conducting a 24-hour patch test prior to full use.'
   },
   {
-    question: '3. Are PurePlush products safe for sensitive skin?',
-    answer: 'Our herbal formulations are designed to be gentle on the skin. However, if you have highly sensitive skin or known allergies, we recommend a patch test 24 hours before use.'
+    question: '3. Are Pureplush products safe for sensitive skin?',
+    answer: 'Our botanical formulations are designed for gentle regular care. If you have highly sensitive skin or known botanical allergies, please perform a 24-hour patch test on your inner arm before full application.'
   },
   {
     question: '4. How long does it take to see visible results?',
-    answer: 'Results vary depending on the individual and consistent usage. Many customers notice improvements within 3–6 weeks when used regularly as directed.'
+    answer: 'Experience varies by user and product. Focus on consistent use as directed; these are daily personal care products and not medical or treatment products.'
   },
   {
-    question: '5. Can I use PurePlush products every day?',
-    answer: 'Yes. Most PurePlush products are gentle enough for daily use. Please follow the usage instructions mentioned on each product for the best results.'
+    question: '5. Can I use Pureplush products every day?',
+    answer: 'Yes. Most Pureplush products (such as our soaps and solid shampoo bars) are designed for gentle daily routines. Please follow specific usage instructions on each product package for best results.'
   },
   {
-    question: '6. Are PurePlush products cruelty-free?',
-    answer: 'Yes. PurePlush products are cruelty-free, and we do not test our products on animals.'
+    question: '6. Are Pureplush products cruelty-free & vegan?',
+    answer: 'Pureplush is 100% Cruelty-Free. Our botanical powders, clay soaps, and shampoo bars are plant-based, while our Goat Milk soap range contains fresh farm goat milk (clearly labelled as Not Vegan).'
   },
   {
-    question: '7. Why should I choose PurePlush over other herbal brands?',
-    answer: 'PurePlush combines traditional herbal ingredients with modern manufacturing standards to create high-quality personal care products that are gentle, effective, and free from harsh chemicals. Our focus is on natural care, quality ingredients, and customer satisfaction.'
+    question: '7. Why choose Pureplush for daily personal care?',
+    answer: 'Pureplush combines traditional botanical inspiration with modern manufacturing standards to offer clear labelling, compact packaging, and practical daily care formulations.'
   },
   {
-    question: '8. Are there any side effects?',
-    answer: 'PurePlush products are made with herbal ingredients and are generally well tolerated. However, as with any skincare or haircare product, individual reactions may vary. If irritation occurs, discontinue use and consult a healthcare professional if needed.'
+    question: '8. Are there any known side effects or allergen concerns?',
+    answer: 'Pureplush products are generally well tolerated. However, individual sensitivities to botanical extracts can occur. If irritation occurs, discontinue use immediately and consult a healthcare provider.'
   },
   {
-    question: '9. Do you offer Cash on Delivery (COD) and fast shipping?',
-    answer: 'Yes. We offer Cash on Delivery (where available) along with secure online payment options. Most orders are delivered within 3–7 business days, depending on your location.'
+    question: '9. Do you offer Cash on Delivery (COD) and fast shipping across India?',
+    answer: 'Yes. Cash on Delivery (COD) is available for serviceable pincodes across India alongside secure online payments. Standard orders are dispatched within 24-48 hours and delivered in 3–7 business days.'
   },
   {
-    question: '10. What if I\'m not sure which PurePlush product is right for me?',
-    answer: 'Our product pages include detailed information about ingredients, benefits, and usage to help you choose. If you still need assistance, our customer support team will be happy to recommend the best PurePlush product based on your needs.'
+    question: '10. What if I need assistance choosing the right product?',
+    answer: 'Our product pages include full ingredient lists, directions, and product facts. You can also reach our customer support team at info@pureplush.in or call +91 84468 16247 for guidance.'
   }
 ];
 

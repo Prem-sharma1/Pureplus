@@ -83,70 +83,70 @@ const MOCK_PRODUCTS: Product[] = [
   {
     id: 26,
     product_name: 'Pureplush Herbal Waxing Powder',
-    product_details: 'Pureplush Herbal Waxing Powder is a pain-free, natural hair removal solution. Made with standard botanicals to remove hair gently while leaving skin soft, smooth, and clean. 100g.',
-    brief_details: 'Pain-free natural hair removal powder made with organic botanical ingredients for smooth skin.',
+    product_details: 'Pureplush Herbal Waxing Powder is a gentle dry body care powder made with carefully selected botanicals to cleanse and exfoliate gently while leaving skin soft and refreshed. 100g.',
+    brief_details: 'Gentle natural body care powder made with botanical ingredients for smooth, refreshed skin feel.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'uploads/Herbal2.png',
     weight: '100g',
-    point1: '100% Organic & Natural',
-    point2: 'Pain-Free Hair Removal',
+    point1: 'Carefully Selected Botanicals',
+    point2: 'Gentle Herbal Formula',
     point3: 'Soft & Smooth Results',
   },
   {
     id: 28,
     product_name: 'Pureplush Herbal Facewash powder',
-    product_details: 'Pureplush Herbal Facewash Powder is a traditional dry face wash blend. It deeply cleanses pores, removes excess oil, and gently exfoliates for a clear, glowing complexion. 100g.',
-    brief_details: 'Traditional exfoliating dry face wash powder to cleanse pores and restore natural glow.',
+    product_details: 'Pureplush Herbal Facewash Powder is a traditional dry face wash blend. It gently cleanses pores, removes surface impurities and excess oil while leaving skin feeling fresh and clean. 100g.',
+    brief_details: 'A gentle dry face cleanser made with selected botanical ingredients to help remove surface impurities and excess oil while leaving skin feeling fresh and clean.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'uploads/Herbal4.png',
     image2: 'uploads/Artboard 1 (1).png',
     weight: '100g',
-    point1: 'Deep Cleanses Pores',
-    point2: 'Controls Excess Oil',
-    point3: 'Gentle Natural Exfoliation',
+    point1: 'Daily Cleanse',
+    point2: 'Powder-to-Paste',
+    point3: 'Travel-Friendly',
   },
   {
     id: 108,
     product_name: 'Pureplush Herbal Facepack',
-    product_details: 'Pureplush Herbal Facepack is a nutrient-rich skin reviving treatment. Infused with organic herbs to detoxify, soothe, and brighten the skin barrier. 100g.',
-    brief_details: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
+    product_details: 'Pureplush Herbal Facepack is a nutrient-rich skin reviving treatment. A botanical face mask powder designed for a refreshing weekly skincare ritual. 100g.',
+    brief_details: 'A botanical face mask powder designed for a refreshing weekly skincare ritual. Mix with rose water, curd or water as suitable, apply, relax and rinse for clean-looking, refreshed skin.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'Herbalfacepack/Artboard 1.png',
     image2: 'Herbalfacepack/Artboard 2.png',
     weight: '100g',
-    point1: 'Detoxifies Skin Barrier',
-    point2: 'Soothes Irritated Skin',
-    point3: 'Brightens & Clarifies Tone',
+    point1: 'Weekly Refresh Mask',
+    point2: 'Gentle Botanical Base',
+    point3: 'Fresh Skin Feel',
   },
   {
     id: 105,
     product_name: 'PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj',
-    product_details: 'Pureplush Herbal Hair Wash Powder is a complete hair nourishment blend. Sourced with organic Amla, Shikakai, and Bhringraj to promote hair growth, prevent graying, and clean hair naturally. 100g.',
-    brief_details: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.',
+    product_details: 'Pureplush Herbal Hair Wash Powder is a complete hair nourishment blend. Sourced with Amla, Shikakai, and Bhringraj to gently cleanse scalp, nourish hair roots, and maintain natural shine. 100g.',
+    brief_details: 'Botanical hair wash powder containing Amla, Shikakai & Bhringraj for strong, clean hair.',
     product_price: '249.00',
     original_price: '349.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 29,
     image1: 'FaceWash/Herbal3.png',
     weight: '100g',
     point1: 'Amla & Shikakai Cleanser',
-    point2: 'Bhringraj for Hair Growth',
-    point3: 'Prevents Premature Graying',
+    point2: 'Bhringraj & Amla Hair Care',
+    point3: 'Nourishes Scalp & Roots',
   },
   {
     id: 101,
     product_name: 'Pureplush mangobutter Mud Sea Clay Soap',
-    product_details: 'Pureplush Handcrafted Mango Butter, Mud & Sea Clay Soap. Deeply purifies with sea clay, extracts impurities with natural mud, and intensely moisturizes with organic mango butter. 100g.',
-    brief_details: 'Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.',
+    product_details: 'Pureplush Handcrafted Mango Butter, Mud & Sea Clay Soap. Purifies with sea clay, removes surface impurities with natural mud, and moisturizes with rich mango butter. 100g.',
+    brief_details: 'A handcrafted bath bar with mango butter and sea clay-inspired cleansing comfort for skin that feels clean, soft and refreshed after every bath.',
     product_price: '199.00',
     original_price: '249.00',
     product_category: 'soaps',
@@ -155,13 +155,13 @@ const MOCK_PRODUCTS: Product[] = [
     weight: '100g',
     point1: 'Deep Purifying Mud',
     point2: 'Moisturizing Mango Butter',
-    point3: 'Handcrafted & Vegan',
+    point3: 'Gentle Bath Cleanser',
   },
   {
     id: 102,
     product_name: 'Pureplush Sheabutter Multani Mitti Soap',
-    product_details: 'Pureplush Handcrafted Shea Butter & Multani Mitti Soap. Combines the oil-absorbing power of Multani Mitti (fullers earth) with the deep conditioning of organic raw shea butter. 100g.',
-    brief_details: 'Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.',
+    product_details: 'Pureplush Handcrafted Shea Butter & Multani Mitti Soap. Combines the oil-absorbing power of Multani Mitti (fullers earth) with the deep conditioning of raw shea butter. 100g.',
+    brief_details: 'A daily soap bar with Multani Mitti and shea butter for a balanced cleansing experience - helps remove excess surface oil while keeping skin feeling comfortable.',
     product_price: '199.00',
     original_price: '249.00',
     product_category: 'soaps',
@@ -170,13 +170,13 @@ const MOCK_PRODUCTS: Product[] = [
     weight: '100g',
     point1: 'Absorbs Excess Oils',
     point2: 'Nourishing Shea Butter',
-    point3: 'Combats Acne & Pimples',
+    point3: 'Cleanses Surface Dirt',
   },
   {
     id: 103,
     product_name: 'Pureplush Goatmilk French Green Clay Soap',
-    product_details: 'Pureplush Handcrafted Goat Milk & French Green Clay Soap. French green clay draws out toxins, while fresh farm goat milk softens, hydrates, and restores natural pH. 100g.',
-    brief_details: 'Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.',
+    product_details: 'Pureplush Handcrafted Goat Milk & French Green Clay Soap. French green clay draws out surface impurities, while fresh farm goat milk softens and hydrates skin. 100g.',
+    brief_details: 'A creamy cleansing bar with goat milk and French green clay for a soft, fresh and smooth bath experience.',
     product_price: '199.00',
     original_price: '249.00',
     product_category: 'soaps',
@@ -184,28 +184,28 @@ const MOCK_PRODUCTS: Product[] = [
     image1: 'Frenchgreenclay/Soap2.png',
     weight: '100g',
     point1: 'Toxin-Extracting Green Clay',
-    point2: 'Soften & Hydrates Skin',
-    point3: 'Rich Goat Milk Proteins',
+    point2: 'Soft Skin Feel',
+    point3: 'Rich Goat Milk',
   },
   {
     id: 104,
     product_name: 'Pureplush Multani Mitti Saffron Shampoo Bar',
     product_details: 'Pureplush Solid Multani Mitti & Saffron Shampoo Bar. Saffron extracts enhance natural hair shine, while Multani Mitti clay gently cleanses the scalp of grease and build-up. 80g.',
-    brief_details: 'Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.',
+    brief_details: 'A solid shampoo bar with Multani Mitti and saffron-inspired botanicals for scalp freshness, oil-control feel and naturally clean-looking hair.',
     product_price: '299.00',
     original_price: '399.00',
     product_category: 'shampoo',
     product_discount: 25,
     image1: 'multanimittishampoo/Shampoobar2.png',
     weight: '80g',
-    point1: 'Scale-Free Scalp Cleansing',
+    point1: 'Scalp-Fresh Cleansing',
     point2: 'Infused with Real Saffron',
-    point3: 'Zero Waste Solid Bar',
+    point3: 'Travel-Friendly Solid Bar',
   },
   {
     id: 107,
     product_name: 'Pureplush Hibiscus Neemtulsi Shampoo Bar',
-    product_details: 'Pureplush Solid Hibiscus, Neem & Tulsi Shampoo Bar. Hibiscus conditions hair shafts, while Neem and Tulsi extract provide antibacterial protection to reduce dandruff and itching. 80g.',
+    product_details: 'Pureplush Solid Hibiscus, Neem & Tulsi Shampoo Bar. Hibiscus conditions hair shafts, while Neem and Tulsi extract provide soothing defense to reduce scalp itchiness and build-up. 80g.',
     brief_details: 'Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.',
     product_price: '299.00',
     original_price: '399.00',
@@ -215,27 +215,27 @@ const MOCK_PRODUCTS: Product[] = [
     weight: '80g',
     point1: 'Antibacterial Neem & Tulsi',
     point2: 'Hibiscus Hair Conditioning',
-    point3: 'Controls Dandruff & Itch',
+    point3: 'Scalp Defense & Freshness',
   },
   {
     id: 109,
     product_name: 'Pureplush Goatmilk Coffee D Tan Soap',
-    product_details: 'Pureplush Handcrafted Goat Milk & Coffee D-Tan Soap. Gently exfoliates dead skin cells, draws out impurities, and deeply moisturizes with fresh farm goat milk and rich aromatic coffee. 100g.',
-    brief_details: 'Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.',
+    product_details: 'Pureplush Handcrafted Goat Milk & Coffee D-Tan Soap. Gently exfoliates dead skin cells, removes surface impurities, and moisturizes with fresh farm goat milk and aromatic coffee. 100g.',
+    brief_details: 'A coffee-infused goat milk soap bar with a gentle scrub feel for refreshed-looking skin and an energising bath routine.',
     product_price: '199.00',
     original_price: '249.00',
     product_category: 'soaps',
     product_discount: 20,
     image1: 'CoffeeD/new1.png',
-    point1: 'Brightens & Evens Skin',
+    point1: 'Refreshes & Exfoliates',
     point2: 'Fresh Farm Goat Milk',
     point3: 'Natural Coffee Scrub',
   },
   {
     id: 110,
     product_name: 'Herbal Kesh Oil',
-    product_details: 'Herbal Kesh Oil is an intensive Ayurvedic hair treatment blend. Formulated with authentic Bhringraj, Amla, Sesame oil, and botanical herbs to deeply nourish the scalp, strengthen hair roots, control hair fall, and restore natural shine. 100ml.',
-    brief_details: 'Traditional botanical hair oil infused with Bhringraj & Amla to nourish scalp and promote strong hair growth.',
+    product_details: 'Herbal Kesh Oil is an intensive Ayurvedic hair treatment blend. Formulated with Bhringraj, Amla, Sesame oil, and botanical herbs to deeply nourish the scalp and strengthen hair roots. 100ml.',
+    brief_details: 'Traditional botanical hair oil infused with Bhringraj & Amla to nourish scalp and promote strong hair feel.',
     product_price: '499.00',
     original_price: '649.00',
     product_category: 'others',
@@ -243,9 +243,9 @@ const MOCK_PRODUCTS: Product[] = [
     image1: 'Keshoil/Kesh1.jpeg',
     image2: 'Keshoil/kesh2.jpeg',
     weight: '100ml',
-    point1: 'Nourishes Scalp & Hair Roots',
+    point1: 'Nourishes Scalp & Roots',
     point2: 'Infused with Bhringraj & Amla',
-    point3: 'Controls Hair Fall & Dryness',
+    point3: 'Softens Hair & Restores Shine',
   }
 ];
 
@@ -439,7 +439,7 @@ const getFolderWiseImages = (
     };
   }
 
-  if (name.includes('moringa') || name.includes('soup')) {
+  if (name.includes('powder') || name.includes('soup')) {
     return {
       image1: '6330345451856531101.jpg',
       image2: 'FaceWash/Herbal1.png',
@@ -472,7 +472,7 @@ const getFolderWiseImages = (
 
 const CATEGORY_TABS = [
   { id: 'All', label: 'All Products' },
-  { id: 'Moringa', label: 'Herbal Powders' },
+  { id: 'Powders', label: 'Herbal Powders' },
   { id: 'Soaps', label: 'Handcrafted Soaps' },
   { id: 'Shampoo', label: 'Shampoo Bars' },
   { id: 'Others', label: 'Others' }
@@ -500,7 +500,7 @@ export default function ShopPage() {
         
         if (data.success && data.products && data.products.length > 0) {
           const mapped = data.products
-            .filter((p: any) => p.id !== 22 && !p.product_name.toLowerCase().includes('moringa premix'))
+            .filter((p: any) => p.id !== 22 && !p.product_name.toLowerCase().includes('premix'))
             .map((p: any) => {
               const folderWise = getFolderWiseImages(p.product_name, p.image1, p.image2, p.image3);
               return {
@@ -568,7 +568,7 @@ export default function ShopPage() {
           const catParam = hash.replace('#', '');
           if (catParam && catParam !== 'products') {
             const lowerCat = catParam.toLowerCase();
-            if (['moringa', 'soaps', 'shampoo', 'others'].includes(lowerCat)) {
+            if (['powders', 'soaps', 'shampoo', 'others'].includes(lowerCat)) {
               setSelectedCategory(catParam);
             }
           }
@@ -626,22 +626,22 @@ export default function ShopPage() {
 
   const filteredProducts = products.filter((product) => {
     let categoryMatch = false;
-    if (selectedCategory === 'All') {
+    if (selectedCategory === 'All' || selectedCategory.toLowerCase() === 'all') {
       categoryMatch = true;
     } else {
-      const pCat = product.product_category.toLowerCase();
+      const pCat = (product.product_category || '').toLowerCase();
       const sCat = selectedCategory.toLowerCase();
       
-      if (sCat === 'moringa') {
-        categoryMatch = pCat === 'moringa';
-      } else if (sCat === 'soaps') {
-        categoryMatch = pCat === 'soaps';
-      } else if (sCat === 'shampoo') {
-        categoryMatch = pCat === 'shampoo';
-      } else if (sCat === 'others') {
-        categoryMatch = pCat !== 'moringa' && pCat !== 'soaps' && pCat !== 'shampoo';
+      if (sCat === 'powders' || sCat.includes('powder')) {
+        categoryMatch = pCat.includes('powder') || pCat.includes('herbal');
+      } else if (sCat === 'soaps' || sCat === 'soap') {
+        categoryMatch = pCat.includes('soap');
+      } else if (sCat === 'shampoo' || sCat.includes('shampoo')) {
+        categoryMatch = pCat.includes('shampoo');
+      } else if (sCat === 'others' || sCat.includes('skincare')) {
+        categoryMatch = !pCat.includes('soap') && !pCat.includes('shampoo') && !pCat.includes('powder');
       } else {
-        categoryMatch = pCat === sCat;
+        categoryMatch = pCat.includes(sCat);
       }
     }
 

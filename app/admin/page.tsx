@@ -1185,7 +1185,7 @@ export default function AdminDashboard() {
                   { id: 'all', label: 'All Catalog' },
                   { id: 'soaps', label: 'Soaps' },
                   { id: 'shampoo', label: 'Shampoo Bars' },
-                  { id: 'moringa', label: 'Botanical Powders' }
+                  { id: 'powders', label: 'Botanical Powders' }
                 ].map((cat) => (
                   <button
                     key={cat.id}
@@ -1559,7 +1559,7 @@ export default function AdminDashboard() {
                     <option value="">Select Category</option>
                     <option value="Natural Soaps">Natural Soaps</option>
                     <option value="Shampoo Bars">Shampoo Bars</option>
-                    <option value="Moringa Powders">Moringa Powders / Facepacks</option>
+                    <option value="Herbal Powders">Herbal Powders / Facepacks</option>
                     <option value="Wellness Drinks">Wellness Drinks / Malts</option>
                     <option value="Skincare & Gels">Skincare & Gels</option>
                     <option value="others">Others</option>

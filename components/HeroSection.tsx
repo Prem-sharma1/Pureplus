@@ -18,8 +18,8 @@ const DESKTOP_SLIDES: DesktopSlide[] = [
   {
     id: 1,
     image: "/uploads/HeaderImage/First.jpeg",
-    link: "/product/26",
-    alt: "Pureplush Herbal Waxing Powder"
+    link: "/product/104",
+    alt: "Pureplush Multani Mitti Saffron Shampoo Bar"
   },
   {
     id: 2,
@@ -57,10 +57,10 @@ interface MobileSlide {
 const MOBILE_SLIDES: MobileSlide[] = [
   {
     id: 1,
-    badge: "✨ MULTANI MITTI, SAFFRON & BOTANICAL HAIR CARE",
+    badge: "MULTANI MITTI, SAFFRON & BOTANICAL HAIR CARE",
     headline: "Gentle Herbal Hair & Skin Care for Everyday Self-Care",
     subHeadline: "Multani Mitti Saffron Shampoo Bar - Solid Herbal Hair Cleanser",
-    description: "A solid shampoo bar made with Multani Mitti and saffron-inspired botanical ingredients to gently cleanse scalp build-up and leave hair feeling fresh, light and naturally clean.",
+    description: "Solid shampoo bar made with Multani Mitti and saffron-inspired botanical ingredients to gently cleanse scalp build-up and leave hair feeling fresh, light and naturally clean. Travel-friendly, plastic-free hair cleansing.",
     image: "multanimittishampoo/Shampoobar2.png",
     link: "/product/104",
     badgeStyle: "bg-amber-50 border-amber-200 text-amber-700",
@@ -266,7 +266,7 @@ export default function HeroSection() {
               {/* Buttons */}
               <div className="flex flex-col space-y-2.5 mt-6 w-full px-2">
                 <Link
-                  href={mobileSlide.link}
+                  href="/shop"
                   className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-xs font-bold uppercase tracking-wider shadow-md transition-all flex items-center justify-center space-x-2"
                 >
                   <span>SHOP BEST SELLERS</span>
@@ -274,9 +274,9 @@ export default function HeroSection() {
                 </Link>
                 <Link
                   href="/#about"
-                  className="w-full py-3 bg-white border border-charcoal/20 text-charcoal rounded-full text-xs font-bold uppercase tracking-wider transition-all text-center"
+                  className="w-full py-3 bg-white border border-charcoal/20 text-charcoal rounded-full text-xs font-bold uppercase tracking-wider transition-all text-center hover:bg-forest/5"
                 >
-                  <span>OUR SCIENCE & PURITY</span>
+                  <span>Explore Our Ingredient Promise</span>
                 </Link>
               </div>
 

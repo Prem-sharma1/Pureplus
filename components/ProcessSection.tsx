@@ -182,7 +182,7 @@ export default function ProcessSection() {
                     <span className="text-sm font-bold text-forest mt-0.5 block">{activeData.statLabel}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-charcoal/40 block">Laboratory Value</span>
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-charcoal/40 block">Verification Standard</span>
                     <span className="text-sm font-serif font-bold text-[#4a773c] mt-0.5 block flex items-center">
                       <Sparkles className="w-3.5 h-3.5 text-gold mr-1 animate-[spin_4s_linear_infinite]" />
                       <span>{activeData.statVal}</span>

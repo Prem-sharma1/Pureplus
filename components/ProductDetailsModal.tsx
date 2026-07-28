@@ -234,6 +234,54 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
                 </ul>
               </div>
 
+              {/* Ingredients & Declarations Panel */}
+              {(() => {
+                const name = product.product_name.toLowerCase();
+                const isGoatMilk = name.includes('goat milk') || name.includes('goatmilk');
+                const isShampoo = name.includes('shampoo');
+                const isPowder = name.includes('powder') || name.includes('facepack') || name.includes('facewash');
+                
+                let ingredientsStr = 'Saponified Coconut Oil, Raw Shea Butter, Multani Mitti (Fuller\'s Earth), Castor Oil, Botanical Extract Blend, Aqua, Sodium Hydroxide.';
+                let directionsStr = 'Lather soap bar between wet hands or directly on wet skin. Gently massage over body, then rinse off thoroughly with clean water.';
+                
+                if (isShampoo) {
+                  ingredientsStr = 'Sodium Cocoyl Isethionate (Plant Surfactant), Multani Mitti / Hibiscus, Saffron / Neem Extract, Plant Keratin, Argan Oil, Coconut Oil, Botanical Base.';
+                  directionsStr = 'Wet hair thoroughly. Gently rub shampoo bar onto scalp to build a rich lather. Massage scalp with fingertips, then rinse completely with water.';
+                } else if (isPowder) {
+                  ingredientsStr = 'Stone-Ground Botanical Herbal Powders (Multani Mitti, Neem, Rose Petal, Sandalwood, Amla, Shikakai).';
+                  directionsStr = 'Mix 1-2 teaspoons of powder with water, rose water, or curd to form a smooth paste. Apply evenly, massage gently or leave for 10-15 minutes, then rinse thoroughly.';
+                } else if (isGoatMilk) {
+                  ingredientsStr = 'Fresh Farm Goat Milk, Coconut Oil, French Green Clay / Coffee Grounds, Castor Oil, Botanical Extract Blend, Aqua, Sodium Hydroxide.';
+                }
+
+                return (
+                  <div className="space-y-3 border-t border-forest/10 pt-4 bg-cream/30 p-4 rounded-2xl">
+                    <div>
+                      <h4 className="text-xs uppercase tracking-wider font-bold text-forest">Full Ingredients Declaration:</h4>
+                      <p className="text-xs text-charcoal/80 mt-1 font-sans leading-relaxed">{ingredientsStr}</p>
+                    </div>
+
+                    <div>
+                      <h4 className="text-xs uppercase tracking-wider font-bold text-forest">Directions for Use:</h4>
+                      <p className="text-xs text-charcoal/80 mt-1 font-sans leading-relaxed">{directionsStr}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] pt-1">
+                      <div className="bg-white p-2.5 rounded-xl border border-forest/10">
+                        <span className="font-bold text-forest block">Allergen & Formula Note:</span>
+                        <span className="text-charcoal/70">
+                          {isGoatMilk ? 'Contains Fresh Farm Goat Milk (Not Vegan).' : '100% Plant-Based / Vegan Suitable.'}
+                        </span>
+                      </div>
+                      <div className="bg-white p-2.5 rounded-xl border border-forest/10">
+                        <span className="font-bold text-forest block">Mandatory Patch Test:</span>
+                        <span className="text-charcoal/70">Perform a 24-hr patch test on inner wrist before first use.</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+
               {/* Long Product Details */}
               <div className="space-y-2 border-t border-forest/5 pt-4">
                 <h4 className="text-xs uppercase tracking-wider font-bold text-forest">Product Description:</h4>

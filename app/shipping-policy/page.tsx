@@ -4,8 +4,8 @@ import PolicyLayout from '@/components/PolicyLayout';
 import { Clock, Truck, DollarSign, MapPin, AlertCircle, PackageCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Shipping & Delivery Policy | pureplush',
-  description: 'Learn about pureplush shipping times, delivery rates, order tracking, and cancellation terms.',
+  title: 'Shipping & Delivery Policy | Pureplush',
+  description: 'Learn about Pureplush shipping times, delivery rates, order tracking, and COD terms.',
 };
 
 export default function ShippingPolicyPage() {
@@ -16,35 +16,35 @@ export default function ShippingPolicyPage() {
       content: (
         <div className="space-y-4">
           <p>
-            At <strong>pureplush</strong>, we strive to provide fast and reliable delivery services to ensure a smooth shopping experience.
+            At <strong>Pureplush</strong> (marketed by Nexora Trading Co), we strive to provide fast and reliable delivery services across India.
           </p>
           <ul className="text-xs sm:text-sm text-charcoal/80 space-y-2 list-disc list-inside bg-cream/50 p-4 rounded-2xl border border-forest/10">
-            <li>Orders are typically processed within 1-2 business days after confirmation.</li>
-            <li>Once shipped, delivery times vary based on the location, usually taking 5-7 business days.</li>
-            <li>Orders placed on weekends or public holidays will be processed on the next working day.</li>
+            <li>Orders are dispatched within 24 to 48 hours after payment or COD verification.</li>
+            <li>Standard delivery timelines range between 3 to 7 business days depending on delivery pincode location.</li>
+            <li>Orders placed on Sundays or public holidays will be processed on the next business day.</li>
           </ul>
         </div>
       ),
     },
     {
       id: 'shipping-charges',
-      title: '2. Shipping Charges',
+      title: '2. Shipping Charges & Cash on Delivery (COD)',
       content: (
         <div className="space-y-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-cream/60 p-4 rounded-2xl border border-forest/10 space-y-1">
               <span className="text-xs font-bold text-forest uppercase tracking-wider block">Standard Shipping</span>
-              <p className="text-xl font-bold text-forest">₹100</p>
-              <p className="text-xs text-charcoal/70">Varies based on location.</p>
+              <p className="text-xl font-bold text-forest">Nominal Rate</p>
+              <p className="text-xs text-charcoal/70">Calculated at checkout for orders under ₹499.</p>
             </div>
             <div className="bg-forest text-white p-4 rounded-2xl border border-gold/30 space-y-1">
-              <span className="text-xs font-bold text-gold uppercase tracking-wider block">Free Shipping</span>
-              <p className="text-xl font-bold text-white">Available</p>
-              <p className="text-xs text-sage-light">Available on orders above ₹1500.</p>
+              <span className="text-xs font-bold text-gold uppercase tracking-wider block">Free Shipping Offer</span>
+              <p className="text-xl font-bold text-white">Free Above ₹499</p>
+              <p className="text-xs text-sage-light">Applies automatically to all prepaid and COD orders above ₹499.</p>
             </div>
           </div>
           <p className="text-xs text-charcoal/75 italic">
-            Additional charges may apply for remote locations or express shipping options.
+            Cash on Delivery (COD) is available for serviceable pincodes across India.
           </p>
         </div>
       ),
@@ -55,50 +55,52 @@ export default function ShippingPolicyPage() {
       content: (
         <div className="space-y-3">
           <ul className="text-xs sm:text-sm text-charcoal/80 space-y-2 list-disc list-inside">
-            <li>Once your order is shipped, you will receive a tracking ID via email/SMS.</li>
-            <li>You can track your order status using the tracking link provided.</li>
+            <li>Once your shipment is dispatched, you will receive a tracking link via SMS/WhatsApp/Email.</li>
+            <li>You can track real-time delivery status using the courier partner tracking link.</li>
           </ul>
         </div>
       ),
     },
     {
       id: 'damaged-or-missing-products',
-      title: '4. Damaged or Missing Products',
+      title: '4. Transit Damage or Wrong Item Delivered',
       content: (
         <div className="space-y-3 bg-amber-50/60 p-4 rounded-2xl border border-amber-200 text-xs sm:text-sm text-charcoal/85">
-          <p>• If your order arrives damaged or incomplete, please contact us within 24 hours of delivery.</p>
-          <p>• We may require images/videos of the product and packaging for verification.</p>
+          <p>• If your package arrives damaged or incomplete, please notify us within 48 hours of delivery.</p>
+          <p>• Sharing an unboxing photo or video helps our team expedite replacement dispatch immediately.</p>
         </div>
       ),
     },
     {
       id: 'cancellation-and-changes',
-      title: '5. Cancellation & Changes',
+      title: '5. Order Cancellation & Address Modification',
       content: (
         <div className="space-y-3">
           <ul className="text-xs sm:text-sm text-charcoal/80 space-y-2 list-disc list-inside">
-            <li>Orders can be canceled or modified only before shipping.</li>
-            <li>Once shipped, cancellations or address changes may not be possible.</li>
+            <li>Orders can be cancelled or modified prior to dispatch by reaching out to support.</li>
+            <li>Once the order has been handed over to the courier partner, address modifications cannot be guaranteed.</li>
           </ul>
         </div>
       ),
     },
     {
       id: 'contact-us',
-      title: '6. Contact Us',
+      title: '6. Support & Contact',
       content: (
         <div className="space-y-4">
           <p>
-            If you have any questions or concerns regarding shipping and delivery, please contact us at:
+            For delivery inquiries, tracking support, or address changes, please contact us at:
           </p>
-          <div className="bg-cream/80 p-4 rounded-2xl border border-forest/10 inline-block">
-            <span className="text-xs font-bold text-forest uppercase tracking-wider block mb-1">Email Contact</span>
-            <a href="mailto:impexsaish@gmail.com" className="text-sm font-bold text-forest hover:text-gold transition-colors">
-              impexsaish@gmail.com
+          <div className="bg-cream/80 p-4 rounded-2xl border border-forest/10 inline-block space-y-1">
+            <span className="text-xs font-bold text-forest uppercase tracking-wider block">Logistics Support Email</span>
+            <a href="mailto:info@pureplush.in" className="text-sm font-bold text-forest hover:text-gold transition-colors">
+              info@pureplush.in
             </a>
+            <p className="text-xs font-bold text-forest">Phone / WhatsApp: +91 84468 16247</p>
+            <p className="text-xs text-charcoal/70">Nexora Trading Co, Dhanori, Pune, Maharashtra - 411015</p>
           </div>
           <p className="text-xs text-forest/90 font-medium pt-1">
-            Thank you for choosing <strong>pureplush</strong>!
+            Thank you for choosing <strong>Pureplush</strong>!
           </p>
         </div>
       ),
@@ -112,7 +114,7 @@ export default function ShippingPolicyPage() {
       categoryBadge="Shipping & Logistics"
       lastUpdated="July 2026"
       sections={sections}
-      contactEmail="impexsaish@gmail.com"
+      contactEmail="info@pureplush.in"
     />
   );
 }

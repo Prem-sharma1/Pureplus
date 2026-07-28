@@ -4,25 +4,25 @@ const PRODUCTS_CATALOG = [
   {
     name: 'Pureplush Herbal Waxing Powder',
     price: '₹249.00',
-    category: 'moringa',
+    category: 'powders',
     desc: 'Pain-free, natural hair removal powder made with organic botanical ingredients for smooth skin.'
   },
   {
     name: 'Pureplush Herbal Facewash powder',
     price: '₹249.00',
-    category: 'moringa',
+    category: 'powders',
     desc: 'Traditional exfoliating dry face wash powder to cleanse pores and restore natural glow.'
   },
   {
     name: 'Pureplush Herbal Facepack',
     price: '₹249.00',
-    category: 'moringa',
+    category: 'powders',
     desc: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.'
   },
   {
     name: 'PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj',
     price: '₹249.00',
-    category: 'moringa',
+    category: 'powders',
     desc: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.'
   },
   {
@@ -121,8 +121,9 @@ Plus, enjoy **FREE Shipping** across India on all orders over ₹499! 🚚✨`;
   if (q.includes('contact') || q.includes('phone') || q.includes('whatsapp') || q.includes('support') || q.includes('help')) {
     return `Namaste! 📞 You can reach our Pureplush Customer Care team via:
 
-- **WhatsApp / Phone**: +91 87628 77755
-- **Support Hours**: Monday to Saturday, 9:00 AM – 6:00 PM IST.
+- **WhatsApp / Phone**: +91 84468 16247
+- **Email**: info@pureplush.in
+- **Support Hours**: Monday to Saturday, 10:00 AM – 6:00 PM IST.
 
 Feel free to ask me any questions here as well! 🙏`;
   }
@@ -135,7 +136,7 @@ We specialize in zero-waste shampoo bars, cold-pressed artisanal soaps, herbal f
 Our top recommendations for you:
 1. **Pureplush Herbal Waxing Powder** (₹249.00)
 2. **PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj** (₹249.00)
-3. **Pureplush Goatmilk Coffee D Tan Soap** (₹99.00)
+3. **Pureplush Goatmilk Coffee D Tan Soap** (₹199.00)
 4. **Pureplush Hibiscus Neemtulsi Shampoo Bar** (₹199.00)
 
 How can I help you choose the best product for your skin and hair today? 🍃`;
@@ -148,7 +149,7 @@ I can assist you with product recommendations, ingredient benefits, shipping det
 Here are some popular products you might love:
 - **Pureplush Herbal Waxing Powder** (₹249.00) — Pain-free hair removal.
 - **Pureplush Herbal Facewash powder** (₹249.00) — Pore-cleansing herbal wash.
-- **Pureplush Goatmilk Coffee D Tan Soap** (₹99.00) — Exfoliating D-tan soap bar.
+- **Pureplush Goatmilk Coffee D Tan Soap** (₹199.00) — Exfoliating D-tan soap bar.
 - **Pureplush Hibiscus Neemtulsi Shampoo Bar** (₹199.00) — Anti-dandruff shampoo bar.
 
 Use code **PURENEW10** for 10% OFF your order! What product would you like to explore? 🌸`;
@@ -185,20 +186,20 @@ Your Guidelines:
 4. Product recommendations: When suggesting products, you MUST mention their names EXACTLY as listed in the catalog below so the frontend UI can render clickable product cards below the chat.
 
 Pureplush Product Catalog:
-- "Pureplush Herbal Waxing Powder" (Category: moringa, Price: ₹249.00, Description: Pain-free, natural hair removal powder made with organic botanical ingredients for smooth skin.)
-- "Pureplush Herbal Facewash powder" (Category: moringa, Price: ₹249.00, Description: Traditional exfoliating dry face wash powder to cleanse pores and restore natural glow.)
-- "Pureplush Herbal Facepack" (Category: moringa, Price: ₹249.00, Description: Botanical detoxifying face mask to soothe irritation and brighten skin complexion.)
-- "PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj" (Category: moringa, Price: ₹249.00, Description: Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.)
-- "Pureplush mangobutter Mud Sea Clay Soap" (Category: soaps, Price: ₹99.00, Description: Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.)
-- "Pureplush Sheabutter Multani Mitti Soap" (Category: soaps, Price: ₹99.00, Description: Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.)
-- "Pureplush Goatmilk French Green Clay Soap" (Category: soaps, Price: ₹99.00, Description: Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.)
-- "Pureplush Goatmilk Coffee D Tan Soap" (Category: soaps, Price: ₹99.00, Description: Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.)
+- "Pureplush Herbal Waxing Powder" (Category: powders, Price: ₹249.00, Description: Pain-free, natural hair removal powder made with organic botanical ingredients for smooth skin.)
+- "Pureplush Herbal Facewash powder" (Category: powders, Price: ₹249.00, Description: Traditional exfoliating dry face wash powder to cleanse pores and restore natural glow.)
+- "Pureplush Herbal Facepack" (Category: powders, Price: ₹249.00, Description: Botanical detoxifying face mask to soothe irritation and brighten skin complexion.)
+- "PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj" (Category: powders, Price: ₹249.00, Description: Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.)
+- "Pureplush mangobutter Mud Sea Clay Soap" (Category: soaps, Price: ₹199.00, Description: Handcrafted moisturizing soap bar with sea clay mud and rich organic mango butter.)
+- "Pureplush Sheabutter Multani Mitti Soap" (Category: soaps, Price: ₹199.00, Description: Handcrafted oil-control soap containing fullers earth clay and nourishing shea butter.)
+- "Pureplush Goatmilk French Green Clay Soap" (Category: soaps, Price: ₹199.00, Description: Handcrafted detoxifying soap containing French green clay and moisturizing goat milk.)
+- "Pureplush Goatmilk Coffee D Tan Soap" (Category: soaps, Price: ₹199.00, Description: Handcrafted exfoliating soap containing fresh goat milk and aromatic coffee to brighten and scrub skin.)
 - "Pureplush Multani Mitti Saffron Shampoo Bar" (Category: shampoo, Price: ₹199.00, Description: Zero-waste solid shampoo bar with shine-enhancing saffron and cleansing Multani Mitti.)
 - "Pureplush Hibiscus Neemtulsi Shampoo Bar" (Category: shampoo, Price: ₹199.00, Description: Zero-waste conditioning shampoo bar with Hibiscus, antibacterial Neem, and soothing Tulsi.)
 
 Policies:
-- Shipping: Free Shipping across India on orders above ₹499. For orders under ₹499, flat fee of ₹50. Delivery 3-5 business days.
-- Contacts: Phone/WhatsApp: +91 87628 77755 (Mon-Sat, 9 AM - 6 PM).
+- Shipping: Free Shipping across India on orders above ₹499. Delivery 3-7 business days.
+- Contacts: Phone/WhatsApp: +91 84468 16247, Email: info@pureplush.in (Mon-Sat, 10 AM - 6 PM IST).
 - Discount Coupon: Tell users they can use code "PURENEW10" to get 10% OFF their first order during checkout!`;
 
     // Process and sanitize history so Gemini API rules are strictly met:

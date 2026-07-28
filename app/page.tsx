@@ -96,7 +96,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Pain-free natural hair removal powder made with organic botanical ingredients for smooth skin.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'uploads/Herbal2.png',
     image2: 'uploads/herbal_waxing_powder_banner_1784778537801.png',
@@ -112,7 +112,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Traditional exfoliating dry face wash powder to cleanse pores and restore natural glow.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'uploads/Herbal4.png',
     image2: 'uploads/Artboard 1 (1).png',
@@ -128,7 +128,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'Herbalfacepack/Artboard 1.png',
     image2: 'Herbalfacepack/Artboard 2.png',
@@ -144,7 +144,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.',
     product_price: '249.00',
     original_price: '349.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 29,
     image1: 'FaceWash/Herbal3.png',
     weight: '100g',
@@ -454,8 +454,8 @@ const getFolderWiseImages = (
     };
   }
 
-  // Moringa / Soup
-  if (name.includes('moringa') || name.includes('soup')) {
+  // Powder / Soup
+  if (name.includes('powder') || name.includes('soup')) {
     return {
       image1: '6330345451856531101.jpg',
       image2: 'FaceWash/Herbal1.png',
@@ -514,7 +514,7 @@ export default function Home() {
         
         if (data.success && data.products && data.products.length > 0) {
           const mapped = data.products
-            .filter((p: any) => p.id !== 22 && !p.product_name.toLowerCase().includes('moringa premix'))
+            .filter((p: any) => p.id !== 22 && !p.product_name.toLowerCase().includes('premix'))
             .map((p: any) => {
               const folderWise = getFolderWiseImages(p.product_name, p.image1, p.image2, p.image3);
               return {
@@ -665,11 +665,11 @@ export default function Home() {
                 )}
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold font-serif text-forest mt-2">
-                Famous Products
+                Shop Pureplush Best Sellers
               </h2>
             </div>
             <p className="text-charcoal/70 max-w-md text-xs sm:text-sm mt-4 md:mt-0">
-              Hand-ground mixes crafted from moringa, millets, apples, and carrots to give you wholesome nutrition in every serving.
+              Explore soaps, shampoo bars and herbal powders made for simple daily self-care routines.
             </p>
           </div>
 
@@ -751,7 +751,7 @@ export default function Home() {
               </div>
               <h3 className="font-serif text-xl font-bold mb-3 text-white">Direct Sourcing</h3>
               <p className="text-xs text-sage-light leading-relaxed max-w-xs">
-                We partner with local organic farms in Uttara Kannada to harvest raw moringa and fresh ingredients at peak potency.
+                We partner with verified suppliers and trusted manufacturing partners to harvest fresh botanical ingredients at peak potency.
               </p>
             </motion.div>
 

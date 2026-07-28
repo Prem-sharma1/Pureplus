@@ -6,6 +6,8 @@ import { ShoppingCart, CreditCard, Star, ShieldCheck, Truck, RefreshCw, Tag, Arr
 import Link from 'next/link';
 import { resolveImagePath } from '@/lib/imageUtils';
 import { useParams } from 'next/navigation';
+import ProductReviews from '@/components/ProductReviews';
+
 
 interface Product {
   id: number;
@@ -38,7 +40,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Pain-free natural hair removal powder made with organic botanical ingredients for smooth skin.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'uploads/Herbal2.png',
     image2: 'uploads/herbal_waxing_powder_banner_1784778537801.png',
@@ -60,7 +62,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Traditional exfoliating dry face wash powder to cleanse pores and restore natural glow.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'uploads/Herbal4.png',
     image2: 'uploads/Artboard 1 (1).png',
@@ -82,7 +84,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
     product_price: '249.00',
     original_price: '299.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 16,
     image1: 'Herbalfacepack/Artboard 1.png',
     image2: 'Herbalfacepack/Artboard 2.png',
@@ -104,7 +106,7 @@ const MOCK_PRODUCTS: Product[] = [
     brief_details: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.',
     product_price: '249.00',
     original_price: '349.00',
-    product_category: 'moringa',
+    product_category: 'powders',
     product_discount: 29,
     image1: 'Herbal/Herbal3.png',
     image2: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
@@ -475,7 +477,7 @@ const getFolderWiseImages = (
     };
   }
 
-  if (name.includes('moringa') || name.includes('soup')) {
+  if (name.includes('powder') || name.includes('soup')) {
     return {
       image1: '6330345451856531101.jpg',
       image2: 'FaceWash/Herbal1.png',
@@ -518,6 +520,8 @@ export default function ProductPage() {
   const [cartAdding, setCartAdding] = useState(false);
   const [buyNowLoading, setBuyNowLoading] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [reviewStats, setReviewStats] = useState({ totalCount: 0, averageRating: 5.0 });
+
 
   const images = product ? ([product.image1, product.image2, product.image3, product.image4].filter(Boolean).filter((img) => typeof img === 'string' && img.trim() !== '') as string[]) : [];
 
@@ -795,15 +799,27 @@ export default function ProductPage() {
             </h1>
 
             {/* Rating Section */}
-            <div className="flex items-center space-x-2 text-gold border-b border-forest/5 pb-2 -mt-1.5">
-              <div className="flex">
+            <div className="flex items-center space-x-2 border-b border-forest/5 pb-2 -mt-1.5">
+              <div className="flex text-[#F59E0B]">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-4 h-4 fill-current" />
+                  <Star
+                    key={s}
+                    className={`w-4 h-4 ${
+                      s <= Math.round(reviewStats.averageRating)
+                        ? 'fill-[#F59E0B] text-[#F59E0B]'
+                        : 'text-slate-300 fill-slate-100'
+                    }`}
+                  />
                 ))}
               </div>
-              <span className="text-sm font-semibold text-forest">4.9 out of 5 stars</span>
-              <span className="text-sm text-charcoal/40">| 18 customer reviews</span>
+              <span className="text-sm font-semibold text-forest">
+                {reviewStats.averageRating > 0 ? reviewStats.averageRating.toFixed(1) : '5.0'} out of 5 stars
+              </span>
+              <span className="text-sm text-charcoal/50 font-medium">
+                | {reviewStats.totalCount} customer review{reviewStats.totalCount === 1 ? '' : 's'}
+              </span>
             </div>
+
 
             {/* Price Details */}
             <div className="space-y-0.5">
@@ -907,6 +923,54 @@ export default function ProductPage() {
               </ul>
             </div>
 
+            {/* Ingredients & Declarations Panel */}
+            {(() => {
+              const name = product.product_name.toLowerCase();
+              const isGoatMilk = name.includes('goat milk') || name.includes('goatmilk');
+              const isShampoo = name.includes('shampoo');
+              const isPowder = name.includes('powder') || name.includes('facepack') || name.includes('facewash');
+              
+              let ingredientsStr = 'Saponified Coconut Oil, Raw Shea Butter, Multani Mitti (Fuller\'s Earth), Castor Oil, Botanical Extract Blend, Aqua, Sodium Hydroxide.';
+              let directionsStr = 'Lather soap bar between wet hands or directly on wet skin. Gently massage over body, then rinse off thoroughly with clean water. Keep soap dry between uses on a draining dish.';
+              
+              if (isShampoo) {
+                ingredientsStr = 'Sodium Cocoyl Isethionate (Plant Surfactant), Multani Mitti / Hibiscus, Saffron / Neem Extract, Plant Keratin, Argan Oil, Coconut Oil, Botanical Base.';
+                directionsStr = 'Wet hair thoroughly. Gently rub shampoo bar onto scalp to build a rich lather. Massage scalp with fingertips, then rinse completely with water. Allow bar to dry on a draining dish after use.';
+              } else if (isPowder) {
+                ingredientsStr = 'Stone-Ground Botanical Herbal Powders (Multani Mitti, Neem, Rose Petal, Sandalwood, Amla, Shikakai).';
+                directionsStr = 'Mix 1-2 teaspoons of powder with water, rose water, or curd to form a smooth paste. Apply evenly, massage gently or leave for 10-15 minutes, then rinse thoroughly with clean water.';
+              } else if (isGoatMilk) {
+                ingredientsStr = 'Fresh Farm Goat Milk, Coconut Oil, French Green Clay / Coffee Grounds, Castor Oil, Botanical Extract Blend, Aqua, Sodium Hydroxide.';
+              }
+
+              return (
+                <div className="space-y-4 border-t border-forest/10 pt-4 bg-cream/40 p-5 rounded-2xl">
+                  <div>
+                    <h4 className="text-xs uppercase tracking-wider font-bold text-forest">Full Ingredients Declaration:</h4>
+                    <p className="text-xs text-charcoal/85 mt-1 font-sans leading-relaxed">{ingredientsStr}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-xs uppercase tracking-wider font-bold text-forest">Directions for Use:</h4>
+                    <p className="text-xs text-charcoal/85 mt-1 font-sans leading-relaxed">{directionsStr}</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-1">
+                    <div className="bg-white p-3 rounded-xl border border-forest/10 shadow-xs">
+                      <span className="font-bold text-forest block">Allergen & Formula Note:</span>
+                      <span className="text-charcoal/75">
+                        {isGoatMilk ? 'Contains Fresh Farm Goat Milk (Not Vegan).' : '100% Plant-Based / Vegan Suitable.'}
+                      </span>
+                    </div>
+                    <div className="bg-white p-3 rounded-xl border border-forest/10 shadow-xs">
+                      <span className="font-bold text-forest block">Mandatory Patch Test:</span>
+                      <span className="text-charcoal/75">Perform a 24-hr patch test on inner wrist before first use.</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* Detailed description */}
             <div className="space-y-1.5 pt-1">
               <h4 className="text-sm uppercase tracking-wider font-bold text-forest">Product Description:</h4>
@@ -919,7 +983,15 @@ export default function ProductPage() {
 
         </div>
 
+        {/* Customer Ratings & Reviews Section matching user reference design */}
+        <ProductReviews
+          productId={product.id}
+          productName={product.product_name}
+          onReviewStatsChange={(stats) => setReviewStats(stats)}
+        />
+
       </div>
+
 
       {/* Lightbox Fullscreen Modal */}
       <AnimatePresence>
