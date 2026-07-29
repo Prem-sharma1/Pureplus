@@ -537,7 +537,7 @@ export default function CategoryPage() {
     if (cat === 'shampoo' || cat === 'shampoo-bars' || cat === 'shampoos') {
       return pCat.includes('shampoo');
     }
-    if (cat === 'others' || cat === 'skincare-gels' || cat === 'skincare' || cat === 'gels' || cat === 'special-care') {
+    if (cat === 'others' || cat === 'skincare-gels' || cat === 'skincare-oils' || cat === 'skincare' || cat === 'gels' || cat === 'oils' || cat === 'special-care') {
       return !pCat.includes('soap') && !pCat.includes('shampoo') && !pCat.includes('powder');
     }
     return true;
@@ -567,9 +567,9 @@ export default function CategoryPage() {
         desc: 'Zero-waste, travel-friendly solid shampoo bars formulated with Multani Mitti, Saffron, Hibiscus, Neem and Tulsi for scalp freshness and oil-control feel.'
       };
     }
-    if (cat === 'others' || cat === 'skincare-gels' || cat === 'skincare' || cat === 'gels' || cat === 'special-care') {
+    if (cat === 'others' || cat === 'skincare-gels' || cat === 'skincare-oils' || cat === 'skincare' || cat === 'gels' || cat === 'oils' || cat === 'special-care') {
       return {
-        title: 'Skincare, Gels & Special Care',
+        title: 'Skincare, Oils & Special Care',
         subtitle: 'Botanical Oils & Soothing Care',
         desc: 'Soothing botanical oils and skin care formulations crafted for daily self-care routines.'
       };

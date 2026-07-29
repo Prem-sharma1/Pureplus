@@ -28,8 +28,8 @@ const categories = [
   },
   {
     id: 4,
-    title: 'SKINCARE & GELS',
-    subtitle: 'Skincare & Gels - Soothing Oils & Botanical Care',
+    title: 'SKINCARE & OILS',
+    subtitle: 'Skincare & Oils - Soothing Oils & Botanical Care',
     image: '/Keshoil/keshwoman.jpeg',
     link: '/category/others',
   },

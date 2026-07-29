@@ -300,7 +300,7 @@ export default function Navbar() {
               className={`text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors font-sans hover:text-forest ${pathname === '/category/others' ? 'text-forest' : 'text-charcoal/70'
                 }`}
             >
-              SKINCARE & GELS
+              SKINCARE & OILS
             </Link>
             <Link
               href="/#about"
@@ -440,14 +440,14 @@ export default function Navbar() {
                     </Link>
                   </motion.div>
 
-                  {/* Skincare & Gels Link */}
+                  {/* Skincare & Oils Link */}
                   <motion.div variants={{ hidden: { opacity: 0, x: 20 }, show: { opacity: 1, x: 0 } }}>
                     <Link
                       href="/category/others"
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center space-x-3 py-2 px-3 rounded-xl font-semibold text-sm transition-all ${isActive('/category/others') ? 'bg-forest/5 text-forest font-bold' : 'hover:bg-forest/5 text-charcoal'}`}
                     >
-                      <span>Skincare & Gels</span>
+                      <span>Skincare & Oils</span>
                     </Link>
                   </motion.div>
 

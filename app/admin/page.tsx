@@ -1561,7 +1561,7 @@ export default function AdminDashboard() {
                     <option value="Shampoo Bars">Shampoo Bars</option>
                     <option value="Herbal Powders">Herbal Powders / Facepacks</option>
                     <option value="Wellness Drinks">Wellness Drinks / Malts</option>
-                    <option value="Skincare & Gels">Skincare & Gels</option>
+                    <option value="Skincare & Oils">Skincare & Oils</option>
                     <option value="others">Others</option>
                   </select>
                 </div>
