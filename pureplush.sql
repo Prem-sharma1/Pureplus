@@ -267,6 +267,27 @@ INSERT INTO `add_product` (
   NULL,
   NULL,
   'FW-NMA-150'
+),
+(
+  110,
+  'Herbal Kesh Oil',
+  'Herbal Kesh Oil is an intensive Ayurvedic hair treatment blend. Formulated with authentic Bhringraj, Amla, Sesame oil, and botanical herbs to deeply nourish the scalp, strengthen hair roots, control hair fall, and restore natural shine. 100ml.',
+  'Traditional botanical hair oil infused with Bhringraj & Amla to nourish scalp and promote strong hair growth.',
+  499.00,
+  649.00,
+  'Skincare & Oils',
+  23,
+  'Keshoil/Kesh1.jpeg',
+  'Keshoil/kesh2.jpeg',
+  NULL,
+  '100ml',
+  '24 Months',
+  'Nourishes Scalp & Hair Roots',
+  'Infused with Bhringraj & Amla',
+  'Controls Hair Fall & Dryness',
+  'Promotes Natural Shine & Growth',
+  'Zero Mineral Oils & Parabens',
+  'PP-OIL-KESHOIL'
 );
 
 -- --------------------------------------------------------

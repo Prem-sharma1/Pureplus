@@ -232,6 +232,22 @@ const MOCK_PRODUCTS: Product[] = [
     point1: 'Brightens & Evens Skin',
     point2: 'Fresh Farm Goat Milk',
     point3: 'Natural Coffee Scrub',
+  },
+  {
+    id: 110,
+    product_name: 'Herbal Kesh Oil',
+    product_details: 'Herbal Kesh Oil is an intensive Ayurvedic hair treatment blend. Formulated with authentic Bhringraj, Amla, Sesame oil, and botanical herbs to deeply nourish the scalp, strengthen hair roots, control hair fall, and restore natural shine. 100ml.',
+    brief_details: 'Traditional botanical hair oil infused with Bhringraj & Amla to nourish scalp and promote strong hair growth.',
+    product_price: '499.00',
+    original_price: '649.00',
+    product_category: 'Skincare & Oils',
+    product_discount: 23,
+    image1: 'Keshoil/Kesh1.jpeg',
+    image2: 'Keshoil/kesh2.jpeg',
+    weight: '100ml',
+    point1: 'Nourishes Scalp & Hair Roots',
+    point2: 'Infused with Bhringraj & Amla',
+    point3: 'Controls Hair Fall & Dryness',
   }
 ];
 
@@ -537,8 +553,8 @@ export default function CategoryPage() {
     if (cat === 'shampoo' || cat === 'shampoo-bars' || cat === 'shampoos') {
       return pCat.includes('shampoo');
     }
-    if (cat === 'others' || cat === 'skincare-gels' || cat === 'skincare-oils' || cat === 'skincare' || cat === 'gels' || cat === 'oils' || cat === 'special-care') {
-      return !pCat.includes('soap') && !pCat.includes('shampoo') && !pCat.includes('powder');
+    if (cat === 'others' || cat === 'skincare-gels' || cat === 'skincare-oils' || cat === 'skincare' || cat === 'gels' || cat === 'oils' || cat === 'oil' || cat === 'special-care') {
+      return pCat.includes('oil') || pCat.includes('skincare') || (!pCat.includes('soap') && !pCat.includes('shampoo') && !pCat.includes('powder'));
     }
     return true;
   });

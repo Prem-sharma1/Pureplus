@@ -638,8 +638,8 @@ export default function ShopPage() {
         categoryMatch = pCat.includes('soap');
       } else if (sCat === 'shampoo' || sCat.includes('shampoo')) {
         categoryMatch = pCat.includes('shampoo');
-      } else if (sCat === 'others' || sCat.includes('skincare')) {
-        categoryMatch = !pCat.includes('soap') && !pCat.includes('shampoo') && !pCat.includes('powder');
+      } else if (sCat === 'others' || sCat.includes('skincare') || sCat.includes('oil') || sCat.includes('gel')) {
+        categoryMatch = pCat.includes('oil') || pCat.includes('skincare') || (!pCat.includes('soap') && !pCat.includes('shampoo') && !pCat.includes('powder'));
       } else {
         categoryMatch = pCat.includes(sCat);
       }
