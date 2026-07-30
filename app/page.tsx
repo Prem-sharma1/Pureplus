@@ -30,6 +30,8 @@ interface Product {
   point1?: string;
   point2?: string;
   point3?: string;
+  rating?: number;
+  review_count?: number;
 }
 
 function ProductImage({ src, alt }: { src: string; alt: string }) {
