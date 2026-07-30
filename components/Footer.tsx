@@ -128,6 +128,9 @@ export default function Footer() {
                 <Link href="/ingredients" className="hover:text-gold transition-colors">Botanical Ingredient Glossary</Link>
               </li>
               <li>
+                <Link href="/#b2b-partner" className="hover:text-gold transition-colors font-bold text-gold">Bulk & B2B Distribution Enquiry</Link>
+              </li>
+              <li>
                 <Link href="/contact-us" className="hover:text-gold transition-colors">Contact Us & CallBack</Link>
               </li>
               <li>

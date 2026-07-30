@@ -9,6 +9,7 @@ import BenefitSection from '@/components/BenefitSection';
 import FounderVisionSection from '@/components/FounderVisionSection';
 import ComparisonSection from '@/components/ComparisonSection';
 import FaqSection from '@/components/FaqSection';
+import B2BPartnerSection from '@/components/B2BPartnerSection';
 import { motion } from 'framer-motion';
 import { Leaf, Award, Compass, RefreshCw, ShoppingCart, Tag, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -723,6 +724,9 @@ export default function Home() {
           rows={sectionConfig?.comparisonSection?.rows}
         />
       )}
+
+      {/* Pureplus B2B Bulk & Distribution Partnership Section */}
+      <B2BPartnerSection />
 
       {/* Frequently Asked Questions Section */}
       {(!sectionConfig || sectionConfig?.sections?.faq?.enabled !== false) && (

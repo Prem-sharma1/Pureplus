@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import B2BPartnerSection from '@/components/B2BPartnerSection';
 import {
   Mail,
   MapPin,
@@ -305,6 +306,10 @@ export default function ContactUsPage() {
           </AnimatePresence>
         </div>
 
+        {/* B2B & Bulk Partnership Section */}
+        <div className="mt-16 sm:mt-24">
+          <B2BPartnerSection />
+        </div>
       </div>
     </div>
   );
