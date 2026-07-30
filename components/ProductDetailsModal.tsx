@@ -39,6 +39,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [buyNowLoading, setBuyNowLoading] = useState(false);
+  const [reviewStats, setReviewStats] = useState({ totalCount: 0, averageRating: 5.0 });
 
   useEffect(() => {
     if (isOpen) {
@@ -52,6 +53,29 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
       document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!product || !isOpen) return;
+    async function fetchReviewStats() {
+      try {
+        const res = await fetch(`/api/reviews?productId=${product.id}`);
+        const data = await res.json();
+        if (data.success && Array.isArray(data.reviews)) {
+          const total = data.reviews.length;
+          const avg = total > 0
+            ? data.reviews.reduce((acc: number, r: any) => acc + (r.rating || 5), 0) / total
+            : 5.0;
+          setReviewStats({
+            totalCount: total,
+            averageRating: Math.round(avg * 10) / 10
+          });
+        }
+      } catch (e) {
+        console.error('Error fetching review stats for modal:', e);
+      }
+    }
+    fetchReviewStats();
+  }, [product, isOpen]);
 
   if (!isOpen || !product) return null;
 
@@ -183,15 +207,26 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
                 {product.product_name}
               </h2>
 
-              {/* Amazon Ratings */}
+              {/* Customer Ratings derived dynamically */}
               <div className="flex items-center space-x-1.5 text-gold border-b border-forest/5 pb-3">
-                <div className="flex">
+                <div className="flex text-[#F59E0B]">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-4 h-4 fill-current" />
+                    <Star
+                      key={s}
+                      className={`w-4 h-4 ${
+                        s <= Math.round(reviewStats.averageRating)
+                          ? 'fill-[#F59E0B] text-[#F59E0B]'
+                          : 'text-slate-300 fill-slate-100'
+                      }`}
+                    />
                   ))}
                 </div>
-                <span className="text-xs font-semibold text-forest">4.9 out of 5 stars</span>
-                <span className="text-xs text-charcoal/40">| 18 customer reviews</span>
+                <span className="text-xs font-semibold text-forest">
+                  {reviewStats.averageRating > 0 ? reviewStats.averageRating.toFixed(1) : '5.0'} out of 5 stars
+                </span>
+                <span className="text-xs text-charcoal/40">
+                  | {reviewStats.totalCount} customer review{reviewStats.totalCount === 1 ? '' : 's'}
+                </span>
               </div>
 
               {/* Price Details */}

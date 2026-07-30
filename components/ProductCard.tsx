@@ -20,6 +20,8 @@ interface Product {
   point1?: string;
   point2?: string;
   point3?: string;
+  rating?: number;
+  review_count?: number;
 }
 
 interface ProductCardProps {
@@ -161,11 +163,18 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
           <div className="flex items-center space-x-1.5 mb-2 select-none">
             <div className="flex space-x-0.5 text-amber-400">
               {[1, 2, 3, 4, 5].map((s) => (
-                <Star key={s} className="w-4 h-4 fill-current drop-shadow-xs" />
+                <Star
+                  key={s}
+                  className={`w-4 h-4 ${
+                    s <= Math.round(product.rating || 5)
+                      ? 'fill-current text-amber-400'
+                      : 'text-neutral-300 fill-neutral-100'
+                  }`}
+                />
               ))}
             </div>
             <span className="text-xs font-black text-amber-900 bg-amber-50 border border-amber-200/70 px-2 py-0.5 rounded-full ml-1">
-              4.9 rating
+              {(product.rating || 5.0).toFixed(1)} rating
             </span>
           </div>
 
