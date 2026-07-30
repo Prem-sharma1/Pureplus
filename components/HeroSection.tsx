@@ -101,7 +101,7 @@ const MOBILE_SLIDES: MobileSlide[] = [
   }
 ];
 
-const SLIDE_DURATION = 5000;
+const SLIDE_DURATION = 3000;
 
 export default function HeroSection() {
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -154,7 +154,7 @@ export default function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
               className="w-full h-full flex items-center justify-center overflow-hidden"
             >
               <Link href={desktopSlide.link} className="block w-full h-full relative cursor-pointer overflow-hidden">
@@ -237,7 +237,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
               className="flex flex-col items-center w-full"
             >
               {/* Top Dynamic Product Ingredient Badge */}
