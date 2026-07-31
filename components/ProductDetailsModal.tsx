@@ -41,9 +41,14 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [buyNowLoading, setBuyNowLoading] = useState(false);
+  const isSoapOrOil = product ? ([101, 102, 103, 109, 110].includes(product.id) || 
+    (product.product_category || '').toLowerCase() === 'soaps' || 
+    (product.product_name || '').toLowerCase().includes('soap') || 
+    (product.product_name || '').toLowerCase().includes('oil')) : false;
+
   const [reviewStats, setReviewStats] = useState({
-    totalCount: product?.review_count || 0,
-    averageRating: product?.rating || 4.7,
+    totalCount: product?.review_count || 6,
+    averageRating: product?.rating || (isSoapOrOil ? 4.0 : 5.0),
   });
 
   useEffect(() => {
@@ -53,9 +58,14 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
       document.body.style.overflow = 'hidden';
       // Initialize from product data immediately so rating matches product card
       if (product) {
+        const isSO = [101, 102, 103, 109, 110].includes(product.id) || 
+          (product.product_category || '').toLowerCase() === 'soaps' || 
+          (product.product_name || '').toLowerCase().includes('soap') || 
+          (product.product_name || '').toLowerCase().includes('oil');
+
         setReviewStats({
-          totalCount: product.review_count || 0,
-          averageRating: product.rating || 4.7,
+          totalCount: product.review_count || 6,
+          averageRating: product.rating || (isSO ? 4.0 : 5.0),
         });
       }
     } else {

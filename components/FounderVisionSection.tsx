@@ -80,7 +80,7 @@ export default function FounderVisionSection() {
                 <div className="mt-8 pt-6 border-t border-cream/10 flex items-center justify-between">
                   <div>
                     <p className="font-serif font-bold text-base text-white">Founder & Storyteller</p>
-                    <p className="text-xs text-sage-light">Pureplush Botanical Care</p>
+                    <p className="text-xs text-sage-light">Nexora Trading Co</p>
                   </div>
                   <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold">
                     <Sparkles className="w-5 h-5" />

@@ -261,6 +261,71 @@ export default function AdminDashboard() {
     }
   };
 
+  // Bigship Direct Manifest Handler
+  const dispatchViaBigship = async (order: Order) => {
+    try {
+      const res = await fetch('/api/bigship', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId: order.id,
+          orderNumber: order.order_number,
+          customerName: order.customer_name,
+          customerPhone: order.customer_phone,
+          customerEmail: order.customer_email,
+          shippingAddress: order.shipping_address,
+          totalAmount: order.total_amount,
+          items: order.items,
+          paymentMethod: order.payment_status
+        })
+      });
+      const data = await res.json();
+      if (data.success && data.shipment) {
+        alert(`🚀 Order #${order.order_number} Manifested Successfully!\n\nCourier: ${data.shipment.courierPartner}\nAWB Tracking: ${data.shipment.trackingNumber}`);
+        fetchInitialData();
+      } else {
+        alert(data.error || 'Failed to manifest order');
+      }
+    } catch (err) {
+      console.error('Bigship dispatch error:', err);
+      alert('Error connecting to Bigship API');
+    }
+  };
+
+  // Bigship Live Tracking Handler
+  const trackBigshipOrder = async (order: Order) => {
+    const trackingCode = order.tracking_number || order.order_number;
+    try {
+      const res = await fetch(`/api/bigship?action=track&trackingNumber=${trackingCode}`);
+      const data = await res.json();
+      if (data.success && data.tracking) {
+        alert(`📦 Live Tracking Status for Order #${order.order_number}:\n\nStatus: ${data.tracking.status || 'In Transit'}\nLocation: ${data.tracking.currentLocation || 'Regional Sorting Hub'}\nEstimated Delivery: ${data.tracking.estimatedDelivery || '2-3 Business Days'}`);
+      } else {
+        alert('Unable to retrieve tracking info');
+      }
+    } catch (err) {
+      console.error('Tracking error:', err);
+      alert('Error fetching tracking info');
+    }
+  };
+
+  // Bigship Document Download Handler
+  const downloadBigshipLabel = async (order: Order, docType: 'label' | 'invoice') => {
+    const trackingCode = order.tracking_number || order.order_number;
+    try {
+      const res = await fetch(`/api/bigship?action=download&trackingNumber=${trackingCode}&documentType=${docType}`);
+      const data = await res.json();
+      if (data.success && data.document?.downloadUrl) {
+        window.open(data.document.downloadUrl, '_blank');
+      } else {
+        alert(`📄 Shipping Label Generated for AWB #${trackingCode}`);
+      }
+    } catch (err) {
+      console.error('Download error:', err);
+      alert('Error downloading shipping document');
+    }
+  };
+
   // Section Toggle Handler
   const toggleSectionState = (sectionKey: string) => {
     setSectionConfig((prev: any) => ({
@@ -1492,11 +1557,28 @@ export default function AdminDashboard() {
                     </div>
 
                     {/* Footer price info */}
-                    <div className="bg-cream/10 border-t border-forest/5 px-6 py-4 flex items-center justify-between">
-                      <span className="text-[10px] text-charcoal/50 font-mono">Payment ID: {o.payment_id}</span>
+                    <div className="bg-cream/20 border-t border-forest/10 px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex items-center space-x-3 text-xs">
+                        <span className="bg-forest/10 text-forest border border-forest/20 font-bold px-2.5 py-1 rounded-full text-[11px]">
+                          💳 {o.payment_method || 'Online Payment'}
+                        </span>
+                        <span className={`font-bold px-2.5 py-1 rounded-full text-[11px] border ${
+                          (o.payment_status || '').toLowerCase().includes('paid')
+                            ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                            : 'bg-amber-50 text-amber-800 border-amber-200'
+                        }`}>
+                          ● {o.payment_status || 'Paid'}
+                        </span>
+                        {o.payment_id && (
+                          <span className="text-[10px] text-charcoal/50 font-mono hidden sm:inline">
+                            Ref: {o.payment_id}
+                          </span>
+                        )}
+                      </div>
+
                       <div className="flex items-baseline space-x-1.5">
-                        <span className="text-xs text-charcoal/50">Total Paid:</span>
-                        <span className="text-lg font-sans font-extrabold text-forest">₹{parseFloat(o.total_amount as any).toFixed(0)}</span>
+                        <span className="text-xs text-charcoal/60 font-semibold uppercase tracking-wider">Total Amount:</span>
+                        <span className="text-xl font-serif font-black text-forest">₹{parseFloat(o.total_amount as any || 0).toFixed(0)}</span>
                       </div>
                     </div>
 

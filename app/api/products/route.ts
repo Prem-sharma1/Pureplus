@@ -9,10 +9,10 @@ const SEED_PRODUCTS = [
     product_name: 'Pureplush Herbal Waxing Powder',
     product_details: 'Pureplush Herbal Waxing Powder is a gentle, natural body care powder. Made with carefully selected botanicals to cleanse and exfoliate gently while leaving skin soft, smooth, and refreshed. 100g.',
     brief_details: 'Gentle natural body care powder made with botanical ingredients for smooth, refreshed skin feel.',
-    product_price: '249.00',
+    product_price: '269.00',
     original_price: '299.00',
     product_category: 'powders',
-    product_discount: 16,
+    product_discount: 10,
     image1: 'uploads/Herbal2.png',
     image2: 'uploads/herbal_waxing_powder_banner_1784778537801.png',
     image3: '',
@@ -31,10 +31,10 @@ const SEED_PRODUCTS = [
     product_name: 'Pureplush Herbal Facewash powder',
     product_details: 'Pureplush Herbal Facewash Powder is a traditional dry face wash blend. It gently cleanses pores, removes excess oil, and provides mild exfoliation for a refreshed, clean feeling. 100g.',
     brief_details: 'Traditional exfoliating dry face wash powder to cleanse pores and support natural skin freshness.',
-    product_price: '249.00',
+    product_price: '269.00',
     original_price: '299.00',
     product_category: 'powders',
-    product_discount: 16,
+    product_discount: 10,
     image1: 'uploads/Herbal4.png',
     image2: 'uploads/Artboard 1 (1).png',
     image3: '',
@@ -53,10 +53,10 @@ const SEED_PRODUCTS = [
     product_name: 'Pureplush Herbal Facepack',
     product_details: 'Pureplush Herbal Facepack is a nutrient-rich skin reviving treatment. Infused with natural herbs to soothe, cleanse, and refresh the skin barrier. 100g.',
     brief_details: 'Botanical face mask to soothe skin and support a clear, fresh complexion.',
-    product_price: '249.00',
+    product_price: '269.00',
     original_price: '299.00',
     product_category: 'powders',
-    product_discount: 16,
+    product_discount: 10,
     image1: 'Herbalfacepack/Artboard 1.png',
     image2: 'Herbalfacepack/Artboard 2.png',
     image3: '',
@@ -75,10 +75,10 @@ const SEED_PRODUCTS = [
     product_name: 'PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj',
     product_details: 'Pureplush Herbal Hair Wash Powder is a complete hair nourishment blend. Sourced with Amla, Shikakai, and Bhringraj to gently cleanse scalp, nourish hair roots, and maintain natural shine. 100g.',
     brief_details: 'Botanical hair wash powder containing Amla, Shikakai & Bhringraj for strong, clean hair.',
-    product_price: '249.00',
+    product_price: '269.00',
     original_price: '349.00',
     product_category: 'powders',
-    product_discount: 29,
+    product_discount: 23,
     image1: 'Herbal/Herbal3.png',
     image2: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
     image3: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM (1).jpeg',
@@ -280,20 +280,16 @@ async function attachReviewStats(productsList: any[]) {
         };
       }
 
-      // Default customer review stats per product ID
-      let defaultRating = 5.0;
-      let defaultCount = 1;
+      // Default customer review stats based on product category & user requirements:
+      // - Soaps & Oils (IDs 101, 102, 103, 109, 110) => 4.0 Rating
+      // - Powders & Shampoos (IDs 26, 28, 108, 105, 104, 107) => 5.0 Rating
+      const isSoapOrOil = [101, 102, 103, 109, 110].includes(p.id) || 
+        (p.product_category || '').toLowerCase() === 'soaps' || 
+        (p.product_name || '').toLowerCase().includes('soap') || 
+        (p.product_name || '').toLowerCase().includes('oil');
 
-      if (p.id === 26) {
-        defaultRating = 4.7;
-        defaultCount = 3;
-      } else if (p.id === 28) {
-        defaultRating = 5.0;
-        defaultCount = 2;
-      } else if (p.id === 101) {
-        defaultRating = 5.0;
-        defaultCount = 1;
-      }
+      const defaultRating = isSoapOrOil ? 4.0 : 5.0;
+      const defaultCount = 6;
 
       return {
         ...p,
@@ -302,11 +298,17 @@ async function attachReviewStats(productsList: any[]) {
       };
     });
   } catch (e) {
-    return productsList.map((p) => ({
-      ...p,
-      rating: p.rating || 5.0,
-      review_count: p.review_count || 1,
-    }));
+    return productsList.map((p) => {
+      const isSoapOrOil = [101, 102, 103, 109, 110].includes(p.id) || 
+        (p.product_category || '').toLowerCase() === 'soaps' || 
+        (p.product_name || '').toLowerCase().includes('soap') || 
+        (p.product_name || '').toLowerCase().includes('oil');
+      return {
+        ...p,
+        rating: p.rating || (isSoapOrOil ? 4.0 : 5.0),
+        review_count: p.review_count || 6,
+      };
+    });
   }
 }
 

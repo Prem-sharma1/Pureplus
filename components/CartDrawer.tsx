@@ -549,13 +549,14 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     </button>
                   </div>
                 ) : (
-                  <button
-                    onClick={() => setShowShippingForm(true)}
-                    className="w-full inline-flex items-center justify-center space-x-2 py-3 sm:py-3.5 bg-forest hover:bg-forest-light text-white rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group"
-                  >
-                    <span>PROCEED TO CHECKOUT</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
+                <a
+                  href="/checkout"
+                  onClick={onClose}
+                  className="w-full inline-flex items-center justify-center space-x-2 py-3 sm:py-3.5 bg-forest hover:bg-forest-light text-white rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group"
+                >
+                  <span>PROCEED TO CHECKOUT</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
                 )}
 
                 {/* 5. Security Footer */}

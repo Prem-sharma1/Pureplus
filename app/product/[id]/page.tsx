@@ -38,10 +38,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Herbal Waxing Powder',
     product_details: 'Pureplush Herbal Waxing Powder is a pain-free, natural hair removal solution. Made with standard botanicals to remove hair gently while leaving skin soft, smooth, and clean. 100g.',
     brief_details: 'Pain-free natural hair removal powder made with organic botanical ingredients for smooth skin.',
-    product_price: '249.00',
+    product_price: '269.00',
     original_price: '299.00',
     product_category: 'powders',
-    product_discount: 16,
+    product_discount: 10,
     image1: 'uploads/Herbal2.png',
     image2: 'uploads/herbal_waxing_powder_banner_1784778537801.png',
     image3: '',
@@ -60,10 +60,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Herbal Facewash powder',
     product_details: 'Pureplush Herbal Facewash Powder is a traditional dry face wash blend. It deeply cleanses pores, removes excess oil, and gently exfoliates for a clear, glowing complexion. 100g.',
     brief_details: 'Traditional exfoliating dry face wash powder to cleanse pores and restore natural glow.',
-    product_price: '249.00',
+    product_price: '269.00',
     original_price: '299.00',
     product_category: 'powders',
-    product_discount: 16,
+    product_discount: 10,
     image1: 'uploads/Herbal4.png',
     image2: 'uploads/Artboard 1 (1).png',
     image3: '',
@@ -82,10 +82,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'Pureplush Herbal Facepack',
     product_details: 'Pureplush Herbal Facepack is a nutrient-rich skin reviving treatment. Infused with organic herbs to detoxify, soothe, and brighten the skin barrier. 100g.',
     brief_details: 'Botanical detoxifying face mask to soothe irritation and brighten skin complexion.',
-    product_price: '249.00',
+    product_price: '269.00',
     original_price: '299.00',
     product_category: 'powders',
-    product_discount: 16,
+    product_discount: 10,
     image1: 'Herbalfacepack/Artboard 1.png',
     image2: 'Herbalfacepack/Artboard 2.png',
     image3: '',
@@ -104,10 +104,10 @@ const MOCK_PRODUCTS: Product[] = [
     product_name: 'PurePlush Herbal Hair Wash Powder with Amla, Shikakai & Bhringraj',
     product_details: 'Pureplush Herbal Hair Wash Powder is a complete hair nourishment blend. Sourced with organic Amla, Shikakai, and Bhringraj to promote hair growth, prevent graying, and clean hair naturally. 100g.',
     brief_details: 'Complete organic hair wash powder containing Amla, Shikakai & Bhringraj for strong, healthy hair.',
-    product_price: '249.00',
+    product_price: '269.00',
     original_price: '349.00',
     product_category: 'powders',
-    product_discount: 29,
+    product_discount: 23,
     image1: 'Herbal/Herbal3.png',
     image2: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM.jpeg',
     image3: 'Herbal/WhatsApp Image 2026-01-27 at 11.19.00 AM (1).jpeg',
@@ -556,19 +556,27 @@ export default function ProductPage() {
 
         setProduct(foundProduct);
         if (foundProduct) {
+          const isSO = [101, 102, 103, 109, 110].includes(foundProduct.id) || 
+            (foundProduct.product_category || '').toLowerCase() === 'soaps' || 
+            (foundProduct.product_name || '').toLowerCase().includes('soap') || 
+            (foundProduct.product_name || '').toLowerCase().includes('oil');
           setReviewStats({
-            totalCount: (foundProduct as any).review_count || 3,
-            averageRating: (foundProduct as any).rating || 4.7,
+            totalCount: (foundProduct as any).review_count || 6,
+            averageRating: (foundProduct as any).rating || (isSO ? 4.0 : 5.0),
           });
         }
       } catch (err) {
         console.warn('API error. Loading fallback item.');
         const matchMock = MOCK_PRODUCTS.find((p) => p.id === productId);
         if (matchMock) {
+          const isSO = [101, 102, 103, 109, 110].includes(matchMock.id) || 
+            (matchMock.product_category || '').toLowerCase() === 'soaps' || 
+            (matchMock.product_name || '').toLowerCase().includes('soap') || 
+            (matchMock.product_name || '').toLowerCase().includes('oil');
           setProduct(matchMock);
           setReviewStats({
-            totalCount: (matchMock as any).review_count || 3,
-            averageRating: (matchMock as any).rating || 4.7,
+            totalCount: (matchMock as any).review_count || 6,
+            averageRating: (matchMock as any).rating || (isSO ? 4.0 : 5.0),
           });
         }
       } finally {
