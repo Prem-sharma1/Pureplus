@@ -54,7 +54,7 @@ export default function PolicyLayout({
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#fcfdfc] text-charcoal font-sans pt-24 pb-20">
+    <div className="min-h-screen w-full bg-[#fcfdfc] text-charcoal font-sans pt-0 pb-20">
       {/* Background Decorative Blur */}
       <div className="fixed top-20 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[350px] bg-forest/5 rounded-full filter blur-[120px] pointer-events-none -z-10" />
 

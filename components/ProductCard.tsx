@@ -166,7 +166,7 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
                 <Star
                   key={s}
                   className={`w-4 h-4 ${
-                    s <= Math.round(product.rating || 5)
+                    s <= Math.round(product.rating || 4.7)
                       ? 'fill-current text-amber-400'
                       : 'text-neutral-300 fill-neutral-100'
                   }`}
@@ -174,7 +174,7 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
               ))}
             </div>
             <span className="text-xs font-black text-amber-900 bg-amber-50 border border-amber-200/70 px-2 py-0.5 rounded-full ml-1">
-              {(product.rating || 5.0).toFixed(1)} rating
+              {(product.rating || 4.7).toFixed(1)} rating
             </span>
           </div>
 

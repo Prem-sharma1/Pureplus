@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import PromoBanner from '@/components/PromoBanner';
 import HeroSection from '@/components/HeroSection';
 import CategorySection from '@/components/CategorySection';
 import ProductCard from '@/components/ProductCard';
@@ -638,6 +639,9 @@ export default function Home() {
         <div className="absolute top-[75%] left-[30%] w-1.5 h-1.5 rounded-full bg-gold/45 blur-[0.5px] animate-spark [animation-delay:4s]" />
         <div className="absolute top-[85%] right-[15%] w-2.5 h-2.5 rounded-full bg-forest/25 blur-[1px] animate-spark [animation-delay:1s]" />
       </div>
+
+      {/* Promotional Combo Banner */}
+      <PromoBanner />
 
       {/* Animated Hero Section */}
       <HeroSection />

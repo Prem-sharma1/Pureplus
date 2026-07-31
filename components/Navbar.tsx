@@ -19,15 +19,18 @@ import {
   Sprout,
   Sparkles,
   Wind,
-  Droplets
+  Droplets,
+  Gift,
+  CheckCircle2,
+  Award
 } from 'lucide-react';
 import CartDrawer from './CartDrawer';
 import SearchOverlay from './SearchOverlay';
 
 const ANNOUNCEMENTS = [
-  '🍃 Natural Wellness & Personal Care - Crafted with Carefully Selected Botanical Ingredients',
-  '🚚 Free Shipping on eligible standard orders across India',
-  '✨ ISO 22716:2007 GMP Certified Cosmetics (Cert No: QCCI/24C/SMX/4779)'
+  '🎁 FREE GIFT: Get 1 Premium Herbal Soap FREE with Every Order',
+  '✅ Free Shipping on Prepaid Orders',
+  '✨ ISO 22716:2007 GMP Certified Cosmetics'
 ];
 
 export default function Navbar() {
@@ -169,28 +172,59 @@ export default function Navbar() {
       <header
         className="fixed top-0 left-0 right-0 z-40 w-full bg-white border-b border-forest/10 transition-all duration-300"
       >
-        {/* Announcement Banner */}
+        {/* Top Announcement Bar */}
         <AnimatePresence>
           {!isScrolled && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 36, opacity: 1 }}
+              animate={{ height: 38, opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="bg-forest text-cream px-4 text-center text-[10px] md:text-xs font-semibold tracking-wider uppercase flex items-center justify-center overflow-hidden select-none"
+              className="bg-forest text-cream px-4 text-center text-[10px] md:text-xs font-semibold tracking-wider uppercase flex items-center justify-center overflow-hidden select-none border-b border-white/10"
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={announcementIndex}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  className="text-center font-sans tracking-widest text-[10px] sm:text-xs text-cream-light font-bold"
-                >
-                  {ANNOUNCEMENTS[announcementIndex]}
-                </motion.div>
-              </AnimatePresence>
+              {/* Desktop View: Multi-segment strip matching reference style */}
+              <div className="hidden md:flex items-center justify-center space-x-4 lg:space-x-6 text-[11px] font-bold text-cream-light">
+                {/* Segment 1: Free Gift Pill + Text */}
+                <div className="flex items-center space-x-2">
+                  <span className="bg-sage text-forest-dark text-[9px] lg:text-[10px] px-2 py-0.5 rounded-full font-black tracking-wider flex items-center space-x-1 shadow-sm">
+                    <Gift className="w-3 h-3 text-forest-dark" />
+                    <span>FREE GIFT</span>
+                  </span>
+                  <span>Get 1 Premium Herbal Soap FREE with Every Order</span>
+                </div>
+
+                <span className="text-white/30 font-light">|</span>
+
+                {/* Segment 2: Free Shipping */}
+                <div className="flex items-center space-x-1.5 text-cream">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-sage-light" />
+                  <span>Free Shipping on Prepaid Orders</span>
+                </div>
+
+                <span className="text-white/30 font-light">|</span>
+
+                {/* Segment 3: Pureplus ISO Badge */}
+                <div className="flex items-center space-x-1 bg-black/20 border border-gold/60 text-gold text-[10px] px-2.5 py-0.5 rounded font-mono font-bold tracking-wider shadow-sm">
+                  <Award className="w-3 h-3 text-gold" />
+                  <span>ISO 22716:2007 Certified</span>
+                </div>
+              </div>
+
+              {/* Mobile View: Rotating Announcements */}
+              <div className="md:hidden flex items-center justify-center w-full">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={announcementIndex}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    className="text-center font-sans tracking-wider text-[10px] sm:text-xs text-cream-light font-bold flex items-center justify-center space-x-1"
+                  >
+                    {ANNOUNCEMENTS[announcementIndex]}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -239,7 +273,7 @@ export default function Navbar() {
               >
                 <ShoppingCart className="w-5 h-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white ring-2 ring-white">
+                  <span className="absolute -top-1.5 -right-1.5 flex w-5 h-5 min-w-[20px] min-h-[20px] items-center justify-center rounded-full bg-forest text-cream text-[10px] font-black leading-none ring-2 ring-white shadow-sm">
                     {cartCount}
                   </span>
                 )}

@@ -24,6 +24,8 @@ interface Product {
   point4?: string;
   point5?: string;
   productCode?: string;
+  rating?: number;
+  review_count?: number;
 }
 
 interface ProductDetailsModalProps {
@@ -39,20 +41,30 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [buyNowLoading, setBuyNowLoading] = useState(false);
-  const [reviewStats, setReviewStats] = useState({ totalCount: 0, averageRating: 5.0 });
+  const [reviewStats, setReviewStats] = useState({
+    totalCount: product?.review_count || 0,
+    averageRating: product?.rating || 4.7,
+  });
 
   useEffect(() => {
     if (isOpen) {
       setSelectedImageIdx(0);
       setQuantity(1);
       document.body.style.overflow = 'hidden';
+      // Initialize from product data immediately so rating matches product card
+      if (product) {
+        setReviewStats({
+          totalCount: product.review_count || 0,
+          averageRating: product.rating || 4.7,
+        });
+      }
     } else {
       document.body.style.overflow = 'unset';
     }
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen]);
+  }, [isOpen, product]);
 
   useEffect(() => {
     if (!product || !isOpen) return;
@@ -222,7 +234,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
                   ))}
                 </div>
                 <span className="text-xs font-semibold text-forest">
-                  {reviewStats.averageRating > 0 ? reviewStats.averageRating.toFixed(1) : '5.0'} out of 5 stars
+                  {reviewStats.averageRating > 0 ? reviewStats.averageRating.toFixed(1) : '4.7'} out of 5 stars
                 </span>
                 <span className="text-xs text-charcoal/40">
                   | {reviewStats.totalCount} customer review{reviewStats.totalCount === 1 ? '' : 's'}

@@ -68,6 +68,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Preconnect for Google Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Organization JSON-LD Schema */}
         <script
           type="application/ld+json"

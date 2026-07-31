@@ -76,7 +76,7 @@ export default function ContactUsPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#fcfdfc] text-charcoal font-sans pt-24 pb-20">
+    <div className="min-h-screen w-full bg-[#fcfdfc] text-charcoal font-sans pt-0 pb-20">
       {/* Background Soft Glow */}
       <div className="fixed top-20 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[300px] bg-forest/5 rounded-full filter blur-[100px] pointer-events-none -z-10" />
 

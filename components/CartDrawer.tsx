@@ -2,7 +2,17 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ShoppingCart, Plus, Minus, Trash2, ArrowRight, ShieldCheck, RefreshCw } from 'lucide-react';
+import {
+  X,
+  ShoppingBag,
+  Plus,
+  Minus,
+  Trash2,
+  ArrowRight,
+  ShieldCheck,
+  RefreshCw,
+  CheckCircle2
+} from 'lucide-react';
 import { resolveImagePath } from '@/lib/imageUtils';
 
 interface CartItem {
@@ -13,6 +23,7 @@ interface CartItem {
   quantity: number;
   brief_details?: string;
   image1?: string;
+  product_category?: string;
 }
 
 interface CartDrawerProps {
@@ -20,142 +31,27 @@ interface CartDrawerProps {
   onClose: () => void;
 }
 
-const FREE_SHIPPING_LIMIT = 499;
+const getCategoryBadge = (name: string, category?: string): string => {
+  const n = (name || '').toLowerCase();
+  const c = (category || '').toLowerCase();
+  if (n.includes('shampoo') || c.includes('shampoo')) return 'SOLID SHAMPOO BARS';
+  if (n.includes('soap') || c.includes('soaps')) return 'HANDCRAFTED SOAPS';
+  if (n.includes('powder') || n.includes('pack') || n.includes('facewash') || c.includes('powders')) return 'PREMIX POWDERS';
+  if (n.includes('kesh') || n.includes('oil')) return 'AYURVEDIC OILS';
+  return 'WELLNESS CARE';
+};
 
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [showShippingForm, setShowShippingForm] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Sync authentication state when drawer opens
-  useEffect(() => {
-    if (isOpen) {
-      setIsLoggedIn(!!localStorage.getItem('user'));
-    }
-  }, [isOpen]);
-
+  // Form State
   const [shippingName, setShippingName] = useState('');
   const [shippingEmail, setShippingEmail] = useState('');
   const [shippingPhone, setShippingPhone] = useState('');
   const [shippingAddress, setShippingAddress] = useState('');
   const [shippingPincode, setShippingPincode] = useState('');
-
-  const loadRazorpayScript = () => {
-    return new Promise((resolve) => {
-      if ((window as any).Razorpay) {
-        resolve(true);
-        return;
-      }
-      const script = document.createElement('script');
-      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-      script.async = true;
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
-  };
-
-  const handleCheckout = async () => {
-    setCheckoutLoading(true);
-
-    const resScript = await loadRazorpayScript();
-    if (!resScript) {
-      alert('Failed to load Razorpay payment SDK. Please check your internet connection.');
-      setCheckoutLoading(false);
-      return;
-    }
-
-    const totalAmount = subtotal + (subtotal >= FREE_SHIPPING_LIMIT ? 0 : 50);
-
-    try {
-      const resOrder = await fetch('/api/razorpay/create-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ amount: totalAmount }),
-      });
-
-      const orderData = await resOrder.json();
-
-      if (!orderData.success) {
-        alert(orderData.error || 'Failed to initiate transaction. Please make sure Razorpay keys are configured.');
-        setCheckoutLoading(false);
-        return;
-      }
-
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'your_razorpay_key_id_here',
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: 'Pureplush',
-        description: 'Apothecary Collection Purchase',
-        image: '/Pureplus.png',
-        order_id: orderData.orderId,
-        handler: async function (response: any) {
-          try {
-            const resVerify = await fetch('/api/razorpay/verify-payment', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-                customer_name: shippingName,
-                customer_email: shippingEmail,
-                customer_phone: shippingPhone,
-                shipping_address: `${shippingAddress}, Pincode: ${shippingPincode}`,
-                items: cartItems.map(item => ({
-                  id: item.id,
-                  product_name: item.product_name,
-                  product_price: item.product_price,
-                  weight: item.weight,
-                  quantity: item.quantity
-                })),
-                amount: totalAmount
-              }),
-            });
-
-            const verifyData = await resVerify.json();
-
-            if (verifyData.success) {
-              alert(`Payment successful! 🎉 Order #${verifyData.orderNumber} placed. Assigned Courier: ${verifyData.courierPartner}. Tracking ID: ${verifyData.trackingNumber}`);
-              localStorage.removeItem('cart');
-              setCartItems([]);
-              window.dispatchEvent(new Event('storage'));
-              setShowShippingForm(false);
-              onClose();
-            } else {
-              alert(verifyData.error || 'Payment verification failed.');
-            }
-          } catch (err) {
-            console.error(err);
-            alert('Failed to verify payment signature.');
-          }
-        },
-        prefill: {
-          name: shippingName,
-          email: shippingEmail,
-          contact: shippingPhone,
-        },
-        theme: {
-          color: '#2d5a27',
-        },
-      };
-
-      const paymentObject = new (window as any).Razorpay(options);
-      paymentObject.open();
-
-    } catch (error) {
-      console.error('Checkout initialization error:', error);
-      alert('An error occurred during checkout initialization.');
-    } finally {
-      setCheckoutLoading(false);
-    }
-  };
 
   // Sync cart items with localStorage
   const loadCart = () => {
@@ -189,7 +85,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       document.body.style.overflow = 'unset';
       setShowShippingForm(false);
     }
-    
+
     const handleStorageChange = () => {
       const stored = localStorage.getItem('cart');
       if (stored) {
@@ -219,7 +115,6 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
     localStorage.setItem('cart', JSON.stringify(updated));
     setCartItems(updated);
-    // Trigger custom storage event to update the Navbar counter
     window.dispatchEvent(new Event('storage'));
   };
 
@@ -230,292 +125,445 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     window.dispatchEvent(new Event('storage'));
   };
 
-  const getSubtotal = () => {
-    return cartItems.reduce((acc, item) => acc + parseFloat(item.product_price) * item.quantity, 0);
+  const subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.product_price) * item.quantity, 0);
+  const totalItemCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  
+  // Combo bundle discount
+  const comboDiscount = cartItems.length > 1 ? Math.round(subtotal * 0.09) : 0;
+  
+  // Shipping is ALWAYS FREE
+  const shippingFee = 0;
+  
+  const totalAmount = subtotal - comboDiscount;
+
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      if ((window as any).Razorpay) {
+        resolve(true);
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
   };
 
-  const subtotal = getSubtotal();
-  const amountToFreeShipping = FREE_SHIPPING_LIMIT - subtotal;
-  const progressPercent = Math.min((subtotal / FREE_SHIPPING_LIMIT) * 100, 100);
+  const handleCheckout = async () => {
+    setCheckoutLoading(true);
+
+    const resScript = await loadRazorpayScript();
+    if (!resScript) {
+      alert('Failed to load Razorpay SDK. Please check internet connectivity.');
+      setCheckoutLoading(false);
+      return;
+    }
+
+    try {
+      const resOrder = await fetch('/api/razorpay/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: totalAmount }),
+      });
+
+      const orderData = await resOrder.json();
+
+      if (!orderData.success) {
+        alert(orderData.error || 'Failed to initiate checkout.');
+        setCheckoutLoading(false);
+        return;
+      }
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'your_razorpay_key_id_here',
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: 'Pureplush',
+        description: 'Apothecary Wellness Purchase',
+        image: '/Pureplus.png',
+        order_id: orderData.orderId,
+        handler: async function (response: any) {
+          try {
+            const resVerify = await fetch('/api/razorpay/verify-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                customer_name: shippingName,
+                customer_email: shippingEmail,
+                customer_phone: shippingPhone,
+                shipping_address: `${shippingAddress}, Pincode: ${shippingPincode}`,
+                items: cartItems,
+                amount: totalAmount
+              }),
+            });
+
+            const verifyData = await resVerify.json();
+
+            if (verifyData.success) {
+              alert(`Payment successful! 🎉 Order #${verifyData.orderNumber} confirmed.`);
+              localStorage.removeItem('cart');
+              setCartItems([]);
+              window.dispatchEvent(new Event('storage'));
+              setShowShippingForm(false);
+              onClose();
+            } else {
+              alert(verifyData.error || 'Payment verification failed.');
+            }
+          } catch (err) {
+            console.error(err);
+            alert('Failed to verify payment signature.');
+          }
+        },
+        prefill: {
+          name: shippingName,
+          email: shippingEmail,
+          contact: shippingPhone,
+        },
+        theme: {
+          color: '#0c5b18',
+        },
+      };
+
+      const paymentObject = new (window as any).Razorpay(options);
+      paymentObject.open();
+
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('An error occurred during checkout initialization.');
+    } finally {
+      setCheckoutLoading(false);
+    }
+  };
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop Blur */}
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/35 backdrop-blur-sm cursor-pointer"
+            className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm cursor-pointer"
           />
 
-          {/* Cart Drawer Panel */}
+          {/* Expanded Cart Drawer Panel: Wider desktop width up to 680px */}
           <motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'tween', ease: 'easeInOut', duration: 0.35 }}
-            className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-cream-light border-l border-forest/10 shadow-2xl flex flex-col justify-between"
+            transition={{ type: 'tween', ease: 'easeInOut', duration: 0.3 }}
+            className="fixed inset-y-0 right-0 z-50 w-full sm:w-[540px] md:w-[60vw] lg:w-[650px] max-w-[700px] bg-white border-l border-gray-200 shadow-2xl flex flex-col h-full overflow-hidden"
           >
-            {/* Header */}
-            <div className="p-6 border-b border-forest/10 flex items-center justify-between bg-cream">
-              <div className="flex items-center space-x-2.5">
-                <ShoppingCart className="w-5 h-5 text-forest" />
-                <span className="font-serif text-lg font-bold text-forest">Your Shopping Cart</span>
-                <span className="bg-forest/5 text-forest text-xs font-bold px-2 py-0.5 rounded-full">
-                  {cartItems.reduce((acc, i) => acc + i.quantity, 0)}
-                </span>
+            {/* Top Header & Stepper */}
+            <div className="bg-white flex-shrink-0 border-b border-gray-100">
+              <div className="p-3.5 sm:p-4 flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600 border border-sky-100">
+                    <ShoppingBag className="w-4 h-4" />
+                  </div>
+                  <h2 className="font-serif text-lg sm:text-xl font-bold text-slate-800">Your Cart</h2>
+                  <span className="bg-sky-50 text-sky-600 border border-sky-200/60 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                    {totalItemCount} {totalItemCount === 1 ? 'item' : 'items'}
+                  </span>
+                </div>
+                <button
+                  onClick={onClose}
+                  className="p-1 rounded-full text-gray-400 hover:text-slate-800 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
-              <button
-                onClick={onClose}
-                className="p-1 rounded-full text-charcoal hover:bg-forest/5 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
 
-            {/* Free Shipping Progress Indicator (Best Cart Functionality) */}
-            {cartItems.length > 0 && (
-              <div className="bg-cream/40 border-b border-forest/5 px-6 py-4 space-y-2">
-                {amountToFreeShipping > 0 ? (
-                  <p className="text-xs text-charcoal/80 font-medium">
-                    Add <span className="font-bold text-forest">₹{amountToFreeShipping.toFixed(0)}</span> more to unlock <span className="font-bold uppercase tracking-wider text-forest">Free Shipping</span>!
-                  </p>
-                ) : (
-                  <p className="text-xs text-green-800 font-bold flex items-center space-x-1.5">
-                    <ShieldCheck className="w-4 h-4 text-green-700 animate-bounce" />
-                    <span>🎉 Congratulations! You have unlocked FREE Shipping!</span>
-                  </p>
-                )}
-                {/* Progress bar container */}
-                <div className="w-full h-2 bg-forest/5 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-forest rounded-full transition-all duration-500 ease-out"
-                    style={{ width: `${progressPercent}%` }}
-                  />
+              {/* Stepper Navigation: (1) CART ------ (2) SHIPPING */}
+              <div className="flex items-center justify-center space-x-4 py-2 text-xs font-bold tracking-wider select-none bg-gray-50/50">
+                <div className={`flex items-center space-x-2 ${!showShippingForm ? 'text-slate-800' : 'text-gray-400'}`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-extrabold ${!showShippingForm ? 'bg-forest text-white' : 'bg-gray-200 text-gray-600'}`}>
+                    1
+                  </span>
+                  <span>CART</span>
+                </div>
+                <div className={`w-12 sm:w-16 h-[2px] rounded-full transition-colors ${showShippingForm ? 'bg-forest' : 'bg-gray-200'}`} />
+                <div className={`flex items-center space-x-2 ${showShippingForm ? 'text-slate-800' : 'text-gray-400'}`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-extrabold ${showShippingForm ? 'bg-forest text-white' : 'bg-gray-200 text-gray-600'}`}>
+                    2
+                  </span>
+                  <span>SHIPPING</span>
                 </div>
               </div>
-            )}
+            </div>
 
-            {/* Cart Items List or Shipping Form */}
-            <div className="flex-grow overflow-y-auto p-6 space-y-6 custom-scrollbar">
+            {/* Scrollable Products List Container (EXPANDS MAXIMUM VERTICAL SPACE) */}
+            <div className="flex-1 min-h-0 overflow-y-auto p-3.5 sm:p-4 space-y-2.5 custom-scrollbar bg-gray-50/30">
               {showShippingForm ? (
-                <div className="space-y-5">
-                  <h3 className="font-serif text-base font-bold text-forest border-b border-forest/10 pb-2">
-                    Shipping & Contact Information
+                /* Step 2: Shipping Form */
+                <div className="space-y-4 bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <h3 className="font-serif text-base font-bold text-forest border-b border-gray-100 pb-2">
+                    Shipping &amp; Delivery Details
                   </h3>
-                  <div className="space-y-3.5 text-xs text-charcoal">
+                  <div className="space-y-3 text-xs text-charcoal">
                     <div>
-                      <label className="block text-xs font-semibold mb-1 text-forest">Full Name *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        value={shippingName} 
-                        onChange={e => setShippingName(e.target.value)} 
-                        className="w-full border border-forest/20 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 text-base sm:text-sm font-medium" 
-                        placeholder="Enter full name" 
+                      <label className="block text-xs font-semibold mb-1 text-slate-700">Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={shippingName}
+                        onChange={(e) => setShippingName(e.target.value)}
+                        className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest text-sm font-medium"
+                        placeholder="Enter full name"
                       />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs font-semibold mb-1 text-forest">Phone Number *</label>
-                        <input 
-                          type="tel" 
-                          required 
-                          value={shippingPhone} 
-                          onChange={e => setShippingPhone(e.target.value)} 
-                          className="w-full border border-forest/20 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 text-base sm:text-sm font-medium" 
-                          placeholder="10-digit mobile" 
+                        <label className="block text-xs font-semibold mb-1 text-slate-700">Phone Number *</label>
+                        <input
+                          type="tel"
+                          required
+                          value={shippingPhone}
+                          onChange={(e) => setShippingPhone(e.target.value)}
+                          className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest text-sm font-medium"
+                          placeholder="10-digit mobile"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold mb-1 text-forest">Pincode *</label>
-                        <input 
-                          type="text" 
-                          required 
+                        <label className="block text-xs font-semibold mb-1 text-slate-700">Pincode *</label>
+                        <input
+                          type="text"
+                          required
                           maxLength={6}
-                          value={shippingPincode} 
-                          onChange={e => setShippingPincode(e.target.value)} 
-                          className="w-full border border-forest/20 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 text-base sm:text-sm font-medium" 
-                          placeholder="6-digit pincode" 
+                          value={shippingPincode}
+                          onChange={(e) => setShippingPincode(e.target.value)}
+                          className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest text-sm font-medium"
+                          placeholder="6-digit pincode"
                         />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold mb-1 text-forest">Email Address *</label>
-                      <input 
-                        type="email" 
-                        required 
-                        value={shippingEmail} 
-                        onChange={e => setShippingEmail(e.target.value)} 
-                        className="w-full border border-forest/20 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 text-base sm:text-sm font-medium" 
-                        placeholder="name@example.com" 
+                      <label className="block text-xs font-semibold mb-1 text-slate-700">Email Address *</label>
+                      <input
+                        type="email"
+                        required
+                        value={shippingEmail}
+                        onChange={(e) => setShippingEmail(e.target.value)}
+                        className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest text-sm font-medium"
+                        placeholder="name@example.com"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold mb-1 text-forest">Shipping Address *</label>
-                      <textarea 
-                        rows={3} 
-                        required 
-                        value={shippingAddress} 
-                        onChange={e => setShippingAddress(e.target.value)} 
-                        className="w-full border border-forest/20 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/10 text-base sm:text-sm font-medium resize-none leading-relaxed" 
-                        placeholder="Flat/House No., Building, Street, Area, City, State" 
+                      <label className="block text-xs font-semibold mb-1 text-slate-700">Shipping Address *</label>
+                      <textarea
+                        rows={3}
+                        required
+                        value={shippingAddress}
+                        onChange={(e) => setShippingAddress(e.target.value)}
+                        className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 bg-white focus:outline-none focus:border-forest text-sm font-medium resize-none leading-relaxed"
+                        placeholder="House No, Building, Street, Area, City, State"
                       />
                     </div>
                   </div>
                 </div>
               ) : cartItems.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center text-center space-y-4 py-12">
-                  <div className="w-16 h-16 rounded-full bg-forest/5 flex items-center justify-center text-forest/45">
-                    <ShoppingCart className="w-8 h-8" />
+                /* Empty Cart View */
+                <div className="h-full flex flex-col items-center justify-center text-center space-y-4 py-16">
+                  <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                    <ShoppingBag className="w-10 h-10" />
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-forest">Your cart is empty</h3>
-                  <p className="text-xs text-charcoal/60 max-w-[220px]">
-                    Looks like you haven&apos;t added any wellness blends yet.
+                  <h3 className="font-serif text-xl font-bold text-slate-800">Your cart is empty</h3>
+                  <p className="text-xs text-gray-500 max-w-xs">
+                    Explore handcrafted soaps, shampoo bars, and botanical face packs.
                   </p>
                   <button
                     onClick={onClose}
-                    className="px-6 py-2.5 bg-forest text-cream text-xs font-bold uppercase tracking-wider rounded-full hover:bg-forest-light transition-colors"
+                    className="px-6 py-3 bg-forest text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-forest-light transition-colors shadow-md"
                   >
                     Start Shopping
                   </button>
                 </div>
               ) : (
-                cartItems.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center justify-between space-x-4 p-4 rounded-xl bg-white border border-forest/5 shadow-sm group hover:border-forest/15 transition-all"
-                  >
-                    {/* Item Image with Fallback */}
-                    <div className="w-16 h-16 bg-cream rounded-lg flex items-center justify-center flex-shrink-0 relative overflow-hidden border border-forest/5">
-                      {item.image1 ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img
-                          src={resolveImagePath(item.image1)}
-                          alt={item.product_name}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
-                          }}
-                        />
-                      ) : null}
-                      <span className="text-xl absolute">🌱</span>
-                    </div>
-
-                    {/* Info */}
-                    <div className="flex-grow min-w-0">
-                      <h4 className="text-sm font-bold text-forest truncate">{item.product_name.replace(/^Pureplush\s+/i, '')}</h4>
-                      {item.brief_details && (
-                        <p className="text-[10px] text-charcoal/60 line-clamp-1 mt-0.5 leading-snug">
-                          {item.brief_details}
-                        </p>
-                      )}
-                      <div className="flex items-center space-x-2 mt-1">
-                        <span className="text-[9px] text-sage-dark font-bold bg-forest/5 rounded px-1.5 py-0.5">
-                          {item.weight}
-                        </span>
+                /* High-Density Compact Item Cards - Fits 5-6 products on screen! */
+                <div className="space-y-2 sm:space-y-2.5">
+                  {cartItems.map((item) => (
+                    <div
+                      key={item.id}
+                      className="p-2.5 sm:p-3 rounded-xl bg-white border border-gray-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.03)] hover:border-gray-300 transition-all flex items-center space-x-3"
+                    >
+                      {/* Product Image Thumbnail */}
+                      <div className="w-14 h-14 bg-cream rounded-lg overflow-hidden border border-gray-200/60 flex-shrink-0 relative">
+                        {item.image1 ? (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img
+                            src={resolveImagePath(item.image1)}
+                            alt={item.product_name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = 'none';
+                            }}
+                          />
+                        ) : null}
                       </div>
-                      
-                      {/* Controls */}
-                      <div className="flex items-center space-x-2 mt-2.5">
-                        <button
-                          onClick={() => updateQuantity(item.id, -1)}
-                          className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center border border-forest/10 hover:border-forest/30 rounded-lg text-charcoal hover:bg-forest/5 active:scale-95 transition-transform"
-                        >
-                          <Minus className="w-3.5 h-3.5" />
-                        </button>
-                        <span className="text-xs font-bold text-forest px-2">{item.quantity}</span>
-                        <button
-                          onClick={() => updateQuantity(item.id, 1)}
-                          className="p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center border border-forest/10 hover:border-forest/30 rounded-lg text-charcoal hover:bg-forest/5 active:scale-95 transition-transform"
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
 
-                    {/* Price and delete */}
-                    <div className="flex flex-col items-end justify-between h-16">
+                      {/* Main Details */}
+                      <div className="flex-grow min-w-0 flex flex-col justify-between py-0.5">
+                        {/* Inline Badges */}
+                        <div className="flex items-center space-x-1.5 mb-0.5">
+                          <span className="bg-sky-50 text-sky-600 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-sky-100">
+                            {getCategoryBadge(item.product_name, item.product_category)}
+                          </span>
+                          <span className="bg-gray-100 text-gray-600 text-[9px] font-bold px-1.5 py-0.5 rounded border border-gray-200/70">
+                            {item.weight || '100g'}
+                          </span>
+                        </div>
+
+                        {/* Product Title */}
+                        <h4 className="font-serif text-xs sm:text-sm font-bold text-slate-800 truncate leading-snug">
+                          {item.product_name.replace(/^Pureplush\s+/i, '')}
+                        </h4>
+
+                        {/* Controls & Price Inline */}
+                        <div className="flex items-center justify-between mt-1">
+                          <div className="inline-flex items-center border border-gray-200 rounded-full bg-gray-50/80 px-2 py-0.5 space-x-2">
+                            <button
+                              onClick={() => updateQuantity(item.id, -1)}
+                              className="text-gray-500 hover:text-slate-800 text-xs font-bold px-1 active:scale-95 transition-transform"
+                            >
+                              -
+                            </button>
+                            <span className="text-xs font-bold text-slate-800 min-w-[10px] text-center">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() => updateQuantity(item.id, 1)}
+                              className="text-gray-500 hover:text-slate-800 text-xs font-bold px-1 active:scale-95 transition-transform"
+                            >
+                              +
+                            </button>
+                          </div>
+                          <span className="font-serif text-xs sm:text-sm font-bold text-slate-900">
+                            Rs. {(parseFloat(item.product_price) * item.quantity).toFixed(0)}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Remove Trash Icon */}
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="text-charcoal/30 hover:text-red-500 transition-colors p-1"
+                        className="text-red-400 hover:text-red-600 p-1.5 hover:bg-red-50 rounded-full transition-colors flex-shrink-0 self-start"
+                        title="Remove item"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
-                      <span className="text-sm font-serif font-bold text-forest leading-none">
-                        ₹{(parseFloat(item.product_price) * item.quantity).toFixed(0)}
-                      </span>
                     </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               )}
             </div>
 
-            {/* Footer Summary */}
+            {/* Compact Bottom Summary Footer */}
             {cartItems.length > 0 && (
-              <div className="p-6 border-t border-forest/10 bg-cream">
-                <div className="space-y-3 mb-6">
-                  <div className="flex justify-between text-xs text-charcoal/70">
-                    <span>Shipping</span>
-                    <span className="text-green-700 font-medium">
-                      {subtotal >= FREE_SHIPPING_LIMIT ? 'FREE' : '₹50'}
+              <div className="p-3 sm:p-4 border-t border-gray-200 bg-white space-y-2 shadow-lg flex-shrink-0">
+                {/* 1. Free Herbal Soap Banner */}
+                <div className="bg-[#FFF8F0] border border-[#FFE4C4] rounded-lg p-2 flex items-center justify-between shadow-sm">
+                  <div className="flex items-center space-x-1.5 text-xs font-bold text-[#8A4B08]">
+                    <span className="text-sm">🌸</span>
+                    <span>
+                      {totalItemCount > 1
+                        ? `${totalItemCount}x Premium Herbal Soap Included`
+                        : '1x Premium Herbal Soap Included'}
                     </span>
                   </div>
-                  <div className="flex justify-between items-end">
-                    <span className="font-serif text-sm font-bold text-forest">Subtotal</span>
-                    <span className="font-serif text-xl font-bold text-forest">
-                      ₹{(subtotal + (subtotal >= FREE_SHIPPING_LIMIT ? 0 : 50)).toFixed(0)}
+                  <span className="bg-[#00A859] text-white font-black text-[9px] uppercase px-2 py-0.5 rounded tracking-wider shadow-sm flex-shrink-0">
+                    FREE GIFT
+                  </span>
+                </div>
+
+                {/* 2. Itemized Breakdown List */}
+                <div className="max-h-20 overflow-y-auto space-y-0.5 border-b border-gray-100 pb-1.5 custom-scrollbar text-xs">
+                  {cartItems.map((i) => (
+                    <div key={`summary-${i.id}`} className="flex justify-between text-[11px] sm:text-xs text-gray-600 font-medium">
+                      <span className="truncate pr-2">
+                        {i.product_name.replace(/^Pureplush\s+/i, '')}{' '}
+                        <span className="text-gray-400 font-normal">({i.weight || '100g'}{i.quantity > 1 ? ` x${i.quantity}` : ''})</span>
+                      </span>
+                      <span className="font-semibold text-slate-800 flex-shrink-0">
+                        Rs. {(parseFloat(i.product_price) * i.quantity).toFixed(0)}
+                      </span>
+                    </div>
+                  ))}
+                  
+                  {comboDiscount > 0 && (
+                    <div className="flex justify-between text-[11px] sm:text-xs text-emerald-600 font-bold pt-0.5">
+                      <span>Combo Bundle Discount</span>
+                      <span>- Rs. {comboDiscount.toFixed(0)}</span>
+                    </div>
+                  )}
+
+                  <div className="flex justify-between text-[11px] sm:text-xs text-gray-600 font-medium pt-0.5">
+                    <span>Shipping &amp; Handling</span>
+                    <span className="font-bold text-emerald-600 uppercase tracking-wider">
+                      FREE
                     </span>
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  {showShippingForm ? (
-                    <>
-                      <button
-                        onClick={handleCheckout}
-                        disabled={checkoutLoading || !shippingName || !shippingEmail || !shippingPhone || !shippingAddress || !shippingPincode}
-                        className="w-full inline-flex items-center justify-center space-x-2 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group disabled:bg-sage disabled:cursor-not-allowed"
-                      >
-                        {checkoutLoading ? (
-                          <>
-                            <RefreshCw className="w-4 h-4 animate-spin" />
-                            <span>Processing Payment...</span>
-                          </>
-                        ) : (
-                          <>
-                            <span>Pay with Razorpay</span>
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                          </>
-                        )}
-                      </button>
-                      <button
-                        onClick={() => setShowShippingForm(false)}
-                        className="w-full py-2.5 text-center text-xs font-bold uppercase tracking-wider text-forest/75 hover:text-forest transition-colors"
-                      >
-                        Back to Cart
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        onClick={() => setShowShippingForm(true)}
-                        className="w-full inline-flex items-center justify-center space-x-2 py-3.5 bg-forest hover:bg-forest-light text-cream rounded-full text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group"
-                      >
-                        <span>Proceed to Checkout</span>
-                        <ShoppingCart className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </button>
-                      <button
-                        onClick={onClose}
-                        className="w-full py-2.5 text-center text-xs font-bold uppercase tracking-wider text-forest/75 hover:text-forest transition-colors"
-                      >
-                        Continue Shopping
-                      </button>
-                    </>
-                  )}
+                {/* 3. TOTAL AMOUNT Row */}
+                <div className="flex justify-between items-center py-0.5">
+                  <span className="font-sans text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-800">
+                    TOTAL AMOUNT
+                  </span>
+                  <span className="font-serif text-base sm:text-xl font-extrabold text-slate-900">
+                    Rs. {totalAmount.toFixed(0)}
+                  </span>
+                </div>
+
+                {/* 4. Action CTA Button */}
+                {showShippingForm ? (
+                  <div className="space-y-1.5">
+                    <button
+                      onClick={handleCheckout}
+                      disabled={checkoutLoading || !shippingName || !shippingEmail || !shippingPhone || !shippingAddress || !shippingPincode}
+                      className="w-full inline-flex items-center justify-center space-x-2 py-3 bg-forest hover:bg-forest-light text-white rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group disabled:bg-gray-300 disabled:cursor-not-allowed"
+                    >
+                      {checkoutLoading ? (
+                        <>
+                          <RefreshCw className="w-4 h-4 animate-spin" />
+                          <span>Processing Payment...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>PAY WITH RAZORPAY</span>
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => setShowShippingForm(false)}
+                      className="w-full text-center text-xs font-bold uppercase tracking-wider text-forest hover:underline pt-0.5"
+                    >
+                      ← Back to Cart Items
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setShowShippingForm(true)}
+                    className="w-full inline-flex items-center justify-center space-x-2 py-3 sm:py-3.5 bg-forest hover:bg-forest-light text-white rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 group"
+                  >
+                    <span>PROCEED TO CHECKOUT</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                )}
+
+                {/* 5. Security Footer */}
+                <div className="pt-0.5 text-center text-[10px] text-gray-500 font-medium flex items-center justify-center space-x-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>100% Secure Payment</span>
+                  <span>•</span>
+                  <span>Free Nationwide Delivery</span>
                 </div>
               </div>
             )}
