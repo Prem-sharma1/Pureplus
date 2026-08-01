@@ -556,27 +556,29 @@ export default function ProductPage() {
 
         setProduct(foundProduct);
         if (foundProduct) {
-          const isSO = [101, 102, 103, 109, 110].includes(foundProduct.id) || 
-            (foundProduct.product_category || '').toLowerCase() === 'soaps' || 
-            (foundProduct.product_name || '').toLowerCase().includes('soap') || 
-            (foundProduct.product_name || '').toLowerCase().includes('oil');
+          const ratingMap: Record<number, number> = {
+            26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
+            104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
+          };
+          const fallbackRating = ratingMap[foundProduct.id] || (4.7 + ((foundProduct.id || 0) % 4) * 0.1);
           setReviewStats({
-            totalCount: (foundProduct as any).review_count || 6,
-            averageRating: (foundProduct as any).rating || (isSO ? 4.0 : 5.0),
+            totalCount: (foundProduct as any).review_count || 10,
+            averageRating: (foundProduct as any).rating || fallbackRating,
           });
         }
       } catch (err) {
         console.warn('API error. Loading fallback item.');
         const matchMock = MOCK_PRODUCTS.find((p) => p.id === productId);
         if (matchMock) {
-          const isSO = [101, 102, 103, 109, 110].includes(matchMock.id) || 
-            (matchMock.product_category || '').toLowerCase() === 'soaps' || 
-            (matchMock.product_name || '').toLowerCase().includes('soap') || 
-            (matchMock.product_name || '').toLowerCase().includes('oil');
+          const ratingMap: Record<number, number> = {
+            26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
+            104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
+          };
+          const fallbackRating = ratingMap[matchMock.id] || (4.7 + ((matchMock.id || 0) % 4) * 0.1);
           setProduct(matchMock);
           setReviewStats({
-            totalCount: (matchMock as any).review_count || 6,
-            averageRating: (matchMock as any).rating || (isSO ? 4.0 : 5.0),
+            totalCount: (matchMock as any).review_count || 10,
+            averageRating: (matchMock as any).rating || fallbackRating,
           });
         }
       } finally {

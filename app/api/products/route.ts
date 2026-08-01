@@ -302,16 +302,13 @@ async function attachReviewStats(productsList: any[]) {
         };
       }
 
-      // Default customer review stats based on product category & user requirements:
-      // - Soaps & Oils (IDs 101, 102, 103, 109, 110) => 4.0 Rating
-      // - Powders & Shampoos (IDs 26, 28, 108, 105, 104, 107) => 5.0 Rating
-      const isSoapOrOil = [101, 102, 103, 109, 110].includes(p.id) || 
-        (p.product_category || '').toLowerCase() === 'soaps' || 
-        (p.product_name || '').toLowerCase().includes('soap') || 
-        (p.product_name || '').toLowerCase().includes('oil');
-
-      const defaultRating = isSoapOrOil ? 4.0 : 5.0;
-      const defaultCount = 6;
+      // All products have high customer ratings between 4.7 and 5.0
+      const ratingMap: Record<number, number> = {
+        26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
+        104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
+      };
+      const defaultRating = ratingMap[p.id] || (4.7 + ((p.id || 0) % 4) * 0.1);
+      const defaultCount = 10;
 
       return {
         ...p,
@@ -321,14 +318,14 @@ async function attachReviewStats(productsList: any[]) {
     });
   } catch (e) {
     return productsList.map((p) => {
-      const isSoapOrOil = [101, 102, 103, 109, 110].includes(p.id) || 
-        (p.product_category || '').toLowerCase() === 'soaps' || 
-        (p.product_name || '').toLowerCase().includes('soap') || 
-        (p.product_name || '').toLowerCase().includes('oil');
+      const ratingMap: Record<number, number> = {
+        26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
+        104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
+      };
       return {
         ...p,
-        rating: p.rating || (isSoapOrOil ? 4.0 : 5.0),
-        review_count: p.review_count || 6,
+        rating: p.rating || (ratingMap[p.id] || (4.7 + ((p.id || 0) % 4) * 0.1)),
+        review_count: p.review_count || 10,
       };
     });
   }

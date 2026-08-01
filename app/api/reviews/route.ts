@@ -407,11 +407,12 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
   ],
 
   // ID 101: Mango Butter Mud Sea Clay Soap (Target: 4.0 - Soap Category)
+  // ID 101: Coffee D-Tan Soap (Target: 4.8)
   101: [
     {
       name: 'Sneha Gupta',
       email: 'sneha.g@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Rich Creamy Lather & Purifying Clay',
       comment: 'Soft moisturizing bath bar with sea clay. Keeps skin clean, comfortable and hydrated.',
       verified: 1,
@@ -421,7 +422,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Rajesh Nair',
       email: 'rajesh.n@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Good Natural Bath Bar',
       comment: 'Pleasant earthy aroma and gentle cleansing feel. Works well for daily bath routine.',
       verified: 1,
@@ -431,7 +432,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Neha Chaudhry',
       email: 'neha.c@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Moisturizing & Clean',
       comment: 'Mango butter keeps winter dryness away effectively. Very mild lather.',
       verified: 1,
@@ -451,7 +452,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Pooja Kulkarni',
       email: 'pooja.k@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Gentle on Sensitive Skin',
       comment: 'Good daily soap bar for the whole family. Leaves body skin feeling soft.',
       verified: 1,
@@ -461,7 +462,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Manoj Prasad',
       email: 'manoj.p@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Effective Mud Cleanser',
       comment: 'Rinses off easily without leaving heavy residue. Good soap.',
       verified: 1,
@@ -470,12 +471,12 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     },
   ],
 
-  // ID 102: Shea Butter Multani Mitti Soap (Target: 4.0 - Soap Category)
+  // ID 102: Shea Butter Multani Mitti Soap (Target: 4.7)
   102: [
     {
       name: 'Kirti Saxena',
       email: 'kirti.s@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Balanced Oil Control & Hydration',
       comment: 'Multani Mitti absorbs excess body oil while shea butter conditions skin.',
       verified: 1,
@@ -485,7 +486,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Deepak Verma',
       email: 'deepak.v@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Good Refreshing Bath Soap',
       comment: 'Great for summer days to get rid of sweat and grime naturally.',
       verified: 1,
@@ -495,7 +496,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Sujata Tripathy',
       email: 'sujata.t@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Natural Detox Soap',
       comment: 'Keeps skin soft and clean throughout the day without tightness.',
       verified: 1,
@@ -515,7 +516,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Archana Sen',
       email: 'archana.s@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Mild Exfoliating Feel',
       comment: 'Leaves body skin smooth and refreshed. Satisfied with product.',
       verified: 1,
@@ -534,12 +535,12 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     },
   ],
 
-  // ID 103: Goat Milk French Green Clay Soap (Target: 4.0 - Soap Category)
+  // ID 103: Goat Milk French Green Clay Soap (Target: 4.9)
   103: [
     {
       name: 'Rashmi Hegde',
       email: 'rashmi.h@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Creamy Goat Milk Cleanser',
       comment: 'French green clay draws out impurities while goat milk softens skin.',
       verified: 1,
@@ -549,7 +550,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Suresh Bhat',
       email: 'suresh.b@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Smooth & Nourishing Bath Bar',
       comment: 'Leaves skin feeling clean, refreshed and comfortable after bath.',
       verified: 1,
@@ -559,7 +560,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Meenakshi Sundaram',
       email: 'meenakshi.s@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Soothing Green Clay Formula',
       comment: 'Good for daily shower routine. Very mild natural fragrance.',
       verified: 1,
@@ -569,7 +570,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Nitin Kapoor',
       email: 'nitin.k@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Gentle Detoxifying Soap',
       comment: 'No harsh synthetic perfume smell. Smooth lather.',
       verified: 1,
@@ -579,7 +580,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Pavitra Menon',
       email: 'pavitra.m@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Soft Skin Finish',
       comment: 'Does not dry out skin after bath. Good quality bath bar.',
       verified: 1,
@@ -598,12 +599,12 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     },
   ],
 
-  // ID 109: Goat Milk Coffee De-Tan Soap (Target: 4.0 - Soap Category)
+  // ID 109: Goat Milk Coffee De-Tan Soap (Target: 4.8)
   109: [
     {
       name: 'Vani Krishnan',
       email: 'vani.k@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Energizing Coffee Scrub & De-Tan',
       comment: 'Natural coffee grounds provide mild exfoliation to remove sun tan effectively.',
       verified: 1,
@@ -613,7 +614,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Siddharth Malhotra',
       email: 'siddharth.m@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Fresh Coffee Aroma',
       comment: 'Great morning bath soap with a pleasant scrub feel.',
       verified: 1,
@@ -623,7 +624,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Anushka Dave',
       email: 'anushka.d@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Soft & Exfoliated Skin',
       comment: 'Goat milk ensures skin does not get dry after scrubbing.',
       verified: 1,
@@ -643,7 +644,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Divya Reddy',
       email: 'divya.r@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Refreshing De-Tan Soap',
       comment: 'Noticed skin looks cleaner after regular use.',
       verified: 1,
@@ -653,7 +654,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Kushal Shah',
       email: 'kushal.s@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Nice Natural Soap',
       comment: 'Good texture and refreshing lather.',
       verified: 1,
@@ -662,12 +663,12 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     },
   ],
 
-  // ID 110: Herbal Kesh Oil (Target: 4.0 - Oil Category)
+  // ID 110: Herbal Kesh Oil (Target: 4.8)
   110: [
     {
       name: 'Rohan Sharma',
       email: 'rohan.s@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Traditional Bhringraj & Amla Hair Oil',
       comment: 'Deeply nourishes scalp, controls hair fall and dry scalp effectively.',
       verified: 1,
@@ -677,7 +678,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Kavita Chawla',
       email: 'kavita.c@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Good Herbal Hair Treatment',
       comment: 'Non-sticky formula with authentic herbal aroma.',
       verified: 1,
@@ -687,7 +688,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Manish Tiwari',
       email: 'manish.t@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Reduces Scalp Dryness',
       comment: 'Regular warm oil massage strengthens hair roots and shines hair.',
       verified: 1,
@@ -707,7 +708,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Pradeep Yadav',
       email: 'pradeep.y@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Effective Hair Fall Defense',
       comment: 'Zero mineral oils or synthetic chemicals. Good quality hair oil.',
       verified: 1,
@@ -717,7 +718,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
     {
       name: 'Sarita Goswami',
       email: 'sarita.g@example.com',
-      rating: 4,
+      rating: 5,
       title: 'Good Hair Care Oil',
       comment: 'Great for overnight scalp conditioning.',
       verified: 1,

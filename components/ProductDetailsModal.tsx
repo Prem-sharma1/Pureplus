@@ -46,9 +46,15 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
     (product.product_name || '').toLowerCase().includes('soap') || 
     (product.product_name || '').toLowerCase().includes('oil')) : false;
 
+  const ratingMap: Record<number, number> = {
+    26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
+    104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
+  };
+  const fallbackRating = product ? (ratingMap[product.id] || (4.7 + ((product.id || 0) % 4) * 0.1)) : 4.8;
+
   const [reviewStats, setReviewStats] = useState({
-    totalCount: product?.review_count || 6,
-    averageRating: product?.rating || (isSoapOrOil ? 4.0 : 5.0),
+    totalCount: product?.review_count || 10,
+    averageRating: product?.rating || fallbackRating,
   });
 
   useEffect(() => {
@@ -58,14 +64,9 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
       document.body.style.overflow = 'hidden';
       // Initialize from product data immediately so rating matches product card
       if (product) {
-        const isSO = [101, 102, 103, 109, 110].includes(product.id) || 
-          (product.product_category || '').toLowerCase() === 'soaps' || 
-          (product.product_name || '').toLowerCase().includes('soap') || 
-          (product.product_name || '').toLowerCase().includes('oil');
-
         setReviewStats({
-          totalCount: product.review_count || 6,
-          averageRating: product.rating || (isSO ? 4.0 : 5.0),
+          totalCount: product.review_count || 10,
+          averageRating: product.rating || fallbackRating,
         });
       }
     } else {
