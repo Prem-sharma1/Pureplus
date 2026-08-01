@@ -93,8 +93,8 @@ export default function ShippingPolicyPage() {
           </p>
           <div className="bg-cream/80 p-4 rounded-2xl border border-forest/10 inline-block space-y-1">
             <span className="text-xs font-bold text-forest uppercase tracking-wider block">Logistics Support Email</span>
-            <a href="mailto:info@pureplush.in" className="text-sm font-bold text-forest hover:text-gold transition-colors">
-              info@pureplush.in
+            <a href="mailto:nexoratradingco1@gmail.com" className="text-sm font-bold text-forest hover:text-gold transition-colors">
+              nexoratradingco1@gmail.com
             </a>
             <p className="text-xs font-bold text-forest">Phone / WhatsApp: +91 84468 16247</p>
             <p className="text-xs text-charcoal/70">Nexora Trading Co, Dhanori, Pune, Maharashtra - 411015</p>
@@ -114,7 +114,7 @@ export default function ShippingPolicyPage() {
       categoryBadge="Shipping & Logistics"
       lastUpdated="July 2026"
       sections={sections}
-      contactEmail="info@pureplush.in"
+      contactEmail="nexoratradingco1@gmail.com"
     />
   );
 }

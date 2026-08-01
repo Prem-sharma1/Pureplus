@@ -48,7 +48,7 @@ export const FAQ_DATA: FaqItem[] = [
   },
   {
     question: '10. What if I need assistance choosing the right product?',
-    answer: 'Our product pages include full ingredient lists, directions, and product facts. You can also reach our customer support team at info@pureplush.in or call +91 84468 16247 for guidance.'
+    answer: 'Our product pages include full ingredient lists, directions, and product facts. You can also reach our customer support team at nexoratradingco1@gmail.com or call +91 84468 16247 for guidance.'
   }
 ];
 

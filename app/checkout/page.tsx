@@ -21,6 +21,7 @@ import {
   CreditCard
 } from 'lucide-react';
 import { resolveImagePath } from '@/lib/imageUtils';
+import { calculateCartTotals } from '@/lib/comboPricing';
 
 interface CartItem {
   id: number;

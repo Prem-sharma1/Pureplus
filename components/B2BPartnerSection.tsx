@@ -120,7 +120,7 @@ export default function B2BPartnerSection() {
                         Retail & Supermarket Distribution
                       </h3>
                       <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
-                        Attractive trade margins, display materials, and steady stock supply for grocery & health/beauty stores.
+                        Attractive trade margins and steady stock supply for grocery & health/beauty stores.
                       </p>
                     </div>
                   </motion.div>
@@ -296,7 +296,6 @@ export default function B2BPartnerSection() {
                             <option value="Distributor / Retail Store Supply">Distributor / Retail Store Supply</option>
                             <option value="Corporate Gifting & Hampers">Corporate Gifting & Hampers</option>
                             <option value="Salons, Spas & Wellness Centers">Salons, Spas & Wellness Centers</option>
-                            <option value="White Label / Custom Bulk Order">White Label / Custom Bulk Order</option>
                           </select>
                         </div>
 

@@ -153,11 +153,9 @@ export default function Footer() {
             <ul className="space-y-3.5 text-xs text-sage-light">
               <li className="flex items-center space-x-2.5">
                 <Mail className="w-4 h-4 text-gold flex-shrink-0" />
-                <span className="break-all font-semibold text-white">info@pureplush.in</span>
-              </li>
-              <li className="flex items-center space-x-2.5">
-                <Mail className="w-4 h-4 text-gold flex-shrink-0" />
-                <span className="break-all text-sage-light/80">impexsaish@gmail.com</span>
+                <a href="mailto:nexoratradingco1@gmail.com" className="break-all font-semibold text-white hover:text-gold transition-colors">
+                  nexoratradingco1@gmail.com
+                </a>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Phone className="w-4 h-4 text-gold flex-shrink-0" />

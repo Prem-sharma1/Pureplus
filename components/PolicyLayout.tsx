@@ -33,7 +33,7 @@ export default function PolicyLayout({
   categoryBadge,
   lastUpdated = 'July 2026',
   sections,
-  contactEmail = 'impexsaish@gmail.com',
+  contactEmail = 'nexoratradingco1@gmail.com',
   supportHours = '10:00 AM – 6:00 PM (Mon–Sat)',
 }: PolicyLayoutProps) {
 

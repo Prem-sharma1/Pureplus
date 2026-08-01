@@ -51,7 +51,7 @@ export default function RootLayout({
       '@type': 'ContactPoint',
       telephone: '+91-8446816247',
       contactType: 'customer service',
-      email: 'info@pureplush.in',
+      email: 'nexoratradingco1@gmail.com',
       areaServed: 'IN',
       availableLanguage: ['en', 'hi']
     },

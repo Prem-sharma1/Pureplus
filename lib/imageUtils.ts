@@ -29,8 +29,14 @@ export function resolveImagePath(s?: string): string {
   if (filename === 'new1.png' || filename === 'new1.jpg') {
     return '/CoffeeD/new1.png';
   }
-  if (filename === 'Kesh1.jpeg' || filename === 'Kesh1.jpg') {
-    return '/Keshoil/Kesh1.jpeg';
+  if (filename === 'Kesh1.jpeg' || filename === 'Kesh1.jpg' || filename === 'oilimg1.jpeg') {
+    return '/Keshoil/oilimg1.jpeg';
+  }
+  if (filename === 'kesh2.jpeg' || filename === 'kesh2.jpg' || filename === 'oilimg2.jpeg') {
+    return '/Keshoil/oilimg2.jpeg';
+  }
+  if (filename === 'oilimg3.jpeg' || filename === 'oilimg3.jpg') {
+    return '/Keshoil/oilimg3.jpeg';
   }
   if (filename === 'Shampoobar2.png') {
     return '/multanimittishampoo/Shampoobar2.png';

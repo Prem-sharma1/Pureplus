@@ -365,7 +365,7 @@ const DEFAULT_REVIEWS: Record<number, Omit<ProductReview, 'id' | 'product_id'>[]
       created_at: '2026-07-04T09:15:00Z',
     },
     {
-      name: Swati Bhardwaj',
+      name: 'Swati Bhardwaj',
       email: 'swati.b@example.com',
       rating: 5,
       title: 'Very Refreshing Scalp Defense',

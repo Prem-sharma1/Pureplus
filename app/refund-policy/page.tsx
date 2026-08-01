@@ -105,10 +105,9 @@ export default function RefundPolicyPage() {
           <div className="bg-cream/80 p-4 rounded-2xl border border-forest/10 inline-block space-y-2">
             <div>
               <span className="text-xs font-bold text-forest uppercase tracking-wider block">Customer Support Email</span>
-              <a href="mailto:info@pureplush.in" className="text-sm font-bold text-forest hover:text-gold transition-colors">
-                info@pureplush.in
+              <a href="mailto:nexoratradingco1@gmail.com" className="text-sm font-bold text-forest hover:text-gold transition-colors">
+                nexoratradingco1@gmail.com
               </a>
-              <span className="text-xs text-charcoal/60 block font-mono">CC: impexsaish@gmail.com</span>
             </div>
             <div>
               <span className="text-xs font-bold text-forest uppercase tracking-wider block">Phone & WhatsApp Support</span>
@@ -136,7 +135,7 @@ export default function RefundPolicyPage() {
       categoryBadge="Returns & Refunds"
       lastUpdated="July 2026"
       sections={sections}
-      contactEmail="info@pureplush.in"
+      contactEmail="nexoratradingco1@gmail.com"
       supportHours="10:00 AM – 6:00 PM IST (Mon–Sat)"
     />
   );

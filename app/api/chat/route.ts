@@ -122,7 +122,7 @@ Plus, enjoy **FREE Shipping** across India on all orders over ₹499! 🚚✨`;
     return `Namaste! 📞 You can reach our Pureplush Customer Care team via:
 
 - **WhatsApp / Phone**: +91 84468 16247
-- **Email**: info@pureplush.in
+- **Email**: nexoratradingco1@gmail.com
 - **Support Hours**: Monday to Saturday, 10:00 AM – 6:00 PM IST.
 
 Feel free to ask me any questions here as well! 🙏`;
@@ -199,7 +199,7 @@ Pureplush Product Catalog:
 
 Policies:
 - Shipping: Free Shipping across India on orders above ₹499. Delivery 3-7 business days.
-- Contacts: Phone/WhatsApp: +91 84468 16247, Email: info@pureplush.in (Mon-Sat, 10 AM - 6 PM IST).
+- Contacts: Phone/WhatsApp: +91 84468 16247, Email: nexoratradingco1@gmail.com (Mon-Sat, 10 AM - 6 PM IST).
 - Discount Coupon: Tell users they can use code "PURENEW10" to get 10% OFF their first order during checkout!`;
 
     // Process and sanitize history so Gemini API rules are strictly met:

@@ -11,6 +11,7 @@ import FounderVisionSection from '@/components/FounderVisionSection';
 import ComparisonSection from '@/components/ComparisonSection';
 import FaqSection from '@/components/FaqSection';
 import B2BPartnerSection from '@/components/B2BPartnerSection';
+import CustomerReviewsSection from '@/components/CustomerReviewsSection';
 import { motion } from 'framer-motion';
 import { Leaf, Award, Compass, RefreshCw, ShoppingCart, Tag, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -254,8 +255,9 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '649.00',
     product_category: 'others',
     product_discount: 23,
-    image1: 'Keshoil/Kesh1.jpeg',
-    image2: 'Keshoil/kesh2.jpeg',
+    image1: 'Keshoil/oilimg1.jpeg',
+    image2: 'Keshoil/oilimg2.jpeg',
+    image3: 'Keshoil/oilimg3.jpeg',
     weight: '100ml',
     point1: 'Nourishes Scalp & Hair Roots',
     point2: 'Infused with Bhringraj & Amla',
@@ -292,11 +294,11 @@ const getFolderWiseImages = (
   const name = productName.toLowerCase();
 
   // Keshoil mapping
-  if (name.includes('kesh') || name.includes('keshoil')) {
+  if (name.includes('kesh') || name.includes('keshoil') || name.includes('oil')) {
     return {
-      image1: databaseImage1 || 'Keshoil/Kesh1.jpeg',
-      image2: databaseImage2 || 'Keshoil/kesh2.jpeg',
-      image3: databaseImage3
+      image1: 'Keshoil/oilimg1.jpeg',
+      image2: 'Keshoil/oilimg2.jpeg',
+      image3: 'Keshoil/oilimg3.jpeg'
     };
   }
 
@@ -730,6 +732,9 @@ export default function Home() {
           rows={sectionConfig?.comparisonSection?.rows}
         />
       )}
+
+      {/* What Our Community Says - Real Customer Reviews */}
+      <CustomerReviewsSection />
 
       {/* Pureplus B2B Bulk & Distribution Partnership Section */}
       <B2BPartnerSection />

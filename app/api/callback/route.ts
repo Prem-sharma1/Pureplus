@@ -28,7 +28,7 @@ export async function POST(req: Request) {
   } catch (err: unknown) {
     console.error('[CALLBACK_REQUEST_ERROR]', err);
     return NextResponse.json(
-      { error: 'Failed to submit callback request. Please try again or email impexsaish@gmail.com directly.' },
+      { error: 'Failed to submit callback request. Please try again or email nexoratradingco1@gmail.com directly.' },
       { status: 500 }
     );
   }

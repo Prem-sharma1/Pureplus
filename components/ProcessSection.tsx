@@ -1,18 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Leaf, Sun, Hammer, ShieldCheck, ArrowRight, Sparkles } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Leaf, Sun, Hammer, ShieldCheck, Sparkles } from 'lucide-react';
 
 interface Step {
   id: number;
   title: string;
   shortDesc: string;
-  longDesc: string;
-  statLabel: string;
-  statVal: string;
   icon: any;
-  color: string;
 }
 
 const PROCESS_STEPS: Step[] = [
@@ -20,59 +16,38 @@ const PROCESS_STEPS: Step[] = [
     id: 1,
     title: 'Ingredient Selection',
     shortDesc: 'Botanicals selected for freshness & aroma.',
-    longDesc: 'Botanicals are carefully selected for freshness, aroma, texture and suitability for each specific formulation.',
-    statLabel: 'Source Quality',
-    statVal: 'Verified Sources',
     icon: Leaf,
-    color: 'from-emerald-500 to-green-600'
   },
   {
     id: 2,
     title: 'Gentle Drying',
     shortDesc: 'Preserving natural colour & aroma.',
-    longDesc: 'Ingredients are dried with care to help preserve natural colour, aroma and usability for everyday care.',
-    statLabel: 'Drying Method',
-    statVal: 'Gentle Air Care',
     icon: Sun,
-    color: 'from-amber-400 to-orange-500'
   },
   {
     id: 3,
     title: 'Fine Grinding',
     shortDesc: 'Usable texture for easy application.',
-    longDesc: 'Powders are ground to a usable texture for easy mixing, cleansing or personal care application.',
-    statLabel: 'Texture Control',
-    statVal: 'Fine Micro-Milled',
     icon: Hammer,
-    color: 'from-sage to-forest'
   },
   {
     id: 4,
     title: 'Small Batch Blending',
     shortDesc: 'Controlled batches for quality.',
-    longDesc: 'Ingredients are blended in controlled batches to ensure consistent quality, freshness and transparent labeling.',
-    statLabel: 'Batch Records',
-    statVal: '100% Quality Checked',
     icon: ShieldCheck,
-    color: 'from-[#4a773c] to-[#24481f]'
   }
 ];
 
 export default function ProcessSection() {
-  const [activeStep, setActiveStep] = useState(1);
-
-  const activeData = PROCESS_STEPS.find(s => s.id === activeStep) || PROCESS_STEPS[0];
-  const ActiveIcon = activeData.icon;
-
   return (
-    <section className="py-24 bg-cream relative overflow-hidden border-t border-b border-forest/5">
-      {/* Dynamic blurred backdrop behind active step */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-sage/5 filter blur-3xl pointer-events-none rounded-full" />
+    <section className="py-20 sm:py-24 bg-cream relative overflow-hidden border-t border-b border-forest/5">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sage/5 filter blur-3xl pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="text-xs font-bold uppercase tracking-widest text-sage flex items-center justify-center space-x-1.5">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
             <span>From Botanical Sourcing to Thoughtful Formulation</span>
@@ -81,119 +56,45 @@ export default function ProcessSection() {
             How Pureplush Products Are Crafted
           </h2>
           <div className="w-12 h-1 bg-gold/50 mx-auto mt-4 rounded-full" />
-          <p className="text-charcoal/70 mt-4 text-xs sm:text-sm">
+          <p className="text-charcoal/70 mt-4 text-xs sm:text-sm leading-relaxed">
             See how carefully selected botanicals are cleaned, dried, ground and blended into convenient personal care and wellness products for modern daily routines.
           </p>
         </div>
 
-        {/* Process Showcase - Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Interactive Steps List Selector */}
-          <div className="lg:col-span-5 flex flex-col space-y-4">
-            {PROCESS_STEPS.map((step) => {
-              const isActive = step.id === activeStep;
-              const StepIcon = step.icon;
+        {/* 4 Process Cards - Preserving exact original horizontal card shape, 100% width */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+          {PROCESS_STEPS.map((step, idx) => {
+            const StepIcon = step.icon;
 
-              return (
-                <button
-                  key={step.id}
-                  onClick={() => setActiveStep(step.id)}
-                  className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 flex items-start space-x-4 group shadow-sm focus:outline-none ${
-                    isActive
-                      ? 'bg-white border-forest/20 shadow-md translate-x-1'
-                      : 'bg-white/50 border-forest/5 hover:border-forest/10 hover:bg-white/80'
-                  }`}
-                >
-                  {/* Step Number & Icon badge */}
-                  <div className={`p-3 rounded-xl transition-all duration-300 flex-shrink-0 ${
-                    isActive ? 'bg-forest text-cream shadow-sm' : 'bg-forest/5 text-forest group-hover:bg-forest/10'
-                  }`}>
-                    <StepIcon className="w-5 h-5" />
-                  </div>
-
-                  {/* Text descriptions */}
-                  <div className="flex-grow min-w-0">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal/40">
-                        Step 0{step.id}
-                      </span>
-                      {isActive && (
-                        <span className="text-[9px] bg-gold/15 text-forest-light font-bold px-2 py-0.5 rounded-full uppercase tracking-wider select-none animate-[pulse_2s_infinite]">
-                          Active Step
-                        </span>
-                      )}
-                    </div>
-                    <h3 className={`text-md font-bold transition-colors ${
-                      isActive ? 'text-forest' : 'text-charcoal group-hover:text-forest'
-                    }`}>
-                      {step.title}
-                    </h3>
-                    <p className="text-xs text-charcoal/60 truncate mt-0.5">
-                      {step.shortDesc}
-                    </p>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Interactive Showcase Card Panel */}
-          <div className="lg:col-span-7">
-            <AnimatePresence mode="wait">
+            return (
               <motion.div
-                key={activeData.id}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="bg-white border border-forest/10 rounded-3xl p-8 shadow-xl flex flex-col justify-between min-h-[400px] relative overflow-hidden"
+                key={step.id}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                className="w-full text-left p-5 bg-white border border-forest/10 rounded-2xl flex items-start space-x-4 shadow-sm hover:shadow-md hover:border-forest/20 transition-all duration-300"
               >
-                {/* Micro decorative abstract corner background mesh */}
-                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-tr ${activeData.color} opacity-[0.04] rounded-full blur-2xl`} />
+                {/* Icon badge */}
+                <div className="p-3.5 rounded-xl bg-forest/5 text-forest flex-shrink-0">
+                  <StepIcon className="w-5 h-5" />
+                </div>
 
-                <div>
-                  {/* Large Icon & Header badge */}
-                  <div className="flex items-center justify-between mb-8 border-b border-forest/5 pb-4">
-                    <div className="flex items-center space-x-3">
-                      <div className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${activeData.color} text-white flex items-center justify-center shadow-md`}>
-                        <ActiveIcon className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-sage-dark uppercase tracking-widest block">Apothecary Stage</span>
-                        <h4 className="text-xl font-bold font-serif text-forest">{activeData.title}</h4>
-                      </div>
-                    </div>
-                    <span className="text-4xl font-serif font-black italic text-forest/10 select-none">
-                      0{activeData.id}
-                    </span>
-                  </div>
-
-                  {/* Detailed paragraph */}
-                  <p className="text-sm md:text-base text-charcoal/75 leading-relaxed font-sans text-left">
-                    {activeData.longDesc}
+                {/* Content */}
+                <div className="flex-grow min-w-0">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal/40 block">
+                    Step 0{step.id}
+                  </span>
+                  <h3 className="text-base font-bold text-forest font-serif mt-0.5">
+                    {step.title}
+                  </h3>
+                  <p className="text-xs text-charcoal/65 mt-1 leading-relaxed">
+                    {step.shortDesc}
                   </p>
                 </div>
-
-                {/* Sourcing Stats panel */}
-                <div className="mt-8 pt-6 border-t border-forest/5 grid grid-cols-2 gap-4 bg-cream/40 p-5 rounded-2xl border border-forest/5">
-                  <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-charcoal/40 block">Quality Metric</span>
-                    <span className="text-sm font-bold text-forest mt-0.5 block">{activeData.statLabel}</span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-charcoal/40 block">Verification Standard</span>
-                    <span className="text-sm font-serif font-bold text-[#4a773c] mt-0.5 block flex items-center">
-                      <Sparkles className="w-3.5 h-3.5 text-gold mr-1 animate-[spin_4s_linear_infinite]" />
-                      <span>{activeData.statVal}</span>
-                    </span>
-                  </div>
-                </div>
-
               </motion.div>
-            </AnimatePresence>
-          </div>
-
+            );
+          })}
         </div>
 
       </div>

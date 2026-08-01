@@ -69,7 +69,7 @@ export default function ContactUsPage() {
         setErrorMessage(data.error || 'Failed to submit callback request.');
       }
     } catch {
-      setErrorMessage('An unexpected error occurred. Please try emailing impexsaish@gmail.com directly.');
+      setErrorMessage('An unexpected error occurred. Please try emailing nexoratradingco1@gmail.com directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -125,9 +125,9 @@ export default function ContactUsPage() {
               <Mail className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs font-bold text-forest uppercase tracking-wider block">Collaboration Mail</span>
-              <a href="mailto:info@pureplush.in" className="text-sm font-semibold text-charcoal hover:text-forest transition-colors break-all">
-                info@pureplush.in
+              <span className="text-xs font-bold text-forest uppercase tracking-wider block">Official Email</span>
+              <a href="mailto:nexoratradingco1@gmail.com" className="text-sm font-semibold text-charcoal hover:text-forest transition-colors break-all">
+                nexoratradingco1@gmail.com
               </a>
             </div>
           </div>
@@ -137,9 +137,9 @@ export default function ContactUsPage() {
               <Mail className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs font-bold text-forest uppercase tracking-wider block">Support Mail</span>
-              <a href="mailto:impexsaish@gmail.com" className="text-sm font-semibold text-charcoal hover:text-forest transition-colors break-all">
-                impexsaish@gmail.com
+              <span className="text-xs font-bold text-forest uppercase tracking-wider block">Customer Support</span>
+              <a href="mailto:nexoratradingco1@gmail.com" className="text-sm font-semibold text-charcoal hover:text-forest transition-colors break-all">
+                nexoratradingco1@gmail.com
               </a>
             </div>
           </div>

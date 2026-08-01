@@ -75,6 +75,7 @@ interface Order {
   customer_phone: string;
   shipping_address: string;
   total_amount: number;
+  payment_method?: string;
   payment_status: string;
   payment_id: string;
   order_date: string;
@@ -558,31 +559,6 @@ export default function AdminDashboard() {
     }
   };
 
-  // Trigger Bigship Direct Manual Dispatch / Connect
-  const dispatchViaBigship = async (order: Order) => {
-    try {
-      const couriers = ['Delhivery Surface', 'Blue Dart Express', 'DTDC Air', 'Xpressbees B2C'];
-      const chosenCourier = couriers[Math.floor(Math.random() * couriers.length)];
-      const generatedAwb = 'PP' + Math.floor(1000000000 + Math.random() * 9000000000);
-
-      await updateShipping(order.id, 'Dispatched (Bigship)', chosenCourier, generatedAwb);
-      alert(`🚀 Order #${order.order_number} successfully manifested with Bigship Direct!\n\nCourier: ${chosenCourier}\nAWB Tracking: ${generatedAwb}`);
-    } catch {
-      alert('Error manifesting order with Bigship.');
-    }
-  };
-
-  // Track Order via Bigship
-  const trackBigshipOrder = async (order: Order) => {
-    const trackingNo = order.tracking_number || 'PP' + order.order_number;
-    alert(`📦 Bigship Direct Live Tracking:\n\nOrder #: ${order.order_number}\nAWB Code: ${trackingNo}\nCourier: ${order.courier_partner || 'Delhivery'}\nStatus: ${order.shipping_status.toUpperCase()}\n\nLatest Checkpoint: Package in transit to destination hub.`);
-  };
-
-  // Download Bigship Shipping Document
-  const downloadBigshipLabel = async (order: Order, type: 'label' | 'invoice' = 'label') => {
-    alert(`📄 Generating Bigship Direct ${type.toUpperCase()} PDF for Order #${order.order_number}...`);
-    window.open(`/api/bigship/download-document?orderId=${order.tracking_number || order.order_number}&type=${type}`, '_blank');
-  };
 
   // Helper: Get full image URL
   const getImagePath = (img?: string) => {

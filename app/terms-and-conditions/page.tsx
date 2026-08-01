@@ -102,7 +102,7 @@ export default function TermsAndConditionsPage() {
           </p>
           <div className="bg-cream/80 p-4 rounded-2xl border border-forest/10 inline-block space-y-1">
             <span className="text-xs font-bold text-forest uppercase tracking-wider block">Support Contact</span>
-            <p className="text-sm font-bold text-forest">info@pureplush.in | +91 84468 16247</p>
+            <p className="text-sm font-bold text-forest">nexoratradingco1@gmail.com | +91 84468 16247</p>
             <p className="text-xs text-charcoal/70">Nexora Trading Co, Dhanori, Pune, Maharashtra - 411015</p>
           </div>
           <p className="text-xs text-forest/90 font-medium pt-1">
@@ -120,7 +120,7 @@ export default function TermsAndConditionsPage() {
       categoryBadge="Terms & Legal"
       lastUpdated="July 2026"
       sections={sections}
-      contactEmail="info@pureplush.in"
+      contactEmail="nexoratradingco1@gmail.com"
     />
   );
 }

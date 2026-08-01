@@ -233,9 +233,9 @@ const SEED_PRODUCTS = [
     original_price: '649.00',
     product_category: 'others',
     product_discount: 23,
-    image1: 'Keshoil/Kesh1.jpeg',
-    image2: 'Keshoil/kesh2.jpeg',
-    image3: '',
+    image1: 'Keshoil/oilimg1.jpeg',
+    image2: 'Keshoil/oilimg2.jpeg',
+    image3: 'Keshoil/oilimg3.jpeg',
     image4: '',
     weight: '100ml',
     shelf_life: '24 Months',
@@ -254,19 +254,41 @@ async function attachReviewStats(productsList: any[]) {
     let statsMap: Record<number, { rating: number; review_count: number }> = {};
 
     if (isDbConnected) {
-      const rows = await query<any[]>(
-        `SELECT product_id, AVG(rating) as avg_rating, COUNT(*) as r_count 
-         FROM product_reviews 
-         WHERE status = 'approved' 
-         GROUP BY product_id`
-      );
-      if (rows && rows.length > 0) {
-        rows.forEach((r) => {
-          statsMap[r.product_id] = {
-            rating: Math.round((parseFloat(r.avg_rating) || 5.0) * 10) / 10,
-            review_count: parseInt(r.r_count) || 0,
-          };
-        });
+      try {
+        await query(`
+          CREATE TABLE IF NOT EXISTS product_reviews (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            product_id INT NOT NULL,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            rating INT NOT NULL DEFAULT 5,
+            title VARCHAR(255) DEFAULT '',
+            comment TEXT NOT NULL,
+            location VARCHAR(255) DEFAULT '',
+            images TEXT DEFAULT '',
+            verified TINYINT(1) DEFAULT 1,
+            status VARCHAR(20) DEFAULT 'approved',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX (product_id)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        `);
+
+        const rows = await query<any[]>(
+          `SELECT product_id, AVG(rating) as avg_rating, COUNT(*) as r_count 
+           FROM product_reviews 
+           WHERE status = 'approved' 
+           GROUP BY product_id`
+        );
+        if (rows && rows.length > 0) {
+          rows.forEach((r) => {
+            statsMap[r.product_id] = {
+              rating: Math.round((parseFloat(r.avg_rating) || 5.0) * 10) / 10,
+              review_count: parseInt(r.r_count) || 0,
+            };
+          });
+        }
+      } catch (err) {
+        console.warn('Review stats table lookup warning:', err);
       }
     }
 

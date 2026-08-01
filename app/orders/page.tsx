@@ -31,6 +31,7 @@ interface Order {
   customer_phone: string;
   shipping_address: string;
   total_amount: number;
+  payment_method?: string;
   payment_status: string;
   payment_id: string;
   order_date: string;

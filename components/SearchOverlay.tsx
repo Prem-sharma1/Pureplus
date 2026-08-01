@@ -114,7 +114,7 @@ const MOCK_SEARCH_PRODUCTS: Product[] = [
     original_price: '649.00',
     product_category: 'Botanical Oils',
     product_discount: 23,
-    image1: 'Keshoil/Kesh1.jpeg',
+    image1: 'Keshoil/oilimg1.jpeg',
     weight: '100ml'
   }
 ];

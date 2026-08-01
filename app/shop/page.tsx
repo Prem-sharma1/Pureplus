@@ -242,8 +242,9 @@ const MOCK_PRODUCTS: Product[] = [
     original_price: '649.00',
     product_category: 'others',
     product_discount: 23,
-    image1: 'Keshoil/Kesh1.jpeg',
-    image2: 'Keshoil/kesh2.jpeg',
+    image1: 'Keshoil/oilimg1.jpeg',
+    image2: 'Keshoil/oilimg2.jpeg',
+    image3: 'Keshoil/oilimg3.jpeg',
     weight: '100ml',
     point1: 'Nourishes Scalp & Roots',
     point2: 'Infused with Bhringraj & Amla',
@@ -278,11 +279,11 @@ const getFolderWiseImages = (
 
   const name = productName.toLowerCase();
 
-  if (name.includes('kesh') || name.includes('keshoil')) {
+  if (name.includes('kesh') || name.includes('keshoil') || name.includes('oil')) {
     return {
-      image1: databaseImage1 || 'Keshoil/Kesh1.jpeg',
-      image2: databaseImage2 || 'Keshoil/kesh2.jpeg',
-      image3: databaseImage3
+      image1: 'Keshoil/oilimg1.jpeg',
+      image2: 'Keshoil/oilimg2.jpeg',
+      image3: 'Keshoil/oilimg3.jpeg'
     };
   }
 

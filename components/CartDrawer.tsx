@@ -14,6 +14,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { resolveImagePath } from '@/lib/imageUtils';
+import { calculateCartTotals } from '@/lib/comboPricing';
 
 interface CartItem {
   id: number;
@@ -125,16 +126,19 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     window.dispatchEvent(new Event('storage'));
   };
 
-  const subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.product_price) * item.quantity, 0);
   const totalItemCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   
-  // Combo bundle discount
-  const comboDiscount = cartItems.length > 1 ? Math.round(subtotal * 0.09) : 0;
+  // Calculate Tier Combo Savings & Subtotals using lib/comboPricing
+  const {
+    standardSubtotal: subtotal,
+    totalAmount,
+    comboSavings: comboDiscount,
+    nextTierMessage,
+    nonOilCount
+  } = calculateCartTotals(cartItems);
   
   // Shipping is ALWAYS FREE
   const shippingFee = 0;
-  
-  const totalAmount = subtotal - comboDiscount;
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -297,6 +301,43 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   <span>SHIPPING</span>
                 </div>
               </div>
+
+              {/* Build Your Own Wellness Combo Tier Banner */}
+              {cartItems.length > 0 && (
+                <div className="bg-gradient-to-r from-forest/10 via-amber-500/10 to-forest/10 p-2.5 sm:p-3 border-t border-forest/10 space-y-1.5">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-forest flex items-center space-x-1">
+                      <span>🌿</span>
+                      <span>Build Your Own Wellness Combo</span>
+                    </span>
+                    <span className="bg-emerald-600 text-white font-bold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider shadow-2xs">
+                      Free Herbal Soap Gift
+                    </span>
+                  </div>
+
+                  {/* Tier Pills */}
+                  <div className="grid grid-cols-4 gap-1 text-[10px] text-center font-bold">
+                    <div className={`p-1 rounded ${nonOilCount === 1 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                      1 Pack: ₹289
+                    </div>
+                    <div className={`p-1 rounded ${nonOilCount === 2 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                      Pack of 2: ₹545
+                    </div>
+                    <div className={`p-1 rounded ${nonOilCount === 3 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                      Pack of 3: ₹789
+                    </div>
+                    <div className={`p-1 rounded ${nonOilCount >= 4 && nonOilCount % 4 === 0 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                      Pack of 4: ₹995
+                    </div>
+                  </div>
+
+                  {nextTierMessage && (
+                    <p className="text-[11px] font-bold text-amber-900 text-center animate-pulse pt-0.5">
+                      {nextTierMessage}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Scrollable Products List Container (EXPANDS MAXIMUM VERTICAL SPACE) */}
@@ -386,8 +427,32 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   </button>
                 </div>
               ) : (
-                /* High-Density Compact Item Cards - Fits 5-6 products on screen! */
+                /* High-Density Compact Item Cards */
                 <div className="space-y-2 sm:space-y-2.5">
+                  {/* Free Gift Card */}
+                  <div className="p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-amber-50 via-orange-50/50 to-amber-50 border border-amber-200/90 shadow-2xs flex items-center space-x-3">
+                    <div className="w-13 h-13 bg-white rounded-lg overflow-hidden border border-amber-200 flex-shrink-0 relative flex items-center justify-center text-2xl shadow-inner">
+                      🌸
+                    </div>
+                    <div className="flex-grow min-w-0">
+                      <div className="flex items-center space-x-1.5">
+                        <span className="text-[9px] bg-emerald-600 text-white font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider">
+                          FREE GIFT
+                        </span>
+                        <span className="text-[10px] text-amber-900 font-bold">Order Special</span>
+                      </div>
+                      <h4 className="font-bold text-xs sm:text-sm text-amber-950 font-serif truncate mt-0.5">
+                        Free Handcrafted Herbal Soap Bar
+                      </h4>
+                      <p className="text-[10px] text-amber-800/90 truncate font-medium">
+                        Automatically included with your order
+                      </p>
+                    </div>
+                    <div className="text-right flex-shrink-0">
+                      <span className="line-through text-[10px] text-gray-400 block">Rs. 199</span>
+                      <span className="font-black text-xs text-emerald-600 uppercase tracking-wider">FREE</span>
+                    </div>
+                  </div>
                   {cartItems.map((item) => (
                     <div
                       key={item.id}
