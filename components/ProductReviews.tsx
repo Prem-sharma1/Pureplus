@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { Star, CheckCircle, ThumbsUp, PenSquare, X, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getExactProductRating, getExactReviewCount } from '@/lib/ratingUtils';
+import StarRating from '@/components/StarRating';
 
 export interface ReviewItem {
   id: number;
@@ -61,13 +63,11 @@ export default function ProductReviews({ productId, productName, onReviewStatsCh
       if (data.success && Array.isArray(data.reviews)) {
         setReviews(data.reviews);
         
-        // Notify parent of stats if callback provided
-        const total = data.reviews.length;
-        const avg = total > 0 
-          ? (data.reviews.reduce((acc: number, r: ReviewItem) => acc + (r.rating || 5), 0) / total)
-          : 5.0;
+        // Notify parent of exact stats
+        const exactRating = getExactProductRating({ id: productId });
+        const exactCount = getExactReviewCount({ id: productId });
         if (onReviewStatsChange) {
-          onReviewStatsChange({ totalCount: total, averageRating: Math.round(avg * 10) / 10 });
+          onReviewStatsChange({ totalCount: exactCount, averageRating: exactRating });
         }
       }
     } catch (err) {
@@ -77,12 +77,11 @@ export default function ProductReviews({ productId, productName, onReviewStatsCh
     }
   };
 
-  // Calculated Stats
-  const totalReviews = reviews.length;
-  const sumRatings = reviews.reduce((sum, r) => sum + (r.rating || 5), 0);
-  const rawAvg = totalReviews > 0 ? sumRatings / totalReviews : 5.0;
-  const averageScore = Math.round(rawAvg * 10) / 10;
-  const displayScore = averageScore % 1 === 0 ? `${averageScore}` : averageScore.toFixed(1);
+  // Calculated Stats matching exact product rating
+  const totalReviews = reviews.length > 0 ? reviews.length : getExactReviewCount({ id: productId });
+  const exactScore = getExactProductRating({ id: productId });
+  const averageScore = exactScore;
+  const displayScore = exactScore.toFixed(1);
 
   // Distribution (5 to 1 star)
   const distribution: Record<number, { count: number; percentage: number }> = {
@@ -235,17 +234,8 @@ export default function ProductReviews({ productId, productName, onReviewStatsCh
             </div>
 
             {/* Stars */}
-            <div className="flex items-center space-x-1 text-[#F59E0B] my-1">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star
-                  key={star}
-                  className={`w-5 h-5 ${
-                    star <= Math.round(averageScore)
-                      ? 'fill-[#F59E0B] text-[#F59E0B]'
-                      : 'text-slate-300 fill-slate-200'
-                  }`}
-                />
-              ))}
+            <div className="my-2">
+              <StarRating rating={exactScore} sizeClass="w-5 h-5" />
             </div>
 
             {/* Subtext */}

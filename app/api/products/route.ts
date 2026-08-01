@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { query, testConnection } from '@/lib/db';
 import fs from 'fs';
 import path from 'path';
+import { getExactProductRating, getExactReviewCount } from '@/lib/ratingUtils';
 
 const SEED_PRODUCTS = [
   {
@@ -293,39 +294,21 @@ async function attachReviewStats(productsList: any[]) {
     }
 
     return productsList.map((p) => {
-      const stats = statsMap[p.id];
-      if (stats && stats.review_count > 0) {
-        return {
-          ...p,
-          rating: stats.rating,
-          review_count: stats.review_count,
-        };
-      }
-
-      // All products have high customer ratings between 4.7 and 5.0
-      const ratingMap: Record<number, number> = {
-        26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
-        104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
-      };
-      const defaultRating = ratingMap[p.id] || (4.7 + ((p.id || 0) % 4) * 0.1);
-      const defaultCount = 10;
+      const rating = getExactProductRating(p);
+      const review_count = getExactReviewCount(p);
 
       return {
         ...p,
-        rating: p.rating || defaultRating,
-        review_count: p.review_count || defaultCount,
+        rating,
+        review_count,
       };
     });
   } catch (e) {
     return productsList.map((p) => {
-      const ratingMap: Record<number, number> = {
-        26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
-        104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
-      };
       return {
         ...p,
-        rating: p.rating || (ratingMap[p.id] || (4.7 + ((p.id || 0) % 4) * 0.1)),
-        review_count: p.review_count || 10,
+        rating: getExactProductRating(p),
+        review_count: getExactReviewCount(p),
       };
     });
   }

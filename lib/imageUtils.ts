@@ -44,9 +44,13 @@ export function resolveImagePath(s?: string): string {
   if (filename === 'new2.png') {
     return '/Hibisus neem/new2.png';
   }
+  if (filename === 'Crafted4.svg' || filename === 'Crafted4.jpeg') {
+    return '/Crafted/Crafted4.svg';
+  }
 
   // 2. Folder name case-sensitivity mapping (Linux server fix)
   const exactFolderMap: { [key: string]: string } = {
+    'crafted': 'Crafted',
     'categoryimg': 'Categoryimg',
     'coffeed': 'CoffeeD',
     'frenchgreenclay': 'Frenchgreenclay',
@@ -71,6 +75,11 @@ export function resolveImagePath(s?: string): string {
 
   if (exactFolderMap[firstSegment]) {
     parts[0] = exactFolderMap[firstSegment];
+    return `/${parts.join('/')}`;
+  }
+
+  // If path already contains subfolder (e.g. "Crafted/Crafted1.jpeg"), preserve path
+  if (parts.length > 1) {
     return `/${parts.join('/')}`;
   }
 

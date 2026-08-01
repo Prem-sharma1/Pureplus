@@ -4,6 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ShoppingCart, CreditCard, Star, ShieldCheck, Truck, RefreshCw, Calendar, Tag } from 'lucide-react';
 
+import { getExactProductRating, getExactReviewCount } from '@/lib/ratingUtils';
+import StarRating from '@/components/StarRating';
+
 interface Product {
   id: number;
   product_name: string;
@@ -44,17 +47,9 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
   const isSoapOrOil = product ? ([101, 102, 103, 109, 110].includes(product.id) || 
     (product.product_category || '').toLowerCase() === 'soaps' || 
     (product.product_name || '').toLowerCase().includes('soap') || 
-    (product.product_name || '').toLowerCase().includes('oil')) : false;
-
-  const ratingMap: Record<number, number> = {
-    26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
-    104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
-  };
-  const fallbackRating = product ? (ratingMap[product.id] || (4.7 + ((product.id || 0) % 4) * 0.1)) : 4.8;
-
   const [reviewStats, setReviewStats] = useState({
-    totalCount: product?.review_count || 10,
-    averageRating: product?.rating || fallbackRating,
+    totalCount: getExactReviewCount(product),
+    averageRating: getExactProductRating(product),
   });
 
   useEffect(() => {
@@ -65,8 +60,8 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
       // Initialize from product data immediately so rating matches product card
       if (product) {
         setReviewStats({
-          totalCount: product.review_count || 10,
-          averageRating: product.rating || fallbackRating,
+          totalCount: getExactReviewCount(product),
+          averageRating: getExactProductRating(product),
         });
       }
     } else {
@@ -231,23 +226,12 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
               </h2>
 
               {/* Customer Ratings derived dynamically */}
-              <div className="flex items-center space-x-1.5 text-gold border-b border-forest/5 pb-3">
-                <div className="flex text-[#F59E0B]">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star
-                      key={s}
-                      className={`w-4 h-4 ${
-                        s <= Math.round(reviewStats.averageRating)
-                          ? 'fill-[#F59E0B] text-[#F59E0B]'
-                          : 'text-slate-300 fill-slate-100'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-xs font-semibold text-forest">
-                  {reviewStats.averageRating > 0 ? reviewStats.averageRating.toFixed(1) : '4.7'} out of 5 stars
+              <div className="flex items-center space-x-2 border-b border-forest/5 pb-3">
+                <StarRating rating={reviewStats.averageRating} sizeClass="w-4 h-4" />
+                <span className="text-xs font-bold text-forest ml-1">
+                  {reviewStats.averageRating.toFixed(1)} out of 5 stars
                 </span>
-                <span className="text-xs text-charcoal/40">
+                <span className="text-xs text-charcoal/40 font-medium">
                   | {reviewStats.totalCount} customer review{reviewStats.totalCount === 1 ? '' : 's'}
                 </span>
               </div>

@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { resolveImagePath } from '@/lib/imageUtils';
 import { useParams } from 'next/navigation';
 import ProductReviews from '@/components/ProductReviews';
+import { getExactProductRating, getExactReviewCount } from '@/lib/ratingUtils';
+import StarRating from '@/components/StarRating';
 
 
 interface Product {
@@ -556,29 +558,19 @@ export default function ProductPage() {
 
         setProduct(foundProduct);
         if (foundProduct) {
-          const ratingMap: Record<number, number> = {
-            26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
-            104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
-          };
-          const fallbackRating = ratingMap[foundProduct.id] || (4.7 + ((foundProduct.id || 0) % 4) * 0.1);
           setReviewStats({
-            totalCount: (foundProduct as any).review_count || 10,
-            averageRating: (foundProduct as any).rating || fallbackRating,
+            totalCount: getExactReviewCount(foundProduct),
+            averageRating: getExactProductRating(foundProduct),
           });
         }
       } catch (err) {
         console.warn('API error. Loading fallback item.');
         const matchMock = MOCK_PRODUCTS.find((p) => p.id === productId);
         if (matchMock) {
-          const ratingMap: Record<number, number> = {
-            26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
-            104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
-          };
-          const fallbackRating = ratingMap[matchMock.id] || (4.7 + ((matchMock.id || 0) % 4) * 0.1);
           setProduct(matchMock);
           setReviewStats({
-            totalCount: (matchMock as any).review_count || 10,
-            averageRating: (matchMock as any).rating || fallbackRating,
+            totalCount: getExactReviewCount(matchMock),
+            averageRating: getExactProductRating(matchMock),
           });
         }
       } finally {
@@ -822,20 +814,9 @@ export default function ProductPage() {
 
             {/* Rating Section */}
             <div className="flex items-center space-x-2 border-b border-forest/5 pb-2 -mt-1.5">
-              <div className="flex text-[#F59E0B]">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star
-                    key={s}
-                    className={`w-4 h-4 ${
-                      s <= Math.round(reviewStats.averageRating)
-                        ? 'fill-[#F59E0B] text-[#F59E0B]'
-                        : 'text-slate-300 fill-slate-100'
-                    }`}
-                  />
-                ))}
-              </div>
-              <span className="text-sm font-semibold text-forest">
-                {reviewStats.averageRating > 0 ? reviewStats.averageRating.toFixed(1) : '4.7'} out of 5 stars
+              <StarRating rating={reviewStats.averageRating} sizeClass="w-4 h-4" />
+              <span className="text-sm font-bold text-forest ml-1">
+                {reviewStats.averageRating.toFixed(1)} out of 5 stars
               </span>
               <span className="text-sm text-charcoal/50 font-medium">
                 | {reviewStats.totalCount} customer review{reviewStats.totalCount === 1 ? '' : 's'}

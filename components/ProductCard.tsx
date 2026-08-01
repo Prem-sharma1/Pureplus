@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCart, RefreshCw, Tag, Star, Leaf } from 'lucide-react';
 
+import { getExactProductRating } from '@/lib/ratingUtils';
+import StarRating from '@/components/StarRating';
+
 interface Product {
   id: number;
   product_name: string;
@@ -160,32 +163,9 @@ export default function ProductCard({ product, addingToCartId, onAddToCart, inde
       <div className="p-5 flex-grow flex flex-col justify-between z-10 relative bg-white">
         <div>
           {/* Star Rating & Badge */}
-          {(() => {
-            const ratingMap: Record<number, number> = {
-              26: 4.9, 28: 4.8, 101: 4.8, 102: 4.7, 103: 4.9, 
-              104: 4.9, 105: 4.8, 107: 4.8, 108: 5.0, 109: 4.8, 110: 4.8
-            };
-            const targetRating = product.rating || ratingMap[product.id] || (4.7 + ((product.id || 0) % 4) * 0.1);
-            return (
-              <div className="flex items-center space-x-1.5 mb-2 select-none">
-                <div className="flex space-x-0.5 text-amber-400">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star
-                      key={s}
-                      className={`w-4 h-4 ${
-                        s <= Math.round(targetRating)
-                          ? 'fill-current text-amber-400'
-                          : 'text-neutral-300 fill-neutral-100'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-xs font-black text-amber-900 bg-amber-50 border border-amber-200/70 px-2 py-0.5 rounded-full ml-1">
-                  {targetRating.toFixed(1)} rating
-                </span>
-              </div>
-            );
-          })()}
+          <div className="mb-2">
+            <StarRating rating={getExactProductRating(product)} showNumericBadge={true} />
+          </div>
 
           {/* Product Name */}
           <h3 className="text-base sm:text-lg font-black font-serif text-forest tracking-tight group-hover:text-emerald-800 transition-colors leading-snug">
