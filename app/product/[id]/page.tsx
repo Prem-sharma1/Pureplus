@@ -971,14 +971,26 @@ export default function ProductPage() {
                     {!isOil && (
                       <div className={`${!isSoap ? 'border-t border-forest/10 pt-2' : ''} space-y-1 text-xs`}>
                         <div className="flex items-center justify-between">
-                          <span className="font-extrabold text-forest font-serif">Build Your Own Wellness Combo</span>
-                          <span className="text-[10px] bg-amber-500/20 text-amber-900 font-bold px-2 py-0.5 rounded-full">4 for ₹995</span>
+                          <span className="font-extrabold text-forest font-serif">
+                            {isSoap ? 'Soap Special Combo Offers' : 'Build Your Own Wellness Combo'}
+                          </span>
+                          <span className="text-[10px] bg-amber-500/20 text-amber-900 font-bold px-2 py-0.5 rounded-full">
+                            {isSoap ? '4 for ₹500' : '4 for ₹995'}
+                          </span>
                         </div>
                         <div className="grid grid-cols-4 gap-1 text-[10px] text-center font-bold pt-0.5">
-                          <div className="p-1 rounded bg-white border border-forest/15 text-forest">1 Pack: ₹289</div>
-                          <div className="p-1 rounded bg-white border border-forest/15 text-forest">Pack of 2: ₹545</div>
-                          <div className="p-1 rounded bg-white border border-forest/15 text-forest">Pack of 3: ₹789</div>
-                          <div className="p-1 rounded bg-emerald-700 text-white shadow-2xs font-extrabold">Pack of 4: ₹995</div>
+                          <div className="p-1 rounded bg-white border border-forest/15 text-forest">
+                            {isSoap ? '1 Soap: ₹199' : '1 Pack: ₹289'}
+                          </div>
+                          <div className="p-1 rounded bg-white border border-forest/15 text-forest">
+                            Pack of 2: {isSoap ? '₹350' : '₹545'}
+                          </div>
+                          <div className="p-1 rounded bg-white border border-forest/15 text-forest">
+                            Pack of 3: {isSoap ? '₹450' : '₹789'}
+                          </div>
+                          <div className="p-1 rounded bg-emerald-700 text-white shadow-2xs font-extrabold">
+                            Pack of 4: {isSoap ? '₹500' : '₹995'}
+                          </div>
                         </div>
                       </div>
                     )}

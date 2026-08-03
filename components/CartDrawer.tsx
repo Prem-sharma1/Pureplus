@@ -134,6 +134,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     totalAmount,
     comboSavings: comboDiscount,
     nextTierMessage,
+    soapCount,
     nonOilCount,
     hasFreeGift,
     freeGiftCount,
@@ -304,13 +305,13 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 </div>
               </div>
 
-              {/* Build Your Own Wellness Combo Tier Banner */}
+              {/* Build Your Own Soap / Wellness Combo Tier Banner */}
               {cartItems.length > 0 && (
                 <div className="bg-gradient-to-r from-forest/10 via-amber-500/10 to-forest/10 p-2.5 sm:p-3 border-t border-forest/10 space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-forest flex items-center space-x-1">
                       <span>🌿</span>
-                      <span>Build Your Own Wellness Combo</span>
+                      <span>{soapCount > 0 ? 'Soap Special Combo Offers' : 'Build Your Own Wellness Combo'}</span>
                     </span>
                     {hasFreeGift && (
                       <span className="bg-emerald-600 text-white font-bold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider shadow-2xs">
@@ -320,20 +321,37 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   </div>
 
                   {/* Tier Pills */}
-                  <div className="grid grid-cols-4 gap-1 text-[10px] text-center font-bold">
-                    <div className={`p-1 rounded ${nonOilCount === 1 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
-                      1 Pack: ₹289
+                  {soapCount > 0 ? (
+                    <div className="grid grid-cols-4 gap-1 text-[10px] text-center font-bold">
+                      <div className={`p-1 rounded ${soapCount === 1 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                        1 Soap: ₹199
+                      </div>
+                      <div className={`p-1 rounded ${soapCount === 2 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                        Pack of 2: ₹350
+                      </div>
+                      <div className={`p-1 rounded ${soapCount === 3 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                        Pack of 3: ₹450
+                      </div>
+                      <div className={`p-1 rounded ${soapCount >= 4 && soapCount % 4 === 0 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                        Pack of 4: ₹500
+                      </div>
                     </div>
-                    <div className={`p-1 rounded ${nonOilCount === 2 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
-                      Pack of 2: ₹545
+                  ) : (
+                    <div className="grid grid-cols-4 gap-1 text-[10px] text-center font-bold">
+                      <div className={`p-1 rounded ${nonOilCount === 1 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                        1 Pack: ₹289
+                      </div>
+                      <div className={`p-1 rounded ${nonOilCount === 2 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                        Pack of 2: ₹545
+                      </div>
+                      <div className={`p-1 rounded ${nonOilCount === 3 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                        Pack of 3: ₹789
+                      </div>
+                      <div className={`p-1 rounded ${nonOilCount >= 4 && nonOilCount % 4 === 0 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white/80 text-forest border border-forest/15'}`}>
+                        Pack of 4: ₹995
+                      </div>
                     </div>
-                    <div className={`p-1 rounded ${nonOilCount === 3 ? 'bg-forest text-white shadow-2xs' : 'bg-white/80 text-forest border border-forest/15'}`}>
-                      Pack of 3: ₹789
-                    </div>
-                    <div className={`p-1 rounded ${nonOilCount >= 4 && nonOilCount % 4 === 0 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white/80 text-forest border border-forest/15'}`}>
-                      Pack of 4: ₹995
-                    </div>
-                  </div>
+                  )}
 
                   {nextTierMessage && (
                     <p className="text-[11px] font-bold text-amber-900 text-center animate-pulse pt-0.5">

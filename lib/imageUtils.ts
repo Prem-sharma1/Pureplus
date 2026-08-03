@@ -44,8 +44,8 @@ export function resolveImagePath(s?: string): string {
   if (filename === 'new2.png') {
     return '/Hibisus neem/new2.png';
   }
-  if (filename === 'Crafted4.svg' || filename === 'Crafted4.jpeg') {
-    return '/Crafted/Crafted4.svg';
+  if (filename === 'Crafted4.svg' || filename === 'Crafted4.jpeg' || filename === 'Crafted4.png') {
+    return '/Crafted/Crafted4.png';
   }
 
   // 2. Folder name case-sensitivity mapping (Linux server fix)

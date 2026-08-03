@@ -35,7 +35,7 @@ const PROCESS_STEPS: Step[] = [
     id: 4,
     title: 'Small Batch Blending',
     shortDesc: 'Controlled batches for quality.',
-    image: '/Crafted/Crafted4.svg',
+    image: '/Crafted/Crafted4.png',
   }
 ];
 
@@ -79,7 +79,7 @@ export default function ProcessSection() {
         </div>
 
         {/* 4 Process Cards with Lightbox trigger */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 w-full">
           {PROCESS_STEPS.map((step, idx) => {
             return (
               <motion.div
@@ -89,33 +89,33 @@ export default function ProcessSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
                 onClick={() => setActiveStepIndex(idx)}
-                className="w-full text-left p-5 bg-white border border-forest/10 rounded-2xl flex items-center space-x-5 shadow-sm hover:shadow-xl hover:border-forest/30 transition-all duration-300 group cursor-pointer relative"
+                className="w-full text-left p-6 sm:p-8 bg-white border border-forest/10 rounded-2xl flex items-center space-x-6 sm:space-x-8 shadow-sm hover:shadow-xl hover:border-forest/30 transition-all duration-300 group cursor-pointer relative"
               >
                 {/* Image Badge replacing icon with Zoom indicator */}
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden border border-forest/10 flex-shrink-0 shadow-sm bg-cream/30 relative">
+                <div className="w-32 h-28 sm:w-44 sm:h-36 rounded-xl overflow-hidden border border-forest/10 flex-shrink-0 shadow-sm bg-white relative p-1">
                   <img
                     src={resolveImagePath(step.image)}
                     alt={step.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 rounded-lg"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = step.image;
                     }}
                   />
-                  <div className="absolute inset-0 bg-forest/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
-                    <ZoomIn className="w-6 h-6 drop-shadow-md" />
+                  <div className="absolute inset-0 bg-forest/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white rounded-xl">
+                    <ZoomIn className="w-8 h-8 drop-shadow-md" />
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="flex-grow min-w-0">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal/40 block">
+                  <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-charcoal/40 block">
                     Step 0{step.id} • Click to Enlarge
                   </span>
-                  <h3 className="text-base sm:text-lg font-bold text-forest font-serif mt-0.5 group-hover:text-emerald-800 transition-colors">
+                  <h3 className="text-lg sm:text-xl font-bold text-forest font-serif mt-1 group-hover:text-emerald-800 transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-charcoal/65 mt-1 leading-relaxed">
+                  <p className="text-sm sm:text-base text-charcoal/70 mt-1.5 leading-relaxed">
                     {step.shortDesc}
                   </p>
                 </div>

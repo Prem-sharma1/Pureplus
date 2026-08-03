@@ -117,17 +117,16 @@ export default function CheckoutPage() {
     window.dispatchEvent(new Event('storage'));
   };
 
-  // Calculations
-  const subtotal = cartItems.reduce((acc, item) => {
-    return acc + parseFloat(item.product_price) * item.quantity;
-  }, 0);
-
   const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-  // Discount rule & free gift calculation
-  const { hasFreeGift, freeGiftCount } = calculateCartTotals(cartItems);
-  const comboDiscount = totalQuantity >= 2 ? 53 : 0;
-  const totalAmount = Math.max(0, subtotal - comboDiscount);
+  // Discount rule & free gift calculation using lib/comboPricing
+  const {
+    standardSubtotal: subtotal,
+    totalAmount,
+    comboSavings: comboDiscount,
+    hasFreeGift,
+    freeGiftCount
+  } = calculateCartTotals(cartItems);
 
   // Auto Pincode lookup for India
   const handlePincodeChange = async (val: string) => {
