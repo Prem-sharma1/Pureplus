@@ -6,6 +6,12 @@ export interface CartItemLike {
   product_category?: string;
 }
 
+export function isSoapProduct(item: { product_name: string; product_category?: string }): boolean {
+  const n = (item.product_name || '').toLowerCase();
+  const c = (item.product_category || '').toLowerCase();
+  return (n.includes('soap') || c.includes('soap') || c === 'soaps') && !n.includes('shampoo') && !c.includes('shampoo');
+}
+
 export function isOilProduct(item: { product_name: string; product_category?: string }): boolean {
   const n = (item.product_name || '').toLowerCase();
   const c = (item.product_category || '').toLowerCase();
@@ -63,6 +69,8 @@ export function calculateCartTotals(items: CartItemLike[]) {
     }
   }
 
+  const freeGiftCount = items.reduce((sum, item) => (!isSoapProduct(item) ? sum + item.quantity : sum), 0);
+
   return {
     nonOilCount,
     oilTotal,
@@ -72,6 +80,7 @@ export function calculateCartTotals(items: CartItemLike[]) {
     comboSavings,
     nextTierMessage,
     itemsNeededForNextTier,
-    hasFreeGift: items.length > 0,
+    hasFreeGift: freeGiftCount > 0,
+    freeGiftCount,
   };
 }

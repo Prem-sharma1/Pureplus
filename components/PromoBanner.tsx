@@ -72,14 +72,14 @@ export default function PromoBanner({ onComboClick }: PromoBannerProps) {
           </p>
         </div>
 
-        {/* Right White Pill Badge: ⚡ FREE HERBAL SOAP WITH EVERY ORDER ⚡ */}
+        {/* Right White Pill Badge: ⚡ FREE HERBAL SOAP WITH POWDERS & HAIRCARE ⚡ */}
         <motion.div
           whileHover={{ scale: 1.03 }}
           className="w-full md:w-auto flex justify-center md:justify-end"
         >
           <div className="inline-flex items-center space-x-2 px-5 py-2 sm:py-2.5 rounded-full bg-white text-forest shadow-xl border border-gold/30 font-bold text-xs sm:text-sm tracking-wide uppercase transition-all duration-300">
             <Zap className="w-4 h-4 text-amber-500 fill-amber-400 animate-bounce" />
-            <span className="text-forest font-extrabold">FREE HERBAL SOAP WITH EVERY ORDER</span>
+            <span className="text-forest font-extrabold">FREE HERBAL SOAP WITH POWDERS &amp; HAIRCARE</span>
             <Zap className="w-4 h-4 text-amber-500 fill-amber-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
           </div>
         </motion.div>

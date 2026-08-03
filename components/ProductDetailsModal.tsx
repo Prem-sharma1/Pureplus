@@ -284,6 +284,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
                 const isShampoo = name.includes('shampoo') || category.includes('shampoo');
                 const isPowder = name.includes('powder') || name.includes('facepack') || name.includes('facewash') || category.includes('powder');
                 const isOil = name.includes('oil') || category.includes('oil') || name.includes('kesh');
+                const isSoap = (name.includes('soap') || category.includes('soap') || category === 'soaps') && !isShampoo;
                 
                 let ingredientsStr = 'Saponified Coconut Oil, Raw Shea Butter, Multani Mitti (Fuller\'s Earth), Castor Oil, Botanical Extract Blend, Aqua, Sodium Hydroxide.';
                 let directionsStr = 'Lather soap bar between wet hands or directly on wet skin. Gently massage over body, then rinse off thoroughly with clean water.';
@@ -305,18 +306,20 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onAddToC
                   <div className="space-y-3 border-t border-forest/10 pt-4 bg-cream/30 p-4 rounded-2xl">
                     {/* Free Gift & Wellness Combo Offer Banner */}
                     <div className="bg-gradient-to-r from-amber-500/10 via-forest/10 to-amber-500/10 p-3 rounded-xl border border-amber-500/20 space-y-2 mb-2">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-1.5 text-xs font-bold text-forest">
-                          <span>🌸</span>
-                          <span>Free Herbal Soap with Every Order</span>
+                      {!isSoap && (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-1.5 text-xs font-bold text-forest">
+                            <span>🌸</span>
+                            <span>Free Herbal Soap with Every Order</span>
+                          </div>
+                          <span className="bg-emerald-600 text-white font-extrabold text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider">
+                            100% Free Gift
+                          </span>
                         </div>
-                        <span className="bg-emerald-600 text-white font-extrabold text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider">
-                          100% Free Gift
-                        </span>
-                      </div>
+                      )}
 
                       {!isOil && (
-                        <div className="border-t border-forest/10 pt-2 space-y-1 text-xs">
+                        <div className={`${!isSoap ? 'border-t border-forest/10 pt-2' : ''} space-y-1 text-xs`}>
                           <div className="flex items-center justify-between">
                             <span className="font-extrabold text-forest font-serif">Build Your Own Wellness Combo</span>
                             <span className="text-[10px] bg-amber-500/20 text-amber-900 font-bold px-2 py-0.5 rounded-full">4 for ₹995</span>

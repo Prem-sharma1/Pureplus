@@ -124,7 +124,8 @@ export default function CheckoutPage() {
 
   const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-  // Discount rule: Rs. 50 combo discount for 2+ items
+  // Discount rule & free gift calculation
+  const { hasFreeGift, freeGiftCount } = calculateCartTotals(cartItems);
   const comboDiscount = totalQuantity >= 2 ? 53 : 0;
   const totalAmount = Math.max(0, subtotal - comboDiscount);
 
@@ -834,14 +835,16 @@ export default function CheckoutPage() {
                 </h3>
 
                 {/* Free Gift Box */}
-                <div className="bg-pink-50/70 border border-pink-200/80 rounded-xl p-3.5 flex items-center justify-between">
-                  <div className="flex items-center space-x-2 text-xs font-bold text-pink-900">
-                    <span>🌸 2x Premium Herbal Soap Included</span>
+                {hasFreeGift && (
+                  <div className="bg-pink-50/70 border border-pink-200/80 rounded-xl p-3.5 flex items-center justify-between">
+                    <div className="flex items-center space-x-2 text-xs font-bold text-pink-900">
+                      <span>🌸 {freeGiftCount > 1 ? `${freeGiftCount}x ` : ''}Free Premium Herbal Soap Included</span>
+                    </div>
+                    <span className="bg-emerald-600 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded">
+                      FREE
+                    </span>
                   </div>
-                  <span className="bg-emerald-600 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded">
-                    FREE
-                  </span>
-                </div>
+                )}
 
                 {/* Breakdown Rows */}
                 <div className="space-y-2.5 text-xs text-gray-600 font-medium pt-1">

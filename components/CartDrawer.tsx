@@ -134,7 +134,9 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     totalAmount,
     comboSavings: comboDiscount,
     nextTierMessage,
-    nonOilCount
+    nonOilCount,
+    hasFreeGift,
+    freeGiftCount,
   } = calculateCartTotals(cartItems);
   
   // Shipping is ALWAYS FREE
@@ -310,9 +312,11 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       <span>🌿</span>
                       <span>Build Your Own Wellness Combo</span>
                     </span>
-                    <span className="bg-emerald-600 text-white font-bold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider shadow-2xs">
-                      Free Herbal Soap Gift
-                    </span>
+                    {hasFreeGift && (
+                      <span className="bg-emerald-600 text-white font-bold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider shadow-2xs">
+                        Free Herbal Soap Gift
+                      </span>
+                    )}
                   </div>
 
                   {/* Tier Pills */}
@@ -430,29 +434,31 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 /* High-Density Compact Item Cards */
                 <div className="space-y-2 sm:space-y-2.5">
                   {/* Free Gift Card */}
-                  <div className="p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-amber-50 via-orange-50/50 to-amber-50 border border-amber-200/90 shadow-2xs flex items-center space-x-3">
-                    <div className="w-13 h-13 bg-white rounded-lg overflow-hidden border border-amber-200 flex-shrink-0 relative flex items-center justify-center text-2xl shadow-inner">
-                      🌸
-                    </div>
-                    <div className="flex-grow min-w-0">
-                      <div className="flex items-center space-x-1.5">
-                        <span className="text-[9px] bg-emerald-600 text-white font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider">
-                          FREE GIFT
-                        </span>
-                        <span className="text-[10px] text-amber-900 font-bold">Order Special</span>
+                  {hasFreeGift && (
+                    <div className="p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-amber-50 via-orange-50/50 to-amber-50 border border-amber-200/90 shadow-2xs flex items-center space-x-3">
+                      <div className="w-13 h-13 bg-white rounded-lg overflow-hidden border border-amber-200 flex-shrink-0 relative flex items-center justify-center text-2xl shadow-inner">
+                        🌸
                       </div>
-                      <h4 className="font-bold text-xs sm:text-sm text-amber-950 font-serif truncate mt-0.5">
-                        Free Handcrafted Herbal Soap Bar
-                      </h4>
-                      <p className="text-[10px] text-amber-800/90 truncate font-medium">
-                        Automatically included with your order
-                      </p>
+                      <div className="flex-grow min-w-0">
+                        <div className="flex items-center space-x-1.5">
+                          <span className="text-[9px] bg-emerald-600 text-white font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider">
+                            FREE GIFT
+                          </span>
+                          <span className="text-[10px] text-amber-900 font-bold">Order Special</span>
+                        </div>
+                        <h4 className="font-bold text-xs sm:text-sm text-amber-950 font-serif truncate mt-0.5">
+                          {freeGiftCount > 1 ? `${freeGiftCount}x ` : ''}Free Handcrafted Herbal Soap Bar{freeGiftCount > 1 ? 's' : ''}
+                        </h4>
+                        <p className="text-[10px] text-amber-800/90 truncate font-medium">
+                          Automatically included with your order
+                        </p>
+                      </div>
+                      <div className="text-right flex-shrink-0">
+                        <span className="line-through text-[10px] text-gray-400 block">Rs. 199</span>
+                        <span className="font-black text-xs text-emerald-600 uppercase tracking-wider">FREE</span>
+                      </div>
                     </div>
-                    <div className="text-right flex-shrink-0">
-                      <span className="line-through text-[10px] text-gray-400 block">Rs. 199</span>
-                      <span className="font-black text-xs text-emerald-600 uppercase tracking-wider">FREE</span>
-                    </div>
-                  </div>
+                  )}
                   {cartItems.map((item) => (
                     <div
                       key={item.id}
@@ -533,19 +539,17 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             {cartItems.length > 0 && (
               <div className="p-3 sm:p-4 border-t border-gray-200 bg-white space-y-2 shadow-lg flex-shrink-0">
                 {/* 1. Free Herbal Soap Banner */}
-                <div className="bg-[#FFF8F0] border border-[#FFE4C4] rounded-lg p-2 flex items-center justify-between shadow-sm">
-                  <div className="flex items-center space-x-1.5 text-xs font-bold text-[#8A4B08]">
-                    <span className="text-sm">🌸</span>
-                    <span>
-                      {totalItemCount > 1
-                        ? `${totalItemCount}x Premium Herbal Soap Included`
-                        : '1x Premium Herbal Soap Included'}
+                {hasFreeGift && (
+                  <div className="bg-[#FFF8F0] border border-[#FFE4C4] rounded-lg p-2 flex items-center justify-between shadow-sm">
+                    <div className="flex items-center space-x-1.5 text-xs font-bold text-[#8A4B08]">
+                      <span className="text-sm">🌸</span>
+                      <span>{freeGiftCount}x Premium Herbal Soap Included</span>
+                    </div>
+                    <span className="bg-[#00A859] text-white font-black text-[9px] uppercase px-2 py-0.5 rounded tracking-wider shadow-sm flex-shrink-0">
+                      FREE GIFT
                     </span>
                   </div>
-                  <span className="bg-[#00A859] text-white font-black text-[9px] uppercase px-2 py-0.5 rounded tracking-wider shadow-sm flex-shrink-0">
-                    FREE GIFT
-                  </span>
-                </div>
+                )}
 
                 {/* 2. Itemized Breakdown List */}
                 <div className="max-h-20 overflow-y-auto space-y-0.5 border-b border-gray-100 pb-1.5 custom-scrollbar text-xs">

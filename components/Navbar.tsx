@@ -28,7 +28,7 @@ import CartDrawer from './CartDrawer';
 import SearchOverlay from './SearchOverlay';
 
 const ANNOUNCEMENTS = [
-  '🎁 FREE GIFT: Get 1 Premium Herbal Soap FREE with Every Order',
+  '🎁 FREE GIFT: Get 1 Premium Herbal Soap FREE with Powders & Haircare',
   '✅ Free Shipping on Prepaid Orders',
   '✨ ISO 22716:2007 GMP Certified Cosmetics'
 ];
@@ -190,7 +190,7 @@ export default function Navbar() {
                     <Gift className="w-3 h-3 text-forest-dark" />
                     <span>FREE GIFT</span>
                   </span>
-                  <span>Get 1 Premium Herbal Soap FREE with Every Order</span>
+                  <span>Get 1 Premium Herbal Soap FREE with Powders &amp; Haircare</span>
                 </div>
 
                 <span className="text-white/30 font-light">|</span>
