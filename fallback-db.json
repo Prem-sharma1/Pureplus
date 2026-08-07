@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "order_number": "PP-4542781633",
+    "customer_name": "test",
+    "customer_email": "test@example.com",
+    "customer_phone": "1213123231",
+    "shipping_address": "ererararerrerae, test, Arunachal Pradesh - 123456",
+    "address": "ererararerrerae, test, Arunachal Pradesh - 123456",
+    "city": "test",
+    "state": "Arunachal Pradesh",
+    "pincode": "123456",
+    "items": [
+      {
+        "id": 26,
+        "product_name": "Pureplush Herbal Waxing Powder",
+        "product_price": "269.00",
+        "weight": "100g",
+        "quantity": 1,
+        "brief_details": "Gentle natural body care powder made with botanical ingredients for smooth, refreshed skin feel.",
+        "image1": "uploads/Herbal2.png"
+      }
+    ],
+    "total_amount": 289,
+    "payment_method": "Prepaid - Razorpay",
+    "payment_status": "Prepaid Order Initiated",
+    "payment_id": "pay_test_1786086499618",
+    "shipping_status": "Processing",
+    "courier_partner": "BlueDart Express",
+    "tracking_number": "BD86499852",
+    "order_date": "2026-08-07",
+    "created_at": "2026-08-07T07:08:19.852Z"
+  }
+]

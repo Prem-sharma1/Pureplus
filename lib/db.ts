@@ -1,4 +1,38 @@
 import mysql from 'mysql2/promise';
+import fs from 'fs';
+import path from 'path';
+
+// --- FALLBACK PERSISTENCE LOGIC ---
+const fallbackFilePath = path.join(process.cwd(), 'fallback-db.json');
+
+function getFallbackOrders() {
+  try {
+    if (fs.existsSync(fallbackFilePath)) {
+      const data = fs.readFileSync(fallbackFilePath, 'utf-8');
+      return JSON.parse(data);
+    }
+  } catch (err) {
+    console.error('Failed to read fallback DB', err);
+  }
+  return [];
+}
+
+function saveFallbackOrders(orders: any[]) {
+  try {
+    fs.writeFileSync(fallbackFilePath, JSON.stringify(orders, null, 2));
+  } catch (err) {
+    console.error('Failed to write fallback DB', err);
+  }
+}
+
+export let memoryOrders: any[] = getFallbackOrders();
+export let memoryOrderCounter = memoryOrders.length > 0 ? Math.max(...memoryOrders.map(o => o.id)) : 0;
+
+// Update the push logic to save to file whenever modified
+export function addMemoryOrder(order: any) {
+  memoryOrders.unshift(order);
+  saveFallbackOrders(memoryOrders);
+}
 
 // Database connection configuration
 const dbConfig = {

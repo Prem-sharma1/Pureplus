@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { query } from '@/lib/db';
-import { processBigshipAutomaticShipment } from '@/lib/bigship';
 
 export async function POST(req: Request) {
   try {
@@ -46,59 +45,27 @@ export async function POST(req: Request) {
       const order_date = new Date().toISOString().split('T')[0];
       const order_number = String(Math.floor(1000000000 + Math.random() * 9000000000));
 
-      // Step 3: Trigger Bigship Direct Shipping Connect API (Login -> Draft -> Rate Calc -> Manifest)
-      const bigshipResult = await processBigshipAutomaticShipment({
-        orderNumber: order_number,
-        customerName: customer_name || 'Guest Customer',
-        customerPhone: customer_phone || '9876543210',
-        customerEmail: customer_email || 'guest@pureplush.in',
-        address: shipping_address || 'Address provided',
-        pincode: '411015',
-        totalAmount: amount || 0,
-        items: items || [],
-        paymentMethod: 'Prepaid'
-      });
+      let courier_partner = '';
+      let tracking_number = '';
+      let shipping_status = 'Processing';
 
-      const courier_partner = bigshipResult.courierPartner;
-      const tracking_number = bigshipResult.trackingNumber;
-
-      const insertSql = `
-        INSERT INTO orders (
-          order_number, 
-          customer_name, 
-          customer_email, 
-          customer_phone, 
-          shipping_address, 
-          total_amount, 
-          payment_status, 
-          payment_id, 
-          order_date, 
-          shipping_status, 
-          courier_partner, 
-          tracking_number, 
-          items_json
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      // Update the order created by the frontend
+      const updateSql = `
+        UPDATE orders 
+        SET shipping_status = ?, courier_partner = ?, tracking_number = ?
+        WHERE payment_id = ?
       `;
 
       const values = [
-        order_number,
-        customer_name || 'Guest Customer',
-        customer_email || 'guest@pureplush.com',
-        customer_phone || '',
-        shipping_address || '',
-        amount || 0.00,
-        'paid',
-        razorpay_payment_id,
-        order_date,
-        'Dispatched (Bigship)', // Bigship Shipping Connect marks order as dispatched
+        shipping_status,
         courier_partner,
         tracking_number,
-        JSON.stringify(items || [])
+        razorpay_payment_id
       ];
 
       let dbLogged = false;
       try {
-        const result = await query(insertSql, values);
+        const result = await query(updateSql, values);
         if (result !== null) {
           dbLogged = true;
         }
@@ -108,12 +75,10 @@ export async function POST(req: Request) {
 
       return NextResponse.json({
         success: true,
-        message: 'Payment verified & Bigship Direct shipment connected successfully.',
+        message: 'Payment verified.',
         orderNumber: order_number,
         trackingNumber: tracking_number,
         courierPartner: courier_partner,
-        shippingMode: bigshipResult.mode,
-        bigshipOrderId: bigshipResult.bigshipOrderId,
         dbLogged: dbLogged
       });
     } else {

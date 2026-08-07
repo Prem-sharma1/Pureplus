@@ -62,6 +62,38 @@ export default function CheckoutPage() {
   // Form Validation Errors
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
+  // Custom Modal State
+  const [modalConfig, setModalConfig] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    type: 'success' | 'error' | 'info';
+    onConfirm?: () => void;
+  }>({
+    isOpen: false,
+    title: '',
+    message: '',
+    type: 'info'
+  });
+
+  const customAlert = (message: string, type: 'success' | 'error' | 'info' = 'info', onConfirm?: () => void) => {
+    setModalConfig({
+      isOpen: true,
+      title: type === 'success' ? 'Success!' : type === 'error' ? 'Error' : 'Notification',
+      message,
+      type,
+      onConfirm
+    });
+  };
+
+  const handleModalClose = () => {
+    const { onConfirm } = modalConfig;
+    setModalConfig(prev => ({ ...prev, isOpen: false }));
+    if (onConfirm) {
+      onConfirm();
+    }
+  };
+
   // Sync cart from localStorage
   const loadCart = () => {
     try {
@@ -180,7 +212,7 @@ export default function CheckoutPage() {
 
   const handleProceedPayment = async () => {
     if (!validateForm()) {
-      alert('Please fill in all required delivery address fields correctly.');
+      customAlert('Please fill in all required delivery address fields correctly.', 'error');
       return;
     }
 
@@ -195,6 +227,7 @@ export default function CheckoutPage() {
             customer_email: email,
             customer_phone: phone,
             shipping_address: `${address}, ${city}, ${stateName} - ${pincode}`,
+            address: address,
             city,
             state: stateName,
             pincode,
@@ -248,6 +281,7 @@ export default function CheckoutPage() {
             customer_email: email,
             customer_phone: phone,
             shipping_address: `${address}, ${city}, ${stateName} - ${pincode}`,
+            address: address,
             city,
             state: stateName,
             pincode,
@@ -268,14 +302,14 @@ export default function CheckoutPage() {
 
     const resScript = await loadRazorpayScript();
     if (!resScript) {
-      alert('Failed to load Razorpay SDK. Saving order to database...');
       const orderNum = await saveOrderToDb(undefined, 'Pending Payment');
       localStorage.removeItem('cart');
       setCartItems([]);
       window.dispatchEvent(new Event('storage'));
-      alert(`Order #${orderNum || ''} saved successfully! Directing to Order History.`);
-      router.push('/orders');
       setCheckoutLoading(false);
+      customAlert(`Failed to load Razorpay. Order #${orderNum || ''} saved successfully! Directing to Order History.`, 'info', () => {
+        router.push('/orders');
+      });
       return;
     }
 
@@ -293,9 +327,10 @@ export default function CheckoutPage() {
         localStorage.removeItem('cart');
         setCartItems([]);
         window.dispatchEvent(new Event('storage'));
-        alert(`🎉 Order Confirmed! Order #${orderNum || ''} recorded successfully.`);
-        router.push('/orders');
         setCheckoutLoading(false);
+        customAlert(`🎉 Order Confirmed! Order #${orderNum || ''} recorded successfully.`, 'success', () => {
+          router.push('/orders');
+        });
         return;
       }
 
@@ -339,11 +374,14 @@ export default function CheckoutPage() {
             window.dispatchEvent(new Event('storage'));
 
             if (verifyData.success) {
-              alert(`🎉 Order Confirmed! Payment Successful. Order #${verifyData.orderNumber}`);
+              customAlert(`🎉 Order Confirmed! Payment Successful. Order #${verifyData.orderNumber}`, 'success', () => {
+                router.push('/orders');
+              });
             } else {
-              alert(`🎉 Order Confirmed! Details saved to database.`);
+              customAlert(`🎉 Order Confirmed! Details saved to database.`, 'success', () => {
+                router.push('/orders');
+              });
             }
-            router.push('/orders');
           } catch (err) {
             console.error('Verify error:', err);
             await saveOrderToDb(undefined, 'Paid');
@@ -362,7 +400,7 @@ export default function CheckoutPage() {
       razorpayObj.open();
     } catch (err) {
       console.error('Razorpay Error:', err);
-      alert('An error occurred while creating order.');
+      customAlert('An error occurred while creating order.', 'error');
     } finally {
       setCheckoutLoading(false);
     }
@@ -896,6 +934,48 @@ export default function CheckoutPage() {
         )}
 
       </main>
+
+      {/* Custom Alert Modal */}
+      {modalConfig.isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/40 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl transform transition-all scale-100 border border-gray-100">
+            <div className={`p-6 text-center ${
+              modalConfig.type === 'success' ? 'bg-emerald-50' : 
+              modalConfig.type === 'error' ? 'bg-red-50' : 'bg-blue-50'
+            }`}>
+              <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4 ${
+                modalConfig.type === 'success' ? 'bg-emerald-100 text-emerald-600' : 
+                modalConfig.type === 'error' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'
+              }`}>
+                {modalConfig.type === 'success' ? <CheckCircle2 className="w-8 h-8" /> : 
+                 modalConfig.type === 'error' ? <ShieldCheck className="w-8 h-8" /> : 
+                 <CheckCircle2 className="w-8 h-8" />}
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${
+                modalConfig.type === 'success' ? 'text-emerald-800' : 
+                modalConfig.type === 'error' ? 'text-red-800' : 'text-blue-800'
+              }`}>
+                {modalConfig.title}
+              </h3>
+              <p className="text-sm text-charcoal/80 leading-relaxed font-medium">
+                {modalConfig.message}
+              </p>
+            </div>
+            <div className="p-4 bg-white">
+              <button
+                onClick={handleModalClose}
+                className={`w-full py-3 rounded-xl text-white font-bold uppercase tracking-wider text-xs transition-colors shadow-sm ${
+                  modalConfig.type === 'success' ? 'bg-emerald-600 hover:bg-emerald-700' : 
+                  modalConfig.type === 'error' ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'
+                }`}
+              >
+                Okay, got it
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

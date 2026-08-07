@@ -1,11 +1,7 @@
 import { NextResponse } from 'next/server';
-import { query, testConnection } from '@/lib/db';
+import { query, testConnection, memoryOrders, addMemoryOrder } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
-
-// In-memory fallback store for offline DB mode
-let memoryOrders: any[] = [];
-let memoryOrderCounter = 500;
 
 async function ensureOrdersTable() {
   await query(`
@@ -43,6 +39,33 @@ async function ensureOrdersTable() {
     }
     if (!existingColNames.includes('shipping_address')) {
       await query('ALTER TABLE orders ADD COLUMN shipping_address TEXT DEFAULT NULL');
+    }
+    if (!existingColNames.includes('address')) {
+      await query('ALTER TABLE orders ADD COLUMN address TEXT DEFAULT NULL');
+    }
+    if (!existingColNames.includes('city')) {
+      await query("ALTER TABLE orders ADD COLUMN city VARCHAR(100) DEFAULT ''");
+    }
+    if (!existingColNames.includes('state')) {
+      await query("ALTER TABLE orders ADD COLUMN state VARCHAR(100) DEFAULT ''");
+    }
+    if (!existingColNames.includes('pincode')) {
+      await query("ALTER TABLE orders ADD COLUMN pincode VARCHAR(20) DEFAULT ''");
+    }
+    if (!existingColNames.includes('payment_method')) {
+      await query("ALTER TABLE orders ADD COLUMN payment_method VARCHAR(50) DEFAULT 'Online'");
+    }
+    if (!existingColNames.includes('payment_status')) {
+      await query("ALTER TABLE orders ADD COLUMN payment_status VARCHAR(50) DEFAULT 'Paid'");
+    }
+    if (!existingColNames.includes('shipping_status')) {
+      await query("ALTER TABLE orders ADD COLUMN shipping_status VARCHAR(50) DEFAULT 'Processing'");
+    }
+    if (!existingColNames.includes('courier_partner')) {
+      await query('ALTER TABLE orders ADD COLUMN courier_partner VARCHAR(100) DEFAULT NULL');
+    }
+    if (!existingColNames.includes('tracking_number')) {
+      await query('ALTER TABLE orders ADD COLUMN tracking_number VARCHAR(100) DEFAULT NULL');
     }
     if (!existingColNames.includes('payment_id')) {
       await query('ALTER TABLE orders ADD COLUMN payment_id VARCHAR(100) DEFAULT NULL');
@@ -164,9 +187,9 @@ export async function POST(req: Request) {
     const isDbConnected = await testConnection();
 
     if (!isDbConnected) {
-      memoryOrderCounter += 1;
+      const newId = memoryOrders.length > 0 ? Math.max(...memoryOrders.map(o => o.id)) + 1 : 1;
       const memOrder = {
-        id: memoryOrderCounter,
+        id: newId,
         order_number: finalOrderNumber,
         customer_name: customer_name.trim(),
         customer_email: (customer_email || '').trim(),
@@ -188,14 +211,14 @@ export async function POST(req: Request) {
         created_at: new Date().toISOString()
       };
 
-      memoryOrders.unshift(memOrder);
+      addMemoryOrder(memOrder);
 
       return NextResponse.json({
         success: true,
         source: 'memory_fallback',
         message: 'Order saved successfully!',
         orderNumber: finalOrderNumber,
-        orderId: memoryOrderCounter
+        orderId: newId
       });
     }
 
@@ -230,7 +253,7 @@ export async function POST(req: Request) {
       (customer_email || '').trim(),
       customer_phone.trim(),
       finalAddress,
-      finalAddress,
+      address || '',
       city || '',
       state || '',
       pincode || '',

@@ -83,6 +83,10 @@ interface Order {
   courier_partner: string;
   tracking_number: string;
   items: OrderItem[];
+  address?: string;
+  city?: string;
+  state?: string;
+  pincode?: string;
 }
 
 interface FaqItem {
@@ -259,71 +263,6 @@ export default function AdminDashboard() {
       console.error('Error fetching admin data:', error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  // Bigship Direct Manifest Handler
-  const dispatchViaBigship = async (order: Order) => {
-    try {
-      const res = await fetch('/api/bigship', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          orderId: order.id,
-          orderNumber: order.order_number,
-          customerName: order.customer_name,
-          customerPhone: order.customer_phone,
-          customerEmail: order.customer_email,
-          shippingAddress: order.shipping_address,
-          totalAmount: order.total_amount,
-          items: order.items,
-          paymentMethod: order.payment_status
-        })
-      });
-      const data = await res.json();
-      if (data.success && data.shipment) {
-        alert(`🚀 Order #${order.order_number} Manifested Successfully!\n\nCourier: ${data.shipment.courierPartner}\nAWB Tracking: ${data.shipment.trackingNumber}`);
-        fetchInitialData();
-      } else {
-        alert(data.error || 'Failed to manifest order');
-      }
-    } catch (err) {
-      console.error('Bigship dispatch error:', err);
-      alert('Error connecting to Bigship API');
-    }
-  };
-
-  // Bigship Live Tracking Handler
-  const trackBigshipOrder = async (order: Order) => {
-    const trackingCode = order.tracking_number || order.order_number;
-    try {
-      const res = await fetch(`/api/bigship?action=track&trackingNumber=${trackingCode}`);
-      const data = await res.json();
-      if (data.success && data.tracking) {
-        alert(`📦 Live Tracking Status for Order #${order.order_number}:\n\nStatus: ${data.tracking.status || 'In Transit'}\nLocation: ${data.tracking.currentLocation || 'Regional Sorting Hub'}\nEstimated Delivery: ${data.tracking.estimatedDelivery || '2-3 Business Days'}`);
-      } else {
-        alert('Unable to retrieve tracking info');
-      }
-    } catch (err) {
-      console.error('Tracking error:', err);
-      alert('Error fetching tracking info');
-    }
-  };
-
-  // Bigship Document Download Handler
-  const downloadBigshipLabel = async (order: Order, docType: 'label' | 'invoice') => {
-    const trackingCode = order.tracking_number || order.order_number;
-    try {
-      const res = await fetch(`/api/bigship?action=download&trackingNumber=${trackingCode}&documentType=${docType}`);
-      const data = await res.json();
-      if (data.success && data.document?.downloadUrl) {
-        window.open(data.document.downloadUrl, '_blank');
-      } else {
-        alert(`📄 Shipping Label Generated for AWB #${trackingCode}`);
-      }
-    } catch (err) {
-      console.error('Download error:', err);
-      alert('Error downloading shipping document');
     }
   };
 
@@ -1462,25 +1401,38 @@ export default function AdminDashboard() {
                       <div className="pt-4 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-charcoal/80">
                         <div className="space-y-2">
                           <h5 className="font-semibold text-forest uppercase tracking-wider text-[10px]">Recipient & Address</h5>
-                          <p className="flex items-start space-x-1.5 leading-relaxed">
+                          
+                          <div className="flex items-start space-x-1.5 leading-relaxed bg-cream/20 p-2 rounded-lg border border-forest/5">
                             <MapPin className="w-4 h-4 text-sage flex-shrink-0 mt-0.5" />
-                            <span>{o.shipping_address}</span>
-                          </p>
-                          <p className="flex items-center space-x-1.5 font-medium">
+                            <div className="flex flex-col">
+                              {o.address || o.city || o.state || o.pincode ? (
+                                <>
+                                  {o.address && <span className="font-medium text-forest">{o.address}</span>}
+                                  {(o.city || o.state || o.pincode) && (
+                                    <span className="text-charcoal/70">
+                                      {[o.city, o.state, o.pincode].filter(Boolean).join(', ')}
+                                    </span>
+                                  )}
+                                  <span className="text-[9px] text-charcoal/40 uppercase mt-1">Full String: {o.shipping_address}</span>
+                                </>
+                              ) : (
+                                <span>{o.shipping_address}</span>
+                              )}
+                            </div>
+                          </div>
+                          
+                          <p className="flex items-center space-x-1.5 font-medium mt-3">
                             <Phone className="w-3.5 h-3.5 text-sage" />
                             <span>{o.customer_phone}</span>
                           </p>
                           <p className="text-[10px] text-charcoal/50 block font-mono pl-5">{o.customer_email}</p>
                         </div>
-
-                        {/* Bigship Logistics Connect & Tracking Control Box */}
                         <div className="space-y-3 bg-cream/30 p-4 rounded-xl border border-forest/10 shadow-xs">
                           <div className="flex items-center justify-between">
                             <h5 className="font-semibold text-forest uppercase tracking-wider text-[10px] flex items-center space-x-1">
                               <Truck className="w-3.5 h-3.5 text-forest" />
-                              <span>Bigship Logistics Connect</span>
+                              <span>Logistics & Tracking Info</span>
                             </h5>
-                            <span className="text-[9px] bg-forest/10 text-forest px-2 py-0.5 rounded-full font-bold">API v1.4 Active</span>
                           </div>
 
                           <div className="grid grid-cols-2 gap-3">
@@ -1505,29 +1457,8 @@ export default function AdminDashboard() {
                               />
                             </div>
                           </div>
-
-                          {/* Action Buttons for Bigship */}
-                          <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-forest/5">
-                            <button
-                              onClick={() => dispatchViaBigship(o)}
-                              className="px-3 py-1.5 bg-forest hover:bg-forest-dark text-white rounded-lg text-[10px] font-bold uppercase tracking-wider shadow-xs transition-all flex items-center space-x-1"
-                            >
-                              <span>🚀 Manifest Order</span>
-                            </button>
-                            <button
-                              onClick={() => trackBigshipOrder(o)}
-                              className="px-3 py-1.5 bg-white border border-forest/20 text-forest hover:bg-forest/5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center space-x-1"
-                            >
-                              <span>📦 Live Track</span>
-                            </button>
-                            <button
-                              onClick={() => downloadBigshipLabel(o, 'label')}
-                              className="px-3 py-1.5 bg-gold/20 text-forest hover:bg-gold/30 border border-gold/40 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center space-x-1"
-                            >
-                              <span>📄 Shipping Label</span>
-                            </button>
-                          </div>
                         </div>
+
                       </div>
 
                     </div>
